@@ -4,7 +4,7 @@ import { createGlobalStyle } from "styled-components";
 
 import { bottom, left, position, right, top } from "../../styles";
 
-import Wrapper from "primitives/Wrapper";
+import Wrapper from "../Wrapper";
 
 const DisableSelect = createGlobalStyle`
 * {

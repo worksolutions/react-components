@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { prop } from "ramda";
 import { provideRef } from "@worksolutions/react-utils";
 import { isString } from "@worksolutions/utils";

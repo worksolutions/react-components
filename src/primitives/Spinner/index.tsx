@@ -2,7 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { child, getColor } from "../../styles";
 
-import "./style.css";
+// import "./style.css";
 import { Colors } from "../../constants/colors";
 
 interface SpinnerInterface {

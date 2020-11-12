@@ -6,7 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
-    "baseUrl": "./src",
+    "rootDir": "src",
     "module": "ESNext",
     "moduleResolution": "node",
     "typeRoots": [
@@ -30,6 +30,7 @@
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "webpack.js"
   ]
 }
