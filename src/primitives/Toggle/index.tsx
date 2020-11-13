@@ -24,6 +24,7 @@ import {
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import { duration160 } from "../../constants/durations";
+import { Colors } from "../..";
 
 interface ToggleInterface {
   className?: string;
@@ -63,7 +64,10 @@ function Toggle({ className, styles, enabled, text, textOnRight, textStyles, onC
       >
         <Wrapper
           styles={[
-            boxShadow([0, 2, 4, 0, createAlphaColor("black", 30)], [0, 0, 1, 0, createAlphaColor("black", 61)]),
+            boxShadow(
+              [0, 2, 4, 0, createAlphaColor("black", 30) as Colors],
+              [0, 0, 1, 0, createAlphaColor("black", 61) as Colors],
+            ),
             transition(`left ${duration160}`),
             position("absolute"),
             width(14),

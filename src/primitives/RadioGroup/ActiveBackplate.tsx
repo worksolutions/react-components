@@ -15,6 +15,7 @@ import {
 } from "../../styles";
 
 import Wrapper from "../Wrapper";
+import { Colors } from "../..";
 
 interface ActiveBackplateInterface {
   activeIndex: number;
@@ -40,7 +41,7 @@ function ActiveBackplate({ activeIndex, activeIndexInWidthsArray, widths }: Acti
         height("calc(100% - 2px)"),
         borderRadius(50),
         backgroundColor("white"),
-        boxShadow([0, 0, 1, 0, "gray-blue/03"], [0, 2, 8, 0, createAlphaColor("black", 41)]),
+        boxShadow([0, 0, 1, 0, "gray-blue/03"], [0, 2, 8, 0, createAlphaColor("black", 41) as Colors]),
       ]}
     />
   );

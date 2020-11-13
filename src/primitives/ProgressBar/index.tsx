@@ -20,6 +20,7 @@ import {
 
 import Wrapper from "../Wrapper";
 import { duration300 } from "../../constants/durations";
+import { Colors } from "../..";
 
 interface ProgressBarProps {
   value: number;
@@ -34,7 +35,7 @@ function ProgressBar({ value, styles, barStyles }: ProgressBarProps) {
     <Wrapper
       styles={[
         fullWidth,
-        boxShadow([0, 0, 0, 1, createAlphaColor("gray-blue/03", 127), true]),
+        boxShadow([0, 0, 0, 1, createAlphaColor("gray-blue/03", 127) as Colors, true]),
         height(8),
         borderRadius(8),
         position("relative"),

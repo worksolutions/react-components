@@ -24,6 +24,7 @@ import Wrapper from "../Wrapper";
 
 import { activeModal, ModalContent, ModalInterface, ModalSize } from "./ModalContent";
 import { zIndex_modal } from "../../constants/zIndexes";
+import { Colors } from "../..";
 
 function Modal({
   actionBlock,
@@ -84,7 +85,7 @@ function Modal({
               bottom(0),
               right(0),
               overflow("overlay" as CSSProperties["overflowY"]),
-              backgroundColor(createAlphaColor("gray-blue/09", 122)),
+              backgroundColor(createAlphaColor("gray-blue/09", 122) as Colors),
             ]}
           >
             <Wrapper styles={[position("absolute"), left(0), top(0), fullWidth, fullHeight, textAlign("center")]}>

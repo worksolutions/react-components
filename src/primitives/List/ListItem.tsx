@@ -34,6 +34,7 @@ import Icon from "../Icon";
 import { InputIconProp } from "../Input/InputWrapper";
 
 import { duration160 } from "../../constants/durations";
+import { Colors } from "../..";
 
 export interface ListItemInterface<ITEM extends string | number> extends SuggestInterface<ITEM> {
   leftContent?: InputIconProp;
@@ -69,7 +70,7 @@ export function getItemStyles(itemSize: ListItemSize, enabled: boolean, isActive
     horizontalPadding(8),
     transition(`all ${duration160}`),
     enabled && [pointer, hover([backgroundColor("gray-blue/01")]), focus(boxShadow([0, 0, 0, 2, "blue/04"]))],
-    isActiveItem && [backgroundColor("gray-blue/01"), boxShadow([0, 0, 1, 0, createAlphaColor("black", 81)])],
+    isActiveItem && [backgroundColor("gray-blue/01"), boxShadow([0, 0, 1, 0, createAlphaColor("black", 81) as Colors])],
   ];
 }
 
