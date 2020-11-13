@@ -1,6 +1,6 @@
 {
   "name": "@worksolutions/components",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -28,6 +28,7 @@
     "history": "^4.*",
     "mobx": "^5.*",
     "mobx-react-lite": "^2.*",
+    "raw-loader": "^4.*",
     "react": "^17.*",
     "react-dom": "^17.*",
     "react-router-dom": "^5.*",

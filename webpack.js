@@ -7,6 +7,7 @@ module.exports = {
       loader: SvgStorePlugin.loader,
       test: /\.svg$/,
     },
+    //TODO: add raw-loader
   ],
   babelPlugin: "babel-plugin-styled-components",
 };
