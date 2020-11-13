@@ -6,7 +6,7 @@ import { width } from "../../styles";
 
 import MaskedInput from "../Input/MaskedInput";
 import { InputInterface } from "../Input/Input";
-import usePopper from "../Popper/usePopper";
+import { usePopper } from "../Popper/usePopper";
 import Wrapper from "../Wrapper";
 
 import HandleClickOutside from "../HandleClickOutside";
@@ -17,8 +17,6 @@ import { useInnerValueChange } from "./useInnerValueChange";
 import Calendar from "./Calendar";
 import { cb } from "../../CB";
 import { zIndex_popup } from "../../constants/zIndexes";
-
-export { DatePickerMode } from "./config";
 
 interface DatePickerInterface extends Omit<InputInterface, "value" | "onChange"> {
   initialValue?: string | null;
@@ -126,3 +124,5 @@ export default cb(
     );
   },
 );
+
+export { DatePickerMode } from "./config";

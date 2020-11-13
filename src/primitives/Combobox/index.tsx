@@ -9,6 +9,7 @@ import TokenList from "../TokenList";
 import { InputSize } from "../Input/Input";
 
 import { ComboboxInterface } from "./types";
+import { intl } from "../../intl";
 
 const Combobox = function (
   {
@@ -17,7 +18,7 @@ const Combobox = function (
     outerStyles,
     placeholder,
     selectedItemCodes = [],
-    searchableEmptyListText = "Выбраны все элементы",
+    searchableEmptyListText = intl.text("components.combobox.allElementsAreSelected"),
     searchableNotFoundText,
     items = [],
     onChange,
@@ -77,3 +78,5 @@ const Combobox = function (
 export default React.memo(React.forwardRef(Combobox)) as <ITEM extends string | number>(
   props: ComboboxInterface<ITEM> & { ref?: Ref<HTMLElement> },
 ) => JSX.Element;
+
+export * from "./types";

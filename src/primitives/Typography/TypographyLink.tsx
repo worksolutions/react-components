@@ -54,7 +54,7 @@ function makeTypographyLink(
   });
 }
 
-export const TypographyLink = React.memo(function ({
+const TypographyLink = React.memo(function ({
   to,
   target,
   download,
@@ -69,3 +69,5 @@ export const TypographyLink = React.memo(function ({
   });
   return <Component {...props} />;
 });
+
+export default TypographyLink;

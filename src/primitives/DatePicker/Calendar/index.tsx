@@ -2,6 +2,8 @@ import React from "react";
 import { Placement } from "@popperjs/core";
 import moment, { Moment } from "moment";
 import { range } from "ramda";
+import { Intl } from "@worksolutions/utils";
+
 import {
   ai,
   borderRadius,
@@ -17,7 +19,6 @@ import {
   backgroundColor,
   border,
 } from "../../../styles";
-import { today } from "@worksolutions/utils";
 
 import Wrapper from "../../Wrapper";
 import { getPopperMarginStyleForPlacement } from "../../Popper/usePopper";
@@ -30,6 +31,7 @@ import CalendarView from "./CalendarView";
 import { cb } from "../../../CB";
 import { elevation16 } from "../../../constants/shadows";
 import { useEffectSkipFirst } from "@worksolutions/react-utils";
+import { intl } from "../../../intl";
 
 interface CalendarInterface {
   min: Moment;
@@ -61,8 +63,8 @@ export default cb(
       const years = React.useMemo(() => range(min.year(), max.year() + 1), []);
 
       function clickOnTodayButton() {
-        setInnerMomentValue(today);
-        onChange(today.format(momentFormat));
+        setInnerMomentValue(Intl.currentLocalDate);
+        onChange(Intl.currentLocalDate.format(momentFormat));
       }
 
       function changeYear(year: number) {
@@ -194,7 +196,7 @@ export default cb(
         {hasCurrentDayButton && (
           <Wrapper styles={[flex, jc("center")]}>
             <Button styles={marginTop(4)} size={ButtonSize.MEDIUM} type={ButtonType.GHOST} onClick={clickOnTodayButton}>
-              Сегодня {today.format(momentFormat)}
+              {intl.text("components.calendar.todayButtonText")} {Intl.currentLocalDate.format(momentFormat)}
             </Button>
           </Wrapper>
         )}

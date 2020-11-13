@@ -36,6 +36,7 @@ import {
   useItems,
 } from "./libs";
 import { duration160 } from "../../constants/durations";
+import { intl } from "../../intl";
 
 export type DropdownContainerComponentInterface<CODE extends string | number> = DropdownContainerInterface<CODE> & {
   children: (selectedItems: DropdownItem<CODE>[]) => DroppedListInterface<CODE>["children"];
@@ -47,8 +48,8 @@ function getEmptyText(
   emptyListText?: string,
 ) {
   if (!searchable) return emptyListText;
-  if (search.length !== 0) return notFoundText || "Нет результатов";
-  return emptyListText || "Нет результатов";
+  if (search.length !== 0) return notFoundText || intl.text("components.dropdown.notFound");
+  return emptyListText || intl.text("components.dropdown.notFound");
 }
 
 const DropdownContainer = function ({
@@ -87,7 +88,7 @@ const DropdownContainer = function ({
             clear={clearSearch}
           >
             <Input
-              placeholder="Найти в списке"
+              placeholder={intl.text("components.dropdown.searchInputPlaceholder")}
               autofocus
               styles={[
                 backgroundColor("white"),

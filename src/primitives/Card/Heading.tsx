@@ -8,7 +8,7 @@ import Spinner from "../Spinner";
 import { ListItemId } from "../List";
 import DroppedList, { DroppedListOpenMode } from "../List/DroppedList";
 import Button, { ButtonSize, ButtonType } from "../Button";
-import Hint from "../Popper/Hint";
+import Hint from "../Popper";
 
 import { CardActionInterface, CardStatusIconSize, CardStatusInterface } from "./types";
 

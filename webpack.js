@@ -8,4 +8,5 @@ module.exports = {
       test: /\.svg$/,
     },
   ],
+  babelPlugin: "babel-plugin-styled-components",
 };

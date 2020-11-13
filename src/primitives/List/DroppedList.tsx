@@ -8,7 +8,7 @@ import { provideRef, useEffectSkipFirst } from "@worksolutions/react-utils";
 import { borderRadius, cursor, maxWidth, minWidth, padding, position, backgroundColor, boxShadow } from "../../styles";
 
 import Wrapper from "../Wrapper";
-import usePopper, { getPopperMarginStyleForPlacement } from "../Popper/usePopper";
+import { usePopper, getPopperMarginStyleForPlacement } from "../Popper/usePopper";
 import HandleClickOutside from "../HandleClickOutside";
 import { useVisibilityAnimation } from "../Popper/useVisibilityAnimation";
 
@@ -22,7 +22,7 @@ export enum DroppedListOpenMode {
   CLICK,
 }
 
-export interface DroppedListStateController {
+interface DroppedListStateController {
   toggle: () => void;
   opened: boolean;
   open: () => void;

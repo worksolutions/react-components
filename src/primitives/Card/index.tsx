@@ -79,3 +79,5 @@ function Card(card: CardComponentInterface & Record<string, any>) {
 }
 
 export default React.memo(Card);
+
+export * from "./types";

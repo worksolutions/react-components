@@ -78,3 +78,7 @@ const Dropdown = function (
 export default React.memo(React.forwardRef(Dropdown)) as <ITEM extends string | number>(
   props: DropdownInterface<ITEM> & { ref?: Ref<HTMLElement> },
 ) => JSX.Element;
+
+export { createDropdownRightIcon } from "./DropdownContainer";
+
+export * from "./types";

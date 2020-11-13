@@ -1,8 +1,9 @@
 import React from "react";
 import { isNil, range } from "ramda";
 import moment, { Moment } from "moment";
+import { Intl } from "@worksolutions/utils";
+
 import { ai, alignContent, child, flex, flexWrap, fullWidth, height, jc, width } from "../../../../styles";
-import { today } from "@worksolutions/utils";
 
 import Wrapper from "../../../Wrapper";
 import Typography from "../../../Typography";
@@ -61,7 +62,7 @@ function CalendarView({ currentInnerValue, selectedValue, onChange }: CalendarVi
             value={day}
             selected={!!selectedDays[index]}
             holiday={!!holidays[index]}
-            isToday={today.isSame(currentInnerValue, "month") && today.date() === day}
+            isToday={Intl.currentLocalDate.isSame(currentInnerValue, "month") && Intl.currentLocalDate.date() === day}
             onClick={() => onChange(day)}
           />
         ),

@@ -57,4 +57,4 @@ Button.defaultProps = {
 
 export default React.memo(Button);
 
-export { ButtonType, ButtonSize } from "./types";
+export * from "./types";

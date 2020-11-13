@@ -1,3 +1,5 @@
+import { intl } from "../../intl";
+
 export const config = Object.assign(
   {},
   {
@@ -57,13 +59,13 @@ export const config = Object.assign(
         {
           model: "heading3",
           view: "h3",
-          title: "Заголовок h3",
+          title: intl.text("components.editor.heading") + " h3",
           class: "ck-heading_heading3",
         },
         {
           model: "heading2",
           view: "h2",
-          title: "Заголовок h2",
+          title: intl.text("components.editor.heading") + " h2",
           class: "ck-heading_heading2",
         },
       ],

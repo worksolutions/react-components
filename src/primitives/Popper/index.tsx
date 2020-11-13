@@ -6,7 +6,7 @@ import { borderRadius, padding, backgroundColor, border, boxShadow, createAlphaC
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 
-import usePopper, { getPopperMarginStyleForPlacement, PopperConfigInterface } from "./usePopper";
+import { usePopper, getPopperMarginStyleForPlacement, PopperConfigInterface } from "./usePopper";
 import { useVisibilityAnimation } from "./useVisibilityAnimation";
 import { Colors } from "../../constants/colors";
 import { zIndex_hint } from "../../constants/zIndexes";

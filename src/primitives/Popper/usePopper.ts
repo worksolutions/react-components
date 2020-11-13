@@ -25,7 +25,7 @@ function getPopperData(inputData?: PopperConfigInterface) {
   };
 }
 
-export default function usePopper({ showOnHover = true, ...data }: PopperConfigInterface) {
+export function usePopper({ showOnHover = true, ...data }: PopperConfigInterface) {
   const [parent, setParent] = React.useState<HTMLElement>();
   const [opened, open, close] = useBoolean(false);
   const [child, setChild] = React.useState<HTMLElement>();
