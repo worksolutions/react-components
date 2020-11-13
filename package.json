@@ -1,6 +1,6 @@
 {
   "name": "@worksolutions/components",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,8 +20,8 @@
     "@types/react-router-dom": "^5.*",
     "@types/uuid": "^8.*",
     "@viewstools/use-masked-input": "^2.*",
-    "@worksolutions/react-utils": "^1.0.11",
-    "@worksolutions/utils": "^1.0.17",
+    "@worksolutions/react-utils": "^1.0.12",
+    "@worksolutions/utils": "^1.0.18",
     "babel-plugin-styled-components": "^1.11.*",
     "edelgarat-ckeditor5-custom-build": "0.0.1",
     "external-svg-sprite-loader": "^6.*",

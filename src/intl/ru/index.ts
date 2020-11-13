@@ -1,4 +1,4 @@
-import { IntlDictionaryInterface, Intl, wordDeclination } from "@worksolutions/utils";
+import { IntlDictionaryInterface, INTL, wordDeclination } from "@worksolutions/utils";
 
 export const ruIntlDictionary: IntlDictionaryInterface = {
   momentLanguageCode: "ru",
@@ -13,7 +13,7 @@ export const ruIntlDictionary: IntlDictionaryInterface = {
     SHORT_HOURS: "H",
     MINUTES: "mm",
     SHORT_MINUTES: "m",
-    ...Intl.universalDates,
+    ...INTL.universalDates,
   },
   textDictionary: {
     components: {

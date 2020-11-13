@@ -2,7 +2,6 @@ import React from "react";
 import { Placement } from "@popperjs/core";
 import moment, { Moment } from "moment";
 import { range } from "ramda";
-import { Intl } from "@worksolutions/utils";
 
 import {
   ai,
@@ -63,8 +62,8 @@ export default cb(
       const years = React.useMemo(() => range(min.year(), max.year() + 1), []);
 
       function clickOnTodayButton() {
-        setInnerMomentValue(Intl.currentLocalDate);
-        onChange(Intl.currentLocalDate.format(momentFormat));
+        setInnerMomentValue(intl.currentLocalDate);
+        onChange(intl.currentLocalDate.format(momentFormat));
       }
 
       function changeYear(year: number) {
@@ -196,7 +195,7 @@ export default cb(
         {hasCurrentDayButton && (
           <Wrapper styles={[flex, jc("center")]}>
             <Button styles={marginTop(4)} size={ButtonSize.MEDIUM} type={ButtonType.GHOST} onClick={clickOnTodayButton}>
-              {intl.text("components.calendar.todayButtonText")} {Intl.currentLocalDate.format(momentFormat)}
+              {intl.text("components.calendar.todayButtonText")} {intl.currentLocalDate.format(momentFormat)}
             </Button>
           </Wrapper>
         )}

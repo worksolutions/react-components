@@ -1,7 +1,7 @@
-import { Intl } from "@worksolutions/utils";
+import { INTL } from "@worksolutions/utils";
 
-export let intl: Intl = null!;
+export let intl: INTL = null!;
 
-export function setIntl(newIntl: Intl) {
+export function setIntl(newIntl: INTL) {
   intl = newIntl;
 }
