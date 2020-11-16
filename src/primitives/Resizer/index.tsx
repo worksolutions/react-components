@@ -23,22 +23,30 @@ import {
 import Wrapper from "../Wrapper";
 import Button, { ButtonSize, ButtonType } from "../Button";
 
-import { useResizer } from "./useResizer";
+import { ResizeMode, useResizer } from "./useResizer";
 import { duration160 } from "../../constants/durations";
 import { elevation8 } from "../../constants/shadows";
 
-interface ResizerInterface {
+export interface ResizerInterface {
   initialWidth: number;
   children: JSX.Element;
   minWidthToAutoClose?: number;
   styles?: any;
   localStorageKey?: string;
+  mode?: ResizeMode;
 }
 
 const minResizerWidth = 24;
 
 const Resizer = React.forwardRef(function (
-  { initialWidth, children, styles, minWidthToAutoClose = 72, localStorageKey }: ResizerInterface,
+  {
+    initialWidth,
+    children,
+    styles,
+    minWidthToAutoClose = 72,
+    localStorageKey,
+    mode = ResizeMode.LEFT_TO_RIGHT,
+  }: ResizerInterface,
   ref: Ref<HTMLElement>,
 ) {
   const {
@@ -54,6 +62,7 @@ const Resizer = React.forwardRef(function (
     localStorageKey,
     minResizerWidth,
     minWidthToAutoClose,
+    mode,
   });
 
   const [hoverLine] = useHover((hovered) => {

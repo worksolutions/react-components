@@ -1,5 +1,4 @@
 const webpack = require("../webpack");
-const { remove } = require("ramda");
 
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.(js|jsx|ts|tsx)"],

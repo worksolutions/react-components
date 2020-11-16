@@ -8,11 +8,16 @@ import { cursor } from "../../styles";
 
 import BackdropDisabler from "../BackdropDisabler";
 
+export enum ResizeMode {
+  LEFT_TO_RIGHT,
+  RIGHT_TO_LEFT,
+}
+
 function calculateStyleParams(
   down: boolean,
-  data: { delta: number[]; currentWidth: number; minWidthToAutoClose: number; minResizerWidth: number },
+  data: { delta: number; currentWidth: number; minWidthToAutoClose: number; minResizerWidth: number },
 ) {
-  const childWidth = Math.max(data.minResizerWidth, down ? data.delta[0] + data.currentWidth : data.currentWidth);
+  const childWidth = Math.max(data.minResizerWidth, down ? data.delta + data.currentWidth : data.currentWidth);
   const childOpacity = childWidth < data.minWidthToAutoClose ? 0 : 1;
   return { childWidth, childOpacity };
 }
@@ -24,6 +29,7 @@ export interface UseResizerOptions {
   minResizerWidth: number;
   opacityDuration?: number;
   resizeDuration?: number;
+  mode: ResizeMode;
 }
 
 export function useResizer({
@@ -33,6 +39,7 @@ export function useResizer({
   minResizerWidth,
   opacityDuration = 200,
   resizeDuration = 100,
+  mode,
 }: UseResizerOptions) {
   const [currentWidth, setCurrentWidth] = localStorageKey
     ? useLocalStorage(localStorageKey, initialWidth)
@@ -42,7 +49,9 @@ export function useResizer({
     setCurrentWidth(initialWidth);
   }, [initialWidth]);
 
-  const [bind, { delta, down }] = useGesture();
+  const [bind, { delta: originalDelta, down }] = useGesture();
+
+  const delta = mode === ResizeMode.LEFT_TO_RIGHT ? originalDelta[0] : -originalDelta[0];
 
   const prevDown = usePrevious(down);
 
