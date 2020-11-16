@@ -18,6 +18,7 @@ import {
   visibility,
   width,
   backgroundColor,
+  left,
 } from "../../styles";
 
 import Wrapper from "../Wrapper";
@@ -26,6 +27,7 @@ import Button, { ButtonSize, ButtonType } from "../Button";
 import { ResizeMode, useResizer } from "./useResizer";
 import { duration160 } from "../../constants/durations";
 import { elevation8 } from "../../constants/shadows";
+import { Icons } from "../Icon";
 
 export interface ResizerInterface {
   initialWidth: number;
@@ -66,6 +68,12 @@ const Resizer = React.forwardRef(function (
   });
 
   const [hoverLine] = useHover((hovered) => {
+    const isLeftToRight = mode === ResizeMode.LEFT_TO_RIGHT;
+
+    const positioning: { iconName: Icons; styleName: string } = isLeftToRight
+      ? { iconName: "arrow-right", styleName: "left" }
+      : { iconName: "arrow-left", styleName: "right" };
+
     return (
       <Wrapper
         styles={[
@@ -77,7 +85,9 @@ const Resizer = React.forwardRef(function (
           as={animated.div}
           {...getResizingLineProps()}
           styles={[position("absolute"), top(0), bottom(0), cursor("ew-resize"), width(16)]}
-          style={{ left: to([childContentStyles.width], (x) => `${x - 8}px`) }}
+          style={{
+            [positioning.styleName]: to([childContentStyles.width], (x) => `${x - 8}px`),
+          }}
         >
           <Wrapper
             className="border-line"
@@ -94,8 +104,11 @@ const Resizer = React.forwardRef(function (
 
         <Wrapper
           as={animated.div}
-          style={{ left: childContentStyles.width }}
-          styles={[absoluteCenter, visibility(contentIsClosed ? "visible" : hovered || down ? "visible" : "hidden")]}
+          style={{ [positioning.styleName]: childContentStyles.width }}
+          styles={[
+            isLeftToRight ? absoluteCenter : [position("absolute"), top("50%"), transform("translate(50%, -50%)")],
+            visibility(contentIsClosed ? "visible" : hovered || down ? "visible" : "hidden"),
+          ]}
         >
           <Button
             styles={[
@@ -108,7 +121,7 @@ const Resizer = React.forwardRef(function (
             ]}
             type={ButtonType.ICON}
             size={ButtonSize.MEDIUM}
-            iconLeft="arrow-right"
+            iconLeft={positioning.iconName}
             onClick={contentIsClosed ? showContent : hideContent}
           />
         </Wrapper>
