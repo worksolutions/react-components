@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import { isString, stopPropagation } from "@worksolutions/utils";
 import { prop } from "ramda";
 
@@ -7,6 +7,29 @@ import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
 
 import { getNeedShowChildElements, getNewActiveElements } from "./internalLibs";
+import {
+  ai,
+  backgroundColor,
+  borderNone,
+  borderRadius,
+  boxShadow,
+  disableOutline,
+  flex,
+  flexColumn,
+  flexValue,
+  focus,
+  height,
+  horizontalPadding,
+  hover,
+  lastChild,
+  marginBottom,
+  marginLeft,
+  marginRight,
+  minHeight,
+  pointer,
+  transition,
+} from "../../../styles";
+import { duration160 } from "../../../constants/durations";
 
 export type RecursiveTreeItemHandlers = {
   onChange: (selectedItemIds: number[], id: number, selected: boolean) => void;
@@ -14,6 +37,7 @@ export type RecursiveTreeItemHandlers = {
 
 type RecursiveTreeItemInternalProps = {
   activeIds: number[];
+  useItemInnerPadding: boolean;
 } & RecursiveTreeItemHandlers;
 
 export type RecursiveTreeItem = {
@@ -28,10 +52,13 @@ export type RecursiveTreeItem = {
 
 export type RecursiveTreeItemWithSelected = RecursiveTreeItem & { selected: boolean };
 
-const ONE_DEEP_LEVEL_LEFT_MARGIN = 28;
+const ONE_DEEP_LEVEL_LEFT_MARGIN = 32;
 
-function useIcon(icon?: JSX.Element | Icons) {
-  return React.useMemo(() => (isString(icon) ? <Icon icon={icon} /> : icon), [icon]);
+function useIcon(icon?: JSX.Element | Icons, styles?: any) {
+  return React.useMemo(
+    () => icon && <Wrapper styles={styles}>{isString(icon) ? <Icon icon={icon} color="blue/09" /> : icon}</Wrapper>,
+    [icon],
+  );
 }
 
 function RecursiveTreeItemComponent({
@@ -43,9 +70,14 @@ function RecursiveTreeItemComponent({
   icon: iconProp,
   action: actionProp,
   level,
+  useItemInnerPadding,
   onChange,
 }: RecursiveTreeItemWithSelected & RecursiveTreeItemInternalProps) {
-  const resultItems = React.useMemo(() => items.map(renderItem({ activeIds, onChange })), [activeIds, items, onChange]);
+  const resultItems = React.useMemo(() => items.map(renderItem({ activeIds, onChange, useItemInnerPadding })), [
+    activeIds,
+    items,
+    onChange,
+  ]);
 
   const needShowChildElements = React.useMemo(() => getNeedShowChildElements(selected, resultItems), [
     resultItems,
@@ -60,17 +92,48 @@ function RecursiveTreeItemComponent({
     [onChange, selected, activeIds],
   );
 
-  const icon = useIcon(iconProp);
-  const action = useIcon(actionProp);
+  const icon = useIcon(iconProp, marginRight(8));
+  const action = useIcon(actionProp, marginLeft(8));
+
+  const wrapperStyle = React.useMemo((): CSSProperties => {
+    const levelMargin = ONE_DEEP_LEVEL_LEFT_MARGIN * level;
+
+    return useItemInnerPadding ? { paddingLeft: levelMargin + 8 } : { marginLeft: levelMargin };
+  }, [useItemInnerPadding]);
 
   return (
     <>
-      <Wrapper style={{ marginLeft: ONE_DEEP_LEVEL_LEFT_MARGIN * level }} onClick={onChangeHandler}>
+      <Wrapper
+        as="button"
+        styles={[
+          flex,
+          ai("center"),
+          disableOutline,
+          backgroundColor("transparent"),
+          borderNone,
+          ai("center"),
+          pointer,
+          minHeight(32),
+          height(32),
+          borderRadius(6),
+          horizontalPadding(8),
+          transition(`background-color ${duration160}, box-shadow ${duration160}`),
+          marginBottom(4),
+          flexValue(1),
+          lastChild([marginBottom(0)], "&"),
+          focus([boxShadow([0, 0, 0, 2, "blue/04"])]),
+          selected
+            ? [backgroundColor("gray-blue/02"), hover(backgroundColor("gray-blue/03"))]
+            : [hover(backgroundColor("gray-blue/02"))],
+        ]}
+        style={wrapperStyle}
+        onClick={onChangeHandler}
+      >
         {icon}
         <Typography>{text}</Typography>
         {selected && action}
       </Wrapper>
-      {needShowChildElements && <Wrapper>{resultItems.map(prop("element"))}</Wrapper>}
+      {needShowChildElements && <Wrapper styles={[flex, flexColumn]}>{resultItems.map(prop("element"))}</Wrapper>}
     </>
   );
 }

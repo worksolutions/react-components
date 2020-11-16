@@ -22,7 +22,11 @@ export const findRecursiveTreeItemById = curry(function (
   return findRecursiveTreeItemById(subItems, id);
 });
 
-export function injectLevelToRecursiveTreeItems(items: RecursiveTreeItem[], level = 0): RecursiveTreeItem[] {
+type OmittedRecursiveItem = Omit<RecursiveTreeItem, "level" | "parentId" | "items"> & {
+  items?: OmittedRecursiveItem[];
+};
+
+export function injectLevelToRecursiveTreeItems(items: OmittedRecursiveItem[], level = 0): RecursiveTreeItem[] {
   const nextLevel = level + 1;
 
   return items.map(
@@ -38,7 +42,7 @@ export function injectLevelToRecursiveTreeItems(items: RecursiveTreeItem[], leve
 }
 
 export const injectParentIdToRecursiveTreeItems = function (
-  items: RecursiveTreeItem[],
+  items: OmittedRecursiveItem[],
   parentId: number | null = null,
 ): RecursiveTreeItem[] {
   return items.map(

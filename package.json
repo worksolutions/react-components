@@ -7,7 +7,9 @@
   "scripts": {
     "format": "prettier --write --list-different \"src/**/*.{ts,tsx,js,json,yml}\"",
     "build": "rm -rf dist && NODE_ENV=production node_modules/typescript/bin/tsc && cp -R src/primitives/Icon/icons dist/primitives/Icon/icons",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "storybook": "start-storybook -p 6006 --no-dll",
+    "build-storybook": "build-storybook --no-dll"
   },
   "keywords": [],
   "author": "Anatoly Grabarov",
@@ -22,7 +24,6 @@
     "@viewstools/use-masked-input": "^2.*",
     "@worksolutions/react-utils": "^1.0.14",
     "@worksolutions/utils": "^1.0.19",
-    "babel-plugin-styled-components": "^1.11.*",
     "edelgarat-ckeditor5-custom-build": "0.0.1",
     "external-svg-sprite-loader": "^6.*",
     "history": "^4.*",
@@ -38,8 +39,22 @@
     "react-with-gesture": "^4.*"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.1",
+    "@storybook/addon-essentials": "^6.0.28",
+    "@storybook/addon-links": "^6.0.28",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "^6.0.28",
     "@types/ramda": "^0.27.*",
+    "babel-loader": "^8.2.1",
+    "babel-plugin-styled-components": "^1.11.1",
+    "css-loader": "^5.0.1",
+    "node-sass": "^5.0.0",
+    "normalize.css": "^8.0.1",
     "prettier": "^2.*",
+    "react-is": "^17.0.1",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0",
     "typescript": "^4.*"
   }
 }
