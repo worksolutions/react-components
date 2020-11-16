@@ -98,6 +98,7 @@ export * from "./primitives/RadioGroup";
 
 export { default as RecursiveTree } from "./primitives/RecursiveTree";
 export * from "./primitives/RecursiveTree/RenderItem";
+export * from "./primitives/RecursiveTree/RenderItem/libs";
 
 export { default as Resizer } from "./primitives/Resizer";
 export * from "./primitives/Resizer/useResizer";
