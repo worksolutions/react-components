@@ -10,10 +10,18 @@ export interface RecursiveTreeInterface extends RecursiveTreeItemHandlers {
   items: RecursiveTreeItem[];
   activeIds: Array<number>;
   useItemInnerPadding?: boolean;
+  openWhenSubChildSelected?: boolean;
 }
 
-function RecursiveTree({ styles, items, activeIds, onChange, useItemInnerPadding = true }: RecursiveTreeInterface) {
-  const render = renderItem({ activeIds, onChange, useItemInnerPadding });
+function RecursiveTree({
+  styles,
+  items,
+  activeIds,
+  onChange,
+  useItemInnerPadding = true,
+  openWhenSubChildSelected = false,
+}: RecursiveTreeInterface) {
+  const render = renderItem({ activeIds, onChange, useItemInnerPadding, openWhenSubChildSelected });
 
   return (
     <Wrapper styles={[flex, flexColumn, child([marginBottom(4)]), lastChild([marginBottom(0)]), styles]}>

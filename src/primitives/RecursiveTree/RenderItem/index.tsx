@@ -29,7 +29,11 @@ import {
   pointer,
   transition,
 } from "../../../styles";
-import { duration160 } from "../../../constants/durations";
+import { duration160, duration60Number } from "../../../constants/durations";
+import { useMeasure, usePrevious } from "@worksolutions/react-utils";
+import { animated, useSpring } from "react-spring";
+import isEqual from "../../../CB/changeDetectionStrategy/performance/isEqual";
+import { withPerformance } from "../../../CB/changeDetectionStrategy/withPerformance";
 
 export type RecursiveTreeItemHandlers = {
   onChange: (selectedItemIds: number[], id: number, selected: boolean) => void;
@@ -38,6 +42,7 @@ export type RecursiveTreeItemHandlers = {
 type RecursiveTreeItemInternalProps = {
   activeIds: number[];
   useItemInnerPadding: boolean;
+  openWhenSubChildSelected: boolean;
 } & RecursiveTreeItemHandlers;
 
 export type RecursiveTreeItem = {
@@ -61,7 +66,7 @@ function useIcon(icon?: JSX.Element | Icons, styles?: any) {
   );
 }
 
-function RecursiveTreeItemComponent({
+function RecursiveTreeItemComponentRaw({
   text,
   id,
   selected,
@@ -71,18 +76,18 @@ function RecursiveTreeItemComponent({
   action: actionProp,
   level,
   useItemInnerPadding,
+  openWhenSubChildSelected,
   onChange,
 }: RecursiveTreeItemWithSelected & RecursiveTreeItemInternalProps) {
-  const resultItems = React.useMemo(() => items.map(renderItem({ activeIds, onChange, useItemInnerPadding })), [
-    activeIds,
-    items,
-    onChange,
-  ]);
+  const resultItems = React.useMemo(
+    () => items.map(renderItem({ activeIds, onChange, useItemInnerPadding, openWhenSubChildSelected })),
+    [openWhenSubChildSelected, activeIds, items, onChange],
+  );
 
-  const needShowChildElements = React.useMemo(() => getNeedShowChildElements(selected, resultItems), [
-    resultItems,
-    selected,
-  ]);
+  const needShowChildElements = React.useMemo(
+    () => getNeedShowChildElements(openWhenSubChildSelected, selected, resultItems),
+    [openWhenSubChildSelected, resultItems, selected],
+  );
 
   const onChangeHandler = React.useCallback(
     stopPropagation(() => {
@@ -100,6 +105,17 @@ function RecursiveTreeItemComponent({
 
     return useItemInnerPadding ? { paddingLeft: levelMargin + 8 } : { marginLeft: levelMargin };
   }, [useItemInnerPadding]);
+
+  const previous = usePrevious(needShowChildElements);
+  const [measureRef, bound] = useMeasure();
+
+  const { height: heightValue } = useSpring({
+    config: { duration: duration60Number },
+    from: { height: 0 },
+    to: {
+      height: needShowChildElements ? bound.height : 0,
+    },
+  });
 
   return (
     <>
@@ -121,7 +137,7 @@ function RecursiveTreeItemComponent({
           marginBottom(4),
           flexValue(1),
           lastChild([marginBottom(0)], "&"),
-          focus([boxShadow([0, 0, 0, 2, "blue/04"])]),
+          focus([boxShadow([0, 0, 0, 2, "blue/04", true])]),
           selected
             ? [backgroundColor("gray-blue/02"), hover(backgroundColor("gray-blue/03"))]
             : [hover(backgroundColor("gray-blue/02"))],
@@ -133,10 +149,23 @@ function RecursiveTreeItemComponent({
         <Typography>{text}</Typography>
         {selected && action}
       </Wrapper>
-      {needShowChildElements && <Wrapper styles={[flex, flexColumn]}>{resultItems.map(prop("element"))}</Wrapper>}
+      {resultItems.length !== 0 && (
+        <animated.div
+          style={{
+            height: needShowChildElements && previous === needShowChildElements ? "auto" : heightValue,
+            overflow: "hidden",
+          }}
+        >
+          <Wrapper ref={measureRef as any} styles={[flex, flexColumn]}>
+            {resultItems.map(prop("element"))}
+          </Wrapper>
+        </animated.div>
+      )}
     </>
   );
 }
+
+const RecursiveTreeItemComponent = withPerformance(["onChange"])(RecursiveTreeItemComponentRaw);
 
 const renderItem = (config: RecursiveTreeItemInternalProps) => ({ id, ...item }: RecursiveTreeItem) => {
   const selected = config.activeIds.includes(id);

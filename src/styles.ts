@@ -114,3 +114,4 @@ export const disableDecoration = styles.disableDecoration;
 export const transform = styles.transform;
 export const transformOrigin = styles.transformOrigin;
 export const transition = styles.transition;
+export const order = styles.order;

@@ -96,6 +96,9 @@ export { default as ProgressBar } from "./primitives/ProgressBar";
 export { default as RadioGroup } from "./primitives/RadioGroup";
 export * from "./primitives/RadioGroup";
 
+export { default as RecursiveTree } from "./primitives/RecursiveTree";
+export * from "./primitives/RecursiveTree/RenderItem";
+
 export { default as Resizer } from "./primitives/Resizer";
 export * from "./primitives/Resizer/useResizer";
 
