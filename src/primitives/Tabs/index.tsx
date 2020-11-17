@@ -26,7 +26,7 @@ interface TabsInterface {
   setActiveIndex: (index: number) => void;
   items: {
     title: string;
-    render: () => JSX.Element;
+    render: React.FC<any>;
   }[];
 }
 
