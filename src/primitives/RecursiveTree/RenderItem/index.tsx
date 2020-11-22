@@ -1,6 +1,8 @@
 import React, { CSSProperties } from "react";
-import { isString, stopPropagation } from "@worksolutions/utils";
 import { prop } from "ramda";
+import { animated, useSpring } from "react-spring";
+import { isString, stopPropagation } from "@worksolutions/utils";
+import { useMeasure, usePrevious } from "@worksolutions/react-utils";
 
 import Icon, { Icons } from "../../Icon";
 import Wrapper from "../../Wrapper";
@@ -30,32 +32,29 @@ import {
   transition,
 } from "../../../styles";
 import { duration160, duration60Number } from "../../../constants/durations";
-import { useMeasure, usePrevious } from "@worksolutions/react-utils";
-import { animated, useSpring } from "react-spring";
-import isEqual from "../../../CB/changeDetectionStrategy/performance/isEqual";
-import { withPerformance } from "../../../CB/changeDetectionStrategy/withPerformance";
 
 export type RecursiveTreeItemHandlers = {
-  onChange: (selectedItemIds: number[], id: number, selected: boolean) => void;
+  onChange: (selectedItemIds: string[], id: string, selected: boolean) => void;
 };
 
 type RecursiveTreeItemInternalProps = {
-  activeIds: number[];
+  activeIds: string[];
   useItemInnerPadding: boolean;
   openWhenSubChildSelected: boolean;
 } & RecursiveTreeItemHandlers;
 
-export type RecursiveTreeItem = {
-  id: number;
+export type RecursiveTreeItem<PAYLOAD = any> = {
+  id: string;
   level: number;
   text: string;
   icon?: JSX.Element | Icons;
   action?: JSX.Element | Icons;
   items?: RecursiveTreeItem[];
-  parentId: number | null;
+  parentId: string | null;
+  payload?: PAYLOAD;
 };
 
-export type RecursiveTreeItemWithSelected = RecursiveTreeItem & { selected: boolean };
+type RecursiveTreeItemWithSelected<PAYLOAD = {}> = RecursiveTreeItem<PAYLOAD> & { selected: boolean };
 
 const ONE_DEEP_LEVEL_LEFT_MARGIN = 32;
 
@@ -66,7 +65,7 @@ function useIcon(icon?: JSX.Element | Icons, styles?: any) {
   );
 }
 
-function RecursiveTreeItemComponentRaw({
+function RecursiveTreeItemComponent({
   text,
   id,
   selected,
@@ -164,8 +163,6 @@ function RecursiveTreeItemComponentRaw({
     </>
   );
 }
-
-const RecursiveTreeItemComponent = withPerformance(["onChange"])(RecursiveTreeItemComponentRaw);
 
 const renderItem = (config: RecursiveTreeItemInternalProps) => ({ id, ...item }: RecursiveTreeItem) => {
   const selected = config.activeIds.includes(id);

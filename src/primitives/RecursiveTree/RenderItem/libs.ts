@@ -22,11 +22,14 @@ export const findRecursiveTreeItemById = curry(function (
   return findRecursiveTreeItemById(subItems, id);
 });
 
-type OmittedRecursiveItem = Omit<RecursiveTreeItem, "level" | "parentId" | "items"> & {
-  items?: OmittedRecursiveItem[];
+type OmittedRecursiveItem<T> = Omit<RecursiveTreeItem<T>, "level" | "parentId" | "items"> & {
+  items?: OmittedRecursiveItem<T>[];
 };
 
-export function injectLevelToRecursiveTreeItems(items: OmittedRecursiveItem[], level = 0): RecursiveTreeItem[] {
+export function injectLevelToRecursiveTreeItems<T = any>(
+  items: OmittedRecursiveItem<T>[],
+  level = 0,
+): RecursiveTreeItem<T>[] {
   const nextLevel = level + 1;
 
   return items.map(
@@ -41,18 +44,18 @@ export function injectLevelToRecursiveTreeItems(items: OmittedRecursiveItem[], l
   );
 }
 
-export const injectParentIdToRecursiveTreeItems = function (
-  items: OmittedRecursiveItem[],
+export function injectParentIdToRecursiveTreeItems<T = any>(
+  items: OmittedRecursiveItem<T>[],
   parentId: number | null = null,
-): RecursiveTreeItem[] {
+): RecursiveTreeItem<T>[] {
   return items.map(
     compose(
       assoc("parentId", parentId),
       ifElse(
         has("items"),
-        (item) => assoc("items", injectParentIdToRecursiveTreeItems(item.items, item.id), item),
+        (item) => assoc("items", injectParentIdToRecursiveTreeItems<T>(item.items, item.id), item),
         identity,
       ),
     ),
   );
-};
+}

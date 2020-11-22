@@ -29,20 +29,20 @@ const Template: Story<RecursiveTreeInterface> = ({ activeIds: activeIdsProp, ...
 
 export const Default = Template.bind({});
 Default.args = {
-  activeIds: [2],
+  activeIds: ["2"],
   items: injectParentIdToRecursiveTreeItems(
     injectLevelToRecursiveTreeItems([
       {
-        id: 1,
+        id: "1",
         text: "One",
       },
       {
-        id: 2,
+        id: "2",
         text: "Two",
         icon: "arrow-left-long",
         items: [
-          { id: 3, text: "three" },
-          { id: 4, text: "four" },
+          { id: "3", text: "three" },
+          { id: "4", text: "four" },
         ],
       },
     ]),

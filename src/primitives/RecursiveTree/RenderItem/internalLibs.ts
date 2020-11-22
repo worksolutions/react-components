@@ -14,7 +14,7 @@ export function getNeedShowChildElements(
   return selected ? items.length !== 0 : hasSomeSelectedChildren;
 }
 
-export function getNewActiveElements(id: number, selected: boolean, activeIds: number[]) {
+export function getNewActiveElements(id: string, selected: boolean, activeIds: string[]) {
   const newSelected = !selected;
 
   return {

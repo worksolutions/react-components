@@ -8,7 +8,7 @@ import renderItem, { RecursiveTreeItem, RecursiveTreeItemHandlers } from "./Rend
 export interface RecursiveTreeInterface extends RecursiveTreeItemHandlers {
   styles?: any;
   items: RecursiveTreeItem[];
-  activeIds: Array<number>;
+  activeIds: string[];
   useItemInnerPadding?: boolean;
   openWhenSubChildSelected?: boolean;
 }
