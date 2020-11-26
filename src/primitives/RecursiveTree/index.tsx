@@ -1,5 +1,5 @@
 import React from "react";
-import { child, flex, flexColumn, flexShrink, lastChild, marginBottom } from "../../styles";
+import { child, flex, flexColumn, flexGrow, flexShrink, lastChild, marginBottom } from "../../styles";
 
 import Wrapper from "../Wrapper";
 
@@ -29,7 +29,8 @@ function RecursiveTree({
         flex,
         flexColumn,
         flexShrink(0),
-        child([flexShrink(0), marginBottom(4)]),
+        flexGrow(0),
+        child([flexShrink(0), flexGrow(0), marginBottom(4)]),
         lastChild([marginBottom(0)]),
         styles,
       ]}
