@@ -14,7 +14,7 @@ import {
 } from "../../styles";
 
 import { TypographyTypes } from "../Typography";
-import Icon, { Icons } from "../Icon";
+import Icon, { InternalIcons } from "../Icon";
 import Spinner from "../Spinner";
 
 import { buttonStylesMap } from "./styles";
@@ -34,8 +34,8 @@ function getStylesNameOnIcons(
 export interface BaseButtonWrapperInterface {
   loadingLeft?: boolean;
   loadingRight?: boolean;
-  iconLeft?: Icons;
-  iconRight?: Icons;
+  iconLeft?: InternalIcons;
+  iconRight?: InternalIcons;
   iconLeftWidth?: number;
   iconLeftHeight?: number;
   iconRightWidth?: number;
@@ -68,7 +68,7 @@ const transitionStyle = transition(cssAnimateProperties.map((val) => `${val} ${d
 
 function makeIcon(
   loading: boolean | undefined,
-  icon: Icons | undefined,
+  icon: InternalIcons | undefined,
   { height, width, className }: { className: string; width?: number; height?: number },
 ) {
   const resultClassName = `icon ${className}`;

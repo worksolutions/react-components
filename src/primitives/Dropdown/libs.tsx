@@ -2,7 +2,7 @@ import React from "react";
 import { searchInString } from "@worksolutions/utils";
 import { useEffectSkipFirst } from "@worksolutions/react-utils";
 
-import Icon, { Icons } from "../Icon";
+import Icon, { InternalIcons } from "../Icon";
 import { InputSize } from "../Input/InputWrapper";
 import { ButtonSize } from "../Button";
 import { ListItemInterface, ListItemSize } from "../List/ListItem";
@@ -58,7 +58,7 @@ export const matchDropdownSizeAndSearchSize: Record<
   },
 };
 
-export function makeOptionalActionItem(title: string, icon?: Icons): ListItemInterface<any> {
+export function makeOptionalActionItem(title: string, icon?: InternalIcons): ListItemInterface<any> {
   return {
     leftContent: <Icon icon={icon} />,
     code: "_",

@@ -4,7 +4,7 @@ import { animated, useSpring } from "react-spring";
 import { isString, stopPropagation } from "@worksolutions/utils";
 import { useMeasure, usePrevious } from "@worksolutions/react-utils";
 
-import Icon, { Icons } from "../../Icon";
+import Icon, { InternalIcons } from "../../Icon";
 import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
 
@@ -18,7 +18,6 @@ import {
   disableOutline,
   flex,
   flexColumn,
-  flexValue,
   focus,
   height,
   horizontalPadding,
@@ -47,8 +46,8 @@ export type RecursiveTreeItem<PAYLOAD = any> = {
   id: string;
   level: number;
   text: string;
-  icon?: JSX.Element | Icons;
-  action?: JSX.Element | Icons;
+  icon?: JSX.Element | InternalIcons;
+  action?: JSX.Element | InternalIcons;
   items?: RecursiveTreeItem[];
   parentId: string | null;
   payload?: PAYLOAD;
@@ -58,7 +57,7 @@ type RecursiveTreeItemWithSelected<PAYLOAD = {}> = RecursiveTreeItem<PAYLOAD> & 
 
 const ONE_DEEP_LEVEL_LEFT_MARGIN = 32;
 
-function useIcon(icon?: JSX.Element | Icons, styles?: any) {
+function useIcon(icon?: JSX.Element | InternalIcons, styles?: any) {
   return React.useMemo(
     () => icon && <Wrapper styles={styles}>{isString(icon) ? <Icon icon={icon} color="blue/09" /> : icon}</Wrapper>,
     [icon],
@@ -134,7 +133,6 @@ function RecursiveTreeItemComponent({
           horizontalPadding(8),
           transition(`background-color ${duration160}, box-shadow ${duration160}`),
           marginBottom(4),
-          flexValue(1),
           lastChild([marginBottom(0)], "&"),
           focus([boxShadow([0, 0, 0, 2, "blue/04", true])]),
           selected

@@ -1,13 +1,13 @@
 import React from "react";
 
-import Icon, { Icons } from "../Icon";
+import Icon, { InternalIcons } from "../Icon";
 
 import AspectRatioWrapper, { AspectRatioWrapperInterface } from "../AspectRatioWrapper";
 import { backgroundColor } from "../../styles";
 
 interface ImageInterface extends AspectRatioWrapperInterface {
   src?: string;
-  emptyIcon?: Icons;
+  emptyIcon?: InternalIcons;
   emptyIconSize?: number;
 }
 

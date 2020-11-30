@@ -1,4 +1,4 @@
-export const list = {
+export const internalIcons = {
   "arrow-up": require("./icons/arrow-up.svg"),
   "arrow-down": require("./icons/arrow-down.svg"),
   "arrow-left": require("./icons/arrow-left.svg"),
@@ -47,3 +47,5 @@ export const list = {
   notes: require("./icons/notes.svg"),
   "save-indicator": require("./icons/save-indicator.svg"),
 };
+
+export const expandedIcons: Record<string, string> = {};

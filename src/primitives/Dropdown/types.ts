@@ -1,9 +1,9 @@
-import { Icons } from "../Icon";
+import { InternalIcons } from "../Icon";
 import { ListItemInterface } from "../List/ListItem";
 import { BaseInputWrapperInterface, InputSize } from "../Input/InputWrapper";
 
 export type DropdownItem<CODE extends string | number> = ListItemInterface<CODE>;
-export type DropdownOptionalAction = { title: string; icon?: Icons; onClick: () => void };
+export type DropdownOptionalAction = { title: string; icon?: InternalIcons; onClick: () => void };
 
 export interface DropdownContainerInterface<CODE extends string | number> {
   excludeSelected?: boolean;

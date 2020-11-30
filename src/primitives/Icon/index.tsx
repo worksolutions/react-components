@@ -1,26 +1,13 @@
 import React from "react";
-import styled from "styled-components";
-import { prop } from "ramda";
-import { provideRef } from "@worksolutions/react-utils";
-import { isString } from "@worksolutions/utils";
 
-import {
-  backgroundImage,
-  backgroundPosition,
-  backgroundSize,
-  display,
-  height,
-  stringOrPixels,
-  width,
-  getColor,
-} from "../../styles";
-
-import Wrapper from "../Wrapper";
-
-import { list } from "./list";
+import { expandedIcons, internalIcons } from "./list";
 import { Colors } from "../../constants/colors";
+import isEqual from "../../CB/changeDetectionStrategy/performance/isEqual";
+import InternalSvg from "./variants/InternalSvg";
+import StringLikeSvg from "./variants/StringLikeSvg";
+import StringLikeLink from "./variants/StringLikeLink";
 
-export type Icons = keyof typeof list;
+export type InternalIcons = keyof typeof internalIcons;
 
 interface StyledSVGInterface {
   width?: number | string;
@@ -28,75 +15,38 @@ interface StyledSVGInterface {
   styles?: any;
 }
 
-interface SVGInterface extends StyledSVGInterface {
-  icon?: Icons | any;
+export interface IconInterface extends StyledSVGInterface {
+  icon?: InternalIcons | string;
   className?: string;
   color?: Colors;
 }
 
-const StyledSVG = styled.svg<StyledSVGInterface & { fillColor: any }>`
-  display: inline-block;
-  min-width: ${(props) => stringOrPixels(props.width!)};
-  min-height: ${(props) => stringOrPixels(props.height!)};
-  use {
-    fill: ${prop("fillColor")};
-  }
-`;
+function isInternalIcon(icon: string): icon is InternalIcons {
+  return icon in internalIcons;
+}
 
-const SVG = React.forwardRef(function (
-  { className, icon, width: widthProp, height: heightProp, styles, color = "gray-blue/05" }: SVGInterface,
-  refProp: any,
-) {
-  // @ts-ignore
-  const rawIcon = React.useMemo(() => (icon in list ? list[icon] : icon), [icon]);
+const Icon = React.forwardRef(function ({ color, icon, ...props }: IconInterface, ref: any) {
+  if (!icon) return null;
 
-  const [ref, setRef] = React.useState<HTMLElement | SVGSVGElement | null>();
-
-  React.useEffect(() => {
-    if (!ref) return;
-    ref.innerHTML = `<use xlink:href="${rawIcon.symbol}" />`;
-  }, [ref, rawIcon]);
-
-  if (!rawIcon) return null;
-
-  if (isString(rawIcon)) {
-    return (
-      <Wrapper
-        as="span"
-        css={[
-          display("inline-block"),
-          width(widthProp!),
-          height(heightProp!),
-          backgroundImage(rawIcon),
-          backgroundPosition("center"),
-          backgroundSize("cover"),
-          styles,
-        ]}
-        className={className}
-        ref={provideRef(refProp, setRef)}
-      />
-    );
+  if (isInternalIcon(icon)) {
+    return <InternalSvg ref={ref} color={color} icon={icon} {...props} />;
   }
 
-  return (
-    <StyledSVG
-      // @ts-ignore
-      css={styles}
-      className={className}
-      width={widthProp}
-      height={heightProp}
-      viewBox={rawIcon.viewBox}
-      fillColor={getColor(color)}
-      ref={provideRef(refProp, setRef)}
-    >
-      <use xlinkHref={rawIcon.symbol} />
-    </StyledSVG>
-  );
+  if (icon.startsWith("<svg")) return <StringLikeSvg ref={ref} color={color} icon={icon} {...props} />;
+
+  if (expandedIcons[icon].startsWith("<svg"))
+    return <StringLikeSvg ref={ref} color={color} icon={expandedIcons[icon]} {...props} />;
+
+  return <StringLikeLink ref={ref} icon={expandedIcons[icon] || icon} {...props} />;
 });
 
-SVG.defaultProps = {
+Icon.defaultProps = {
   width: 24,
   height: 24,
 };
 
-export default React.memo(SVG);
+export default React.memo(Icon, isEqual);
+
+export const expandIcons = <T extends string>(icons: Record<T, any>) => {
+  return Object.assign(expandedIcons, internalIcons, icons);
+};

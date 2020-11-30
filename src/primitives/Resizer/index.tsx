@@ -27,7 +27,7 @@ import Button, { ButtonSize, ButtonType } from "../Button";
 import { ResizeMode, useResizer } from "./useResizer";
 import { duration160 } from "../../constants/durations";
 import { elevation8 } from "../../constants/shadows";
-import { Icons } from "../Icon";
+import { InternalIcons } from "../Icon";
 
 export interface ResizerInterface {
   initialWidth: number;
@@ -70,7 +70,7 @@ const Resizer = React.forwardRef(function (
   const [hoverLine] = useHover((hovered) => {
     const isLeftToRight = mode === ResizeMode.LEFT_TO_RIGHT;
 
-    const positioning: { iconName: Icons; styleName: string } = isLeftToRight
+    const positioning: { iconName: InternalIcons; styleName: string } = isLeftToRight
       ? { iconName: "arrow-right", styleName: "left" }
       : { iconName: "arrow-left", styleName: "right" };
 

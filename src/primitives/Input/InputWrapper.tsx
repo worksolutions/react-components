@@ -33,7 +33,7 @@ import {
 
 import Typography, { TypographyTypes } from "../Typography";
 import Wrapper from "../Wrapper";
-import Icon, { Icons } from "../Icon";
+import Icon, { InternalIcons } from "../Icon";
 import { Colors } from "../../constants/colors";
 import { duration160 } from "../../constants/durations";
 
@@ -110,7 +110,7 @@ function getStylesNameOnIcons(hasLeftIcon: boolean, hasRightIcon: boolean): keyo
   return "withoutIcons";
 }
 
-export type InputIconProp = Icons | JSX.Element | undefined;
+export type InputIconProp = InternalIcons | JSX.Element | undefined;
 
 export interface BaseInputWrapperInterface {
   outerStyles?: any;

@@ -1,4 +1,4 @@
-import { Icons } from "../Icon";
+import { InternalIcons } from "../Icon";
 import { Colors } from "../../constants/colors";
 
 export enum CardStatusIconSize {
@@ -8,7 +8,7 @@ export enum CardStatusIconSize {
 }
 
 export interface CardStatusInterface {
-  icon: Icons;
+  icon: InternalIcons;
   color: Colors;
   size?: CardStatusIconSize;
   hint?: string;
@@ -16,7 +16,7 @@ export interface CardStatusInterface {
 
 export type CardActionInterface = {
   name: string;
-  icon?: Icons;
+  icon?: InternalIcons;
   iconColor?: Colors;
   loading?: boolean;
   handler: () => Promise<void>;
