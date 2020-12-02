@@ -94,7 +94,7 @@ export function useResizer({
   return {
     getResizingLineProps: bind,
     styleParams,
-    childContentStyles: { width: childWidth, opacity: childOpacity },
+    childContentStyles: { width: childWidth, opacity: childOpacity }, // сделать скрытие элемента при закрытом состоянии - overflow hidden и width 0
     down,
     contentIsClosed: currentWidth === minResizerWidth,
     showContent,
