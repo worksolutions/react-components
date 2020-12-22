@@ -8,7 +8,7 @@ import Wrapper from "../Wrapper";
 import InputWrapper from "./InputWrapper";
 import { InputInterface } from "./Input";
 
-interface MaskedInputInterface extends InputInterface {
+export interface MaskedInputInterface extends InputInterface {
   mask: MaskType;
   guide?: boolean;
   showMaskWhenEmpty?: boolean;

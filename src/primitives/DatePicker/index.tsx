@@ -18,7 +18,7 @@ import Calendar from "./Calendar";
 import { cb } from "../../CB";
 import { zIndex_popup } from "../../constants/zIndexes";
 
-interface DatePickerInterface extends Omit<InputInterface, "value" | "onChange"> {
+export interface DatePickerInterface extends Omit<InputInterface, "value" | "onChange"> {
   initialValue?: string | null;
   allowEmpty?: boolean;
   mode?: DatePickerMode;

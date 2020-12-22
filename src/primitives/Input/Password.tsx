@@ -9,7 +9,7 @@ import Button, { ButtonSize, ButtonType } from "../Button";
 import InputWrapper from "./InputWrapper";
 import { InputInterface } from "./Input";
 
-interface InputPasswordInterface extends Omit<InputInterface, "iconRight"> {}
+export interface InputPasswordInterface extends Omit<InputInterface, "iconRight"> {}
 
 const Password = React.forwardRef(function (
   { value, onChange, placeholder, debounce = 100, styles, ...inputWrapperProps }: InputPasswordInterface,

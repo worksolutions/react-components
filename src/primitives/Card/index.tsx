@@ -25,7 +25,7 @@ import { CardImageConfig, CardInterface } from "./types";
 import Heading from "./Heading";
 import { duration160 } from "../../constants/durations";
 
-interface CardComponentInterface extends CardInterface {
+export interface CardComponentInterface extends CardInterface {
   link?: string;
   imageConfig: CardImageConfig;
 }

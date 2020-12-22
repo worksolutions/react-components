@@ -4,7 +4,7 @@ import { child, getColor } from "../../styles";
 
 import { Colors } from "../../constants/colors";
 
-interface SpinnerInterface {
+export interface SpinnerInterface {
   color?: Colors;
   className?: string;
 }
