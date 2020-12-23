@@ -12,7 +12,7 @@ import Hint from "../Popper";
 
 import { CardActionInterface, CardStatusIconSize, CardStatusInterface } from "./types";
 
-interface HeadingInterface {
+export interface HeadingInterface {
   title: string;
   statuses: CardStatusInterface[];
   actions: CardActionInterface[];
