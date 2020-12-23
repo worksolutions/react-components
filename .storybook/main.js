@@ -9,6 +9,7 @@ module.exports = {
     options.module.rules[9].exclude = /src[\/\\](.*)/;
     options.module.rules = [...webpack.loaders, ...options.module.rules];
     options.plugins = [...webpack.plugins, ...options.plugins];
+    options.devtool = "source-map";
     return options;
   },
   babel: async (options) => {
