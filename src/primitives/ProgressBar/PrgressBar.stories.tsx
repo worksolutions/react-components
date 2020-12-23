@@ -11,10 +11,15 @@ export default {
   decorators: [storybookWrapper],
 };
 
-const ProgressTemplate: Story<ProgressBarProps> = (props) => <ProgressBar {...props} />;
+const Template: Story<ProgressBarProps> = (props) => {
+  const [progress, setProgress] = React.useState(0);
+  React.useEffect(() => {
+    const interval = setInterval(() => setProgress(progress + 0.005), 0.1);
+    if (progress >= 1) clearInterval(interval);
+    return () => clearInterval(interval);
+  }, [progress]);
 
-export const ProgressInput = ProgressTemplate.bind({});
-
-ProgressInput.args = {
-  value: 0.9,
+  return <ProgressBar value={progress} />;
 };
+export const ProgressInput = Template.bind({});
+ProgressInput.args = {};
