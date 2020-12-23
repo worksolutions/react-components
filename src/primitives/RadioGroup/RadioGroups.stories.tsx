@@ -4,7 +4,6 @@ import { Story } from "@storybook/react/types-6-0";
 import { storybookWrapper } from "../../storybookWrapper";
 
 import RadioGroups, { RadioGroupInterface, RadioGroupSize } from "./index";
-import { marginBottom } from "../../styles";
 
 export default {
   title: "RadioGroups",
