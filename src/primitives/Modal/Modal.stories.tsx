@@ -66,9 +66,9 @@ const ModalTemplate: Story<ModalInterface> = (props) => {
   );
 };
 
-export const ProgressInput = ModalTemplate.bind({});
+export const Default = ModalTemplate.bind({});
 
-ProgressInput.args = {
+Default.args = {
   size: ModalSize.SMALL,
   title: "Модальное окно 1",
   subTitle: "Вы уверены, что это модальное окно открыто?? И еще некий текст на новой строке",
