@@ -6,7 +6,7 @@ module.exports = {
   webpackFinal: (options) => {
     const babelRule = options.module.rules[0];
     babelRule.exclude = /(node_modules[\/\\](?!(@worksolutions))).*/;
-    options.module.rules[9].exclude = /src\/(.*)/;
+    options.module.rules[9].exclude = /src[\/\\](.*)/;
     options.module.rules = [...webpack.loaders, ...options.module.rules];
     options.plugins = [...webpack.plugins, ...options.plugins];
     return options;
