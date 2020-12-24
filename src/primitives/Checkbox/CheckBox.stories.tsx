@@ -1,6 +1,8 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
-import { storybookWrapper } from "../../storybookWrapper";
+
+import { storybookWrapper } from "storybookWrapper";
+
 import CheckBox from "./index";
 
 export default {

@@ -1,10 +1,9 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { storybookWrapper } from "../../storybookWrapper";
+import { storybookWrapper } from "storybookWrapper";
 
-import { makeMask, MaskedInputInterface } from "./MaskedInput";
-import MaskedInput from "./MaskedInput";
+import MaskedInput, { makeMask, MaskedInputInterface } from "./MaskedInput";
 
 export default {
   title: "Masked",

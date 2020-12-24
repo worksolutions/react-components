@@ -14,8 +14,6 @@ const LoadTemplate: Story<SpinnerInterface> = (props) => <Spinner {...props} />;
 
 export const grayBlueLoad = LoadTemplate.bind({});
 export const orangeLoad = LoadTemplate.bind({});
-export const greenLoad = LoadTemplate.bind({});
-export const redLoad = LoadTemplate.bind({});
 
 grayBlueLoad.args = {
   color: "gray-blue/09",
@@ -23,12 +21,4 @@ grayBlueLoad.args = {
 
 orangeLoad.args = {
   color: "orange/07",
-};
-
-greenLoad.args = {
-  color: "green/04",
-};
-
-redLoad.args = {
-  color: "red/08",
 };

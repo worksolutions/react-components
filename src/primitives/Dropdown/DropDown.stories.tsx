@@ -1,10 +1,10 @@
-import React, { Ref } from "react";
+import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { storybookWrapper } from "../../storybookWrapper";
+import { storybookWrapper } from "storybookWrapper";
+import { width } from "styles";
 
 import DropDown, { DropdownInterface } from "./index";
-import { width } from "../../styles";
 
 export default {
   title: "DropDown",

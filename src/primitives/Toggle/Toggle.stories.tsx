@@ -1,11 +1,11 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { storybookWrapper } from "../../storybookWrapper";
+import { storybookWrapper } from "storybookWrapper";
+import { child, flex, flexColumn, jc, marginBottom } from "styles";
 
 import Wrapper from "../Wrapper";
 import Toggle, { ToggleInterface } from "./index";
-import { child, flex, flexColumn, jc, marginBottom } from "../../styles";
 
 export default {
   title: "Toggle",

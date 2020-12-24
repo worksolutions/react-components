@@ -1,10 +1,11 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { storybookWrapper } from "../../storybookWrapper";
+import { storybookWrapper } from "storybookWrapper";
 
 import { ListItemId } from "./index";
 import DroppedList, { DroppedListInterface, DroppedListOpenMode } from "./DroppedList";
+
 import Button, { ButtonSize, ButtonType } from "../Button";
 
 export default {

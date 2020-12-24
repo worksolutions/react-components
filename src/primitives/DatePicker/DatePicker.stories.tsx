@@ -1,9 +1,8 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { storybookWrapper } from "../../storybookWrapper";
-
-import { DatePicker, DatePickerInterface, DatePickerMode } from "../../index";
+import { storybookWrapper } from "storybookWrapper";
+import { DatePicker, DatePickerInterface, DatePickerMode } from "index";
 
 export default {
   title: "DatePicker",

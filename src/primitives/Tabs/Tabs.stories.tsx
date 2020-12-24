@@ -1,10 +1,12 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { storybookWrapper } from "../../storybookWrapper";
+import { storybookWrapper } from "storybookWrapper";
+
+import { child, flex, flexColumn, jc, marginBottom } from "styles";
+
 import Tabs, { TabsInterface } from "./index";
 import Wrapper from "../Wrapper";
-import { child, flex, flexColumn, jc, marginBottom } from "../../styles";
 
 export default {
   title: "Tabs",

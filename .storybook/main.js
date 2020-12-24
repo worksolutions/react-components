@@ -1,4 +1,5 @@
 const webpack = require("../webpack");
+const path = require("path");
 
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.(js|jsx|ts|tsx)"],
@@ -10,6 +11,7 @@ module.exports = {
     options.module.rules = [...webpack.loaders, ...options.module.rules];
     options.plugins = [...webpack.plugins, ...options.plugins];
     options.devtool = "source-map";
+    options.resolve.modules = [...(options.resolve.modules || []), path.resolve(__dirname, "../src")];
     return options;
   },
   babel: async (options) => {
