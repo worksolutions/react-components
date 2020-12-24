@@ -3,7 +3,7 @@ import { INTL, wordDeclination } from "@worksolutions/utils";
 
 import { TypographyGlobalStyle } from "./primitives/Typography";
 import "./styles/index.scss";
-import { setIntl } from "./intl";
+import { intl, setIntl } from "./intl";
 
 const intlDictionary = {
   momentLanguageCode: "ru",
@@ -44,6 +44,7 @@ const intlDictionary = {
 };
 
 setIntl(new INTL(intlDictionary));
+intl.init();
 export function storybookWrapper(Story) {
   return (
     <div className="ws-box" style={{ display: "flex" }}>

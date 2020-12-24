@@ -27,14 +27,13 @@ function isInternalIcon(icon: string): icon is InternalIcons {
 
 const Icon = React.forwardRef(function ({ color, icon, ...props }: IconInterface, ref: any) {
   if (!icon) return null;
-
   if (isInternalIcon(icon)) {
     return <InternalSvg ref={ref} color={color} icon={icon} {...props} />;
   }
 
   if (icon.startsWith("<svg")) return <StringLikeSvg ref={ref} color={color} icon={icon} {...props} />;
 
-  if (expandedIcons[icon].startsWith("<svg"))
+  if (expandedIcons[icon] && expandedIcons[icon].startsWith("<svg"))
     return <StringLikeSvg ref={ref} color={color} icon={expandedIcons[icon]} {...props} />;
 
   return <StringLikeLink ref={ref} icon={expandedIcons[icon] || icon} {...props} />;

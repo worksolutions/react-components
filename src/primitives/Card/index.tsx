@@ -23,7 +23,7 @@ import Typography from "../Typography";
 
 import { CardImageConfig, CardInterface } from "./types";
 import Heading from "./Heading";
-import { duration160 } from "../../constants/durations";
+import { duration160 } from "../..";
 
 export interface CardComponentInterface extends CardInterface {
   link?: string;
