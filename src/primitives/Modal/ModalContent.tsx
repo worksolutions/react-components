@@ -137,7 +137,6 @@ export const ModalContent = observer(function ({
         >
           <Wrapper
             styles={[
-              fullWidth,
               flex,
               ai("center"),
               jc("space-between"),
@@ -150,7 +149,7 @@ export const ModalContent = observer(function ({
           {subTitle && (
             <Typography
               color="gray-blue/06"
-              styles={[fullWidth, padding(`8px ${modalHorizontalPadding}px 24px ${modalHorizontalPadding}px`)]}
+              styles={[padding(`8px ${modalHorizontalPadding}px 24px ${modalHorizontalPadding}px`)]}
             >
               {subTitle}
             </Typography>
@@ -158,7 +157,6 @@ export const ModalContent = observer(function ({
           <Wrapper styles={horizontalPadding(modalHorizontalPadding)}>{children}</Wrapper>
           <Wrapper
             styles={[
-              fullWidth,
               flex,
               actionsInColumn
                 ? [flexColumn, child(marginTop(8)), firstChild(marginTop(0))]

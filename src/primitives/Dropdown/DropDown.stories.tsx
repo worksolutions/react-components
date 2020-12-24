@@ -5,12 +5,7 @@ import { storybookWrapper } from "storybookWrapper";
 import { width } from "styles";
 
 import DropDown, { DropdownInterface } from "./index";
-
-export default {
-  title: "DropDown",
-  component: DropDown,
-  decorators: [storybookWrapper],
-};
+import { selectControl } from "../../storyHelpers";
 
 enum InputSize {
   MEDIUM = "medium",
@@ -21,6 +16,16 @@ enum InputTitlePosition {
   TOP,
   LEFT,
 }
+
+export default {
+  title: "DropDown",
+  component: DropDown,
+  decorators: [storybookWrapper],
+  argTypes: {
+    size: selectControl(Object.values(InputSize)),
+    titlePosition: selectControl([InputTitlePosition.TOP, InputTitlePosition.LEFT]),
+  },
+};
 
 const Template: Story<DropdownInterface<string>> = (props) => {
   const [value, setValue] = React.useState<string | number | undefined>("new");

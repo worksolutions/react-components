@@ -69,7 +69,6 @@ const ModalTemplate: Story<ModalInterface> = (props) => {
 export const Default = ModalTemplate.bind({});
 
 Default.args = {
-  size: ModalSize.SMALL,
   title: "Модальное окно 1",
   subTitle: "Вы уверены, что это модальное окно открыто?? И еще некий текст на новой строке",
   wrappedContent: (open) => <Button onClick={open}>Модальное окно</Button>,

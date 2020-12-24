@@ -3,13 +3,9 @@ import { Story } from "@storybook/react/types-6-0";
 
 import { storybookWrapper } from "storybookWrapper";
 
-import RadioGroups, { RadioGroupInterface, RadioGroupSize } from "./index";
+import { selectControl } from "storyHelpers";
 
-export default {
-  title: "RadioGroups",
-  component: RadioGroups,
-  decorators: [storybookWrapper],
-};
+import RadioGroups, { RadioGroupInterface, RadioGroupSize } from "./index";
 
 const items = [
   { code: "1", title: "Любое значение" },
@@ -18,6 +14,15 @@ const items = [
   { code: "4", title: "Вариант 3" },
   { code: "5", title: "Вариант 4" },
 ];
+
+export default {
+  title: "RadioGroups",
+  component: RadioGroups,
+  decorators: [storybookWrapper],
+  argTypes: {
+    size: selectControl([RadioGroupSize.MEDIUM, RadioGroupSize.SMALL]),
+  },
+};
 
 const Template: Story<RadioGroupInterface<string>> = (props) => {
   const [value, setValue] = React.useState(items[0].code);

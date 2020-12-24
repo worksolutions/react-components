@@ -3,6 +3,8 @@ import { Story } from "@storybook/react/types-6-0";
 
 import { storybookWrapper } from "storybookWrapper";
 
+import { selectControl } from "storyHelpers";
+
 import { ListItemId } from "./index";
 import DroppedList, { DroppedListInterface, DroppedListOpenMode } from "./DroppedList";
 
@@ -12,6 +14,9 @@ export default {
   title: "DroppedList",
   component: DroppedList,
   decorators: [storybookWrapper],
+  argTypes: {
+    mode: selectControl([DroppedListOpenMode.CLICK, DroppedListOpenMode.HOVER]),
+  },
 };
 
 const Template: Story<DroppedListInterface<any>> = (props) => {

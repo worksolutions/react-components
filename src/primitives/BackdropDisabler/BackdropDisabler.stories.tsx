@@ -4,18 +4,25 @@ import { Story } from "@storybook/react/types-6-0";
 import { storybookWrapper } from "storybookWrapper";
 import { backgroundColor } from "styles";
 
+import { colorControl } from "storyHelpers";
+
 import BackdropDisabler from "./index";
 
 export default {
   title: "BackdropDisabler",
   component: BackdropDisabler.type,
   decorators: [storybookWrapper],
+  argTypes: {
+    color: colorControl(),
+  },
 };
 
-const BackdropDisablerTemplate: Story<{ styles?: any }> = (props) => <BackdropDisabler {...props} />;
+const BackdropDisablerTemplate: Story<{ color: any }> = (props) => (
+  <BackdropDisabler styles={[backgroundColor(props.color)]} />
+);
 
 export const Default = BackdropDisablerTemplate.bind({});
 
 Default.args = {
-  styles: [backgroundColor("violet/02")],
+  color: "green/01",
 };

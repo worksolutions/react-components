@@ -17,13 +17,15 @@ const Template: Story<ToggleInterface> = (props) => {
   const [switched, setSwitched] = React.useState(false);
   return (
     <Wrapper styles={[flex, flexColumn, jc("align-center"), child(marginBottom(30))]}>
-      <Toggle enabled={switched} onChange={setSwitched} />
-      <Toggle text="asd" enabled={switched} onChange={setSwitched} />
-      <Toggle textOnRight text="asd" enabled={switched} onChange={setSwitched} />
+      <Toggle {...props} enabled={switched} onChange={setSwitched} />
+      <Toggle {...props} text="asd" enabled={switched} onChange={setSwitched} />
+      <Toggle {...props} textOnRight text="asd" enabled={switched} onChange={setSwitched} />
     </Wrapper>
   );
 };
 
 export const Default = Template.bind({});
 
-Default.args = {};
+Default.args = {
+  textOnRight: false,
+};
