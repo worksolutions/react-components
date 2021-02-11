@@ -2,6 +2,7 @@ import React from "react";
 import { Placement } from "@popperjs/core";
 import moment, { Moment } from "moment";
 import { range } from "ramda";
+import { useEffectSkipFirst } from "@worksolutions/react-utils";
 
 import {
   ai,
@@ -27,9 +28,8 @@ import ButtonsList from "./ButtonsList";
 import { SwitchModeButton } from "./SwitchModeButton";
 import { useMonthCalculation } from "./libs";
 import CalendarView from "./CalendarView";
-import { cb } from "../../../CB";
+import { cb } from "../../../CB"; // TODO: выпилить
 import { elevation16 } from "../../../constants/shadows";
-import { useEffectSkipFirst } from "@worksolutions/react-utils";
 import { intl } from "../../../intl";
 
 interface CalendarInterface {

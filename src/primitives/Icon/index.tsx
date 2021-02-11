@@ -1,8 +1,8 @@
 import React from "react";
+import { isDeepEqual } from "@worksolutions/utils";
 
 import { expandedIcons, internalIcons } from "./list";
 import { Colors } from "../../constants/colors";
-import isEqual from "../../CB/changeDetectionStrategy/performance/isEqual";
 import InternalSvg from "./variants/InternalSvg";
 import StringLikeSvg from "./variants/StringLikeSvg";
 import StringLikeLink from "./variants/StringLikeLink";
@@ -45,7 +45,7 @@ Icon.defaultProps = {
   height: 24,
 };
 
-export default React.memo(Icon, isEqual);
+export default React.memo(Icon, isDeepEqual);
 
 export const expandIcons = <T extends string>(icons: Record<T, any>) => {
   return Object.assign(expandedIcons, internalIcons, icons);
