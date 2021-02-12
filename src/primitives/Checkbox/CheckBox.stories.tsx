@@ -11,7 +11,7 @@ export default {
   decorators: [storybookWrapper],
 };
 
-const AspectRatioWrapperTemplate: Story<CheckboxProps> = (props) => <CheckBox {...props} />;
+const CheckBoxTemplate: Story<CheckboxProps> = (props) => <CheckBox {...props} />;
 
-export const Default = AspectRatioWrapperTemplate.bind({});
+export const Default = CheckBoxTemplate.bind({});
 Default.args = {};
