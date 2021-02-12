@@ -3,10 +3,10 @@ import { Link, LinkProps } from "react-router-dom";
 import { isNil } from "ramda";
 import { linkIsNative } from "@worksolutions/utils";
 
-import { color, disableDecoration, hover, transition } from "../../styles";
+import { color, disableDecoration, hover, transition } from "styles";
+import { duration160 } from "constants/durations";
 
 import Typography, { TypographyInterface, TypographyTypes } from "./index";
-import { duration160 } from "../../constants/durations";
 
 type TypographyLinkInterface = TypographyInterface & Omit<LinkProps, "to" | "as" | "type">;
 
