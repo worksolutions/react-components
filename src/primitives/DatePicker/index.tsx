@@ -12,11 +12,10 @@ import Wrapper from "../Wrapper";
 import HandleClickOutside from "../HandleClickOutside";
 import { useVisibilityAnimation } from "../Popper/useVisibilityAnimation";
 
-import { configByMode, DatePickerMode } from "./config";
 import { useInnerValueChange } from "./useInnerValueChange";
 import Calendar from "./Calendar";
-import { cb } from "../../CB";
 import { zIndex_popup } from "../../constants/zIndexes";
+import { configByMode, DatePickerMode } from "./config";
 
 interface DatePickerInterface extends Omit<InputInterface, "value" | "onChange"> {
   initialValue?: string | null;
@@ -30,99 +29,97 @@ interface DatePickerInterface extends Omit<InputInterface, "value" | "onChange">
 
 const maskCharacter = "_";
 
-export default cb(
-  {
-    useStateBuilder: ({
-      initialValue,
-      mode = DatePickerMode.DATE,
-      allowEmpty = true,
-      min: minProp,
-      max: maxProp,
-      onChange,
-    }: DatePickerInterface) => {
-      const config = configByMode[mode];
+function DatePicker({
+  initialValue,
+  mode = DatePickerMode.DATE,
+  allowEmpty = true,
+  min: minProp,
+  max: maxProp,
+  onChange,
+  tip,
+  error: errorProp,
+  size,
+  placeholder,
+  outerStyles,
+  hasCurrentDayButton,
+}: DatePickerInterface) {
+  const { placement, opened, open, close, initPopper } = usePopper({ placement: "bottom-start" });
+  const { style } = useVisibilityAnimation(opened);
 
-      const [inputValue, setInputValue] = React.useState(() => initialValue || "");
+  const config = configByMode[mode];
 
-      useEffectSkipFirst(() => {
-        setInputValue(initialValue || "");
-      }, [initialValue]);
+  const [inputValue, setInputValue] = React.useState(() => initialValue || "");
 
-      const [lastValidValue, setLastValidValue] = React.useState(() => inputValue || null);
+  useEffectSkipFirst(() => {
+    setInputValue(initialValue || "");
+  }, [initialValue]);
 
-      const [error, setError] = React.useState(false);
+  const [lastValidValue, setLastValidValue] = React.useState(() => inputValue || null);
 
-      const { min, max } = useInnerValueChange(inputValue, allowEmpty, {
-        maskCharacter,
-        config,
-        min: minProp,
-        max: maxProp,
-        onChange: (value) => {
-          setLastValidValue(value);
-          onChange(value);
-        },
-        setError,
-      });
+  const [error, setError] = React.useState(false);
 
-      return { config, inputValue, setInputValue, lastValidValue, error, min, max };
+  const { min, max } = useInnerValueChange(inputValue, allowEmpty, {
+    maskCharacter,
+    config,
+    min: minProp,
+    max: maxProp,
+    onChange: (value) => {
+      setLastValidValue(value);
+      onChange(value);
     },
-  },
-  function DatePicker(
-    { tip, error: errorProp, size, placeholder, outerStyles, hasCurrentDayButton },
-    { state: { config, inputValue, min, max, setInputValue, error, lastValidValue } },
-  ) {
-    const { placement, opened, open, close, initPopper } = usePopper({ placement: "bottom-start" });
-    const { style } = useVisibilityAnimation(opened);
+    setError,
+  });
 
-    function inputRef(input: HTMLInputElement | null) {
-      if (!input) return;
-      initPopper("parent")(input);
-      input.addEventListener("focus", open);
-    }
+  function inputRef(input: HTMLInputElement | null) {
+    if (!input) return;
+    initPopper("parent")(input);
+    input.addEventListener("focus", open);
+  }
 
-    function inputOuterRef(element: HTMLElement | null) {
-      if (!element) return;
-      element.addEventListener("click", open);
-    }
+  function inputOuterRef(element: HTMLElement | null) {
+    if (!element) return;
+    element.addEventListener("click", open);
+  }
 
-    return (
-      <HandleClickOutside enabled={opened} onClickOutside={close}>
-        {(ref) => (
-          <MaskedInput
-            size={size}
-            outerRef={provideRef(ref, inputOuterRef)}
-            ref={inputRef}
-            error={error || errorProp}
-            tip={tip}
-            value={inputValue}
-            mask={config.mask}
-            guide
-            maskCharacter={maskCharacter}
-            placeholder={placeholder || config.placeholder}
-            outerStyles={[width(config.width), outerStyles]}
-            iconRight="calendar"
-            onChange={setInputValue}
-          >
-            <>
-              {opened && (
-                <Wrapper as={animated.div} style={style} styles={zIndex_popup} ref={initPopper("child")}>
-                  <Calendar
-                    min={min}
-                    max={max}
-                    value={lastValidValue}
-                    placement={placement}
-                    momentFormat={config.momentFormat}
-                    hasCurrentDayButton={hasCurrentDayButton}
-                    onChange={setInputValue}
-                  />
-                </Wrapper>
-              )}
-            </>
-          </MaskedInput>
-        )}
-      </HandleClickOutside>
-    );
-  },
-);
+  return (
+    <HandleClickOutside enabled={opened} onClickOutside={close}>
+      {(ref) => (
+        <MaskedInput
+          size={size}
+          outerRef={provideRef(ref, inputOuterRef)}
+          ref={inputRef}
+          error={error || errorProp}
+          tip={tip}
+          value={inputValue}
+          mask={config.mask}
+          guide
+          maskCharacter={maskCharacter}
+          placeholder={placeholder || config.placeholder}
+          outerStyles={[width(config.width), outerStyles]}
+          iconRight="calendar"
+          onChange={setInputValue}
+        >
+          <>
+            {opened && (
+              <Wrapper as={animated.div} style={style} styles={zIndex_popup} ref={initPopper("child")}>
+                <Calendar
+                  min={min}
+                  max={max}
+                  value={lastValidValue}
+                  placement={placement}
+                  momentFormat={config.momentFormat}
+                  hasCurrentDayButton={hasCurrentDayButton}
+                  onChange={setInputValue}
+                />
+              </Wrapper>
+            )}
+          </>
+        </MaskedInput>
+      )}
+    </HandleClickOutside>
+  );
+}
+
+export default React.memo(DatePicker);
 
 export { DatePickerMode } from "./config";
