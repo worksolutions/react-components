@@ -1,7 +1,6 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { storybookWrapper } from "storybookWrapper";
 import { selectControl } from "storyHelpers";
 
 import { ButtonInterface, ButtonSize, ButtonType } from "./index";
@@ -12,7 +11,6 @@ import { internalIcons } from "../Icon/list";
 export default {
   title: "Button",
   component: Button.type,
-  decorators: [storybookWrapper],
   argTypes: {
     type: selectControl(Object.keys(ButtonType)),
     size: selectControl(Object.keys(ButtonSize)),

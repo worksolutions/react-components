@@ -2,8 +2,9 @@ import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
 import { storybookWrapper } from "storybookWrapper";
+import { selectControl } from "storyHelpers";
+
 import { DatePicker, DatePickerInterface, DatePickerMode, RadioGroupSize } from "index";
-import { selectControl } from "../../storyHelpers";
 
 export default {
   title: "DatePicker",

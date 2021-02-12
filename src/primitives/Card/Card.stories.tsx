@@ -57,7 +57,7 @@ CardBlock.args = {
   size: CardStatusIconSize.SMALL,
   heading: "14 ноября 2020",
   title: "123asdasdasdah",
-  image: "https://worksolutions.ws-dev.ru/storage/xyPZWkUvlLlBf112dEbn2Q7U4ZLjnYDGjFYdEozz.png",
+  image: "https://worksolutions.ws-dev.ru/storage/KAhU7hcCaHkcjc0PHl3qx0uZFLxgNgbfLFK72mmu.png",
   aspectRatio: 1.6,
   id: 39,
 };

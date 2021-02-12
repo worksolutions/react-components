@@ -3,23 +3,16 @@ import { Story } from "@storybook/react/types-6-0";
 
 import { storybookWrapper } from "storybookWrapper";
 import { width } from "styles";
+import { selectControl } from "storyHelpers";
 
-import DropDown, { DropdownInterface } from "./index";
-import { selectControl } from "../../storyHelpers";
 
-enum InputSize {
-  MEDIUM = "medium",
-  LARGE = "large",
-}
-
-enum InputTitlePosition {
-  TOP,
-  LEFT,
-}
+import Dropdown, { DropdownInterface } from "./index";
+import {InputSize} from "../Input/Input";
+import {InputTitlePosition} from "../Input/InputWrapper";
 
 export default {
-  title: "DropDown",
-  component: DropDown,
+  title: "Dropdown",
+  component: Dropdown,
   decorators: [storybookWrapper],
   argTypes: {
     size: selectControl(Object.values(InputSize)),
@@ -29,7 +22,7 @@ export default {
 
 const Template: Story<DropdownInterface<string>> = (props) => {
   const [value, setValue] = React.useState<string | number | undefined>("new");
-  return <DropDown selectedItemCode={value} {...props} styles={[width(200), props.styles]} onChange={setValue} />;
+  return <Dropdown selectedItemCode={value} {...props} styles={[width(200), props.styles]} onChange={setValue} />;
 };
 
 export const Default = Template.bind({});
@@ -65,7 +58,7 @@ Default.args = {
 const TemplateError: Story<DropdownInterface<string>> = (props) => {
   const [value, setValue] = React.useState<string | number | undefined>("new");
   return (
-    <DropDown
+    <Dropdown
       {...props}
       selectedItemCode={value}
       styles={[width(200), props.styles]}
