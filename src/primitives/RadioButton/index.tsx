@@ -20,8 +20,6 @@ import {
   backgroundColor,
   boxShadow,
   fontSize,
-  lineHeight,
-  letterSpacing,
   color,
 } from "styles";
 
@@ -34,7 +32,6 @@ export type RadioButtonProps = {
   isChecked: boolean;
   error?: boolean;
   disabled?: boolean;
-  onChange: (value: boolean) => void;
 };
 
 function getRadioButtonStyles({ isChecked = false, error = false, disabled = false }) {
@@ -49,13 +46,12 @@ function getRadioButtonStyles({ isChecked = false, error = false, disabled = fal
   ];
 }
 
-function RadioButton({ text, isChecked, error, disabled, onChange: onChangeProp }: RadioButtonProps) {
+function RadioButton({ text, isChecked, error, disabled }: RadioButtonProps) {
   const styles = React.useMemo(() => getRadioButtonStyles({ isChecked, error, disabled }), [
     isChecked,
     error,
     disabled,
   ]);
-  const onChange = () => onChangeProp && !disabled && onChangeProp(!isChecked);
 
   return (
     <Wrapper styles={[fullWidth, height(24), padding(4), flex, jc("flex-start"), ai("center")]}>
@@ -74,14 +70,10 @@ function RadioButton({ text, isChecked, error, disabled, onChange: onChangeProp 
           styles,
         ]}
         disabled={disabled}
-        onClick={onChange}
       >
         {isChecked && <Icon width={16} height={16} icon="16-small-circle" color="white" />}
       </Wrapper>
-      <Typography
-        styles={[marginLeft(12), cursor("default"), fontSize(14), disabled && color("gray-blue/02")]}
-        onClick={onChange}
-      >
+      <Typography styles={[marginLeft(12), cursor("default"), fontSize(14), disabled && color("gray-blue/02")]}>
         {text}
       </Typography>
     </Wrapper>
