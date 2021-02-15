@@ -19,6 +19,8 @@ import {
   width,
   backgroundColor,
   left,
+  overflow,
+  maxWidth,
 } from "../../styles";
 
 import Wrapper from "../Wrapper";
