@@ -26,7 +26,7 @@ import Typography from "../Typography";
 import { duration160 } from "../../constants/durations";
 import { Colors } from "../..";
 
-interface ToggleInterface {
+export interface ToggleInterface {
   className?: string;
   styles?: any;
   textStyles?: any;

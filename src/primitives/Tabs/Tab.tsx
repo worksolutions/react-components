@@ -1,4 +1,6 @@
 import React from "react";
+import { makeExcludingDeepEqual } from "@worksolutions/utils";
+
 import {
   active,
   ai,
@@ -16,11 +18,9 @@ import {
   backgroundColor,
   color,
 } from "../../styles";
-
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import { duration160 } from "../../constants/durations";
-import { withPerformance } from "../../CB/changeDetectionStrategy/withPerformance";
 
 interface TabInterface {
   title: string;
@@ -59,4 +59,4 @@ function Tab({ active: activeProp, title, onClick }: TabInterface) {
   );
 }
 
-export default withPerformance(["onClick"])(Tab);
+export default React.memo(Tab, makeExcludingDeepEqual(["onClick"]));

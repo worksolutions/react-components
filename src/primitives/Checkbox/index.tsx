@@ -25,7 +25,7 @@ import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import Icon from "../Icon";
 
-type CheckboxProps = {
+export type CheckboxProps = {
   text: string;
   isChecked: boolean;
   onChange: (value: boolean) => void;
@@ -45,6 +45,7 @@ function getCheckboxStyles({ isChecked = false, error = false }) {
 function Checkbox({ text, isChecked, error, onChange: onChangeProp }: CheckboxProps) {
   const styles = React.useMemo(() => getCheckboxStyles({ isChecked, error }), [isChecked, error]);
   const onChange = () => onChangeProp(!isChecked);
+
   return (
     <Wrapper styles={[fullWidth, height(24), padding(4), flex, jc("flex-start"), ai("center")]}>
       <Wrapper

@@ -9,7 +9,7 @@ import InputWrapper, { BaseInputWrapperInterface, createDefaultInputStyles, Inpu
 
 import Token from "./Token";
 
-interface TokenListInterface<CODE extends string | number> extends Omit<BaseInputWrapperInterface, "size"> {
+export interface TokenListInterface<CODE extends string | number> extends Omit<BaseInputWrapperInterface, "size"> {
   placeholder?: string;
   styles?: any;
   items: SuggestInterface<CODE>[];

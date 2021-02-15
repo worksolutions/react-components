@@ -4,20 +4,21 @@ import { Story } from "@storybook/react/types-6-0";
 import { storybookWrapper } from "storybookWrapper";
 import { colorControl } from "storyHelpers";
 
-import Typography, { TypographyInterface } from "./index";
+import Spinner, { SpinnerInterface } from "./index";
 
 export default {
-  title: "Typography",
-  component: Typography.type,
+  title: "Loader",
+  component: Spinner.type,
   decorators: [storybookWrapper],
   argTypes: {
     color: colorControl(),
   },
 };
 
-const Template: Story<TypographyInterface> = (args) => <Typography {...args} />;
+const LoadTemplate: Story<SpinnerInterface> = (props) => <Spinner {...props} />;
 
-export const Default = Template.bind({});
-Default.args = {
-  children: "hello",
+export const Loader = LoadTemplate.bind({});
+
+Loader.args = {
+  color: "gray-blue/09",
 };

@@ -34,7 +34,7 @@ export enum RadioGroupSize {
   SMALL,
 }
 
-interface RadioGroupInterface<ITEM extends string | number> {
+export interface RadioGroupInterface<ITEM extends string | number> {
   styles?: any;
   active: ITEM;
   items: SuggestInterface<ITEM>[];

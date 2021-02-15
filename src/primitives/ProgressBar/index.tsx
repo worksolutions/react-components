@@ -22,7 +22,7 @@ import Wrapper from "../Wrapper";
 import { duration300 } from "../../constants/durations";
 import { Colors } from "../..";
 
-interface ProgressBarProps {
+export interface ProgressBarProps {
   value: number;
   styles?: any;
   barStyles?: any;

@@ -20,7 +20,7 @@ import Wrapper from "../Wrapper";
 import Tab, { tabHorizontalPadding } from "./Tab";
 import { duration160 } from "../../constants/durations";
 
-interface TabsInterface {
+export interface TabsInterface {
   styles?: any;
   activeIndex: number;
   setActiveIndex: (index: number) => void;

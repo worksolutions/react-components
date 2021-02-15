@@ -10,7 +10,7 @@ import {
   prepareEditorToCustomize,
 } from "./libs";
 
-interface EditorInterface {
+export interface EditorInterface {
   initialText: string;
   onChange: (text: string) => void;
   uploader: (file: File) => Promise<any>;

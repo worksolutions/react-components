@@ -4,9 +4,8 @@ import { preventDefault } from "@worksolutions/utils";
 import Wrapper from "../Wrapper";
 
 import ButtonWrapper, { BaseButtonWrapperInterface } from "./ButtonWrapper";
-import { ButtonType } from "./types";
 
-interface ButtonInterface extends BaseButtonWrapperInterface {
+export interface ButtonInterface extends BaseButtonWrapperInterface {
   tabIndex?: number;
   loadingText?: string;
   className?: string;

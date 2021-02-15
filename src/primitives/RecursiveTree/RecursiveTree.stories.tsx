@@ -1,10 +1,11 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
+import { storybookWrapper } from "storybookWrapper";
+import { width } from "styles";
+
 import RecursiveTree, { RecursiveTreeInterface } from "./index";
-import { storybookWrapper } from "../../storybookWrapper";
 import { injectLevelToRecursiveTreeItems, injectParentIdToRecursiveTreeItems } from "./RenderItem/libs";
-import { width } from "../../styles";
 
 export default {
   title: "Recursive tree",

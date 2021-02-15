@@ -1,8 +1,19 @@
 import { buildStyles } from "@worksolutions/react-utils";
 
-import { colors } from "./constants/colors";
+import {Colors, colors} from "./constants/colors";
 
 const styles = buildStyles(colors);
+
+export type AllAvailableColorsType = Colors;
+
+export type BoxShadow = [
+    number | string,
+    number | string,
+    number | string,
+    number | string,
+  AllAvailableColorsType,
+  boolean?,
+];
 
 export const getColor = styles.getColor;
 export const backgroundColor = styles.backgroundColor;
@@ -115,3 +126,10 @@ export const transform = styles.transform;
 export const transformOrigin = styles.transformOrigin;
 export const transition = styles.transition;
 export const order = styles.order;
+
+
+export function makeBorderBoxShadow([offsetX, offsetY, blurRadius, spread, color, inset]: BoxShadow) {
+  return `${inset ? "inset " : ""}${stringOrPixels(offsetX)} ${stringOrPixels(offsetY)} ${stringOrPixels(
+    blurRadius,
+  )} ${stringOrPixels(spread)} ${getColor(color)}`;
+}

@@ -3,7 +3,7 @@ import { preventDefault } from "@worksolutions/utils";
 
 import Wrapper, { WrapperInterface } from "../Wrapper";
 
-interface FormInterface extends WrapperInterface {
+export interface FormInterface extends WrapperInterface {
   children: React.ReactNode;
   onSubmit: () => void;
 }

@@ -16,7 +16,7 @@ export enum HintType {
   black,
 }
 
-interface HintInterface {
+export interface HintInterface {
   force?: boolean;
   text?: string | null;
   type?: HintType;

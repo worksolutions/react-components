@@ -23,7 +23,7 @@ import Icon from "../Icon";
 import Wrapper from "../Wrapper";
 import { duration160 } from "../../constants/durations";
 
-interface TokenInterface {
+export interface TokenInterface {
   title: string | number;
   styles?: any;
   canRemove?: boolean;
