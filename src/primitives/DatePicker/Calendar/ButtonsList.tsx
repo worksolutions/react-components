@@ -1,6 +1,7 @@
 import React, { CSSProperties, Ref } from "react";
 import { isNil } from "ramda";
 import { useScrollToElement } from "@worksolutions/react-utils";
+import { makeExcludingDeepEqual } from "@worksolutions/utils";
 
 import {
   alignContent,
@@ -31,7 +32,6 @@ import {
 import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
 
-import { withPerformance } from "../../../CB/changeDetectionStrategy/withPerformance";
 import { duration160 } from "../../../constants/durations";
 
 interface ButtonsListInterface {
@@ -54,13 +54,7 @@ const SelectedItem = React.memo(
   }),
 );
 
-const UnSelectedItem = withPerformance(["onClick"])(function ({
-  value,
-  onClick,
-}: {
-  value: string | number;
-  onClick: () => void;
-}) {
+const UnselectedItem = React.memo(function ({ value, onClick }: { value: string | number; onClick: () => void }) {
   return (
     <Wrapper
       as="button"
@@ -81,7 +75,7 @@ const UnSelectedItem = withPerformance(["onClick"])(function ({
       <Typography color="gray-blue/07">{value}</Typography>
     </Wrapper>
   );
-});
+}, makeExcludingDeepEqual(["onClick"]));
 
 function ButtonsList({ items, selectedItemIndex, onClick }: ButtonsListInterface) {
   const { run, scrollRef, scrollToElementRef } = useScrollToElement(true);
@@ -106,7 +100,7 @@ function ButtonsList({ items, selectedItemIndex, onClick }: ButtonsListInterface
         isNil(item) ? null : selectedItemIndex === index ? (
           <SelectedItem key={item} ref={scrollToElementRef} value={item} />
         ) : (
-          <UnSelectedItem key={item} value={item} onClick={() => onClick(index)} />
+          <UnselectedItem key={item} value={item} onClick={() => onClick(index)} />
         ),
       )}
     </Wrapper>

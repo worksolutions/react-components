@@ -13,7 +13,7 @@
     "typeRoots": [
       "./node_modules/@types"
     ],
-    "jsx": "preserve",
+    "jsx": "react",
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -27,7 +27,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "declaration": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "emitDeclarationOnly": true
   },
   "exclude": [
     "node_modules",
