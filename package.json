@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "format": "prettier --write --list-different \"src/**/*.{ts,tsx,js,json,yml}\"",
-    "build": "rm -rf dist && NODE_ENV=production && npm run build:babel && npm run build:ts && cp -R src/primitives/Icon/icons dist/primitives/Icon/icons",
+    "build": "rm -rf dist && cross-env NODE_ENV=production && npm run build:babel && npm run build:ts && cp -R src/primitives/Icon/icons dist/primitives/Icon/icons",
     "build:babel": "babel src -d dist --extensions '.ts,.tsx,.jsx,.js' --source-maps",
     "build:ts": "node_modules/typescript/bin/tsc",
     "prepublish": "npm run build",
@@ -26,6 +26,7 @@
     "@viewstools/use-masked-input": "^2.*",
     "@worksolutions/react-utils": "^1.0.16",
     "@worksolutions/utils": "^1.0.28",
+    "cross-env": "^7.0.3",
     "edelgarat-ckeditor5-custom-build": "0.0.1",
     "external-svg-sprite-loader": "^6.*",
     "history": "^4.*",
@@ -63,6 +64,6 @@
     "react-is": "^17.0.1",
     "sass-loader": "^10.1.0",
     "style-loader": "^2.0.0",
-    "typescript": "^4.*"
+    "typescript": "^4.1.5"
   }
 }
