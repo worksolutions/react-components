@@ -25,13 +25,14 @@ const RadioButtonsGroupTemplate: Story<{ items: any[] }> = ({ items }) => {
     </Wrapper>
   );
 };
+
 export const RadioButtonsGroup = RadioButtonsGroupTemplate.bind({});
 RadioButtonsGroup.args = {
   items: [
-    { text: "text1", value: "value1" },
-    { text: "text2", value: "value2" },
-    { text: "text3", value: "value3" },
-    { text: "text3", value: "value3", disabled: true },
-    { text: "text4", value: "value4", error: true },
+    { text: "text1" },
+    { text: "text2" },
+    { text: "text3" },
+    { text: "text3", disabled: true },
+    { text: "text4", error: true },
   ],
 };
