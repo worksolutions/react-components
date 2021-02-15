@@ -33,7 +33,7 @@ const actions: CardActionInterface[] = [
     handler: async () => console.log("asd"),
   },
 ];
-function setSizeStatuses(size: CardStatusIconSize): CardStatusInterface[] {
+function setSizeStatuses(size: any): CardStatusInterface[] {
   return [{ icon: "badge", color: "orange/05", hint: "Не опубликовано", size: size }];
 }
 
