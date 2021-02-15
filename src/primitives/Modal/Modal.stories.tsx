@@ -1,11 +1,12 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { storybookWrapper } from "../../storybookWrapper";
+import { storybookWrapper } from "storybookWrapper";
+import { Dropdown, horizontalPadding, Typography } from "index";
+
 import Modal from "./index";
 import { modalHorizontalPadding, ModalInterface, ModalSize } from "./ModalContent";
 import Button from "../Button";
-import { Dropdown, horizontalPadding, Typography } from "../../index";
 import Wrapper from "../Wrapper";
 
 export default {

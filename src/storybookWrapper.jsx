@@ -45,6 +45,7 @@ const intlDictionary = {
 
 setIntl(new INTL(intlDictionary));
 intl.init();
+
 export function storybookWrapper(Story) {
   return (
     <div className="ws-box" style={{ display: "flex" }}>

@@ -3,7 +3,7 @@ import { Story } from "@storybook/react/types-6-0";
 
 import { storybookWrapper } from "storybookWrapper";
 
-import CheckBox from "./index";
+import CheckBox, {CheckboxProps} from "./index";
 
 export default {
   title: "CheckBox",
@@ -11,14 +11,7 @@ export default {
   decorators: [storybookWrapper],
 };
 
-type CheckboxProps = {
-  text: string;
-  isChecked: boolean;
-  onChange: (value: boolean) => void;
-  error?: boolean;
-};
+const CheckBoxTemplate: Story<CheckboxProps> = (props) => <CheckBox {...props} />;
 
-const AspectRatioWrapperTemplate: Story<CheckboxProps> = (props) => <CheckBox {...props} />;
-
-export const Default = AspectRatioWrapperTemplate.bind({});
+export const Default = CheckBoxTemplate.bind({});
 Default.args = {};

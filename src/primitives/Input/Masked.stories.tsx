@@ -2,9 +2,9 @@ import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
 import { storybookWrapper } from "storybookWrapper";
+import { selectControl } from "storyHelpers";
 
 import MaskedInput, { InputSize, makeMask, MaskedInputInterface } from "./MaskedInput";
-import { selectControl } from "storyHelpers";
 
 import { internalIcons } from "../Icon/list";
 import { InputTitlePosition } from "./InputWrapper";
