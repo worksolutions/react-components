@@ -3,7 +3,7 @@ import { Story } from "@storybook/react/types-6-0";
 
 import { storybookWrapper } from "storybookWrapper";
 
-import CheckBox, {CheckboxProps} from "./index";
+import CheckBox, { CheckboxProps } from "./index";
 
 export default {
   title: "CheckBox",

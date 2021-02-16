@@ -3,9 +3,7 @@ import { css } from "styled-components";
 import { TypographyTypes } from "primitives/Typography";
 
 import { border, getColor, makeBorderBoxShadow } from "styles";
-import {htmlTextStyles} from "./htnlStyles";
-
-
+import { htmlTextStyles } from "./htnlStyles";
 
 export const editorStyles = css`
   .ck {

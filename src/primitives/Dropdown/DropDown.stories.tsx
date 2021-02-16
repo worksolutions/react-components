@@ -5,10 +5,9 @@ import { storybookWrapper } from "storybookWrapper";
 import { width } from "styles";
 import { selectControl } from "storyHelpers";
 
-
 import Dropdown, { DropdownInterface } from "./index";
-import {InputSize} from "../Input/Input";
-import {InputTitlePosition} from "../Input/InputWrapper";
+import { InputSize } from "../Input/Input";
+import { InputTitlePosition } from "../Input/InputWrapper";
 
 export default {
   title: "Dropdown",
