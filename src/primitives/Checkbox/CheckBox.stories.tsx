@@ -14,4 +14,5 @@ export default {
 const CheckBoxTemplate: Story<CheckboxProps> = (props) => <CheckBox {...props} />;
 
 export const Default = CheckBoxTemplate.bind({});
+
 Default.args = {};
