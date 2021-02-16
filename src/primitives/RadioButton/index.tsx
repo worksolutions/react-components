@@ -46,8 +46,8 @@ function getRadioButtonStyles({ isChecked = false, disabled = false, error = fal
       : [
           hover(backgroundColor(isChecked ? "blue/06" : "gray-blue/01")),
           active(backgroundColor(isChecked ? "blue/07" : "gray-blue/02")),
+          error && boxShadow([0, 0, 0, 2, "red/05"]),
         ],
-    !disabled && error && boxShadow([0, 0, 0, 2, "red/05"]),
   ];
 }
 
