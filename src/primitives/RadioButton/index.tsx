@@ -34,24 +34,35 @@ export type RadioButtonProps = {
   disabled?: boolean;
 };
 
-function getRadioButtonStyles({ isChecked = false, error = false, disabled = false }) {
+function getRadioButtonStyles({ isChecked = false, disabled = false, error = false }) {
   return [
-    !isChecked && boxShadow([0, 0, 0, 1, "gray-blue/03", true]),
-    backgroundColor(isChecked ? "blue/05" : "transparent"),
-    !disabled && hover(backgroundColor(isChecked ? "blue/06" : "gray-blue/01")),
-    !disabled && active(backgroundColor(isChecked ? "blue/07" : "gray-blue/02")),
-    error && boxShadow([0, 0, 0, 2, "red/05"]),
-    disabled && [backgroundColor("gray-blue/01"), boxShadow([0, 0, 0, 0, "transparent"]), cursor("default")],
-    isChecked && disabled && backgroundColor("blue/02"),
+    isChecked ? backgroundColor("blue/05") : boxShadow([0, 0, 0, 1, "gray-blue/03", true]),
+    disabled
+      ? [
+          backgroundColor(isChecked ? "blue/02" : "gray-blue/01"),
+          boxShadow([0, 0, 0, 0, "transparent"]),
+          cursor("default"),
+        ]
+      : [
+          hover(backgroundColor(isChecked ? "blue/06" : "gray-blue/01")),
+          active(backgroundColor(isChecked ? "blue/07" : "gray-blue/02")),
+        ],
+    !disabled && error && boxShadow([0, 0, 0, 2, "red/05"]),
   ];
 }
 
+function getRadioButtonTextStyle({ disabled = false }) {
+  return [disabled && color("gray-blue/02")];
+}
+
 function RadioButton({ text, isChecked, error, disabled }: RadioButtonProps) {
-  const styles = React.useMemo(() => getRadioButtonStyles({ isChecked, error, disabled }), [
+  const stylesButton = React.useMemo(() => getRadioButtonStyles({ isChecked, error, disabled }), [
     isChecked,
     error,
     disabled,
   ]);
+
+  const stylesText = React.useMemo(() => getRadioButtonTextStyle({ disabled }), [disabled]);
 
   return (
     <Wrapper styles={[fullWidth, height(24), padding(4), flex, jc("flex-start"), ai("center")]}>
@@ -67,15 +78,13 @@ function RadioButton({ text, isChecked, error, disabled }: RadioButtonProps) {
           borderRadius("50%"),
           pointer,
           focus(boxShadow([0, 0, 0, 2, "blue/04"])),
-          styles,
+          stylesButton,
         ]}
         disabled={disabled}
       >
         {isChecked && <Icon width={16} height={16} icon="16-small-circle" color="white" />}
       </Wrapper>
-      <Typography styles={[marginLeft(12), cursor("default"), fontSize(14), disabled && color("gray-blue/02")]}>
-        {text}
-      </Typography>
+      <Typography styles={[marginLeft(12), cursor("default"), fontSize(14), stylesText]}>{text}</Typography>
     </Wrapper>
   );
 }

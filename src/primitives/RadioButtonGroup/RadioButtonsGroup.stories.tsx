@@ -3,36 +3,33 @@ import { Story } from "@storybook/react/types-6-0";
 
 import { storybookWrapper } from "storybookWrapper";
 
-import RadioButton from "../RadioButton";
+import RadioButton, { RadioButtonProps } from "../RadioButton";
 import Wrapper from "../Wrapper";
 
 export default {
   title: "RadioButtonGroup",
+  component: RadioButton.type,
   decorators: [storybookWrapper],
 };
 
-const RadioButtonsGroupTemplate: Story<{ items: any[] }> = ({ items }) => {
+const RadioButtonsGroupTemplate: Story<RadioButtonProps> = () => {
   const [value, setValue] = useState("");
   return (
     <Wrapper>
-      {items.map((item) => {
-        return (
-          <Wrapper onClick={() => setValue(item.text)}>
-            <RadioButton text={item.text} disabled={item.disabled} error={item.error} isChecked={item.text === value} />
-          </Wrapper>
-        );
-      })}
+      <Wrapper onClick={() => setValue("text1")}>
+        <RadioButton text={"text1"} disabled={false} error={false} isChecked={"text1" === value} />
+      </Wrapper>
+      <Wrapper onClick={() => setValue("text2")}>
+        <RadioButton text={"text2"} disabled={false} error={false} isChecked={"text2" === value} />
+      </Wrapper>
+      <Wrapper onClick={() => setValue("text3")}>
+        <RadioButton text={"text3"} disabled={true} error={false} isChecked={"text3" === value} />
+      </Wrapper>
+      <Wrapper onClick={() => setValue("text4")}>
+        <RadioButton text={"text4"} disabled={false} error={true} isChecked={"text4" === value} />
+      </Wrapper>
     </Wrapper>
   );
 };
 
 export const RadioButtonsGroup = RadioButtonsGroupTemplate.bind({});
-RadioButtonsGroup.args = {
-  items: [
-    { text: "text1" },
-    { text: "text2" },
-    { text: "text3" },
-    { text: "text3", disabled: true },
-    { text: "text4", error: true },
-  ],
-};
