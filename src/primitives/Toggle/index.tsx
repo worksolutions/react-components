@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   ai,
   borderRadius,
@@ -19,11 +20,12 @@ import {
   backgroundColor,
   boxShadow,
   createAlphaColor,
-} from "../../styles";
+  mediaScreen,
+} from "styles";
+import { duration160 } from "constants/durations";
 
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
-import { duration160 } from "../../constants/durations";
 import { Colors } from "../..";
 
 export interface ToggleInterface {
@@ -35,6 +37,8 @@ export interface ToggleInterface {
   textOnRight?: boolean;
   onChange: (enabled: boolean) => void;
 }
+
+const tabletDownMedia = "(max-width: 768px)";
 
 function Toggle({ className, styles, enabled, text, textOnRight, textStyles, onChange }: ToggleInterface) {
   return (
@@ -59,6 +63,7 @@ function Toggle({ className, styles, enabled, text, textOnRight, textStyles, onC
           position("relative"),
           borderRadius(100),
           enabled ? backgroundColor("blue/05") : backgroundColor("gray-blue/02"),
+          mediaScreen(tabletDownMedia, [width(42), minWidth(42), height(24)]),
           styles,
         ]}
       >
@@ -76,7 +81,9 @@ function Toggle({ className, styles, enabled, text, textOnRight, textStyles, onC
             backgroundColor("white"),
             top(1),
             bottom(1),
-            enabled ? left(`calc(100% - 1px - 14px)`) : left(1),
+            enabled ? left(`calc(100% - 15px)`) : left(1),
+            mediaScreen(tabletDownMedia, enabled ? left(`calc(100% - 23px)`) : left(1)),
+            mediaScreen(tabletDownMedia, [width(22), height(22)]),
           ]}
         />
       </Wrapper>
