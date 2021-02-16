@@ -11,9 +11,10 @@ export default {
   decorators: [storybookWrapper],
 };
 
-const CheckBoxTemplate: Story<RadioButtonProps> = (props) => <RadioButton {...props} />;
+const RadioButtonTemplate: Story<RadioButtonProps> = (props) => <RadioButton {...props} />;
 
-export const Default = CheckBoxTemplate.bind({});
+export const Default = RadioButtonTemplate.bind({});
+
 Default.args = {
   text: "text",
 };
