@@ -46,6 +46,7 @@ export const internalIcons = {
   snowflake: require("./icons/asterisk.svg"),
   notes: require("./icons/notes.svg"),
   "save-indicator": require("./icons/save-indicator.svg"),
+  minus: require("./icons/minus.svg"),
 };
 
 export const expandedIcons: Record<string, string> = {};
