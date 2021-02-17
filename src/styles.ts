@@ -1,16 +1,16 @@
 import { buildStyles } from "@worksolutions/react-utils";
 
-import {Colors, colors} from "./constants/colors";
+import { Colors, colors } from "constants/colors";
 
 const styles = buildStyles(colors);
 
 export type AllAvailableColorsType = Colors;
 
 export type BoxShadow = [
-    number | string,
-    number | string,
-    number | string,
-    number | string,
+  number | string,
+  number | string,
+  number | string,
+  number | string,
   AllAvailableColorsType,
   boolean?,
 ];
@@ -127,9 +127,18 @@ export const transformOrigin = styles.transformOrigin;
 export const transition = styles.transition;
 export const order = styles.order;
 
-
 export function makeBorderBoxShadow([offsetX, offsetY, blurRadius, spread, color, inset]: BoxShadow) {
   return `${inset ? "inset " : ""}${stringOrPixels(offsetX)} ${stringOrPixels(offsetY)} ${stringOrPixels(
     blurRadius,
   )} ${stringOrPixels(spread)} ${getColor(color)}`;
+}
+
+export enum Aligns {
+  START = "flex-start",
+  END = "flex-end",
+  CENTER = "center",
+  SPACE_AROUND = "space-around",
+  SPACE_BETWEEN = "space-between",
+  STRETCH = "stretch",
+  BASELINE = "baseline",
 }
