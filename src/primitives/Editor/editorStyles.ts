@@ -2,8 +2,8 @@ import { css } from "styled-components";
 
 import { TypographyTypes } from "primitives/Typography";
 
-import { border, getColor, makeBorderBoxShadow } from "styles";
-import { htmlTextStyles } from "./htnlStyles";
+import { border, boxShadow, getColor } from "styles";
+import { htmlTextStyles } from "./htmlStyles";
 
 export const editorStyles = css`
   .ck {
@@ -168,7 +168,7 @@ export const editorStyles = css`
 
           &.ck-on {
             transition: border 50ms !important;
-            box-shadow: ${makeBorderBoxShadow([0, 0, 0, 2, "blue/04"])} !important;
+            box-shadow: ${boxShadow([0, 0, 0, 2, "blue/04"])} !important;
             background: ${getColor("gray-blue/01")} !important;
             .ck-icon.ck-dropdown__arrow {
               transform: rotate(180deg);

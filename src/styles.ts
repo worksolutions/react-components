@@ -126,9 +126,3 @@ export const transform = styles.transform;
 export const transformOrigin = styles.transformOrigin;
 export const transition = styles.transition;
 export const order = styles.order;
-
-export function makeBorderBoxShadow([offsetX, offsetY, blurRadius, spread, color, inset]: BoxShadow) {
-  return `${inset ? "inset " : ""}${stringOrPixels(offsetX)} ${stringOrPixels(offsetY)} ${stringOrPixels(
-    blurRadius,
-  )} ${stringOrPixels(spread)} ${getColor(color)}`;
-}
