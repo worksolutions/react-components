@@ -6,7 +6,7 @@ import { child, getColor } from "../../styles";
 
 import { Colors } from "constants/colors";
 
-enum Size {
+enum SpinnerSize {
   "extra-small",
   small,
   medium,
@@ -15,7 +15,7 @@ enum Size {
   "custom",
 }
 
-type SizeType = keyof typeof Size;
+type SizeType = keyof typeof SpinnerSize;
 
 type SizeWidth = {
   [key in Exclude<SizeType, "custom">]: number;
