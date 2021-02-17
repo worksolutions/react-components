@@ -23,8 +23,7 @@ import {
   transform,
   willChange,
 } from "styles";
-
-import { zIndex_toast } from "layout/zIndexes";
+import { zIndex_toast } from "constants/zIndexes";
 
 import { calcToastBottom, toastAnimations, toastHeight, toastMarginTop } from "./libs";
 
