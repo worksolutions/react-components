@@ -6,7 +6,7 @@ import { child, getColor } from "../../styles";
 
 import { Colors } from "constants/colors";
 
-enum SpinnerSize {
+export enum SpinnerSize {
   "extra-small",
   small,
   medium,
