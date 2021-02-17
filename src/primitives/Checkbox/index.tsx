@@ -112,10 +112,11 @@ function Checkbox({
   indeterminate = false,
   size = "medium",
 }: CheckboxProps) {
-  const styles = React.useMemo(
-    () => getCheckboxStyles({ checked, error, disabled, indeterminate } as CheckboxProps),
-    [checked, error, disabled],
-  );
+  const styles = React.useMemo(() => getCheckboxStyles({ checked, error, disabled, indeterminate } as CheckboxProps), [
+    checked,
+    error,
+    disabled,
+  ]);
 
   const onChange = React.useCallback(() => onChangeProp(!checked), [onChangeProp]);
   const currentSizeStyles = sizeStyles[size];

@@ -53,7 +53,7 @@ const StyledSpinner = styled.div.attrs({ className: "loader" })<Required<Spinner
 
 const Spinner = function (props: SpinnerInterface) {
   return (
-    <StyledSpinner {...(props as any)} size={props.size || 'medium'}>
+    <StyledSpinner {...(props as any)} size={props.size || "medium"}>
       <svg className="circular" viewBox="25 25 50 50">
         <circle className="path" cx="50" cy="50" r="20" fill="none" strokeWidth="2" strokeMiterlimit="10" />
       </svg>
