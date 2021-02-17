@@ -32,11 +32,11 @@ const TemplateDefault: Story<ToastPropsInterface & ToastStoriesInterface> = (pro
     );
   }
 
-  return props.haveCancelButton ? (
-    <Toast {...props} text={actionText} cancelButton={cancelButton} removeToast={() => setOpened(false)} />
-  ) : (
-    <Toast {...props} text={actionText} removeToast={() => setOpened(false)} />
-  );
+  if (props.haveCancelButton) {
+    return <Toast {...props} text={actionText} cancelButton={cancelButton} removeToast={() => setOpened(false)} />;
+  }
+
+  return <Toast {...props} text={actionText} removeToast={() => setOpened(false)} />;
 };
 
 export const Default = TemplateDefault.bind({});
