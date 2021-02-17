@@ -14,21 +14,28 @@ export default {
 
 interface ToastStoriesInterface {
   cancelText: string;
+  haveCancelButton: boolean;
 }
 
 const TemplateDefault: Story<ToastPropsInterface & ToastStoriesInterface> = (props) => {
   const [actionText, setActionText] = React.useState(props.text);
-  const [isOpenToast, setOpenToast] = React.useState(true);
+  const [isOpened, setOpened] = React.useState(true);
 
   const cancelButton = {
     text: props.cancelText,
     onClick: () => setActionText("Действие отменено"),
   };
 
-  return isOpenToast ? (
-    <Toast {...props} text={actionText} cancelButton={cancelButton} removeToast={() => setOpenToast(false)} />
+  if (!isOpened) {
+    return (
+      <Wrapper styles={[marginTop(40), left("50%"), position("fixed"), transform("translateX(-50%)")]}>Удален</Wrapper>
+    );
+  }
+
+  return props.haveCancelButton ? (
+    <Toast {...props} text={actionText} cancelButton={cancelButton} removeToast={() => setOpened(false)} />
   ) : (
-    <Wrapper styles={[marginTop(40), left("50%"), position("fixed"), transform("translateX(-50%)")]}>Удален</Wrapper>
+    <Toast {...props} text={actionText} removeToast={() => setOpened(false)} />
   );
 };
 
@@ -38,13 +45,5 @@ Default.args = {
   text: "Удаление 214124 файлов",
   cancelText: "Не удалять",
   error: false,
-};
-
-const Template: Story<ToastPropsInterface> = (props) => <Toast {...props} />;
-
-export const Error = Template.bind({});
-
-Error.args = {
-  error: true,
-  text: "Ошибка",
+  haveCancelButton: true,
 };

@@ -132,13 +132,3 @@ export function makeBorderBoxShadow([offsetX, offsetY, blurRadius, spread, color
     blurRadius,
   )} ${stringOrPixels(spread)} ${getColor(color)}`;
 }
-
-export enum Aligns {
-  START = "flex-start",
-  END = "flex-end",
-  CENTER = "center",
-  SPACE_AROUND = "space-around",
-  SPACE_BETWEEN = "space-between",
-  STRETCH = "stretch",
-  BASELINE = "baseline",
-}

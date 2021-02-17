@@ -1,4 +1,5 @@
 import { keyframes } from "styled-components";
+import { identity, memoizeWith } from "ramda";
 import { duration300, duration300Number } from "constants/durations";
 
 const defaultAutoRemoveTime = 4000;
@@ -35,4 +36,7 @@ export const toastAnimations = {
   },
 };
 
-export const calcToastBottom = (index: number) => index * (toastMarginTop + toastHeight) + firstToastBottom;
+export const calcToastBottom = memoizeWith(
+  identity as any,
+  (index: number) => index * (toastMarginTop + toastHeight) + firstToastBottom,
+);

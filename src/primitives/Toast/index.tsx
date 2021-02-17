@@ -1,4 +1,5 @@
 import React from "react";
+import { makeExcludingDeepEqual } from "@worksolutions/utils";
 
 import Wrapper from "primitives/Wrapper";
 import Typography from "primitives/Typography";
@@ -6,7 +7,6 @@ import Button, { ButtonSize, ButtonType } from "primitives/Button";
 
 import {
   ai,
-  Aligns,
   animation,
   backgroundColor,
   border,
@@ -25,11 +25,17 @@ import {
 } from "styles";
 
 import { zIndex_toast } from "layout/zIndexes";
-import areEqualWithIgnorePropNames from "CB/changeDetectionStrategy/performance/areEqualWithIgnorePropNames";
 
 import { calcToastBottom, toastAnimations, toastHeight, toastMarginTop } from "./libs";
 
-import { BaseToastInterface } from "../globalEventBus";
+interface BaseToastInterface {
+  text: string;
+  error?: boolean;
+  cancelButton?: {
+    text: string;
+    onClick: () => void;
+  };
+}
 
 export interface ToastPropsInterface extends BaseToastInterface {
   index: number;
@@ -41,7 +47,7 @@ function Toast({ index, text, error, cancelButton, removeToast }: ToastPropsInte
     <Wrapper
       styles={[
         flex,
-        jc(Aligns.CENTER),
+        jc("center"),
         left("50%"),
         height(toastHeight),
         position("fixed"),
@@ -59,7 +65,7 @@ function Toast({ index, text, error, cancelButton, removeToast }: ToastPropsInte
           borderRadius(6),
           border(1, error ? "red/05" : "gray-blue/02"),
           flex,
-          ai(Aligns.CENTER),
+          ai("center"),
           horizontalPadding(16),
         ]}
       >
@@ -80,4 +86,4 @@ function Toast({ index, text, error, cancelButton, removeToast }: ToastPropsInte
   );
 }
 
-export default React.memo<ToastPropsInterface>(Toast, areEqualWithIgnorePropNames(["index", "removeToast"]));
+export default React.memo(Toast, makeExcludingDeepEqual(["index", "removeToast"]));
