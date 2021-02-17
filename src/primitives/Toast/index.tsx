@@ -80,7 +80,4 @@ function Toast({ index, text, error, cancelButton, removeToast }: ToastPropsInte
   );
 }
 
-export default React.memo<ToastPropsInterface>(
-  Toast,
-  areEqualWithIgnorePropNames<ToastPropsInterface>(["index", "removeToast"]),
-);
+export default React.memo<ToastPropsInterface>(Toast, areEqualWithIgnorePropNames(["index", "removeToast"]));
