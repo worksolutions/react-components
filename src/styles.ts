@@ -1,6 +1,6 @@
 import { buildStyles } from "@worksolutions/react-utils";
 
-import { Colors, colors } from "./constants/colors";
+import { Colors, colors } from "constants/colors";
 
 const styles = buildStyles(colors);
 
