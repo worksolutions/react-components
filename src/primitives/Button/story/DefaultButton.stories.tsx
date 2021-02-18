@@ -4,12 +4,13 @@ import { Story } from "@storybook/react/types-6-0";
 import { storybookWrapper } from "storybookWrapper";
 import { selectControl } from "storyHelpers";
 
-import Button, { ButtonInterface, ButtonSize, ButtonType } from "../index";
+import { ButtonInterface, ButtonSize, ButtonType } from "../index";
+import Button from "../index";
 
 import { internalIcons } from "../../Icon/list";
 
 export default {
-  title: "Button/Secondary",
+  title: "Button",
   component: Button.type,
   decorators: [storybookWrapper],
   argTypes: {
@@ -22,26 +23,9 @@ export default {
 
 const ButtonTemplate: Story<ButtonInterface> = (props) => <Button {...props} />;
 
-export const SecondaryButtonLeftIconLarge = ButtonTemplate.bind({});
-export const SecondaryButtonRightIconMedium = ButtonTemplate.bind({});
-export const SecondaryButtonRightIconSmall = ButtonTemplate.bind({});
+export const DefaultButton = ButtonTemplate.bind({});
 
-SecondaryButtonLeftIconLarge.args = {
+DefaultButton.args = {
   children: "hello",
-  type: ButtonType.SECONDARY,
   size: ButtonSize.LARGE,
-  iconLeft: "alert",
-};
-
-SecondaryButtonRightIconMedium.args = {
-  children: "hello",
-  type: ButtonType.SECONDARY,
-  size: ButtonSize.MEDIUM,
-  iconRight: "alert",
-};
-
-SecondaryButtonRightIconSmall.args = {
-  type: ButtonType.SECONDARY,
-  children: "hello",
-  size: ButtonSize.SMALL,
-};
+} as ButtonInterface;

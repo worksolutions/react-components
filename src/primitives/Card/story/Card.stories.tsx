@@ -4,7 +4,7 @@ import { Story } from "@storybook/react/types-6-0";
 import { storybookWrapper } from "storybookWrapper";
 import { numbersControl, selectControl } from "storyHelpers";
 
-import Card, { CardActionInterface, CardComponentInterface, CardStatusIconSize, CardStatusInterface } from "./index";
+import Card, { CardActionInterface, CardComponentInterface, CardStatusIconSize, CardStatusInterface } from "../index";
 
 export default {
   title: "Card",

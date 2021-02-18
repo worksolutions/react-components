@@ -2,7 +2,7 @@ import React from "react";
 import { INTL, wordDeclination } from "@worksolutions/utils";
 import { createBrowserHistory } from "history";
 import { Router } from "react-router-dom";
-import { Story } from "@storybook/react/types-6-0";
+import { Story, StoryContext } from "@storybook/react/types-6-0";
 import { IntlDictionaryInterface } from "@worksolutions/utils";
 
 import { TypographyGlobalStyle } from "./primitives/Typography";

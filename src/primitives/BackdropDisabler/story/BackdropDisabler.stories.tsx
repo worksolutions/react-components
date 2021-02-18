@@ -5,10 +5,10 @@ import { backgroundColor } from "styles";
 
 import { colorControl } from "storyHelpers";
 
-import BackdropDisabler from "./index";
+import BackdropDisabler from "../index";
 
 export default {
-  title: "BackdropDisabler",
+  title: "Backdrop Disabler",
   argTypes: {
     color: colorControl(),
   },
