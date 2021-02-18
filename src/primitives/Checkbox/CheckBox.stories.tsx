@@ -11,7 +11,7 @@ export default {
   component: CheckBox.type,
   decorators: [storybookWrapper],
   argTypes: {
-    size: selectControl([CheckboxSize.medium, CheckboxSize.large])
+    size: selectControl(Object.keys(CheckboxSize))
   },
 };
 
@@ -19,4 +19,6 @@ const CheckBoxTemplate: Story<CheckboxProps> = (props) => <CheckBox {...props} /
 
 export const Default = CheckBoxTemplate.bind({});
 
-Default.args = {};
+Default.args = {
+  size: CheckboxSize.medium
+};

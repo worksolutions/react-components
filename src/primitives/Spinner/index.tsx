@@ -51,13 +51,6 @@ const StyledSpinner = styled.div.attrs({ className: "loader" })<Required<Spinner
 `;
 
 const Spinner = function ({size = SpinnerSize.medium, ...props}: SpinnerInterface) {
-  // if (!size) {
-  //   size = SpinnerSize.medium;
-  // }
-
-  console.log('from default props', size);
-  console.log('direct', SpinnerSize.medium);
-
   return (
     <StyledSpinner {...(props as any)} size={size}>
       <svg className="circular" viewBox="25 25 50 50">

@@ -91,7 +91,7 @@ function Checkbox({
   disabled = false,
   required = false,
   indeterminate = false,
-  size,
+  size = CheckboxSize.medium,
 }: CheckboxProps) {
   const styles = React.useMemo(() => getCheckboxStyles({ checked, error, disabled, indeterminate }), [
     checked,
@@ -99,10 +99,8 @@ function Checkbox({
     disabled,
   ]);
 
-  const checkboxSize = size || CheckboxSize.medium;
-
   const onChangeHandler = React.useCallback(() => onChange(!checked), [onChange]);
-  const currentSize = sizes[checkboxSize];
+  const currentSize = sizes[size];
 
   return (
     <Wrapper styles={[fullWidth, height(24), padding(4), flex, jc("flex-start"), ai("center")]}>

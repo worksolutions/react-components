@@ -17,10 +17,15 @@ export default {
   },
 };
 
-const LoadTemplate: Story<SpinnerInterface> = (props) => <Spinner {...props} />;
+const LoadTemplate: Story<SpinnerInterface> = (props) => {
+  return (
+    <Spinner {...props} />
+  )
+};
 
 export const Loader = LoadTemplate.bind({});
 
 Loader.args = {
   color: "gray-blue/09",
+  size: SpinnerSize.medium
 };
