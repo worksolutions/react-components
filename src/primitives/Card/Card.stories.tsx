@@ -4,10 +4,7 @@ import { Story } from "@storybook/react/types-6-0";
 import { storybookWrapper } from "storybookWrapper";
 import { numbersControl, selectControl } from "storyHelpers";
 
-import { CardActionInterface, CardComponentInterface, CardStatusIconSize, CardStatusInterface } from "./index";
-import Card from "./index";
-import { backgroundColor, child, content, height, position, width } from "../../styles";
-import { TypographyLink } from "../../index";
+import Card, { CardActionInterface, CardComponentInterface, CardStatusIconSize, CardStatusInterface } from "./index";
 
 export default {
   title: "Card",
@@ -51,20 +48,6 @@ const CardTemplate: Story<CardComponentInterface & Record<string, any>> = (card)
     imageConfig: setImageConfig(card.aspectRatio),
   };
 
-  return (
-    <TypographyLink
-      to="asd"
-      styles={[
-        width(200),
-        height(200),
-        backgroundColor("blue/04"),
-        position("relative"),
-        child([content(""), position("absolute"), backgroundColor("red/08"), width(20), height(20)], ":after"),
-      ]}
-    >
-      123
-    </TypographyLink>
-  );
   return <Card {...props} />;
 };
 
