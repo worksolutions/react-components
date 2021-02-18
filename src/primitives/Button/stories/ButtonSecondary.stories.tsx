@@ -4,13 +4,12 @@ import { Story } from "@storybook/react/types-6-0";
 import { storybookWrapper } from "storybookWrapper";
 import { selectControl } from "storyHelpers";
 
-import { ButtonInterface, ButtonSize, ButtonType } from "./index";
-import Button from "./index";
+import Button, { ButtonInterface, ButtonSize, ButtonType } from "../index";
 
-import { internalIcons } from "../Icon/list";
+import { internalIcons } from "../../Icon/list";
 
 export default {
-  title: "Button",
+  title: "Button/Secondary",
   component: Button.type,
   decorators: [storybookWrapper],
   argTypes: {
@@ -23,31 +22,26 @@ export default {
 
 const ButtonTemplate: Story<ButtonInterface> = (props) => <Button {...props} />;
 
-export const LoadingButtonLeftIconLarge = ButtonTemplate.bind({});
-export const LoadingButtonRightIconMedium = ButtonTemplate.bind({});
-export const LoadingButtonRightIconSmall = ButtonTemplate.bind({});
+export const SecondaryButtonLeftIconLarge = ButtonTemplate.bind({});
+export const SecondaryButtonRightIconMedium = ButtonTemplate.bind({});
+export const SecondaryButtonRightIconSmall = ButtonTemplate.bind({});
 
-LoadingButtonLeftIconLarge.args = {
+SecondaryButtonLeftIconLarge.args = {
   children: "hello",
-  loadingRight: true,
   type: ButtonType.SECONDARY,
   size: ButtonSize.LARGE,
   iconLeft: "alert",
 };
 
-LoadingButtonRightIconMedium.args = {
+SecondaryButtonRightIconMedium.args = {
   children: "hello",
-  type: ButtonType.PRIMARY,
-  disabled: true,
-  loadingRight: true,
+  type: ButtonType.SECONDARY,
   size: ButtonSize.MEDIUM,
   iconRight: "alert",
 };
 
-LoadingButtonRightIconSmall.args = {
+SecondaryButtonRightIconSmall.args = {
+  type: ButtonType.SECONDARY,
   children: "hello",
-  type: ButtonType.GHOST,
-  disabled: true,
-  loadingRight: true,
   size: ButtonSize.SMALL,
 };

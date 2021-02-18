@@ -2,12 +2,14 @@ import React from "react";
 import { INTL, wordDeclination } from "@worksolutions/utils";
 import { createBrowserHistory } from "history";
 import { Router } from "react-router-dom";
+import { Story } from "@storybook/react/types-6-0";
+import { IntlDictionaryInterface } from "@worksolutions/utils";
 
 import { TypographyGlobalStyle } from "./primitives/Typography";
 import "./styles/index.scss";
 import { intl, setIntl } from "./intl";
 
-const intlDictionary = {
+const intlDictionary: IntlDictionaryInterface = {
   momentLanguageCode: "ru",
   dateConverterMap: {
     DAY_WITH_STRING_MONTH: "DD MMMM",
@@ -50,7 +52,7 @@ intl.init();
 
 export const browserHistory = createBrowserHistory();
 
-export function storybookWrapper(Story) {
+export function storybookWrapper(Story: Story) {
   return (
     <div className="ws-box" style={{ display: "flex" }}>
       <TypographyGlobalStyle />

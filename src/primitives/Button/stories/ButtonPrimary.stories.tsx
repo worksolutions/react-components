@@ -1,16 +1,18 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
+import { storybookWrapper } from "storybookWrapper";
 import { selectControl } from "storyHelpers";
 
-import { ButtonInterface, ButtonSize, ButtonType } from "./index";
-import Button from "./index";
+import { ButtonInterface, ButtonSize, ButtonType } from "../index";
+import Button from "../index";
 
-import { internalIcons } from "../Icon/list";
+import { internalIcons } from "../../Icon/list";
 
 export default {
-  title: "Button",
+  title: "Button/Primary",
   component: Button.type,
+  decorators: [storybookWrapper],
   argTypes: {
     type: selectControl(Object.keys(ButtonType)),
     size: selectControl(Object.keys(ButtonSize)),
@@ -21,26 +23,23 @@ export default {
 
 const ButtonTemplate: Story<ButtonInterface> = (props) => <Button {...props} />;
 
-export const GhostButtonLeftIconLarge = ButtonTemplate.bind({});
-export const GhostButtonRightIconMedium = ButtonTemplate.bind({});
-export const GhostButtonRightIconSmall = ButtonTemplate.bind({});
+export const PrimaryButtonLeftIconLarge = ButtonTemplate.bind({});
+export const PrimaryButtonRightIconMedium = ButtonTemplate.bind({});
+export const PrimaryButtonRightIconSmall = ButtonTemplate.bind({});
 
-GhostButtonLeftIconLarge.args = {
+PrimaryButtonLeftIconLarge.args = {
   children: "hello",
-  type: ButtonType.GHOST,
   size: ButtonSize.LARGE,
   iconLeft: "alert",
 };
 
-GhostButtonRightIconMedium.args = {
+PrimaryButtonRightIconMedium.args = {
   children: "hello",
-  type: ButtonType.GHOST,
   size: ButtonSize.MEDIUM,
   iconRight: "alert",
 };
 
-GhostButtonRightIconSmall.args = {
+PrimaryButtonRightIconSmall.args = {
   children: "hello",
-  type: ButtonType.GHOST,
   size: ButtonSize.SMALL,
 };
