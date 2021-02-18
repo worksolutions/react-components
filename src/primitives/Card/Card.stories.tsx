@@ -4,8 +4,7 @@ import { Story } from "@storybook/react/types-6-0";
 import { storybookWrapper } from "storybookWrapper";
 import { numbersControl, selectControl } from "storyHelpers";
 
-import { CardActionInterface, CardComponentInterface, CardStatusIconSize, CardStatusInterface } from "./index";
-import Card from "./index";
+import Card, { CardActionInterface, CardComponentInterface, CardStatusIconSize, CardStatusInterface } from "./index";
 
 export default {
   title: "Card",
@@ -48,6 +47,7 @@ const CardTemplate: Story<CardComponentInterface & Record<string, any>> = (card)
     statuses: setSizeStatuses(card.size),
     imageConfig: setImageConfig(card.aspectRatio),
   };
+
   return <Card {...props} />;
 };
 

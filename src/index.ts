@@ -72,9 +72,6 @@ export * from "./primitives/Input/Password";
 export { default as LayoutGrid } from "./primitives/LayoutGrid";
 export * from "./primitives/LayoutGrid";
 
-export { default as LinkWrapper } from "./primitives/LinkWrapper";
-export * from "./primitives/LinkWrapper";
-
 export { default as List } from "./primitives/List";
 export * from "./primitives/List";
 

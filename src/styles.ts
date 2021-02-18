@@ -1,6 +1,6 @@
 import { buildStyles } from "@worksolutions/react-utils";
 
-import { Colors, colors } from "./constants/colors";
+import { Colors, colors } from "constants/colors";
 
 const styles = buildStyles(colors);
 
@@ -51,7 +51,6 @@ export const child = styles.child;
 export const firstChild = styles.firstChild;
 export const lastChild = styles.lastChild;
 export const nthChild = styles.nthChild;
-export const stylesForSelector = styles.stylesForSelector;
 export const borderNone = styles.borderNone;
 export const emptyBoxShadow = styles.emptyBoxShadow;
 export const stringOrPixels = styles.stringOrPixels;
