@@ -24,7 +24,7 @@
     "@types/react-router-dom": "^5.*",
     "@types/uuid": "^8.*",
     "@viewstools/use-masked-input": "^2.*",
-    "@worksolutions/react-utils": "^1.0.18",
+    "@worksolutions/react-utils": "^1.0.19",
     "@worksolutions/utils": "^1.0.28",
     "cross-env": "^7.0.3",
     "edelgarat-ckeditor5-custom-build": "0.0.1",

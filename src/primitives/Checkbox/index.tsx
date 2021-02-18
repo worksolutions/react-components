@@ -27,18 +27,15 @@ import {
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import Icon from "../Icon";
+import { duration200 } from "../..";
 
-enum Size {
-  small = "small",
+export enum CheckboxSize {
   medium = "medium",
   large = "large",
-  "extra-large" = "extra-large",
 }
 
-type SizeType = keyof typeof Size;
-
 type SizeStyles = {
-  [key in SizeType]: {
+  [key in CheckboxSize]: {
     width: number;
     height: number;
     borderRadius: number;
@@ -46,30 +43,18 @@ type SizeStyles = {
   };
 };
 
-const sizeStyles: SizeStyles = {
-  small: {
-    width: 10,
-    height: 10,
-    borderRadius: 2,
-    fontSize: 12,
-  },
+const sizes: SizeStyles = {
   medium: {
     width: 16,
     height: 16,
-    borderRadius: 4,
+    borderRadius: 2,
     fontSize: 14,
   },
   large: {
     width: 20,
     height: 20,
-    borderRadius: 5,
+    borderRadius: 2,
     fontSize: 16,
-  },
-  "extra-large": {
-    width: 24,
-    height: 24,
-    borderRadius: 6,
-    fontSize: 18,
   },
 };
 
@@ -79,17 +64,17 @@ export interface CheckboxProps {
   onChange: (value: boolean) => void;
   error?: boolean;
   disabled?: boolean;
-  isRequired?: boolean;
-  size?: SizeType;
+  required?: boolean;
+  size?: CheckboxSize;
   indeterminate?: boolean;
 }
 
-function getCheckboxStyles({ checked, error, disabled, indeterminate }: CheckboxProps) {
+function getCheckboxStyles({ checked, error, disabled, indeterminate }: Pick<CheckboxProps, "checked" | "error" | "disabled" | "indeterminate">) {
   const notUnchecked = checked || indeterminate;
   const enabled = !disabled;
 
   return [
-    !checked && enabled && boxShadow([0, 0, 0, 1, "gray-blue/03", true]),
+    !checked && !indeterminate && enabled && boxShadow([0, 0, 0, 1, "gray-blue/03", true]),
     backgroundColor(disabled ? "gray-blue/02" : notUnchecked ? "blue/05" : "transparent"),
     hover(backgroundColor(notUnchecked ? "blue/06" : "gray-blue/01")),
     focus(!error ? boxShadow([0, 0, 0, 2, "blue/04"]) : boxShadow([0, 0, 0, 2, "red/05"])),
@@ -102,33 +87,35 @@ function Checkbox({
   text,
   checked = false,
   error,
-  onChange: onChangeProp,
+  onChange,
   disabled = false,
-  isRequired = false,
+  required = false,
   indeterminate = false,
-  size = "medium",
+  size,
 }: CheckboxProps) {
-  const styles = React.useMemo(() => getCheckboxStyles({ checked, error, disabled, indeterminate } as CheckboxProps), [
+  const styles = React.useMemo(() => getCheckboxStyles({ checked, error, disabled, indeterminate }), [
     checked,
     error,
     disabled,
   ]);
 
-  const onChange = React.useCallback(() => onChangeProp(!checked), [onChangeProp]);
-  const currentSizeStyles = sizeStyles[size];
+  const checkboxSize = size || CheckboxSize.medium;
+
+  const onChangeHandler = React.useCallback(() => onChange(!checked), [onChange]);
+  const currentSize = sizes[checkboxSize];
 
   return (
     <Wrapper styles={[fullWidth, height(24), padding(4), flex, jc("flex-start"), ai("center")]}>
       <Wrapper
         as="label"
         styles={[
-          transition("box-shadow 0.2s"),
+          transition(`box-shadow ${duration200}`),
           padding(0),
           disableOutline,
           borderNone,
-          width(currentSizeStyles.width),
-          height(currentSizeStyles.height),
-          borderRadius(currentSizeStyles.borderRadius),
+          width(currentSize.width),
+          height(currentSize.height),
+          borderRadius(currentSize.borderRadius),
           pointer,
           pointerEvents(disabled ? "none" : "auto"),
           styles,
@@ -136,10 +123,10 @@ function Checkbox({
         tabIndex={0}
       >
         {checked && !indeterminate && (
-          <Icon width={currentSizeStyles.width} height={currentSizeStyles.height} icon="check" color="white" />
+          <Icon width={currentSize.width} height={currentSize.height} icon="check" color="white" />
         )}
         {indeterminate && (
-          <Icon width={currentSizeStyles.width} height={currentSizeStyles.height} icon="minus" color="white" />
+          <Icon width={currentSize.width} height={currentSize.height} icon="minus" color="white" />
         )}
       </Wrapper>
       <Typography
@@ -148,12 +135,12 @@ function Checkbox({
           disabled
             ? [pointerEvents("none"), cursor("default"), color("gray-blue/02")]
             : [pointerEvents("auto"), cursor("pointer"), color("gray-blue/09")],
-          fontSize(currentSizeStyles.fontSize),
+          fontSize(currentSize.fontSize),
         ]}
-        onClick={onChange}
+        onClick={onChangeHandler}
       >
         {text}
-        {isRequired && !!text && <Typography styles={[color("red/05")]}>*</Typography>}
+        {required && !!text && <Typography styles={color("red/05")}>*</Typography>}
       </Typography>
     </Wrapper>
   );

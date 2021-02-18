@@ -2,7 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { memoizeWith } from "ramda";
 import { string2 } from "@worksolutions/utils";
-import { child, getColor } from "../../styles";
+import { child, getColor } from "styles";
 
 import { Colors } from "constants/colors";
 
@@ -23,7 +23,7 @@ const sizeWidth: SizeWidth = {
   "extra-small": 10,
   small: 14,
   medium: 24,
-  large: 45,
+  large: 44,
   "extra-large": 90,
 };
 
@@ -38,6 +38,7 @@ const getSpinnerWidth = memoizeWith(string2, (size: SpinnerSize, width: number) 
   if (size === "custom") {
     return width;
   }
+
   return sizeWidth[size];
 });
 
@@ -49,9 +50,16 @@ const StyledSpinner = styled.div.attrs({ className: "loader" })<Required<Spinner
   }
 `;
 
-const Spinner = function (props: SpinnerInterface) {
+const Spinner = function ({size = SpinnerSize.medium, ...props}: SpinnerInterface) {
+  // if (!size) {
+  //   size = SpinnerSize.medium;
+  // }
+
+  console.log('from default props', size);
+  console.log('direct', SpinnerSize.medium);
+
   return (
-    <StyledSpinner {...(props as any)} size={props.size || "medium"}>
+    <StyledSpinner {...(props as any)} size={size}>
       <svg className="circular" viewBox="25 25 50 50">
         <circle className="path" cx="50" cy="50" r="20" fill="none" strokeWidth="2" strokeMiterlimit="10" />
       </svg>
