@@ -7,18 +7,16 @@ import { child, getColor } from "../../styles";
 import { Colors } from "constants/colors";
 
 export enum SpinnerSize {
-  "extra-small",
-  small,
-  medium,
-  large,
-  "extra-large",
-  "custom",
+  "extra-small" = "extra-small",
+  small = "small",
+  medium = "medium",
+  large = "large",
+  "extra-large" = "extra-large",
+  "custom" = "custom",
 }
 
-type SizeType = keyof typeof SpinnerSize;
-
 type SizeWidth = {
-  [key in Exclude<SizeType, "custom">]: number;
+  [key in Exclude<SpinnerSize, "custom">]: number;
 };
 
 const sizeWidth: SizeWidth = {
@@ -32,11 +30,11 @@ const sizeWidth: SizeWidth = {
 export interface SpinnerInterface {
   color?: Colors;
   className?: string;
-  size?: SizeType;
+  size?: SpinnerSize;
   width?: number;
 }
 
-const getSpinnerWidth = memoizeWith(string2, (size: SizeType, width: number) => {
+const getSpinnerWidth = memoizeWith(string2, (size: SpinnerSize, width: number) => {
   if (size === "custom") {
     return width;
   }

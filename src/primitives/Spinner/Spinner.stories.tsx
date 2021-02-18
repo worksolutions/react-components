@@ -4,7 +4,7 @@ import { Story } from "@storybook/react/types-6-0";
 import { storybookWrapper } from "storybookWrapper";
 import { colorControl } from "storyHelpers";
 
-import Spinner, { SpinnerInterface } from "./index";
+import Spinner, { SpinnerInterface, SpinnerSize } from "./index";
 
 export default {
   title: "Loader",
@@ -15,7 +15,7 @@ export default {
   },
 };
 
-const LoadTemplate: Story<SpinnerInterface> = (props) => <Spinner {...props} />;
+const LoadTemplate: Story<SpinnerInterface> = (props) => <Spinner {...props} size={SpinnerSize.medium} />;
 
 export const Loader = LoadTemplate.bind({});
 

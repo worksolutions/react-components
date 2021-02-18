@@ -75,8 +75,6 @@ const sizeStyles: SizeStyles = {
 
 export interface CheckboxProps {
   text: string;
-  name: string;
-  value: string;
   checked: boolean;
   onChange: (value: boolean) => void;
   error?: boolean;
@@ -106,8 +104,6 @@ function Checkbox({
   error,
   onChange: onChangeProp,
   disabled = false,
-  value,
-  name,
   isRequired = false,
   indeterminate = false,
   size = "medium",
@@ -145,16 +141,6 @@ function Checkbox({
         {indeterminate && (
           <Icon width={currentSizeStyles.width} height={currentSizeStyles.height} icon="minus" color="white" />
         )}
-        <input
-          type="checkbox"
-          style={{ position: "absolute", opacity: 0, zIndex: -1 }}
-          value={value}
-          name={name}
-          checked={checked}
-          onChange={onChange}
-          disabled={disabled}
-          required={isRequired}
-        />
       </Wrapper>
       <Typography
         styles={[
