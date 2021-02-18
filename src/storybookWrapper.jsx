@@ -1,5 +1,7 @@
 import React from "react";
 import { INTL, wordDeclination } from "@worksolutions/utils";
+import { createBrowserHistory } from "history";
+import { Router } from "react-router-dom";
 
 import { TypographyGlobalStyle } from "./primitives/Typography";
 import "./styles/index.scss";
@@ -46,11 +48,15 @@ const intlDictionary = {
 setIntl(new INTL(intlDictionary));
 intl.init();
 
+export const browserHistory = createBrowserHistory();
+
 export function storybookWrapper(Story) {
   return (
     <div className="ws-box" style={{ display: "flex" }}>
       <TypographyGlobalStyle />
-      <Story />
+      <Router history={browserHistory}>
+        <Story />
+      </Router>
     </div>
   );
 }

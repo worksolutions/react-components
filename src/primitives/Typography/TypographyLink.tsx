@@ -21,6 +21,8 @@ export const blackTypographyLinkStyles = [
 
 type Theme = "black" | "blue";
 
+const CustomRouterLink = ({ _css, ...props }: any) => <Link {...props} />;
+
 function makeTypographyLink(
   link: string,
   theme: Theme | undefined,
@@ -50,7 +52,7 @@ function makeTypographyLink(
     }
 
     // @ts-ignore
-    return <Typography as={Link} {...data} styles={[themeStyles, styles]} to={link} ref={ref} />;
+    return <Typography as={CustomRouterLink} {...data} styles={[themeStyles, styles]} to={link} ref={ref} />;
   });
 }
 
@@ -67,6 +69,7 @@ const TypographyLink = React.memo(function ({
     download,
     target,
   });
+
   return <Component {...props} />;
 });
 
