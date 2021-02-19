@@ -58,7 +58,7 @@ function makeTypographyLink(
   });
 }
 
-const TypographyLink = React.memo(function ({ to, target, download, native, theme, ...props }: TypographyLinkProps) {
+let TypographyLink = function ({ to, target, download, native, theme, ...props }: TypographyLinkProps) {
   const Component = makeTypographyLink(to, theme, {
     native: isNil(native) ? linkIsNative(to) : native,
     download,
@@ -66,6 +66,6 @@ const TypographyLink = React.memo(function ({ to, target, download, native, them
   });
 
   return <Component {...props} />;
-});
+};
 
-export default TypographyLink;
+export default React.memo(TypographyLink);
