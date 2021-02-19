@@ -27,7 +27,7 @@ import {
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import Icon from "../Icon";
-import { duration200 } from "../..";
+import { duration200 } from "constants/durations";
 
 export enum CheckboxSize {
   medium = "medium",
@@ -69,16 +69,19 @@ export interface CheckboxProps {
   indeterminate?: boolean;
 }
 
-function getCheckboxStyles({ checked, error, disabled, indeterminate }: Pick<CheckboxProps, "checked" | "error" | "disabled" | "indeterminate">) {
-  const notUnchecked = checked || indeterminate;
+function getCheckboxStyles({
+  checked,
+  error,
+  disabled,
+}: Pick<CheckboxProps, "checked" | "error" | "disabled" | "indeterminate">) {
   const enabled = !disabled;
 
   return [
-    !checked && !indeterminate && enabled && boxShadow([0, 0, 0, 1, "gray-blue/03", true]),
-    backgroundColor(disabled ? "gray-blue/02" : notUnchecked ? "blue/05" : "transparent"),
-    hover(backgroundColor(notUnchecked ? "blue/06" : "gray-blue/01")),
+    !checked && enabled && boxShadow([0, 0, 0, 1, "gray-blue/03", true]),
+    backgroundColor(disabled ? "gray-blue/02" : checked ? "blue/05" : "transparent"),
+    hover(backgroundColor(checked ? "blue/06" : "gray-blue/01")),
     focus(!error ? boxShadow([0, 0, 0, 2, "blue/04"]) : boxShadow([0, 0, 0, 2, "red/05"])),
-    active(backgroundColor(notUnchecked ? "blue/07" : "gray-blue/02")),
+    active(backgroundColor(checked ? "blue/07" : "gray-blue/02")),
     error && enabled && boxShadow([0, 0, 0, 2, "red/05"]),
   ];
 }
@@ -93,11 +96,7 @@ function Checkbox({
   indeterminate = false,
   size = CheckboxSize.medium,
 }: CheckboxProps) {
-  const styles = React.useMemo(() => getCheckboxStyles({ checked, error, disabled, indeterminate }), [
-    checked,
-    error,
-    disabled,
-  ]);
+  const styles = React.useMemo(() => getCheckboxStyles({ checked, error, disabled }), [checked, error, disabled]);
 
   const onChangeHandler = React.useCallback(() => onChange(!checked), [onChange]);
   const currentSize = sizes[size];
@@ -123,7 +122,7 @@ function Checkbox({
         {checked && !indeterminate && (
           <Icon width={currentSize.width} height={currentSize.height} icon="check" color="white" />
         )}
-        {indeterminate && (
+        {checked && indeterminate && (
           <Icon width={currentSize.width} height={currentSize.height} icon="minus" color="white" />
         )}
       </Wrapper>
