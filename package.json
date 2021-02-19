@@ -11,7 +11,8 @@
     "build:ts": "node_modules/typescript/bin/tsc",
     "prepublish": "npm run build",
     "storybook": "start-storybook -p 6006 --no-dll",
-    "build-storybook": "build-storybook --no-dll"
+    "build-storybook": "build-storybook -o docs --no-dll",
+    "publish-storybook": "git checkout gh-pages && rm -rf docs && npm run build-storybook && git add docs/* && git commit -a -m 'upload storybook' && git push && git checkout master"
   },
   "keywords": [],
   "author": "Anatoly Grabarov",
