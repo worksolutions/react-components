@@ -1,7 +1,6 @@
 import { css } from "styled-components";
 import "prismjs/themes/prism.css";
 
-
 import { TypographyTypes } from "primitives/Typography";
 import { blueTypographyLinkStyles } from "primitives/Typography/TypographyLink";
 

@@ -10,6 +10,8 @@ import Typography, { TypographyInterface, TypographyTypes } from "./index";
 
 type TypographyLinkInterface = TypographyInterface & Omit<LinkProps, "to" | "as" | "type">;
 
+export type TypographyLinkProps = TypographyLinkInterface & { to: string; native?: boolean; theme?: Theme };
+
 export const blueTypographyLinkStyles = [color("blue/06")];
 
 export const blackTypographyLinkStyles = [
@@ -56,14 +58,7 @@ function makeTypographyLink(
   });
 }
 
-const TypographyLink = React.memo(function ({
-  to,
-  target,
-  download,
-  native,
-  theme,
-  ...props
-}: TypographyLinkInterface & { to: string; native?: boolean; theme?: Theme }) {
+const TypographyLink = React.memo(function ({ to, target, download, native, theme, ...props }: TypographyLinkProps) {
   const Component = makeTypographyLink(to, theme, {
     native: isNil(native) ? linkIsNative(to) : native,
     download,
