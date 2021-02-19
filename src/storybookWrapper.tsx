@@ -1,8 +1,8 @@
 import React from "react";
 import { INTL, wordDeclination } from "@worksolutions/utils";
-import { createBrowserHistory } from "history";
+import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
-import { Story, StoryContext } from "@storybook/react/types-6-0";
+import { Story } from "@storybook/react/types-6-0";
 import { IntlDictionaryInterface } from "@worksolutions/utils";
 
 import { TypographyGlobalStyle } from "./primitives/Typography";
@@ -50,15 +50,15 @@ const intlDictionary: IntlDictionaryInterface = {
 setIntl(new INTL(intlDictionary));
 intl.init();
 
-export const browserHistory = createBrowserHistory();
+export const history = createMemoryHistory();
 
 export function storybookWrapper(Story: Story) {
   // @ts-ignore
-  const element = Story();
+  const element = Story({ history });
   return (
     <div className="ws-box" style={{ display: "flex" }}>
       <TypographyGlobalStyle />
-      <Router history={browserHistory}>{element}</Router>
+      <Router history={history}>{element}</Router>
     </div>
   );
 }

@@ -3,20 +3,20 @@ import { Story } from "@storybook/react/types-6-0";
 
 import { colorControl } from "storyHelpers";
 
-import Typography, { TypographyInterface } from "../index";
+import TypographyComponent, { TypographyInterface } from "../index";
 
 export default {
   title: "Typography",
-  component: Typography.type,
+  component: TypographyComponent.type,
   argTypes: {
     color: colorControl(),
   },
 };
 
-const Template: Story<TypographyInterface> = (args) => <Typography {...args} />;
+const Template: Story<TypographyInterface> = (args) => <TypographyComponent {...args} />;
 
-export const Default = Template.bind({});
+export const Typography = Template.bind({});
 
-Default.args = {
+Typography.args = {
   children: "hello",
 };
