@@ -12,7 +12,6 @@ import {
   lineHeight,
   padding,
   transition,
-  width,
   display,
   child,
   hover,
@@ -23,7 +22,15 @@ import {
   fontWeight,
   fontSize,
   content,
- position, right, flexWrap, marginBottom, top, bottom, left
+  position,
+  right,
+  flexWrap,
+  marginBottom,
+  top,
+  bottom,
+  left,
+  flex,
+  fullWidth,
 } from "styles";
 import { duration160 } from "../..";
 import Icon from "../Icon";
@@ -45,17 +52,17 @@ interface BreadcrumbsWrapperProps {
 
 function Breadcrumbs({ items, withBadge = false }: BreadcrumbsProps) {
   const breadcrumbsItemCommonStyles = [
-    position('relative'),
+    position("relative"),
     display("block"),
     ai("center"),
     padding(withBadge ? "2px 8px 3px 24px" : "2px 8px 3px"),
-    borderRadius("4px"),
+    borderRadius(4),
     fontSize(14),
     lineHeight("1.5"),
     fontWeight(500),
   ];
 
-  const BreadcrumbsWrapper: React.FC<BreadcrumbsWrapperProps> = ({ item, isLastElement, children }) => {
+  const BreadcrumbsWrapper = ({ item, isLastElement, children }: BreadcrumbsWrapperProps) => {
     if (isLastElement) {
       return <Typography styles={breadcrumbsItemCommonStyles}>{children}</Typography>;
     }
@@ -64,7 +71,7 @@ function Breadcrumbs({ items, withBadge = false }: BreadcrumbsProps) {
       <TypographyLink
         to={item.to}
         styles={[
-          [...breadcrumbsItemCommonStyles],
+          breadcrumbsItemCommonStyles,
           hover(backgroundColor("gray-blue/01")),
           focus(boxShadow([0, 0, 0, 2, "blue/05"])),
           transition(`background-color, box-shadow ${duration160}`),
@@ -77,44 +84,42 @@ function Breadcrumbs({ items, withBadge = false }: BreadcrumbsProps) {
     );
   };
 
-  const renderBreadcrumbsItems = React.useCallback(() => {
-    if (!items.length) return null;
-    return items.map((item, index) => {
-      const isLastElement = index === items.length - 1;
-      return (
-        <Wrapper
-          key={index}
-          styles={[
-            position("relative"),
-            display("flex"),
-            lineHeight(1),
-            marginRight("10px"),
-            marginBottom("10px"),
-          ]}
-        >
-          <BreadcrumbsWrapper item={item} isLastElement={isLastElement}>
-            {withBadge && (
-              <Wrapper styles={[marginRight("8px")]}>
-                <Icon width={8} height={8} icon="badge" color="blue/05" styles={[position('absolute'), top('8px'), left('8px')]} />
-              </Wrapper>
-            )}
-            <Typography
-                styles={[
-                    position("relative"),
-                    display('inline'),
-                    color("gray-blue/05"),
-                    !isLastElement && child([content("/"), position('absolute'), bottom('-1px'), right('-16px'), display("block")], "&:after")
-                ]}
-            >
-              {item.text}
-            </Typography>
-          </BreadcrumbsWrapper>
-        </Wrapper>
-      );
-    });
-  }, [items]);
+  return (
+    <Wrapper styles={[display("flex"), flexWrap, fullWidth]}>
+      {items.map((item, index) => {
+        const isLastElement = index === items.length - 1;
+        return (
+          <Wrapper key={index} styles={[position("relative"), flex, lineHeight(1), marginRight(10), marginBottom(10)]}>
+            <BreadcrumbsWrapper item={item} isLastElement={isLastElement}>
+              {withBadge && (
+                <Wrapper styles={[marginRight(8)]}>
+                  <Icon
+                    width={8}
+                    height={8}
+                    icon="badge"
+                    color="blue/05"
+                    styles={[position("absolute"), top(8), left(8)]}
+                  />
+                </Wrapper>
+              )}
 
-  return <Wrapper styles={[display("flex"), flexWrap, width("100%")]}>{renderBreadcrumbsItems()}</Wrapper>;
+              <Typography
+                styles={[
+                  position("relative"),
+                  display("inline"),
+                  color("gray-blue/05"),
+                  !isLastElement &&
+                    child([content("/"), position("absolute"), bottom(-1), right(-16), display("block")], "&:after"),
+                ]}
+              >
+                {item.text}
+              </Typography>
+            </BreadcrumbsWrapper>
+          </Wrapper>
+        );
+      })}
+    </Wrapper>
+  );
 }
 
 export default React.memo(Breadcrumbs);
