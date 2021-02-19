@@ -19,55 +19,121 @@ import {
   marginLeft,
   backgroundColor,
   boxShadow,
-} from "../../styles";
+  pointerEvents,
+  color,
+  fontSize,
+} from "styles";
 
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import Icon from "../Icon";
+import { duration200 } from "constants/durations";
 
-export type CheckboxProps = {
-  text: string;
-  isChecked: boolean;
-  onChange: (value: boolean) => void;
-  error?: boolean;
+export enum CheckboxSize {
+  medium = "medium",
+  large = "large",
+}
+
+type SizeStyles = {
+  [key in CheckboxSize]: {
+    width: number;
+    height: number;
+    borderRadius: number;
+    fontSize: number;
+  };
 };
 
-function getCheckboxStyles({ isChecked = false, error = false }) {
+const sizes: SizeStyles = {
+  medium: {
+    width: 16,
+    height: 16,
+    borderRadius: 2,
+    fontSize: 14,
+  },
+  large: {
+    width: 20,
+    height: 20,
+    borderRadius: 2,
+    fontSize: 16,
+  },
+};
+
+export interface CheckboxProps {
+  text: string;
+  checked: boolean;
+  onChange: (value: boolean) => void;
+  error?: boolean;
+  disabled?: boolean;
+  required?: boolean;
+  size?: CheckboxSize;
+  indeterminate?: boolean;
+}
+
+function getCheckboxStyles({ checked, error, disabled }: Pick<CheckboxProps, "checked" | "error" | "disabled">) {
+  const enabled = !disabled;
+
   return [
-    !isChecked && boxShadow([0, 0, 0, 1, "gray-blue/03", true]),
-    backgroundColor(isChecked ? "blue/05" : "transparent"),
-    hover(backgroundColor(isChecked ? "blue/06" : "gray-blue/01")),
-    active(backgroundColor(isChecked ? "blue/07" : "gray-blue/02")),
-    error && boxShadow([0, 0, 0, 2, "red/05"]),
+    !checked && enabled && boxShadow([0, 0, 0, 1, "gray-blue/03", true]),
+    backgroundColor(disabled ? "gray-blue/02" : checked ? "blue/05" : "transparent"),
+    hover(backgroundColor(checked ? "blue/06" : "gray-blue/01")),
+    focus(!error ? boxShadow([0, 0, 0, 2, "blue/04"]) : boxShadow([0, 0, 0, 2, "red/05"])),
+    active(backgroundColor(checked ? "blue/07" : "gray-blue/02")),
+    error && enabled && boxShadow([0, 0, 0, 2, "red/05"]),
   ];
 }
 
-function Checkbox({ text, isChecked, error, onChange: onChangeProp }: CheckboxProps) {
-  const styles = React.useMemo(() => getCheckboxStyles({ isChecked, error }), [isChecked, error]);
-  const onChange = () => onChangeProp(!isChecked);
+function Checkbox({
+  text,
+  checked,
+  error,
+  onChange,
+  disabled,
+  required,
+  indeterminate,
+  size = CheckboxSize.medium,
+}: CheckboxProps) {
+  const styles = React.useMemo(() => getCheckboxStyles({ checked, error, disabled }), [checked, error, disabled]);
+
+  const onChangeHandler = React.useCallback(() => onChange(!checked), [onChange]);
+  const currentSize = sizes[size];
 
   return (
     <Wrapper styles={[fullWidth, height(24), padding(4), flex, jc("flex-start"), ai("center")]}>
       <Wrapper
-        as="button"
+        as="label"
         styles={[
-          transition("box-shadow 0.2s"),
+          transition(`box-shadow ${duration200}`),
           padding(0),
           disableOutline,
           borderNone,
-          width(16),
-          height(16),
-          borderRadius(4),
+          width(currentSize.width),
+          height(currentSize.height),
+          borderRadius(currentSize.borderRadius),
           pointer,
-          focus(boxShadow([0, 0, 0, 2, "blue/04"])),
+          pointerEvents(disabled ? "none" : "auto"),
           styles,
         ]}
-        onClick={onChange}
+        tabIndex={0}
       >
-        {isChecked && <Icon width={16} height={16} icon="check" color="white" />}
+        {checked && !indeterminate && (
+          <Icon width={currentSize.width} height={currentSize.height} icon="check" color="white" />
+        )}
+        {checked && indeterminate && (
+          <Icon width={currentSize.width} height={currentSize.height} icon="minus" color="white" />
+        )}
       </Wrapper>
-      <Typography styles={[marginLeft(12), cursor("default")]} onClick={onChange}>
+      <Typography
+        styles={[
+          marginLeft(12),
+          disabled
+            ? [pointerEvents("none"), cursor("default"), color("gray-blue/02")]
+            : [pointerEvents("auto"), cursor("pointer"), color("gray-blue/09")],
+          fontSize(currentSize.fontSize),
+        ]}
+        onClick={onChangeHandler}
+      >
         {text}
+        {required && !!text && <Typography styles={color("red/05")}>*</Typography>}
       </Typography>
     </Wrapper>
   );

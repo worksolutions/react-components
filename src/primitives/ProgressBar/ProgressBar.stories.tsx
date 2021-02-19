@@ -4,7 +4,6 @@ import { Story } from "@storybook/react/types-6-0";
 import { storybookWrapper } from "storybookWrapper";
 import { numbersControl } from "storyHelpers";
 
-
 import ProgressBar, { ProgressBarProps } from "./index";
 
 export default {

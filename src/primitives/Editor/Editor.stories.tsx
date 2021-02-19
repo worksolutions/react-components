@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Story } from "@storybook/react/types-6-0";
 
 import { storybookWrapper } from "storybookWrapper";
@@ -8,13 +8,15 @@ import {
   DatePicker,
   DatePickerInterface,
   DatePickerMode,
-  Editor, EditorRefInterface, flex,
+  Editor,
+  EditorRefInterface,
+  flex,
   fullWidth,
   jc,
   minHeight,
-  Wrapper
+  Wrapper,
 } from "index";
-import {editorStyles} from "./editorStyles";
+import { editorStyles } from "./editorStyles";
 
 export default {
   title: "Editor",
@@ -31,7 +33,7 @@ export function insertDivElementBeforeEditorToolbarSeparator() {
 }
 
 const Template: Story<DatePickerInterface> = (props) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   const editorRef = React.useRef<EditorRefInterface>(null!);
   const [lastToolbarSeparator, setLastToolbarSeparator] = React.useState<HTMLElement>();
 
@@ -42,22 +44,21 @@ const Template: Story<DatePickerInterface> = (props) => {
 
   return (
     <Wrapper
-      styles={[fullWidth, minHeight("100%"), backgroundColor("gray-blue/01"), flex, jc('align-center'), editorStyles]}
+      styles={[fullWidth, minHeight("100%"), backgroundColor("gray-blue/01"), flex, jc("align-center"), editorStyles]}
     >
       <Editor
         initialText={value}
         onChange={setValue}
         uploader={async (file) => {
-          console.log(file)
-          return 'Что-то'
+          console.log(file);
+          return "Что-то";
         }}
         onInit={onInit}
       />
     </Wrapper>
-)
-}
+  );
+};
 
 export const Default = Template.bind({});
 
-Default.args = {
-};
+Default.args = {};
