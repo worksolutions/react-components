@@ -69,11 +69,7 @@ export interface CheckboxProps {
   indeterminate?: boolean;
 }
 
-function getCheckboxStyles({
-  checked,
-  error,
-  disabled,
-}: Pick<CheckboxProps, "checked" | "error" | "disabled" | "indeterminate">) {
+function getCheckboxStyles({ checked, error, disabled }: Pick<CheckboxProps, "checked" | "error" | "disabled">) {
   const enabled = !disabled;
 
   return [
@@ -88,12 +84,12 @@ function getCheckboxStyles({
 
 function Checkbox({
   text,
-  checked = false,
+  checked,
   error,
   onChange,
-  disabled = false,
-  required = false,
-  indeterminate = false,
+  disabled,
+  required,
+  indeterminate,
   size = CheckboxSize.medium,
 }: CheckboxProps) {
   const styles = React.useMemo(() => getCheckboxStyles({ checked, error, disabled }), [checked, error, disabled]);
