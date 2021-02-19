@@ -53,12 +53,12 @@ intl.init();
 export const browserHistory = createBrowserHistory();
 
 export function storybookWrapper(Story: Story) {
+  // @ts-ignore
+  const element = Story();
   return (
     <div className="ws-box" style={{ display: "flex" }}>
       <TypographyGlobalStyle />
-      <Router history={browserHistory}>
-        <Story />
-      </Router>
+      <Router history={browserHistory}>{element}</Router>
     </div>
   );
 }

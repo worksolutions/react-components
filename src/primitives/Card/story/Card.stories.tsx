@@ -1,7 +1,6 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { storybookWrapper } from "storybookWrapper";
 import { numbersControl, selectControl } from "storyHelpers";
 
 import Card, { CardActionInterface, CardComponentInterface, CardStatusIconSize, CardStatusInterface } from "../index";
@@ -9,7 +8,6 @@ import Card, { CardActionInterface, CardComponentInterface, CardStatusIconSize, 
 export default {
   title: "Card",
   component: Card,
-  decorators: [storybookWrapper],
   argsType: {
     size: selectControl(Object.values(CardStatusIconSize)),
     aspectRatio: numbersControl(0, 20, 0.25),
