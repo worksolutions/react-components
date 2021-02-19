@@ -1,3 +1,5 @@
+import { colors } from "./constants/colors";
+
 export function selectControl(options: any[]) {
   return {
     control: {
@@ -9,7 +11,10 @@ export function selectControl(options: any[]) {
 
 export function colorControl() {
   return {
-    control: "color",
+    control: {
+      type: "select",
+      options: Object.keys(colors),
+    },
   };
 }
 
