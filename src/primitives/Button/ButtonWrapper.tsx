@@ -41,7 +41,6 @@ export interface BaseButtonWrapperInterface {
   iconRightWidth?: number;
   iconRightHeight?: number;
   disabled?: boolean;
-  spinner?: boolean;
   size?: ButtonSize;
   type?: ButtonType;
   styles?: any;
