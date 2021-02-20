@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { colorControl, selectControl } from "storyHelpers";
+import { colorControl, selectControl } from "storybook/storyHelpers";
 
 import Spinner, { SpinnerInterface, SpinnerSize } from "../index";
 

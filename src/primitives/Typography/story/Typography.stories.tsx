@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { colorControl } from "storyHelpers";
+import { colorControl } from "storybook/storyHelpers";
 
 import TypographyComponent, { TypographyInterface } from "../index";
 
