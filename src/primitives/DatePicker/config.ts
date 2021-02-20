@@ -6,9 +6,9 @@ const timeMaskCharacters = [/\d/, /\d/, ":", /\d/, /\d/];
 export type ConfigByModeType = { mask: MaskType; placeholder: string; width: number; momentFormat: string };
 
 export enum DatePickerMode {
-  DATE,
-  TIME,
-  DATE_TIME,
+  DATE = "DATE",
+  TIME = "TIME",
+  DATE_TIME = "DATE_TIME",
 }
 
 export const configByMode: Record<DatePickerMode, ConfigByModeType> = {

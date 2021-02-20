@@ -25,7 +25,7 @@
     "@types/react-router-dom": "^5.*",
     "@types/uuid": "^8.*",
     "@viewstools/use-masked-input": "^2.*",
-    "@worksolutions/react-utils": "^1.0.19",
+    "@worksolutions/react-utils": "^1.0.20",
     "@worksolutions/utils": "^1.0.28",
     "edelgarat-ckeditor5-custom-build": "0.0.1",
     "external-svg-sprite-loader": "^6.*",

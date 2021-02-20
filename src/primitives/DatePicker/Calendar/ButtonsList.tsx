@@ -27,6 +27,10 @@ import {
   backgroundColor,
   border,
   boxShadow,
+  horizontalMargin,
+  padding,
+  paddingLeft,
+  paddingRight,
 } from "../../../styles";
 
 import Wrapper from "../../Wrapper";
@@ -85,15 +89,15 @@ function ButtonsList({ items, selectedItemIndex, onClick }: ButtonsListInterface
     <Wrapper
       ref={scrollRef}
       styles={[
-        fullWidth,
         maxHeight(256),
         flex,
         flexWrap,
-        overflowY("overlay" as CSSProperties["overflowY"]),
+        overflowY("auto"),
         alignContent("flex-start"),
-        child([marginRight(8), marginBottom(8)]),
-        nthChild("3n + 1", marginLeft(12)),
-        nthChild("3n", marginRight(12)),
+        paddingLeft(20),
+        paddingRight(8),
+        marginRight(4),
+        child([marginBottom(8), horizontalMargin(4)]),
       ]}
     >
       {items.map((item, index) =>

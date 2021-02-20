@@ -12,11 +12,12 @@ import {
   flex,
   flexColumn,
   flexValue,
+  horizontalPadding,
   jc,
   marginBottom,
   marginRight,
   marginTop,
-  padding,
+  verticalPadding,
   width,
 } from "../../../styles";
 
@@ -31,7 +32,7 @@ import CalendarView from "./CalendarView";
 import { elevation16 } from "../../../constants/shadows";
 import { intl } from "../../../intl";
 
-interface CalendarInterface {
+export interface CalendarInterface {
   min: Moment;
   max: Moment;
   value: string | null;
@@ -102,7 +103,7 @@ function Calendar({ hasCurrentDayButton, max, min, momentFormat, onChange, place
       styles={[
         width(306),
         getPopperMarginStyleForPlacement(placement, 4),
-        padding(12),
+        verticalPadding(12),
         backgroundColor("white"),
         border(1, "gray-blue/02"),
         elevation16,
@@ -111,7 +112,7 @@ function Calendar({ hasCurrentDayButton, max, min, momentFormat, onChange, place
         flexColumn,
       ]}
     >
-      <Wrapper styles={[flex, flexValue(1), ai("center"), marginBottom(12)]}>
+      <Wrapper styles={[flex, horizontalPadding(12), flexValue(1), ai("center"), marginBottom(12)]}>
         <Button
           disabled={allControlButtonDisabled || leftControlButtonDisabled}
           styles={marginRight(8)}
@@ -144,6 +145,7 @@ function Calendar({ hasCurrentDayButton, max, min, momentFormat, onChange, place
       </Wrapper>
       {mode === "date" && (
         <CalendarView
+          styles={horizontalPadding(12)}
           currentInnerValue={innerMomentValue}
           selectedValue={selectedMomentValue}
           onChange={(day) => onChange(moment(innerMomentValue).date(day).format(momentFormat))}
