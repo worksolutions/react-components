@@ -50,7 +50,7 @@ const StyledSpinner = styled.div.attrs({ className: "loader" })<Required<Spinner
   }
 `;
 
-const Spinner = function ({size = SpinnerSize.medium, ...props}: SpinnerInterface) {
+const Spinner = function ({ size = SpinnerSize.medium, ...props }: SpinnerInterface) {
   return (
     <StyledSpinner {...(props as any)} size={size}>
       <svg className="circular" viewBox="25 25 50 50">

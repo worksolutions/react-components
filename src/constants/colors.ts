@@ -72,9 +72,3 @@ export type Colors =
   | "white"
   | "black"
   | "transparent";
-
-export const colors: Record<Colors, string> = {} as any;
-
-export function setColorsTheme(newColors: Record<Colors, string>) {
-  Object.assign(colors, newColors);
-}

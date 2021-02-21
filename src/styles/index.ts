@@ -1,19 +1,8 @@
 import { buildStyles } from "@worksolutions/react-utils";
 
-import { Colors, colors } from "constants/colors";
+import { Colors } from "constants/colors";
 
-const styles = buildStyles(colors);
-
-export type AllAvailableColorsType = Colors;
-
-export type BoxShadow = [
-  number | string,
-  number | string,
-  number | string,
-  number | string,
-  AllAvailableColorsType,
-  boolean?,
-];
+const styles = buildStyles<Colors>();
 
 export const getColor = styles.getColor;
 export const backgroundColor = styles.backgroundColor;
@@ -26,8 +15,6 @@ export const borderRight = styles.borderRight;
 export const borderTop = styles.borderTop;
 export const color = styles.color;
 export const createAlphaColor = styles.createAlphaColor;
-export const createLinearGradientColor = styles.createLinearGradientColor;
-export const createRadialGradientColor = styles.createRadialGradientColor;
 export const fillColor = styles.fillColor;
 export const boxShadowString = styles.boxShadowString;
 export const boxShadow = styles.boxShadow;

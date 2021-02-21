@@ -21,10 +21,7 @@ export const ghostStyle = [
   child(fillColor("gray-blue/07"), ".icon use"),
   child(makeSpinnerColorStyle("gray-blue/07"), ".loader"),
 ];
-export const ghostHover = [
-  backgroundColor("gray-blue/01"),
-  boxShadow([0, 0, 1, 0, createAlphaColor("black", 81) as Colors]),
-];
+export const ghostHover = [backgroundColor("gray-blue/01"), boxShadow([0, 0, 1, 0, createAlphaColor("black", 81)])];
 export const ghostFocus = [boxShadow([0, 0, 0, 2, "blue/04"])];
 export const ghostActive = [backgroundColor("gray-blue/02")];
 export const ghostDisabled = [

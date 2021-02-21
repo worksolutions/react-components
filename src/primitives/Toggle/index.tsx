@@ -49,6 +49,7 @@ function Toggle({ className, styles, enabled, text, textOnRight, textStyles, onC
         ai("center"),
         pointer,
         hover(child(enabled ? backgroundColor("blue/06") : backgroundColor("gray-blue/03"), ".switch")),
+        styles,
       ]}
       onClick={() => onChange(!enabled)}
     >
@@ -64,15 +65,11 @@ function Toggle({ className, styles, enabled, text, textOnRight, textStyles, onC
           borderRadius(100),
           enabled ? backgroundColor("blue/05") : backgroundColor("gray-blue/02"),
           mediaScreen(tabletDownMedia, [width(42), minWidth(42), height(24)]),
-          styles,
         ]}
       >
         <Wrapper
           styles={[
-            boxShadow(
-              [0, 2, 4, 0, createAlphaColor("black", 30) as Colors],
-              [0, 0, 1, 0, createAlphaColor("black", 61) as Colors],
-            ),
+            boxShadow([0, 2, 4, 0, createAlphaColor("black", 30)], [0, 0, 1, 0, createAlphaColor("black", 61)]),
             transition(`left ${duration160}`),
             position("absolute"),
             width(14),
