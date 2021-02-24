@@ -2,9 +2,9 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { memoizeWith } from "ramda";
 import { string2 } from "@worksolutions/utils";
-import { child, getColor } from "styles";
 
-import { Colors } from "constants/colors";
+import { child, getColor } from "../../styles";
+import { Colors } from "../../constants/colors";
 
 export enum SpinnerSize {
   "extra-small" = "extra-small",

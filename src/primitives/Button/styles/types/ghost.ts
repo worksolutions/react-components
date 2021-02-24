@@ -10,7 +10,6 @@ import {
   backgroundColor,
 } from "../../../../styles";
 import { makeSpinnerColorStyle } from "../../../Spinner";
-import { Colors } from "../../../..";
 
 export const ghostStyle = [
   borderWidth(0),

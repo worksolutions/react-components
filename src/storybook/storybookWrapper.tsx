@@ -3,13 +3,14 @@ import { ThemeProvider } from "styled-components";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import { Story } from "@storybook/react/types-6-0";
+import { useLocalStorage } from "react-use";
+
 import "./initializeStorybooks";
 import { colors as darkColors } from "../constants/colorsMap/dark";
 
 import { TypographyGlobalStyle } from "../primitives/Typography";
 import "../css/index.scss";
 import { makeTheme } from "../styles/makeTheme";
-import { useLocalStorage } from "react-use";
 import { position, right, Toggle, top } from "../index";
 
 export const history = createMemoryHistory();

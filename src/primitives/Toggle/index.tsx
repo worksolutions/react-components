@@ -21,12 +21,11 @@ import {
   boxShadow,
   createAlphaColor,
   mediaScreen,
-} from "styles";
-import { duration160 } from "constants/durations";
+} from "../../styles";
+import { duration160 } from "../../constants/durations";
 
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
-import { Colors } from "../..";
 
 export interface ToggleInterface {
   className?: string;

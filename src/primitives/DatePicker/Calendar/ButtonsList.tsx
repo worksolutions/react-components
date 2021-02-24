@@ -1,36 +1,32 @@
-import React, { CSSProperties, Ref } from "react";
+import React, { Ref } from "react";
 import { isNil } from "ramda";
 import { useScrollToElement } from "@worksolutions/react-utils";
 import { makeExcludingDeepEqual } from "@worksolutions/utils";
 
 import {
   alignContent,
+  backgroundColor,
+  border,
   borderNone,
   borderRadius,
+  boxShadow,
   child,
   disableOutline,
   flex,
   flexWrap,
   focus,
-  fullWidth,
   height,
+  horizontalMargin,
   hover,
   marginBottom,
-  marginLeft,
   marginRight,
   maxHeight,
-  nthChild,
   overflowY,
+  paddingLeft,
+  paddingRight,
   pointer,
   transition,
   width,
-  backgroundColor,
-  border,
-  boxShadow,
-  horizontalMargin,
-  padding,
-  paddingLeft,
-  paddingRight,
 } from "../../../styles";
 
 import Wrapper from "../../Wrapper";
