@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { isNil, last } from "ramda";
@@ -66,16 +66,17 @@ export interface ModalInterface {
 export const modalHorizontalPadding = 24;
 
 class ActiveModal {
-  @observable
+  constructor() {
+    makeAutoObservable(this);
+  }
+
   private _modalId = 0;
 
-  @observable
   activeModals: number[] = [];
 
-  @action.bound
-  getModalId() {
+  getModalId = () => {
     return ++this._modalId;
-  }
+  };
 }
 
 export const activeModal = new ActiveModal();
