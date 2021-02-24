@@ -2,7 +2,7 @@ import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
 import { width } from "styles";
-import { selectControl } from "storyHelpers";
+import { selectControl } from "storybook/storyHelpers";
 
 import Dropdown, { DropdownInterface } from "../index";
 import { InputSize } from "../../Input/Input";

@@ -1,8 +1,9 @@
 import React, { Ref } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { without } from "ramda";
-import { paddingRight, pointer } from "../../styles";
 import { provideRef } from "@worksolutions/react-utils";
+
+import { paddingRight, pointer } from "../../styles";
 
 import DropdownContainer, { createDropdownRightIcon } from "../Dropdown/DropdownContainer";
 import TokenList from "../TokenList";

@@ -12,8 +12,8 @@ import { makeSpinnerColorStyle } from "../../../Spinner";
 
 export const primaryStyle = [
   borderWidth(0),
-  color("white"),
-  backgroundColor("blue/05"),
+  color("definitions.Button.primary.color"),
+  backgroundColor("definitions.Button.primary.backgroundColor"),
   child(marginRight(8), ".icon-left"),
   child(marginLeft(8), ".icon-right"),
   child(fillColor("white"), ".icon use"),

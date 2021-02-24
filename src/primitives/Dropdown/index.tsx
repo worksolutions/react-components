@@ -64,7 +64,6 @@ const Dropdown = function (
                     {placeholder}
                   </Typography>
                 )}
-
                 {subChild}
               </Wrapper>
             )}

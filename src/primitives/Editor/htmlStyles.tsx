@@ -1,10 +1,10 @@
 import { css } from "styled-components";
 import "prismjs/themes/prism.css";
 
-import { TypographyTypes } from "primitives/Typography";
-import { blueTypographyLinkStyles } from "primitives/Typography/TypographyLink";
+import { TypographyTypes } from "../Typography";
+import { blueTypographyLinkStyles } from "../Typography/TypographyLink";
 
-import { getColor } from "styles";
+import { getColor } from "../../styles";
 
 // @ts-ignore
 Prism.manual = true;

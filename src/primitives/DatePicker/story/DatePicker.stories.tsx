@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { selectControl } from "storyHelpers";
+import { selectControl } from "storybook/storyHelpers";
 
 import { DatePicker, DatePickerInterface, DatePickerMode } from "index";
 
@@ -15,10 +15,9 @@ export default {
 
 const DatePickerTemplate: Story<DatePickerInterface> = (props) => <DatePicker {...props} />;
 
-export const Default = DatePickerTemplate.bind({});
+export const Input = DatePickerTemplate.bind({});
 
-Default.args = {
+Input.args = {
   mode: DatePickerMode.DATE,
   hasCurrentDayButton: true,
-  onChange: console.log,
 };

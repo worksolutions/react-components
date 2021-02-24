@@ -14,6 +14,7 @@ import CalendarItem from "./CalendarItem";
 import { useHolyDays, useSelectedDays } from "./hooks";
 
 interface CalendarViewInterface {
+  styles?: any;
   selectedValue: Moment | null;
   currentInnerValue: Moment;
   onChange: (day: number) => void;
@@ -25,7 +26,7 @@ function getDaysRange(value: Moment) {
   return [...emptyDaysToFillFirstWeek, ...range(1, value.daysInMonth() + 1)];
 }
 
-function CalendarView({ currentInnerValue, selectedValue, onChange }: CalendarViewInterface) {
+function CalendarView({ styles, currentInnerValue, selectedValue, onChange }: CalendarViewInterface) {
   const days = React.useMemo(() => getDaysRange(currentInnerValue), [currentInnerValue]);
 
   const selectedDays = useSelectedDays(currentInnerValue, selectedValue, days);
@@ -44,6 +45,7 @@ function CalendarView({ currentInnerValue, selectedValue, onChange }: CalendarVi
         child([height(40)], ".day"),
         flex,
         flexWrap,
+        styles,
       ]}
     >
       {allWeekDays.map((day) => (

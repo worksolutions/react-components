@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { numbersControl } from "storyHelpers";
+import { numbersControl } from "storybook/storyHelpers";
 
 import ProgressBar, { ProgressBarProps } from "../index";
 
