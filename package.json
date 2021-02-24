@@ -30,7 +30,7 @@
     "edelgarat-ckeditor5-custom-build": "0.0.1",
     "external-svg-sprite-loader": "^6.*",
     "history": "^4.*",
-    "mobx": "^5.*",
+    "mobx": "^6.*",
     "mobx-react-lite": "^2.*",
     "ramda": "^0.27.*",
     "raw-loader": "^4.*",
