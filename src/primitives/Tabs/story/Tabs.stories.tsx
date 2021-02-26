@@ -5,7 +5,6 @@ import { child, flex, flexColumn, jc, marginBottom } from "styles";
 
 import Tabs, { TabsInterface } from "../index";
 import Wrapper from "../../Wrapper";
-import Typography from "../../Typography";
 import Tab from "../Tab";
 
 export default {
@@ -13,33 +12,27 @@ export default {
   component: Tabs,
 };
 
-const TitleComponent = () => (
-  <Typography>
-    Текст <strong>c разметкой</strong>
-  </Typography>
-);
-
-const items = [
-  { render: () => <div>1</div>, title: <TitleComponent /> },
-  { render: () => <div>Текст для таба 2</div>, title: "Текст" },
-  { render: () => <div />, title: "Статьи по теме" },
-];
-
 const Template: Story<TabsInterface> = (props) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
   return (
-    <Wrapper styles={[flex, flexColumn, child([flex, jc("align-center"), marginBottom(30)])]}>
-      <Tabs activeIndex={activeIndex}>
-        {items.map(({ title, render }, key) => (
-          <Tab
-            key={key}
-            active={activeIndex === key}
-            title={title}
-            onClick={() => setActiveIndex(key)}
-            renderContent={render}
-          />
-        ))}
-      </Tabs>
+    <Wrapper styles={[flex, flexColumn, child([flex, jc("align-center"), marginBottom(50)])]}>
+      <Tabs
+        tabs={[
+          { content: () => <div>1</div>, title: "Заголовок 1", tabItem: Tab },
+          {
+            content: () => <div>Контент второго таба</div>,
+            title: "Текст",
+            tabItem: (props) => (
+              <Wrapper className="test" key={props.title}>
+                <Tab {...props} />
+              </Wrapper>
+            ),
+          },
+          { content: () => <div />, title: "Статьи по теме" },
+        ]}
+        activeIndex={activeIndex}
+        setActiveIndex={setActiveIndex}
+      />
     </Wrapper>
   );
 };

@@ -22,11 +22,10 @@ import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import { duration160 } from "../../constants/durations";
 
-interface TabInterface {
-  title: React.ReactNode;
+export interface TabInterface {
+  title: string;
   active: boolean;
   onClick: () => void;
-  renderContent: () => React.ReactNode;
 }
 
 export const tabHorizontalPadding = 8;
@@ -40,15 +39,15 @@ function Tab({ active: activeProp, title, onClick }: TabInterface) {
         disableOutline,
         verticalPadding(0),
         horizontalPadding(tabHorizontalPadding),
-        backgroundColor("definitions.Tabs.tabBackgroundColor"),
+        backgroundColor("definitions.Tabs.Tab.tabBackgroundColor"),
         flex,
         flexColumn,
         ai("center"),
         borderNone,
         !activeProp && [
           pointer,
-          hover(child(color("definitions.Tabs.tabTitleHoverColor"))),
-          active(child(color("definitions.Tabs.tabTitleActiveColor"))),
+          hover(child(color("definitions.Tabs.Tab.tabTitleHoverColor"))),
+          active(child(color("definitions.Tabs.Tab.tabTitleActiveColor"))),
         ],
       ]}
       onClick={onClick}

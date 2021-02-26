@@ -30,10 +30,12 @@ const darkTheme = {
       },
       Tabs: {
         bottomLineColor: "red/05",
-        tabBackgroundColor: "transparent",
-        tabTitleColor: "gray-blue/05",
-        tabTitleHoverColor: "gray-blue/07",
-        tabTitleActiveColor: "gray-blue/09",
+        Tab: {
+          tabBackgroundColor: "transparent",
+          tabTitleColor: "gray-blue/05",
+          tabTitleHoverColor: "gray-blue/07",
+          tabTitleActiveColor: "gray-blue/09",
+        },
       },
     },
   }),

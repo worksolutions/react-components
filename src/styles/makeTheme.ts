@@ -15,10 +15,12 @@ export interface Theme extends BaseTheme<Colors> {
     };
     Tabs: {
       bottomLineColor: Colors;
-      tabBackgroundColor: Colors;
-      tabTitleColor: Colors;
-      tabTitleHoverColor: Colors;
-      tabTitleActiveColor: Colors;
+      Tab: {
+        tabBackgroundColor: Colors;
+        tabTitleColor: Colors;
+        tabTitleHoverColor: Colors;
+        tabTitleActiveColor: Colors;
+      };
     };
   };
 }
