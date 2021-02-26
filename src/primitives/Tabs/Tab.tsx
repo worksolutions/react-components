@@ -21,31 +21,17 @@ import {
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import { duration160 } from "../../constants/durations";
-import { Colors } from "../../constants/colors";
 
 interface TabInterface {
-  title: string | React.ReactNode;
+  title: React.ReactNode;
   active: boolean;
   onClick: () => void;
-  tabBackgroundColor?: Colors;
-  tabTitleColor?: Colors;
-  tabTitleHoverColor?: Colors;
-  tabTitleActiveColor?: Colors;
-  activeTabTitleColor?: Colors;
+  renderContent: () => React.ReactNode;
 }
 
 export const tabHorizontalPadding = 8;
 
-function Tab({
-  active: activeProp,
-  title,
-  onClick,
-  tabBackgroundColor = "transparent",
-  tabTitleColor = "gray-blue/05",
-  tabTitleHoverColor = "gray-blue/07",
-  tabTitleActiveColor = "gray-blue/09",
-  activeTabTitleColor = "gray-blue/09",
-}: TabInterface) {
+function Tab({ active: activeProp, title, onClick }: TabInterface) {
   return (
     <Wrapper
       as="button"
@@ -54,19 +40,26 @@ function Tab({
         disableOutline,
         verticalPadding(0),
         horizontalPadding(tabHorizontalPadding),
-        backgroundColor(tabBackgroundColor),
+        backgroundColor("definitions.Tabs.tabBackgroundColor"),
         flex,
         flexColumn,
         ai("center"),
         borderNone,
-        !activeProp && [pointer, hover(child(color(tabTitleHoverColor))), active(child(color(tabTitleActiveColor)))],
+        !activeProp && [
+          pointer,
+          hover(child(color("definitions.Tabs.tabTitleHoverColor"))),
+          active(child(color("definitions.Tabs.tabTitleActiveColor"))),
+        ],
       ]}
       onClick={onClick}
     >
       <Typography
         type="body-semi-bold"
-        color={activeProp ? activeTabTitleColor : tabTitleColor}
-        styles={[transition(`border-bottom-color ${duration160}, color ${duration160}`), padding("8px 4px")]}
+        styles={[
+          transition(`border-bottom-color ${duration160}, color ${duration160}`),
+          padding("8px 4px"),
+          color(activeProp ? "definitions.Tabs.tabTitleActiveColor" : "definitions.Tabs.tabTitleColor"),
+        ]}
       >
         {title}
       </Typography>
