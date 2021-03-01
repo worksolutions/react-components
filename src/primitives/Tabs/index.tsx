@@ -16,17 +16,18 @@ import {
 } from "../../styles";
 
 import Wrapper from "../Wrapper";
+import Tab, { TabInterface, tabHorizontalPadding } from "./Tab";
 
-import Tab, { tabHorizontalPadding } from "./Tab";
 import { duration160 } from "../../constants/durations";
 
 export interface TabsInterface {
   styles?: any;
   activeIndex: number;
-  setActiveIndex: (index: number) => void;
-  items: {
+  setActiveIndex: (value: number) => void;
+  tabs: {
+    tabItem?: React.FC<TabInterface> | React.ReactNode;
     title: string;
-    render: React.FC<any>;
+    content: React.ReactNode | React.FC<any>;
   }[];
 }
 
@@ -34,11 +35,10 @@ function getLeft(widths: number[], index: number) {
   return sum(widths.slice(0, index)) + tabHorizontalPadding;
 }
 
-function Tabs({ activeIndex, setActiveIndex, items, styles }: TabsInterface) {
+function Tabs({ activeIndex, styles, tabs, setActiveIndex }: TabsInterface) {
   const { ref, widths } = useChildrenWidthDetector();
-
-  const Component = items[activeIndex].render;
-  const element = <Component />;
+  const { content: Content } = tabs[activeIndex] as any; // todo: проверить тип элемента
+  const element = React.isValidElement(Content) ? Content : <Content />;
   const elementsCache = React.useRef<ReactNode[]>([]);
 
   React.useEffect(() => {
@@ -49,9 +49,11 @@ function Tabs({ activeIndex, setActiveIndex, items, styles }: TabsInterface) {
   return (
     <>
       <Wrapper ref={ref} styles={[flex, position("relative"), zIndex(1), styles]}>
-        {items.map(({ title }, key) => (
-          <Tab key={key} active={activeIndex === key} title={title} onClick={() => setActiveIndex(key)} />
-        ))}
+        {tabs.map(({ tabItem: TabItem = Tab as any, title }, key) => {
+          // todo: проверить тип элемента
+          if (React.isValidElement(TabItem)) return TabItem;
+          return <TabItem title={title} key={title} active={activeIndex === key} onClick={() => setActiveIndex(key)} />;
+        })}
         {widths && widths.length !== 0 && (
           <Wrapper
             styles={[
@@ -62,7 +64,7 @@ function Tabs({ activeIndex, setActiveIndex, items, styles }: TabsInterface) {
               width(widths[activeIndex] - tabHorizontalPadding * 2),
               bottom(-1),
               height(2),
-              backgroundColor("blue/05"),
+              backgroundColor("definitions.Tabs.bottomLine.color"),
             ]}
           />
         )}

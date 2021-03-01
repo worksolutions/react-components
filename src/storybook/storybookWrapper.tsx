@@ -28,6 +28,17 @@ const darkTheme = {
           backgroundColor: "blue/09",
         },
       },
+      Tabs: {
+        bottomLine: {
+          color: "red/05",
+        },
+        Tab: {
+          backgroundColor: "transparent",
+          titleColor: "gray-blue/05",
+          titleHoverColor: "gray-blue/07",
+          titleActiveColor: "gray-blue/09",
+        },
+      },
     },
   }),
 };

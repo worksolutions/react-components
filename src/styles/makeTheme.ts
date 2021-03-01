@@ -13,6 +13,17 @@ export interface Theme extends BaseTheme<Colors> {
         backgroundColor: Colors;
       };
     };
+    Tabs: {
+      bottomLine: {
+        color: Colors;
+      };
+      Tab: {
+        backgroundColor: Colors;
+        titleColor: Colors;
+        titleHoverColor: Colors;
+        titleActiveColor: Colors;
+      };
+    };
   };
 }
 

@@ -22,7 +22,7 @@ import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import { duration160 } from "../../constants/durations";
 
-interface TabInterface {
+export interface TabInterface {
   title: string;
   active: boolean;
   onClick: () => void;
@@ -39,19 +39,26 @@ function Tab({ active: activeProp, title, onClick }: TabInterface) {
         disableOutline,
         verticalPadding(0),
         horizontalPadding(tabHorizontalPadding),
-        backgroundColor("white"),
+        backgroundColor("definitions.Tabs.Tab.backgroundColor"),
         flex,
         flexColumn,
         ai("center"),
         borderNone,
-        !activeProp && [pointer, hover(child(color("gray-blue/07"))), active(child(color("gray-blue/09")))],
+        !activeProp && [
+          pointer,
+          hover(child(color("definitions.Tabs.Tab.titleHoverColor"))),
+          active(child(color("definitions.Tabs.Tab.titleActiveColor"))),
+        ],
       ]}
       onClick={onClick}
     >
       <Typography
         type="body-semi-bold"
-        color={activeProp ? "gray-blue/09" : "gray-blue/05"}
-        styles={[transition(`border-bottom-color ${duration160}, color ${duration160}`), padding("8px 4px")]}
+        styles={[
+          transition(`border-bottom-color ${duration160}, color ${duration160}`),
+          padding("8px 4px"),
+          color(activeProp ? "definitions.Tabs.titleActiveColor" : "definitions.Tabs.titleColor"),
+        ]}
       >
         {title}
       </Typography>
