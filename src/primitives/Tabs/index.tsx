@@ -16,9 +16,8 @@ import {
 } from "../../styles";
 
 import Wrapper from "../Wrapper";
-import Tab, { TabInterface } from "./Tab";
+import Tab, { TabInterface, tabHorizontalPadding } from "./Tab";
 
-import { tabHorizontalPadding } from "./Tab";
 import { duration160 } from "../../constants/durations";
 
 export interface TabsInterface {
@@ -50,11 +49,10 @@ function Tabs({ activeIndex, styles, tabs, setActiveIndex }: TabsInterface) {
   return (
     <>
       <Wrapper ref={ref} styles={[flex, position("relative"), zIndex(1), styles]}>
-        {tabs.map(({ tabItem, title }, key) => {
-          if (typeof tabItem === "function") {
-            return tabItem({ title: title, active: activeIndex === key, onClick: () => setActiveIndex(key) });
-          }
-          return <Tab title={title} key={title} active={activeIndex === key} onClick={() => setActiveIndex(key)} />;
+        {tabs.map(({ tabItem: TabItem = Tab as any, title }, key) => {
+          // todo: проверить тип элемента
+          if (React.isValidElement(TabItem)) return TabItem;
+          return <TabItem title={title} key={title} active={activeIndex === key} onClick={() => setActiveIndex(key)} />;
         })}
         {widths && widths.length !== 0 && (
           <Wrapper
