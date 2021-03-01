@@ -11,12 +11,14 @@ export const defaultTheme: Theme = {
       },
     },
     Tabs: {
-      bottomLineColor: "blue/05",
+      bottomLine: {
+        color: "blue/05",
+      },
       Tab: {
-        tabBackgroundColor: "white",
-        tabTitleColor: "gray-blue/05",
-        tabTitleHoverColor: "gray-blue/07",
-        tabTitleActiveColor: "gray-blue/09",
+        backgroundColor: "white",
+        titleColor: "gray-blue/05",
+        titleHoverColor: "gray-blue/07",
+        titleActiveColor: "gray-blue/09",
       },
     },
   },

@@ -39,15 +39,15 @@ function Tab({ active: activeProp, title, onClick }: TabInterface) {
         disableOutline,
         verticalPadding(0),
         horizontalPadding(tabHorizontalPadding),
-        backgroundColor("definitions.Tabs.Tab.tabBackgroundColor"),
+        backgroundColor("definitions.Tabs.Tab.backgroundColor"),
         flex,
         flexColumn,
         ai("center"),
         borderNone,
         !activeProp && [
           pointer,
-          hover(child(color("definitions.Tabs.Tab.tabTitleHoverColor"))),
-          active(child(color("definitions.Tabs.Tab.tabTitleActiveColor"))),
+          hover(child(color("definitions.Tabs.Tab.titleHoverColor"))),
+          active(child(color("definitions.Tabs.Tab.titleActiveColor"))),
         ],
       ]}
       onClick={onClick}
@@ -57,7 +57,7 @@ function Tab({ active: activeProp, title, onClick }: TabInterface) {
         styles={[
           transition(`border-bottom-color ${duration160}, color ${duration160}`),
           padding("8px 4px"),
-          color(activeProp ? "definitions.Tabs.tabTitleActiveColor" : "definitions.Tabs.tabTitleColor"),
+          color(activeProp ? "definitions.Tabs.titleActiveColor" : "definitions.Tabs.titleColor"),
         ]}
       >
         {title}

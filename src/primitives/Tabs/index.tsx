@@ -66,7 +66,7 @@ function Tabs({ activeIndex, styles, tabs, setActiveIndex }: TabsInterface) {
               width(widths[activeIndex] - tabHorizontalPadding * 2),
               bottom(-1),
               height(2),
-              backgroundColor("definitions.Tabs.bottomLineColor"),
+              backgroundColor("definitions.Tabs.bottomLine.color"),
             ]}
           />
         )}

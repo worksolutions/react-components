@@ -29,12 +29,14 @@ const darkTheme = {
         },
       },
       Tabs: {
-        bottomLineColor: "red/05",
+        bottomLine: {
+          color: "red/05",
+        },
         Tab: {
-          tabBackgroundColor: "transparent",
-          tabTitleColor: "gray-blue/05",
-          tabTitleHoverColor: "gray-blue/07",
-          tabTitleActiveColor: "gray-blue/09",
+          backgroundColor: "transparent",
+          titleColor: "gray-blue/05",
+          titleHoverColor: "gray-blue/07",
+          titleActiveColor: "gray-blue/09",
         },
       },
     },
