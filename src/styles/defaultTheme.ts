@@ -21,5 +21,16 @@ export const defaultTheme: Theme = {
         titleActiveColor: "gray-blue/09",
       },
     },
+    Counter: {
+      default: {
+        backgroundColor: "gray-blue/05",
+      },
+      prominent: {
+        backgroundColor: "red/05",
+      },
+      primary: {
+        backgroundColor: "blue/05",
+      },
+    },
   },
 };
