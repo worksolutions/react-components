@@ -1,11 +1,11 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { storybookWrapper } from "storybookWrapper";
+import { storybookWrapper } from "storybook/storybookWrapper";
 
 import Breadcrumbs, { BreadcrumbsProps } from "./index";
 import BreadcrumbsItem, { BreadcrumbsItemProps } from "./BreadcrumbsItem";
-import { colorControl } from "../../storyHelpers";
+import { colorControl } from "storybook/storyHelpers";
 
 export default {
   title: "Breadcrumbs",
