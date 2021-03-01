@@ -1,5 +1,5 @@
 import { BaseInputWrapperInterface } from "../Input/InputWrapper";
-import { DropdownContainerInterface, DropdownItem } from "../Dropdown/types";
+import { DropdownContainerInterface, DropdownItem } from "../Dropdown";
 
 export interface ComboboxInterface<CODE extends string | number>
   extends Omit<DropdownContainerInterface<CODE>, "onChange" | "size" | "excludeSelected" | "searchable">,

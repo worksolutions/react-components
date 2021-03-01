@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { numbersControl, selectControl } from "storyHelpers";
+import { numbersControl, selectControl } from "storybook/storyHelpers";
 
 import Card, { CardActionInterface, CardComponentInterface, CardStatusIconSize, CardStatusInterface } from "../index";
 

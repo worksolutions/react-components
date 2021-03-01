@@ -1,6 +1,7 @@
-import { keyframes } from "styled-components";
 import { identity, memoizeWith } from "ramda";
-import { duration300, duration300Number } from "constants/durations";
+import { keyframes } from "styled-components";
+
+import { duration300, duration300Number } from "../../constants/durations";
 
 const defaultAutoRemoveTime = 4000;
 const firstToastBottom = 40;

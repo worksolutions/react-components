@@ -71,7 +71,7 @@ function LoadingProvider({
               right(0),
               top(0),
               bottom(0),
-              backgroundColor(createAlphaColor("white", 160) as Colors),
+              backgroundColor(createAlphaColor("white", 160)),
             ]}
           >
             <Wrapper styles={absoluteCenter}>

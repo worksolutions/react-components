@@ -9,8 +9,6 @@ export default {
   title: "BackdropDisabler",
 };
 
-const BackdropDisablerTemplate: Story<{ color: any }> = (props) => (
-  <BackdropDisablerComponent styles={[backgroundColor(props.color)]} />
-);
+const BackdropDisablerTemplate: Story<{ color: any }> = () => <BackdropDisablerComponent />;
 
 export const BackdropDisabler = BackdropDisablerTemplate.bind({});

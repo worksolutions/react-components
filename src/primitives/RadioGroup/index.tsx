@@ -21,8 +21,7 @@ import {
   backgroundColor,
   border,
   boxShadow,
-} from "styles";
-
+} from "../../styles";
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 

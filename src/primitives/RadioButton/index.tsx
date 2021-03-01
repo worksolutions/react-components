@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   flex,
   jc,
@@ -21,8 +22,7 @@ import {
   boxShadow,
   fontSize,
   color,
-} from "styles";
-
+} from "../../styles";
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import Icon from "../Icon";

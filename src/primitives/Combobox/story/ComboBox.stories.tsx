@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { Combobox, ComboboxInterface } from "index";
+import Combobox, { ComboboxInterface } from "../index";
 
 export default {
   title: "Combobox",

@@ -2,9 +2,9 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { memoizeWith } from "ramda";
 import { string2 } from "@worksolutions/utils";
-import { child, getColor } from "styles";
 
-import { Colors } from "constants/colors";
+import { child, getColor } from "../../styles";
+import { Colors } from "../../constants/colors";
 
 export enum SpinnerSize {
   "extra-small" = "extra-small",
@@ -50,7 +50,7 @@ const StyledSpinner = styled.div.attrs({ className: "loader" })<Required<Spinner
   }
 `;
 
-const Spinner = function ({size = SpinnerSize.medium, ...props}: SpinnerInterface) {
+const Spinner = function ({ size = SpinnerSize.medium, ...props }: SpinnerInterface) {
   return (
     <StyledSpinner {...(props as any)} size={size}>
       <svg className="circular" viewBox="25 25 50 50">

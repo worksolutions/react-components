@@ -35,7 +35,7 @@ function ProgressBar({ value, styles, barStyles }: ProgressBarProps) {
     <Wrapper
       styles={[
         fullWidth,
-        boxShadow([0, 0, 0, 1, createAlphaColor("gray-blue/03", 127) as Colors, true]),
+        boxShadow([0, 0, 0, 1, createAlphaColor("gray-blue/03", 127), true]),
         height(8),
         borderRadius(8),
         position("relative"),

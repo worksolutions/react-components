@@ -1,8 +1,8 @@
 import { css } from "styled-components";
 
-import { TypographyTypes } from "primitives/Typography";
+import { TypographyTypes } from "../Typography";
 
-import { border, boxShadow, getColor } from "styles";
+import { border, boxShadow, getColor } from "../../styles";
 import { htmlTextStyles } from "./htmlStyles";
 
 export const editorStyles = css`

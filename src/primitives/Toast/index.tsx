@@ -1,9 +1,9 @@
 import React from "react";
 import { makeExcludingDeepEqual } from "@worksolutions/utils";
 
-import Wrapper from "primitives/Wrapper";
-import Typography from "primitives/Typography";
-import Button, { ButtonSize, ButtonType } from "primitives/Button";
+import Wrapper from "../Wrapper";
+import Typography from "../Typography";
+import Button, { ButtonSize, ButtonType } from "../Button";
 
 import {
   ai,
@@ -22,8 +22,8 @@ import {
   position,
   transform,
   willChange,
-} from "styles";
-import { zIndex_toast } from "constants/zIndexes";
+} from "../../styles";
+import { zIndex_toast } from "../../constants/zIndexes";
 
 import { calcToastBottom, toastAnimations, toastHeight, toastMarginTop } from "./libs";
 
