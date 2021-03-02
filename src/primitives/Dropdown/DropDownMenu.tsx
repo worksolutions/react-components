@@ -29,6 +29,7 @@ export interface DropDownMenuInterface {
   placement: Placement;
   size: InputSize;
   modifiers: ReadonlyArray<Modifier<unknown>>;
+  outsideHandler: boolean;
 }
 
 const increaseWidthPopper = 40;
@@ -47,12 +48,13 @@ function DropDownMenu({
   targetStyles,
   size,
   modifiers,
+  outsideHandler = true,
 }: DropDownMenuInterface) {
   const [targetElement, setTargetElement] = useState(null);
   const popperStyles = useCallback(() => getPopperStyles(targetElement), [targetElement]);
 
   return (
-    <VisibleManager>
+    <VisibleManager outsideHandler={outsideHandler}>
       {(visible: boolean, toggleVisible: () => void) => (
         <>
           <Reference>

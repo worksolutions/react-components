@@ -1,40 +1,32 @@
 import Wrapper from "primitives/Wrapper";
-import React, { useCallback, useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useCallback, useState } from "react";
 
 import { Manager } from "react-popper";
 import { VisibleManagerContext } from "./VisibleManagerContext";
+import OutsideHandler from "./OutsideHandler";
 
 export interface ManagerProps {
   children: (visible: boolean, toggleVisible: () => void) => JSX.Element;
+  outsideHandler: boolean;
 }
 
-const VisibleManager = function ({ children }: ManagerProps) {
-  const [dropdownElement, setDropdownElement] = useState();
+const VisibleManager = function ({ children, outsideHandler }: ManagerProps) {
+  const [dropdownElement, setDropdownElement] = useState(null);
   const [visible, setVisibility] = useState(false);
 
   const toggleVisible = useCallback(() => setVisibility(!visible), [visible]);
   const closeHandler = useCallback(() => setVisibility(false), [setVisibility]);
 
-  const handleClickOutside = (e: any) => {
-    const nodePopper = ReactDOM.findDOMNode(dropdownElement);
-
-    if (!nodePopper || !nodePopper.contains(e.target)) {
-      setVisibility(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, false);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, false);
-    };
-  }, [dropdownElement]);
-
   return (
     <Manager>
       <VisibleManagerContext.Provider value={{ closeHandler }}>
-        <Wrapper ref={setDropdownElement}>{children(visible, toggleVisible)}</Wrapper>
+        {outsideHandler ? (
+          <OutsideHandler onHandler={closeHandler} observableElement={dropdownElement}>
+            <Wrapper ref={setDropdownElement}>{children(visible, toggleVisible)}</Wrapper>
+          </OutsideHandler>
+        ) : (
+          <Wrapper ref={setDropdownElement}>{children(visible, toggleVisible)}</Wrapper>
+        )}
       </VisibleManagerContext.Provider>
     </Manager>
   );
