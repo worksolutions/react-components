@@ -24,6 +24,17 @@ export interface Theme extends BaseTheme<Colors> {
         titleActiveColor: Colors;
       };
     };
+    Counter: {
+      default: {
+        backgroundColor: Colors;
+      };
+      prominent: {
+        backgroundColor: Colors;
+      };
+      primary: {
+        backgroundColor: Colors;
+      };
+    };
   };
 }
 
