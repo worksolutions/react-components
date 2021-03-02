@@ -15,9 +15,10 @@ import Wrapper from "../Wrapper";
 
 export interface DropdownItemGroupProps {
   children: JSX.Element[] | JSX.Element;
+  styles?: any;
 }
 
-function DropdownItemGroup({ children }: DropdownItemGroupProps) {
+function DropdownItemGroup({ children, styles }: DropdownItemGroupProps) {
   return (
     <Wrapper
       styles={[
@@ -28,6 +29,7 @@ function DropdownItemGroup({ children }: DropdownItemGroupProps) {
         padding(8),
         overflowY("scroll"),
         maxHeight(480),
+        styles,
       ]}
     >
       {children}

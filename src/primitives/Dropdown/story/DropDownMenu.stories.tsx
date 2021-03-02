@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { Story } from "@storybook/react/types-6-0";
 
 import { left, marginRight, position, top, transform, width } from "styles";
+import { selectControl } from "storybook/storyHelpers";
 
 import DropDownMenu, { DropDownMenuInterface } from "../DropDownMenu";
 import { internalIcons } from "../../Icon/list";
 import DropdownItemGroup from "../DropdownItemGroup";
 import DropdownItemElement from "../DropdownItem/DropdownItem";
-import { selectControl } from "../../../storybook/storyHelpers";
-import DropdownGroupList from "../DropdownList";
 import { InputSize } from "../../Input/InputWrapper";
 import { Wrapper } from "../../../index";
 import { ListItemSize } from "../DropdownItem/types";
+import DropdownGroup from "../DropdownGroup";
 
 export default {
   title: "DropDownMenu",
@@ -36,24 +36,15 @@ const Template: Story<DropDownMenuInterface & StoryDropDownProp> = (props: any) 
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
-      <DropDownMenu
-        {...props}
-        targetStyles={[width(240)]}
-        modifiers={[
-          {
-            name: "offset",
-            options: {
-              offset: [0, 4],
-            },
-          },
-        ]}
-      >
+      <DropDownMenu {...props} targetStyles={[width(240)]}>
         <DropdownItemGroup>
-          <DropdownGroupList
+          <DropdownGroup
             heading="heading"
-            onChange={setCheck}
-            valueByDefault="valueByDefault"
-            valueByDefaultSelected={!checked}
+            topElement={
+              <DropdownItemElement onChange={setCheck} selected={!checked} itemSize={props.itemSize}>
+                ValueByDefault
+              </DropdownItemElement>
+            }
           >
             <DropdownItemElement onChange={setCheck} selected={!checked} itemSize={props.itemSize}>
               DropdownItemElement3
@@ -67,7 +58,7 @@ const Template: Story<DropDownMenuInterface & StoryDropDownProp> = (props: any) 
             >
               DropdownItemElement4
             </DropdownItemElement>
-          </DropdownGroupList>
+          </DropdownGroup>
           <DropdownItemElement
             onChange={setCheck}
             selected={!checked}
@@ -80,7 +71,7 @@ const Template: Story<DropDownMenuInterface & StoryDropDownProp> = (props: any) 
           <DropdownItemElement
             onChange={setCheck}
             selected={checked}
-            subTitle="Еще один тайтл • "
+            subTitle="Еще один тайтл"
             itemSize={props.itemSize}
           >
             DropdownItemElement2

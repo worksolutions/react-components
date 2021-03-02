@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { Modifier, Popper, Reference } from "react-popper";
 
+import { Placement } from "@popperjs/core/lib/enums";
+
 import {
   ai,
   createDropdownRightIcon,
@@ -16,14 +18,14 @@ import {
 
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
-import { Placement } from "@popperjs/core/lib/enums";
 import VisibleManager from "./VisibleManager/VisibleManager";
 
 export interface DropDownMenuInterface {
   title: string;
   children: JSX.Element;
   placeholder: string;
-  stylesProp: any;
+  stylesReference: any;
+  stylesPopper: any;
   iconLeft: InternalIcons;
   targetStyles: any;
   placement: Placement;
@@ -33,6 +35,14 @@ export interface DropDownMenuInterface {
 }
 
 const increaseWidthPopper = 40;
+const defaultModifiers = [
+  {
+    name: "offset",
+    options: {
+      offset: [0, 4],
+    },
+  },
+];
 
 function getPopperStyles(targetElement: Element | null) {
   if (!targetElement) return [];
@@ -43,7 +53,8 @@ function DropDownMenu({
   title,
   children,
   placement,
-  stylesProp,
+  stylesReference,
+  stylesPopper,
   iconLeft,
   targetStyles,
   size,
@@ -68,7 +79,7 @@ function DropDownMenu({
                   iconRight={createDropdownRightIcon(visible)}
                   outerStyles={[targetStyles]}
                   renderComponent={(styles) => (
-                    <Wrapper as="button" styles={[styles, stylesProp, pointer]}>
+                    <Wrapper as="button" styles={[styles, stylesReference, pointer]}>
                       <Wrapper styles={[flex, ai("center")]}>
                         <Typography color={"gray-blue/05"} styles={[flexValue(1), textAlign("left")]} dots>
                           {title}
@@ -81,10 +92,10 @@ function DropDownMenu({
             )}
           </Reference>
           {visible && (
-            <Popper placement={placement} modifiers={modifiers}>
+            <Popper placement={placement} modifiers={modifiers ? modifiers : defaultModifiers}>
               {({ ref, style, placement }) => {
                 return (
-                  <Wrapper ref={ref} style={style} styles={popperStyles} data-placement={placement}>
+                  <Wrapper ref={ref} style={style} styles={[popperStyles, stylesPopper]} data-placement={placement}>
                     {children}
                   </Wrapper>
                 );
