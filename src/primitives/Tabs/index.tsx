@@ -39,12 +39,6 @@ function Tabs({ activeIndex, styles, tabs, setActiveIndex }: TabsInterface) {
   const { ref, widths } = useChildrenWidthDetector();
   const { content: Content } = tabs[activeIndex] as any; // todo: проверить тип элемента
   const element = React.isValidElement(Content) ? Content : <Content />;
-  const elementsCache = React.useRef<ReactNode[]>([]);
-
-  React.useEffect(() => {
-    if (elementsCache.current[activeIndex]) return;
-    elementsCache.current[activeIndex] = element;
-  }, [activeIndex]);
 
   return (
     <>
@@ -69,7 +63,7 @@ function Tabs({ activeIndex, styles, tabs, setActiveIndex }: TabsInterface) {
           />
         )}
       </Wrapper>
-      {elementsCache.current[activeIndex] || element}
+      {element}
     </>
   );
 }
