@@ -19,6 +19,7 @@ import {
 } from "../../styles";
 
 import { elevation16 } from "../../constants/shadows";
+import { Colors } from "../../constants/colors";
 
 export enum CounterType {
   default = "default",
@@ -34,7 +35,7 @@ export interface CounterProps {
 }
 
 type BackgroundColors = {
-  [key in CounterType]: IncomeColorVariant<any>;
+  [key in CounterType]: IncomeColorVariant<Colors>;
 };
 
 const backgroundColors: BackgroundColors = {
