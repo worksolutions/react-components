@@ -1,7 +1,8 @@
-import Wrapper from "primitives/Wrapper";
 import React, { useCallback, useState } from "react";
-
 import { Manager } from "react-popper";
+
+import Wrapper from "primitives/Wrapper";
+
 import { VisibleManagerContext } from "./VisibleManagerContext";
 import OutsideHandler from "./OutsideHandler";
 

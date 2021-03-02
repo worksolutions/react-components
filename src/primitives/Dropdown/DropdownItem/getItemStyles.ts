@@ -17,7 +17,9 @@ import {
   pointer,
   transition,
 } from "../../../styles";
+
 import { duration160 } from "../../../constants/durations";
+
 import { ListItemSize } from "./types";
 
 export const heightForItemSize: Record<ListItemSize, number> = {

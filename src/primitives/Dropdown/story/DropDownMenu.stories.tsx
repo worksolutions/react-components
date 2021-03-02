@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Story } from "@storybook/react/types-6-0";
 
+import { left, marginRight, position, top, transform, width } from "styles";
+
 import DropDownMenu, { DropDownMenuInterface } from "../DropDownMenu";
 import { internalIcons } from "../../Icon/list";
 import DropdownItemGroup from "../DropdownItemGroup";
 import DropdownItemElement from "../DropdownItem/DropdownItem";
 import { selectControl } from "../../../storybook/storyHelpers";
-import { left, marginRight, position, top, transform, width } from "../../../styles";
 import DropdownGroupList from "../DropdownList";
 import { InputSize } from "../../Input/InputWrapper";
 import { Wrapper } from "../../../index";

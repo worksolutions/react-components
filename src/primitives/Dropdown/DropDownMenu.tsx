@@ -1,5 +1,5 @@
-import React, { createElement, Ref, SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Manager, Modifier, Popper, Reference, usePopper } from "react-popper";
+import React, { useCallback, useState } from "react";
+import { Modifier, Popper, Reference } from "react-popper";
 
 import {
   ai,
