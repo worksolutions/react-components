@@ -7,6 +7,7 @@ import {
   boxShadow,
   elevation16Raw,
   maxHeight,
+  maxWidth,
   overflowY,
   padding,
 } from "../../index";
@@ -29,6 +30,7 @@ function DropdownItemGroup({ children, styles }: DropdownItemGroupProps) {
         padding(8),
         overflowY("scroll"),
         maxHeight(480),
+        maxWidth(480),
         styles,
       ]}
     >

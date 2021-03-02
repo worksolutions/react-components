@@ -14,7 +14,7 @@ import { ListItemSize } from "../DropdownItem/types";
 import DropdownGroup from "../DropdownGroup";
 
 export default {
-  title: "DropDownMenu",
+  title: "DropDownMenu/DropDownMenu",
   component: DropDownMenu.type,
   argTypes: {
     iconLeft: selectControl(Object.keys(internalIcons)),
