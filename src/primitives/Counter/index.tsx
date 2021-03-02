@@ -8,16 +8,14 @@ import {
   border,
   borderRadius,
   color,
-  display,
   flex,
   fontSize,
   fontWeight,
   height,
   lineHeight,
   minWidth,
-  width,
   jc,
-  padding,
+  horizontalPadding,
 } from "../../styles";
 
 import { elevation16 } from "../../constants/shadows";
@@ -30,6 +28,7 @@ export enum CounterType {
 
 export interface CounterProps {
   value: number;
+  displayValueLimit?: number;
   type?: CounterType;
   withShadow?: boolean;
 }
@@ -44,9 +43,10 @@ const backgroundColors: BackgroundColors = {
   primary: "definitions.Counter.primary.backgroundColor",
 };
 
-function Counter({ value, type = CounterType.default, withShadow = false }: CounterProps) {
-  const displayedValue = value > 99 ? "99+" : value;
-  console.log(backgroundColors[type]);
+function Counter({ value, displayValueLimit = 99, type = CounterType.default, withShadow = false }: CounterProps) {
+  const getDisplayedValue = React.useMemo(() => {
+    return value > displayValueLimit ? `${displayValueLimit}+` : value;
+  }, [value, displayValueLimit]);
 
   return (
     <Typography
@@ -54,7 +54,7 @@ function Counter({ value, type = CounterType.default, withShadow = false }: Coun
         flex,
         ai("center"),
         jc("center"),
-        padding("0 5px"),
+        horizontalPadding(5),
         fontSize(10),
         lineHeight(12),
         fontWeight("bold"),
@@ -67,7 +67,7 @@ function Counter({ value, type = CounterType.default, withShadow = false }: Coun
         withShadow && elevation16,
       ]}
     >
-      {displayedValue}
+      {getDisplayedValue}
     </Typography>
   );
 }
