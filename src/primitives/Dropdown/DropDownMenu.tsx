@@ -23,15 +23,13 @@ import VisibleManager from "./VisibleManager/VisibleManager";
 export interface DropDownMenuInterface {
   title: string;
   children: JSX.Element;
-  placeholder: string;
-  stylesReference: any;
-  stylesPopper: any;
   iconLeft: InternalIcons;
-  targetStyles: any;
   placement: Placement;
   size: InputSize;
   modifiers: ReadonlyArray<Modifier<unknown>>;
   outsideHandler: boolean;
+  stylesReference: any;
+  stylesPopper: any;
 }
 
 const increaseWidthPopper = 40;
@@ -56,7 +54,6 @@ function DropDownMenu({
   stylesReference,
   stylesPopper,
   iconLeft,
-  targetStyles,
   size,
   modifiers,
   outsideHandler = true,
@@ -77,9 +74,9 @@ function DropDownMenu({
                   onClick={toggleVisible}
                   iconLeft={iconLeft}
                   iconRight={createDropdownRightIcon(visible)}
-                  outerStyles={[targetStyles]}
+                  outerStyles={[stylesReference]}
                   renderComponent={(styles) => (
-                    <Wrapper as="button" styles={[styles, stylesReference, pointer]}>
+                    <Wrapper as="button" styles={[styles, pointer]}>
                       <Wrapper styles={[flex, ai("center")]}>
                         <Typography color={"gray-blue/05"} styles={[flexValue(1), textAlign("left")]} dots>
                           {title}

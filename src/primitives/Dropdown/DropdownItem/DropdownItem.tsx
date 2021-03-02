@@ -33,10 +33,11 @@ export interface DropdownItemInterface {
   circledRightContent?: boolean;
   heading?: string | number;
   subTitle?: string | number;
-  onChange?: () => void;
+  code: string;
+  onChange?: (code: string) => void;
 }
 
-function DropdownItemElement({
+function DropdownItem({
   selected,
   disabled,
   itemSize = ListItemSize.SMALL,
@@ -51,6 +52,7 @@ function DropdownItemElement({
   circledLeftContent,
   circledRightContent,
   onChange,
+  code,
 }: DropdownItemInterface) {
   const { closeHandler } = React.useContext(VisibleManagerContext);
 
@@ -60,7 +62,7 @@ function DropdownItemElement({
 
   const onHandlerClick = useCallback(() => {
     if (!onChange && enabled) return;
-    onChange && onChange();
+    onChange && onChange(code);
     closeHandler();
   }, [onChange, closeHandler, selected, disabled]);
 
@@ -88,4 +90,4 @@ function DropdownItemElement({
   );
 }
 
-export default React.memo(DropdownItemElement);
+export default React.memo(DropdownItem);
