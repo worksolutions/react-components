@@ -4,8 +4,10 @@ import { firstChild, flex, flexColumn, lastChild, marginBottom, marginTop } from
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 
-import ListItem, { getItemStyles, ListItemInterface, ListItemSize } from "./ListItem";
+import ListItem, { ListItemInterface } from "./ListItem";
 import { Colors } from "../../constants/colors";
+import { ListItemSize } from "../Dropdown/DropdownItem/types";
+import { getItemStyles } from "../Dropdown/DropdownItem/getItemStyles";
 
 export type ListItemId = string | number;
 

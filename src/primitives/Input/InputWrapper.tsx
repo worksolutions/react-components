@@ -40,6 +40,7 @@ import { duration160 } from "../../constants/durations";
 export enum InputSize {
   MEDIUM = "medium",
   LARGE = "large",
+  SMALL = "small",
 }
 
 export enum InputTitlePosition {
@@ -56,12 +57,18 @@ enum InputVariant {
 
 const stylesForSize = {
   [InputSize.LARGE]: {
+    withIconLeft: padding("14px 12px 14px 40px"),
+    withIconRight: padding("14px 40px 14px 12px"),
+    withIcons: padding("14px 40px 14px 40px"),
+    withoutIcons: padding("10px 12px"),
+  },
+  [InputSize.MEDIUM]: {
     withIconLeft: padding("10px 12px 10px 40px"),
     withIconRight: padding("10px 40px 10px 12px"),
     withIcons: padding("10px 40px 10px 40px"),
     withoutIcons: padding("10px 12px"),
   },
-  [InputSize.MEDIUM]: {
+  [InputSize.SMALL]: {
     withIconLeft: padding("6px 12px 6px 40px"),
     withIconRight: padding("6px 40px 6px 12px"),
     withIcons: padding("6px 40px 6px 40px"),

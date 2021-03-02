@@ -5,9 +5,10 @@ import { useEffectSkipFirst } from "@worksolutions/react-utils";
 import Icon, { InternalIcons } from "../Icon";
 import { InputSize } from "../Input/InputWrapper";
 import { ButtonSize } from "../Button";
-import { ListItemInterface, ListItemSize } from "../List/ListItem";
+import { ListItemInterface } from "../List/ListItem";
 
 import { DropdownContainerInterface, DropdownItem } from "./types";
+import { ListItemSize } from "./DropdownItem/types";
 
 export function useItems<CODE extends string | number>(
   excludeSelected?: boolean,
@@ -42,6 +43,7 @@ export function useItems<CODE extends string | number>(
 export const matchingDropdownSizeAndItemSize: Record<InputSize, ListItemSize> = {
   [InputSize.LARGE]: ListItemSize.LARGE,
   [InputSize.MEDIUM]: ListItemSize.MEDIUM,
+  [InputSize.SMALL]: ListItemSize.SMALL,
 };
 
 export const matchDropdownSizeAndSearchSize: Record<
@@ -55,6 +57,10 @@ export const matchDropdownSizeAndSearchSize: Record<
   [InputSize.LARGE]: {
     clearButtonSize: ButtonSize.MEDIUM,
     inputSize: InputSize.LARGE,
+  },
+  [InputSize.SMALL]: {
+    clearButtonSize: ButtonSize.SMALL,
+    inputSize: InputSize.SMALL,
   },
 };
 

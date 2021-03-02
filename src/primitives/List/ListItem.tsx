@@ -1,40 +1,15 @@
 import React from "react";
 import { isString, SuggestInterface } from "@worksolutions/utils";
 
-import {
-  ai,
-  borderNone,
-  borderRadius,
-  disableOutline,
-  flex,
-  flexColumn,
-  flexShrink,
-  flexValue,
-  focus,
-  horizontalPadding,
-  hover,
-  jc,
-  marginBottom,
-  marginLeft,
-  marginRight,
-  marginTop,
-  minHeight,
-  overflow,
-  pointer,
-  textAlign,
-  transition,
-  backgroundColor,
-  boxShadow,
-  createAlphaColor,
-} from "../../styles";
+import { flex, flexColumn, flexValue, marginLeft, marginRight, overflow, textAlign } from "../../styles";
 
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
-import Icon from "../Icon";
 import { InputIconProp } from "../Input/InputWrapper";
 
-import { duration160 } from "../../constants/durations";
-import { Colors } from "../..";
+import { makeIcon } from "../Dropdown/DropdownItem/makeIcon";
+import { getItemStyles } from "../Dropdown/DropdownItem/getItemStyles";
+import { ListItemSize } from "../Dropdown/DropdownItem/types";
 
 export interface ListItemInterface<ITEM extends string | number> extends SuggestInterface<ITEM> {
   leftContent?: InputIconProp;
@@ -46,34 +21,6 @@ export interface ListItemInterface<ITEM extends string | number> extends Suggest
   disabled?: boolean;
 }
 
-export enum ListItemSize {
-  LARGE = "LARGE",
-  MEDIUM = "MEDIUM",
-}
-
-const heightForItemSize: Record<ListItemSize, number> = {
-  [ListItemSize.LARGE]: 40,
-  [ListItemSize.MEDIUM]: 32,
-};
-
-export function getItemStyles(itemSize: ListItemSize, enabled: boolean, isActiveItem: boolean) {
-  return [
-    backgroundColor("transparent"),
-    disableOutline,
-    borderNone,
-    minHeight(heightForItemSize[itemSize]),
-    flex,
-    marginTop(2),
-    marginBottom(2),
-    ai("center"),
-    borderRadius(4),
-    horizontalPadding(8),
-    transition(`all ${duration160}`),
-    enabled && [pointer, hover([backgroundColor("gray-blue/01")]), focus(boxShadow([0, 0, 0, 2, "blue/04"]))],
-    isActiveItem && [backgroundColor("gray-blue/01"), boxShadow([0, 0, 1, 0, createAlphaColor("black", 81)])],
-  ];
-}
-
 type ListItemComponent<CODE extends string | number> = {
   item: ListItemInterface<CODE>;
   itemSize: ListItemSize;
@@ -83,26 +30,6 @@ type ListItemComponent<CODE extends string | number> = {
   titleDots?: boolean;
   styles?: any;
 };
-
-function makeIcon(icon?: InputIconProp, styles?: any, circledIcon = true) {
-  const content = icon ? isString(icon) ? <Icon icon={icon} /> : icon : null;
-  if (!content) return null;
-  return (
-    <Wrapper
-      styles={[
-        flex,
-        borderRadius(circledIcon ? "100%" : 4),
-        overflow("hidden"),
-        ai("center"),
-        jc("center"),
-        flexShrink(0),
-        styles,
-      ]}
-    >
-      {content}
-    </Wrapper>
-  );
-}
 
 function ListItem<CODE extends string | number>({
   item: {
