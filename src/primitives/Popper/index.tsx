@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { observer } from "mobx-react-lite";
 import { animated } from "react-spring";
 
 import { borderRadius, padding, backgroundColor, border, boxShadow, createAlphaColor } from "../../styles";
@@ -132,4 +133,4 @@ Hint.defaultProps = {
   margin: 8,
 };
 
-export default React.memo(Hint);
+export default observer(Hint);
