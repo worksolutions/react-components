@@ -1,10 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
-
 .ws-box {
-    & * {
-        box-sizing: border-box;
-        font-family: "IBM Plex Sans", sans-serif;
-        line-height: 0;
+    & {
+        @import "../css/common";
+        @import "../css/IBMPlexFont";
     }
 
     @import "../css/scrollbars";
