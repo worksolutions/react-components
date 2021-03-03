@@ -5,6 +5,7 @@ import { useMeasureCallback } from "@worksolutions/react-utils";
 import { ai, flex, height, jc, overflow, stringOrPixels, width } from "../../styles";
 
 import Wrapper from "../Wrapper";
+import { StyledComponentsAs } from "../../types/StyledComponents";
 
 export interface AspectRatioWrapperInterface {
   width?: number | string;
@@ -12,7 +13,7 @@ export interface AspectRatioWrapperInterface {
   aspectRatio?: number;
   outerStyles?: any;
   styles?: any;
-  as?: any;
+  as?: StyledComponentsAs;
 }
 
 function getSizes(

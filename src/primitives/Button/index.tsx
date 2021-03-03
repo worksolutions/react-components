@@ -3,8 +3,10 @@ import { preventDefault } from "@worksolutions/react-utils";
 
 import Wrapper from "../Wrapper";
 import ButtonWrapper, { BaseButtonWrapperInterface } from "./ButtonWrapper";
+import { StyledComponentsAs } from "../../types/StyledComponents";
 
 export interface ButtonInterface extends BaseButtonWrapperInterface {
+  as?: StyledComponentsAs;
   tabIndex?: number;
   loadingText?: string;
   className?: string;
@@ -15,6 +17,7 @@ export interface ButtonInterface extends BaseButtonWrapperInterface {
 
 const Button = React.forwardRef(function (
   {
+    as = "button",
     children,
     onClick,
     preventDefault: preventDefaultProp,
@@ -34,7 +37,7 @@ const Button = React.forwardRef(function (
             className={className}
             ref={ref}
             tabIndex={tabIndex}
-            as="button"
+            as={as}
             styles={styles}
             disabled={buttonWrapperProps.disabled}
             onClick={clickHandler && (preventDefaultProp ? preventDefault(clickHandler) : clickHandler)}
