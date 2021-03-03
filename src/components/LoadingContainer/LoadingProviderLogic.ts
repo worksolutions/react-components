@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 
-export class ProviderLogic {
+export class LoadingProviderLogic {
   constructor() {
     makeAutoObservable(this);
   }
@@ -16,4 +16,4 @@ export class ProviderLogic {
   }
 }
 
-export const providerLogicStore = new ProviderLogic();
+export const loadingProviderLogicStore = new LoadingProviderLogic();

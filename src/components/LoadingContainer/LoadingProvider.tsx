@@ -18,7 +18,7 @@ import {
 } from "../../styles";
 import { Colors } from "../../constants/colors";
 
-import { ProviderLogic, providerLogicStore } from "./LoadingProviderLogic";
+import { LoadingProviderLogic, loadingProviderLogicStore } from "./LoadingProviderLogic";
 
 function LoadingProvider({
   children,
@@ -27,22 +27,22 @@ function LoadingProvider({
   children: (loadingProviderRef: Ref<HTMLElement | undefined>) => JSX.Element;
   color?: Colors;
 }) {
-  const id = React.useMemo(() => providerLogicStore.generateId(), []);
+  const id = React.useMemo(() => loadingProviderLogicStore.generateId(), []);
   const ref = React.useRef<HTMLElement>();
 
   React.useEffect(() => {
     if (ref.current) {
       ref.current.style.position = "relative";
-      ref.current.setAttribute(ProviderLogic.attributeName, id.toString());
-      providerLogicStore.providers[id] = { spinnerCount: 0 };
+      ref.current.setAttribute(LoadingProviderLogic.attributeName, id.toString());
+      loadingProviderLogicStore.providers[id] = { spinnerCount: 0 };
     }
 
     return () => {
-      providerLogicStore.providers[id].spinnerCount = 0;
+      loadingProviderLogicStore.providers[id].spinnerCount = 0;
     };
   }, []);
 
-  const needShowSpinner = providerLogicStore.providers[id]?.spinnerCount !== 0 && !!ref.current;
+  const needShowSpinner = loadingProviderLogicStore.providers[id]?.spinnerCount !== 0 && !!ref.current;
   const [realShowSpinner, setRealShowSpinner] = React.useState(needShowSpinner);
   const timerRef = React.useRef<any>();
 

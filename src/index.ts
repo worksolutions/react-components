@@ -1,8 +1,7 @@
 export const mainClassName = "ws-box";
 
-export { default as LoadingContainer } from "./components/LoadingContainer/Loading";
-export { default as LoadingProvider } from "./components/LoadingContainer/LoadingProvider";
-export * from "./components/LoadingContainer/LoadingProviderLogic";
+export * from "./components/LoadingContainer/LoadingProvider";
+export * from "./components/LoadingContainer/Loading";
 export * from "./constants/colors";
 export * from "./constants/durations";
 export * from "./constants/shadows";
