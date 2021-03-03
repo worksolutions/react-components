@@ -5,11 +5,12 @@ import { Router } from "react-router-dom";
 import { Story } from "@storybook/react/types-6-0";
 import { useLocalStorage } from "react-use";
 
+import "./index.scss";
+
 import "./initializeStorybooks";
 import { colors as darkColors } from "../constants/colorsMap/dark";
 
 import { TypographyGlobalStyle } from "../primitives/Typography";
-import "../css/index.scss";
 import { makeTheme } from "../styles/makeTheme";
 import { position, right, Toggle, top } from "../index";
 

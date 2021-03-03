@@ -1,12 +1,12 @@
 {
   "name": "@worksolutions/components",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "format": "prettier --write --list-different \"src/**/*.{ts,tsx,js,json,yml}\"",
-    "build": "rm -rf dist && cross-env NODE_ENV=production && npm run build:babel && npm run build:ts && cp -R src/primitives/Icon/icons dist/primitives/Icon/icons",
+    "build": "rm -rf dist && cross-env NODE_ENV=production && npm run build:babel && npm run build:ts && cp -R src/primitives/Icon/icons dist/primitives/Icon/icons && cp -R src/css dist/css",
     "build:babel": "babel src -d dist --extensions '.ts,.tsx,.jsx,.js' --source-maps",
     "build:ts": "node_modules/typescript/bin/tsc",
     "prepublish": "npm run build",
