@@ -1,8 +1,8 @@
 import React, { CSSProperties } from "react";
 import { prop } from "ramda";
 import { animated, useSpring } from "react-spring";
-import { isString, stopPropagation } from "@worksolutions/utils";
-import { useMeasure, usePrevious } from "@worksolutions/react-utils";
+import { isString } from "@worksolutions/utils";
+import { useMeasure, usePrevious, stopPropagation } from "@worksolutions/react-utils";
 
 import Icon, { InternalIcons } from "../../Icon";
 import Wrapper from "../../Wrapper";

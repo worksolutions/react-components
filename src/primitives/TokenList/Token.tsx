@@ -1,5 +1,5 @@
 import React from "react";
-import { stopPropagation } from "@worksolutions/utils";
+import { stopPropagation } from "@worksolutions/react-utils";
 
 import {
   ai,

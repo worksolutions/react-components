@@ -1,11 +1,11 @@
-import React from "react";
-import { preventDefault } from "@worksolutions/utils";
+import React, { FormEvent } from "react";
+import { preventDefault } from "@worksolutions/react-utils";
 
 import Wrapper, { WrapperInterface } from "../Wrapper";
 
 export interface FormInterface extends WrapperInterface {
   children: React.ReactNode;
-  onSubmit: () => void;
+  onSubmit: (event: FormEvent) => void;
 }
 
 function Form({ children, onSubmit, ...props }: FormInterface) {

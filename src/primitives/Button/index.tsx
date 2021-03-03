@@ -1,8 +1,7 @@
 import React, { Ref } from "react";
-import { preventDefault } from "@worksolutions/utils";
+import { preventDefault } from "@worksolutions/react-utils";
 
 import Wrapper from "../Wrapper";
-
 import ButtonWrapper, { BaseButtonWrapperInterface } from "./ButtonWrapper";
 
 export interface ButtonInterface extends BaseButtonWrapperInterface {
