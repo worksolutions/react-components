@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import Wrapper from "../Wrapper";
 import { ai, flex, flexWrap, fullWidth, horizontalMargin } from "../../styles";
@@ -16,8 +16,8 @@ function Breadcrumbs({ styles, items }: BreadcrumbsInterface) {
   return (
     <Wrapper styles={[flex, flexWrap, fullWidth, ai("center"), styles]}>
       {items.map((item, index) => (
-        <>
-          <BreadcrumbsItem key={index} {...item} />
+        <Fragment key={index}>
+          <BreadcrumbsItem {...item} />
           {index !== lastIndex && (
             <Typography
               color="definitions.Breadcrumbs.LevelDivider.color"
@@ -27,7 +27,7 @@ function Breadcrumbs({ styles, items }: BreadcrumbsInterface) {
               /
             </Typography>
           )}
-        </>
+        </Fragment>
       ))}
     </Wrapper>
   );

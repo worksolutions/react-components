@@ -132,3 +132,6 @@ export { default as BreadcrumbsText } from "./primitives/Breadcrumbs/ItemContent
 
 export { default as Counter } from "./primitives/Counter";
 export * from "./primitives/Counter";
+
+export { default as Badge } from "./primitives/Badge";
+export * from "./primitives/Badge";

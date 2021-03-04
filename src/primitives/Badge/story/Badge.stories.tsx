@@ -1,25 +1,23 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import Counter, { CounterInterface } from "../index";
+import Badge, { BadgeType, BadgeInterface } from "../index";
 import { selectControl } from "../../../storybook/storyHelpers";
-import { BadgeType } from "../../Badge";
 
 export default {
-  title: "Counter",
-  component: Counter.type,
+  title: "Badge",
+  component: Badge.type,
   argTypes: {
     type: selectControl(Object.keys(BadgeType)),
   },
 };
 
-const Template: Story<CounterInterface> = (props) => {
-  return <Counter {...props} />;
+const Template: Story<BadgeInterface> = (props) => {
+  return <Badge {...props} />;
 };
 
 export const Default = Template.bind({});
 
 Default.args = {
-  value: 123,
   type: BadgeType.default,
 };
