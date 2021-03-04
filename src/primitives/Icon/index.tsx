@@ -1,5 +1,6 @@
 import React from "react";
 import { isDeepEqual } from "@worksolutions/utils";
+import { IncomeColorVariant } from "@worksolutions/react-utils";
 
 import { expandedIcons, internalIcons } from "./list";
 import { Colors } from "../../constants/colors";
@@ -18,7 +19,7 @@ interface StyledSVGInterface {
 export interface IconInterface extends StyledSVGInterface {
   icon?: InternalIcons | string;
   className?: string;
-  color?: Colors;
+  color?: IncomeColorVariant<Colors>;
 }
 
 function isInternalIcon(icon: string): icon is InternalIcons {

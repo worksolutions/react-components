@@ -1,4 +1,4 @@
-import { colors } from "../constants/colorsMap/light";
+import { colors } from "../constants/colorsMap/dark";
 
 export function selectControl(options: any[]) {
   return {

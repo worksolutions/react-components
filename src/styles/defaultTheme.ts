@@ -1,21 +1,21 @@
-import { colors as lightColors } from "../constants/colorsMap/light";
 import { Theme } from "./makeTheme";
+import { colors as darkColors } from "../constants/colorsMap/dark";
 
 export const defaultTheme: Theme = {
-  colors: lightColors,
+  colors: darkColors,
   definitions: {
     Button: {
       primary: {
         color: "white",
-        backgroundColor: "blue/05",
+        backgroundColor: "blue/09",
       },
     },
     Tabs: {
       bottomLine: {
-        color: "blue/05",
+        color: "red/05",
       },
       Tab: {
-        backgroundColor: "white",
+        backgroundColor: "transparent",
         titleColor: "gray-blue/05",
         titleHoverColor: "gray-blue/07",
         titleActiveColor: "gray-blue/09",
@@ -31,6 +31,11 @@ export const defaultTheme: Theme = {
       primary: {
         backgroundColor: "blue/05",
       },
+    },
+    Breadcrumbs: {
+      BreadcrumbsLink: { color: "gray-blue/05" },
+      BreadcrumbsText: { color: "gray-blue/05" },
+      LevelDivider: { color: "gray-blue/05" },
     },
   },
 };
