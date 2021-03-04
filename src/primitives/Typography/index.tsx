@@ -13,6 +13,7 @@ import {
   getColor,
 } from "../../styles";
 import { Colors } from "../../constants/colors";
+import { StyledComponentsAs } from "../../types/StyledComponents";
 
 const TypographyWrapper = styled.span``;
 
@@ -36,7 +37,7 @@ TypographyTypes["overline-bold"] = [...TypographyTypes["overline-medium"], fontW
 export interface TypographyInterface {
   noWrap?: boolean;
   className?: string;
-  as?: string;
+  as?: StyledComponentsAs;
   type?: keyof typeof TypographyTypes;
   color?: Colors | null;
   styles?: any;

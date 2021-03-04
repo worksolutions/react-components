@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 
-import { ProviderLogic, providerLogicStore } from "./LoadingProviderLogic";
+import { LoadingProviderLogic, loadingProviderLogicStore } from "./LoadingProviderLogic";
 
 function getElementWithAttributeInParentsPath(element: HTMLElement, attribute: string): HTMLElement | null {
   if (!element.parentElement) return null;
@@ -10,9 +10,9 @@ function getElementWithAttributeInParentsPath(element: HTMLElement, attribute: s
 }
 
 function findProviderContainerId(element: HTMLElement) {
-  const providerElement = getElementWithAttributeInParentsPath(element, ProviderLogic.attributeName);
+  const providerElement = getElementWithAttributeInParentsPath(element, LoadingProviderLogic.attributeName);
   if (!providerElement) return;
-  return providerElement.getAttribute(ProviderLogic.attributeName);
+  return providerElement.getAttribute(LoadingProviderLogic.attributeName);
 }
 
 function Loading() {
@@ -23,13 +23,13 @@ function Loading() {
       if (!ref.current) return;
       foundElementId = findProviderContainerId(ref.current);
       if (!foundElementId) return;
-      providerLogicStore.providers[foundElementId].spinnerCount++;
+      loadingProviderLogicStore.providers[foundElementId].spinnerCount++;
     }, 16);
 
     return () => {
       if (!foundElementId) return;
       setTimeout(() => {
-        providerLogicStore.providers[foundElementId!].spinnerCount--;
+        loadingProviderLogicStore.providers[foundElementId!].spinnerCount--;
       }, 16);
     };
   }, []);

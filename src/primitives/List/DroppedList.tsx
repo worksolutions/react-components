@@ -2,8 +2,7 @@ import React from "react";
 import { animated } from "react-spring";
 import { useHover } from "react-use";
 import { Placement } from "@popperjs/core";
-import { preventDefault, stopPropagation } from "@worksolutions/utils";
-import { provideRef, useEffectSkipFirst } from "@worksolutions/react-utils";
+import { provideRef, useEffectSkipFirst, preventDefaultAndStopPropagationHandler } from "@worksolutions/react-utils";
 
 import { borderRadius, cursor, maxWidth, minWidth, padding, position, backgroundColor, boxShadow } from "../../styles";
 
@@ -154,7 +153,7 @@ function DroppedList({
               includeMinWidthCalculation && minWidth("calc(100% + 40px)"),
               zIndex_popup,
             ]}
-            onClick={preventDefault(stopPropagation())}
+            onClick={preventDefaultAndStopPropagationHandler}
           >
             <Wrapper
               styles={[

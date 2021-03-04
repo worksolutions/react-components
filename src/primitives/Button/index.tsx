@@ -1,11 +1,13 @@
-import React, { Ref } from "react";
-import { preventDefault } from "@worksolutions/utils";
+import React, { ButtonHTMLAttributes, Ref } from "react";
+import { preventDefault } from "@worksolutions/react-utils";
 
 import Wrapper from "../Wrapper";
-
 import ButtonWrapper, { BaseButtonWrapperInterface } from "./ButtonWrapper";
+import { StyledComponentsAs } from "../../types/StyledComponents";
 
 export interface ButtonInterface extends BaseButtonWrapperInterface {
+  as?: StyledComponentsAs;
+  nativeType?: ButtonHTMLAttributes<any>["type"];
   tabIndex?: number;
   loadingText?: string;
   className?: string;
@@ -16,9 +18,11 @@ export interface ButtonInterface extends BaseButtonWrapperInterface {
 
 const Button = React.forwardRef(function (
   {
+    as = "button",
+    nativeType = "button",
     children,
     onClick,
-    preventDefault: preventDefaultProp,
+    preventDefault: preventDefaultProp = true,
     className,
     tabIndex,
     ...buttonWrapperProps
@@ -35,7 +39,8 @@ const Button = React.forwardRef(function (
             className={className}
             ref={ref}
             tabIndex={tabIndex}
-            as="button"
+            type={nativeType}
+            as={as}
             styles={styles}
             disabled={buttonWrapperProps.disabled}
             onClick={clickHandler && (preventDefaultProp ? preventDefault(clickHandler) : clickHandler)}
@@ -49,10 +54,6 @@ const Button = React.forwardRef(function (
     </ButtonWrapper>
   );
 });
-
-Button.defaultProps = {
-  preventDefault: true,
-};
 
 export default React.memo(Button);
 

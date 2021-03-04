@@ -10,5 +10,27 @@ export const defaultTheme: Theme = {
         backgroundColor: "blue/05",
       },
     },
+    Tabs: {
+      bottomLine: {
+        color: "blue/05",
+      },
+      Tab: {
+        backgroundColor: "white",
+        titleColor: "gray-blue/05",
+        titleHoverColor: "gray-blue/07",
+        titleActiveColor: "gray-blue/09",
+      },
+    },
+    Counter: {
+      default: {
+        backgroundColor: "gray-blue/05",
+      },
+      prominent: {
+        backgroundColor: "red/05",
+      },
+      primary: {
+        backgroundColor: "blue/05",
+      },
+    },
   },
 };

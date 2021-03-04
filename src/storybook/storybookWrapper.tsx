@@ -5,11 +5,12 @@ import { Router } from "react-router-dom";
 import { Story } from "@storybook/react/types-6-0";
 import { useLocalStorage } from "react-use";
 
+import "./index.scss";
+
 import "./initializeStorybooks";
 import { colors as darkColors } from "../constants/colorsMap/dark";
 
 import { TypographyGlobalStyle } from "../primitives/Typography";
-import "../css/index.scss";
 import { makeTheme } from "../styles/makeTheme";
 import { position, right, Toggle, top } from "../index";
 
@@ -26,6 +27,28 @@ const darkTheme = {
         primary: {
           color: "white",
           backgroundColor: "blue/09",
+        },
+      },
+      Tabs: {
+        bottomLine: {
+          color: "red/05",
+        },
+        Tab: {
+          backgroundColor: "transparent",
+          titleColor: "gray-blue/05",
+          titleHoverColor: "gray-blue/07",
+          titleActiveColor: "gray-blue/09",
+        },
+      },
+      Counter: {
+        default: {
+          backgroundColor: "gray-blue/05",
+        },
+        prominent: {
+          backgroundColor: "red/05",
+        },
+        primary: {
+          backgroundColor: "blue/05",
         },
       },
     },

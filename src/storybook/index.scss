@@ -1,0 +1,9 @@
+.ws-box {
+    & {
+        @import "../css/common";
+        @import "../css/IBMPlexFont";
+    }
+
+    @import "../css/scrollbars";
+    @import "../css/spinner";
+}
