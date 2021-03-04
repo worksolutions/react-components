@@ -20,6 +20,5 @@ export const Default = Template.bind({});
 
 Default.args = {
   value: 123,
-  withShadow: false,
   type: CounterType.default,
 };

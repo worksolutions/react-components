@@ -1,5 +1,5 @@
 import { BaseInputWrapperInterface } from "../Input/InputWrapper";
-import { DropdownContainerInterface, DropdownItem } from "../Dropdown";
+import { DropdownContainerInterface, DropdownItemInterface } from "../Dropdown/types";
 
 export interface ComboboxInterface<CODE extends string | number>
   extends Omit<DropdownContainerInterface<CODE>, "onChange" | "size" | "excludeSelected" | "searchable">,
@@ -10,5 +10,5 @@ export interface ComboboxInterface<CODE extends string | number>
   styles?: any;
   placeholder?: string;
   onChange: (codes: CODE[]) => void;
-  onChangeItemsList: (newItemsList: DropdownItem<CODE>[]) => void;
+  onChangeItemsList: (newItemsList: DropdownItemInterface<CODE>[]) => void;
 }

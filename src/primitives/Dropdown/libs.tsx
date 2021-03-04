@@ -7,7 +7,7 @@ import { InputSize } from "../Input/InputWrapper";
 import { ButtonSize } from "../Button";
 import { ListItemInterface, ListItemSize } from "../List/ListItem";
 
-import { DropdownContainerInterface, DropdownItem } from "./types";
+import { DropdownContainerInterface, DropdownItemInterface } from "./types";
 
 export function useItems<CODE extends string | number>(
   excludeSelected?: boolean,
@@ -23,7 +23,7 @@ export function useItems<CODE extends string | number>(
 
   const [searchedItems, setSearchedItems] = React.useState(items);
 
-  const resultItems: DropdownItem<CODE>[] = React.useMemo(() => {
+  const resultItems: DropdownItemInterface<CODE>[] = React.useMemo(() => {
     const result = searchedItems.map((item) => ({
       ...item,
       rightContent: selectedItemCodes.includes(item.code) ? <Icon icon="check" color="blue/06" /> : undefined,

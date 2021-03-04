@@ -4,7 +4,8 @@ import { Story } from "@storybook/react/types-6-0";
 import { width } from "styles";
 import { selectControl } from "storybook/storyHelpers";
 
-import Dropdown, { DropdownInterface } from "../index";
+import Dropdown from "../index";
+import { DropdownInterface } from "../types";
 import { InputSize } from "../../Input/Input";
 import { InputTitlePosition } from "../../Input/InputWrapper";
 

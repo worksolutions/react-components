@@ -3,8 +3,11 @@ import { isString, SuggestInterface } from "@worksolutions/utils";
 
 import {
   ai,
+  backgroundColor,
   borderNone,
   borderRadius,
+  boxShadow,
+  createAlphaColor,
   disableOutline,
   flex,
   flexColumn,
@@ -14,18 +17,14 @@ import {
   horizontalPadding,
   hover,
   jc,
-  marginBottom,
+  margin,
   marginLeft,
   marginRight,
-  marginTop,
   minHeight,
   overflow,
   pointer,
   textAlign,
   transition,
-  backgroundColor,
-  boxShadow,
-  createAlphaColor,
 } from "../../styles";
 
 import Wrapper from "../Wrapper";
@@ -34,13 +33,12 @@ import Icon from "../Icon";
 import { InputIconProp } from "../Input/InputWrapper";
 
 import { duration160 } from "../../constants/durations";
-import { Colors } from "../..";
 
 export interface ListItemInterface<ITEM extends string | number> extends SuggestInterface<ITEM> {
   leftContent?: InputIconProp;
-  circledLeftContent?: boolean;
+  leftContentStyles?: any;
   rightContent?: InputIconProp;
-  circledRightContent?: boolean;
+  rightContentStyles?: any;
   heading?: string | number;
   subTitle?: string | number;
   disabled?: boolean;
@@ -63,8 +61,7 @@ export function getItemStyles(itemSize: ListItemSize, enabled: boolean, isActive
     borderNone,
     minHeight(heightForItemSize[itemSize]),
     flex,
-    marginTop(2),
-    marginBottom(2),
+    margin("2px 1px"),
     ai("center"),
     borderRadius(4),
     horizontalPadding(8),
@@ -84,38 +81,14 @@ type ListItemComponent<CODE extends string | number> = {
   styles?: any;
 };
 
-function makeIcon(icon?: InputIconProp, styles?: any, circledIcon = true) {
+function makeIcon(icon?: InputIconProp, styles?: any) {
   const content = icon ? isString(icon) ? <Icon icon={icon} /> : icon : null;
   if (!content) return null;
-  return (
-    <Wrapper
-      styles={[
-        flex,
-        borderRadius(circledIcon ? "100%" : 4),
-        overflow("hidden"),
-        ai("center"),
-        jc("center"),
-        flexShrink(0),
-        styles,
-      ]}
-    >
-      {content}
-    </Wrapper>
-  );
+  return <Wrapper styles={[flex, ai("center"), jc("center"), flexShrink(0), styles]}>{content}</Wrapper>;
 }
 
 function ListItem<CODE extends string | number>({
-  item: {
-    title,
-    leftContent,
-    code,
-    disabled,
-    heading,
-    rightContent,
-    subTitle,
-    circledLeftContent,
-    circledRightContent,
-  },
+  item: { title, leftContent, leftContentStyles, rightContent, rightContentStyles, code, disabled, heading, subTitle },
   itemSize,
   isActiveItem,
   onClick,
@@ -124,8 +97,8 @@ function ListItem<CODE extends string | number>({
   styles,
 }: ListItemComponent<CODE>) {
   const enabled = !disabled;
-  const leftIcon = makeIcon(leftContent, marginRight(8), circledLeftContent);
-  const rightIcon = makeIcon(rightContent, marginLeft(8), circledRightContent);
+  const leftIcon = makeIcon(leftContent, [marginRight(8), leftContentStyles]);
+  const rightIcon = makeIcon(rightContent, [marginLeft(8), rightContentStyles]);
 
   return (
     <Wrapper

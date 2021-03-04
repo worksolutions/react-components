@@ -12,10 +12,10 @@ import {
   fontSize,
   fontWeight,
   height,
+  horizontalPadding,
+  jc,
   lineHeight,
   minWidth,
-  jc,
-  horizontalPadding,
 } from "../../styles";
 
 import { elevation16 } from "../../constants/shadows";
@@ -34,18 +34,18 @@ export interface CounterProps {
   withShadow?: boolean;
 }
 
-type BackgroundColors = {
+const backgroundColors: {
   [key in CounterType]: IncomeColorVariant<Colors>;
-};
-
-const backgroundColors: BackgroundColors = {
+} = {
   default: "definitions.Counter.default.backgroundColor",
   prominent: "definitions.Counter.prominent.backgroundColor",
   primary: "definitions.Counter.primary.backgroundColor",
 };
 
-function Counter({ value, displayValueLimit = 99, type = CounterType.default, withShadow = false }: CounterProps) {
-  const getDisplayedValue = React.useMemo(() => {
+function Counter({ value, displayValueLimit = 99, type = CounterType.default, withShadow = true }: CounterProps) {
+  const resultValue = React.useMemo(() => {
+    if (!displayValueLimit) return value;
+
     return value > displayValueLimit ? `${displayValueLimit}+` : value;
   }, [value, displayValueLimit]);
 
@@ -68,7 +68,7 @@ function Counter({ value, displayValueLimit = 99, type = CounterType.default, wi
         withShadow && elevation16,
       ]}
     >
-      {getDisplayedValue}
+      {resultValue}
     </Typography>
   );
 }
