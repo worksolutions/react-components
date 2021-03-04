@@ -118,3 +118,7 @@ export * from "./primitives/Typography/TypographyLink";
 
 export { default as Wrapper } from "./primitives/Wrapper";
 export { expandedIcons } from "./primitives/Icon/list";
+
+export { default as Breadcrumbs } from "./primitives/Breadcrumbs";
+export * from "./primitives/Breadcrumbs";
+export * from "./primitives/Breadcrumbs/BreadcrumbsItem";

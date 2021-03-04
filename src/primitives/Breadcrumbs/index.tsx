@@ -5,11 +5,11 @@ import { ai, flex, flexWrap, fullWidth, horizontalMargin } from "../../styles";
 import BreadcrumbsItem, { BreadcrumbsItemInterface } from "./BreadcrumbsItem";
 import Typography from "../Typography";
 
-export interface BreadcrumbsProps {
+export interface BreadcrumbsInterface {
   items: BreadcrumbsItemInterface[];
 }
 
-function Breadcrumbs({ items }: BreadcrumbsProps) {
+function Breadcrumbs({ items }: BreadcrumbsInterface) {
   const lastIndex = items.length - 1;
 
   return (

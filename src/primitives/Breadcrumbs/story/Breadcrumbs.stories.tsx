@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import Breadcrumbs, { BreadcrumbsProps } from "../index";
+import Breadcrumbs, { BreadcrumbsInterface } from "../index";
 import { BreadcrumbsItemInterface } from "../BreadcrumbsItem";
 import BreadcrumbsText from "../ItemContent/BreadcrumbsText";
 import BreadcrumbsLink from "../ItemContent/BreadcrumbsLink";
@@ -11,7 +11,7 @@ export default {
   component: Breadcrumbs.type,
 };
 
-const BreadcrumbsTemplate: Story<BreadcrumbsProps> = (props) => {
+const BreadcrumbsTemplate: Story<BreadcrumbsInterface> = (props) => {
   const items: BreadcrumbsItemInterface[] = [
     { content: BreadcrumbsText, contentProps: { text: "Главная" } },
     { content: BreadcrumbsLink, contentProps: { text: "Страница категории", to: "/asd" } },
