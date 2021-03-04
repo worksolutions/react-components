@@ -3,7 +3,7 @@ import { Story } from "@storybook/react/types-6-0";
 
 import { colorControl } from "storybook/storyHelpers";
 
-import TypographyLinkComponent, { TypographyLinkProps } from "../TypographyLink";
+import TypographyLinkComponent, { TypographyLinkInterface } from "../TypographyLink";
 import Typography from "../index";
 import Wrapper from "../../Wrapper";
 import { borderBottom, flex, flexColumn, fullWidth, marginBottom, paddingBottom, whiteSpace, width } from "styles";
@@ -16,7 +16,7 @@ export default {
   },
 };
 
-const Template: Story<TypographyLinkProps> = (args, { history }) => {
+const Template: Story<TypographyLinkInterface> = (args, { history }) => {
   const [state, setState] = React.useState("");
 
   React.useEffect(() => {
@@ -41,4 +41,4 @@ export const Link = Template.bind({});
 Link.args = {
   children: "Click on me",
   to: "/test",
-} as TypographyLinkProps;
+} as TypographyLinkInterface;

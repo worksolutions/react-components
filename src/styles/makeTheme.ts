@@ -35,6 +35,17 @@ export interface Theme extends BaseTheme<Colors> {
         backgroundColor: Colors;
       };
     };
+    Breadcrumbs: {
+      LevelDivider: {
+        color: Colors;
+      };
+      BreadcrumbsText: {
+        color: Colors;
+      };
+      BreadcrumbsLink: {
+        color: Colors;
+      };
+    };
   };
 }
 
