@@ -122,3 +122,5 @@ export { expandedIcons } from "./primitives/Icon/list";
 export { default as Breadcrumbs } from "./primitives/Breadcrumbs";
 export * from "./primitives/Breadcrumbs";
 export * from "./primitives/Breadcrumbs/BreadcrumbsItem";
+export { default as BreadcrumbsLink } from "./primitives/Breadcrumbs/ItemContent/BreadcrumbsLink";
+export { default as BreadcrumbsText } from "./primitives/Breadcrumbs/ItemContent/BreadcrumbsText";
