@@ -11,7 +11,6 @@ import DropdownGroup from "../DropdownGroup";
 export default {
   title: "DropDownMenu/DropdownItemGroup",
   component: DropdownItemGroup.type,
-  argTypes: {},
 };
 
 const Template: Story<DropdownItemGroupProps> = (props: any) => {

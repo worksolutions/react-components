@@ -5,7 +5,7 @@ import { left, marginRight, position, top, transform, width } from "styles";
 import { selectControl } from "storybook/storyHelpers";
 
 import { Wrapper } from "../../../index";
-import DropDownMenu, { DropDownMenuInterface } from "../DropDownMenu";
+import DropDownMenu, { DropDownMenuInterface } from "../DropdownMenu";
 import { internalIcons } from "../../Icon/list";
 import DropdownItemGroup from "../DropdownItemGroup";
 import DropdownItem from "../DropdownItem/DropdownItem";

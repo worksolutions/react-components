@@ -8,7 +8,7 @@ export default {
   title: "DropDownMenu/DropdownGroup",
 };
 
-const Template: Story<Omit<DropdownGroupProps, "children" | "topElement" | "stylesHeading">> = (props: any) => {
+const Template: Story<DropdownGroupProps> = (props: any) => {
   const [checked, setChecked] = useState("");
 
   return (

@@ -19,6 +19,8 @@ export interface DropdownItemGroupProps {
   styles?: any;
 }
 
+const maxSizeDropdownItemGroup = 480;
+
 function DropdownItemGroup({ children, styles }: DropdownItemGroupProps) {
   return (
     <Wrapper
@@ -29,8 +31,8 @@ function DropdownItemGroup({ children, styles }: DropdownItemGroupProps) {
         borderRadius(6),
         padding(8),
         overflowY("scroll"),
-        maxHeight(480),
-        maxWidth(480),
+        maxHeight(maxSizeDropdownItemGroup),
+        maxWidth(maxSizeDropdownItemGroup),
         styles,
       ]}
     >

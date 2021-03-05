@@ -3,18 +3,7 @@ import { Modifier, Popper, Reference } from "react-popper";
 
 import { Placement } from "@popperjs/core/lib/enums";
 
-import {
-  ai,
-  createDropdownRightIcon,
-  flex,
-  flexValue,
-  InputSize,
-  InputWrapper,
-  InternalIcons,
-  pointer,
-  textAlign,
-  width,
-} from "../../index";
+import { createDropdownRightIcon, InputSize, InputWrapper, InternalIcons, width } from "../../index";
 
 import Wrapper from "../Wrapper";
 import VisibleManager from "./VisibleManager/VisibleManager";
@@ -34,7 +23,7 @@ export interface DropDownMenuInterface {
   headerStyle: any;
 }
 
-const increaseWidthPopper = 40;
+const offsetWidthPopper = 40;
 const defaultModifiers = [
   {
     name: "offset",
@@ -46,10 +35,10 @@ const defaultModifiers = [
 
 function getPopperStyles(targetElement: Element | null) {
   if (!targetElement) return [];
-  return [width(targetElement.clientWidth + increaseWidthPopper)];
+  return [width(targetElement.clientWidth + offsetWidthPopper)];
 }
 
-function DropDownMenu({
+function DropdownMenu({
   title,
   children,
   placement,
@@ -91,7 +80,7 @@ function DropDownMenu({
             )}
           </Reference>
           {visible && (
-            <Popper placement={placement} modifiers={modifiers ? modifiers : defaultModifiers}>
+            <Popper placement={placement} modifiers={Boolean(modifiers) ? modifiers : defaultModifiers}>
               {({ ref, style, placement }) => {
                 return (
                   <Wrapper ref={ref} style={style} styles={[popperStyles, stylesPopper]} data-placement={placement}>
@@ -107,4 +96,4 @@ function DropDownMenu({
   );
 }
 
-export default React.memo(DropDownMenu);
+export default React.memo(DropdownMenu);
