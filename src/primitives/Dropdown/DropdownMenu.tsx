@@ -59,12 +59,11 @@ function DropdownMenu({
       {(visible: boolean, toggleVisible: () => void) => (
         <>
           <Reference>
-            {({ ref }: any) => (
+            {({ ref }) => (
               <Wrapper ref={ref}>
                 <InputWrapper
                   outerRef={setTargetElement}
                   size={size}
-                  onClick={toggleVisible}
                   iconLeft={iconLeft}
                   iconRight={createDropdownRightIcon(visible)}
                   outerStyles={[stylesReference]}
@@ -75,6 +74,7 @@ function DropdownMenu({
                       <DropdownHeader text={placeholder} styles={[styles, headerStyle]} />
                     )
                   }
+                  onClick={toggleVisible}
                 />
               </Wrapper>
             )}
