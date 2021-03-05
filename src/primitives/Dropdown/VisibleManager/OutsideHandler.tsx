@@ -17,9 +17,9 @@ const OutsideHandler = function ({ children, onHandler, observableElement }: Out
   };
 
   useEffect(() => {
-    document.addEventListener("click", handleClickOutside, false);
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener("click", handleClickOutside, false);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, [observableElement]);
 
