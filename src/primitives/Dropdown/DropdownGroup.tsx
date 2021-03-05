@@ -4,7 +4,7 @@ import Wrapper from "../Wrapper";
 import { fontSize, fontWeight, lineHeight, marginBottom, marginTop, paddingLeft, Typography } from "../../index";
 import DropdownDivider from "./DropdownDivider";
 
-export interface DropdownItemGroupInterface {
+export interface DropdownGroupProps {
   children: JSX.Element[] | JSX.Element;
   heading?: string;
   topElement?: JSX.Element;
@@ -15,7 +15,7 @@ function getTextStyles() {
   return [fontWeight(600), fontSize(14), lineHeight(16), marginTop(10), marginBottom(14), paddingLeft(8)];
 }
 
-function DropdownGroup({ children, heading, topElement, stylesHeading }: DropdownItemGroupInterface) {
+function DropdownGroup({ children, heading, topElement, stylesHeading }: DropdownGroupProps) {
   const textStyles = useMemo(getTextStyles, []);
 
   return (

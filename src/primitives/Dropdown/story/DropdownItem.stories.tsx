@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import DropdownItem, { DropdownItemInterface } from "../DropdownItem/DropdownItem";
+import DropdownItem, { DropdownItemProps } from "../DropdownItem/DropdownItem";
 import Wrapper from "../../Wrapper";
 import { minWidth } from "../../../styles";
 import { ListItemSize } from "../DropdownItem/types";
@@ -18,7 +18,7 @@ export default {
   },
 };
 
-const Template: Story<DropdownItemInterface> = (props: any) => {
+const Template: Story<DropdownItemProps> = (props: any) => {
   return (
     <Wrapper styles={[minWidth(200)]}>
       <DropdownItem {...props} />

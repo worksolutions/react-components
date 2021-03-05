@@ -18,8 +18,9 @@ import Typography from "../../Typography";
 import { makeIcon } from "./makeIcon";
 import { getItemStyles } from "./getItemStyles";
 import { ListItemSize } from "./types";
+import Icon from "../../Icon";
 
-export interface DropdownItemInterface {
+export interface DropdownItemProps {
   children: string | JSX.Element;
   selected: boolean;
   disabled?: boolean;
@@ -53,12 +54,12 @@ function DropdownItem({
   circledRightContent,
   onChange,
   code,
-}: DropdownItemInterface) {
+}: DropdownItemProps) {
   const { closeHandler } = React.useContext(VisibleManagerContext);
 
   const enabled = !disabled;
   const leftIcon = makeIcon(leftContent, marginRight(8), circledLeftContent);
-  const rightIcon = makeIcon(rightContent ? rightContent : "check", marginLeft(8), circledRightContent);
+  const rightIcon = makeIcon(rightContent, marginLeft(8), circledRightContent);
 
   const onHandlerClick = useCallback(() => {
     if (!onChange && enabled) return;
@@ -85,7 +86,8 @@ function DropdownItem({
           </Typography>
         )}
       </Wrapper>
-      {enabled && selected && rightIcon}
+      {rightIcon}
+      {enabled && selected && <Icon icon="check" />}
     </Wrapper>
   );
 }
