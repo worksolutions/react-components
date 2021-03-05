@@ -1,9 +1,10 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
+import { minWidth } from "styles";
+
 import DropdownItem, { DropdownItemProps } from "../DropdownItem/DropdownItem";
 import Wrapper from "../../Wrapper";
-import { minWidth } from "../../../styles";
 import { ListItemSize } from "../DropdownItem/types";
 import { selectControl } from "../../../storybook/storyHelpers";
 import { internalIcons } from "../../Icon/list";

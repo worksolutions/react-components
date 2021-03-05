@@ -17,8 +17,8 @@ import {
 } from "../../index";
 
 import Wrapper from "../Wrapper";
-import Typography from "../Typography";
 import VisibleManager from "./VisibleManager/VisibleManager";
+import DropdownHeader from "./DropdownHeader/DropdownHeader";
 
 export interface DropDownMenuInterface {
   title: string;
@@ -30,6 +30,8 @@ export interface DropDownMenuInterface {
   outsideHandler: boolean;
   stylesReference: any;
   stylesPopper: any;
+  placeholder: string;
+  headerStyle: any;
 }
 
 const increaseWidthPopper = 40;
@@ -56,6 +58,8 @@ function DropDownMenu({
   iconLeft,
   size,
   modifiers,
+  placeholder,
+  headerStyle,
   outsideHandler = true,
 }: DropDownMenuInterface) {
   const [targetElement, setTargetElement] = useState(null);
@@ -75,15 +79,13 @@ function DropDownMenu({
                   iconLeft={iconLeft}
                   iconRight={createDropdownRightIcon(visible)}
                   outerStyles={[stylesReference]}
-                  renderComponent={(styles) => (
-                    <Wrapper as="button" styles={[styles, pointer]}>
-                      <Wrapper styles={[flex, ai("center")]}>
-                        <Typography color={"gray-blue/05"} styles={[flexValue(1), textAlign("left")]} dots>
-                          {title}
-                        </Typography>
-                      </Wrapper>
-                    </Wrapper>
-                  )}
+                  renderComponent={(styles) =>
+                    Boolean(title) ? (
+                      <DropdownHeader text={title} styles={[styles, headerStyle]} />
+                    ) : (
+                      <DropdownHeader text={placeholder} styles={[styles, headerStyle]} />
+                    )
+                  }
                 />
               </Wrapper>
             )}

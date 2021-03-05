@@ -34,7 +34,12 @@ const Template: Story<DropDownMenuInterface & StoryDropDownProp> = (props: any) 
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
-      <DropDownMenu {...props} stylesReference={[width(240)]}>
+      <DropDownMenu
+        {...props}
+        stylesReference={[width(350)]}
+        title={checked}
+        placeholder="на этом месте будут выбранные элементы"
+      >
         <DropdownItemGroup>
           <DropdownGroup
             heading="heading"
@@ -97,7 +102,6 @@ export const Default = Template.bind({});
 
 Default.args = {
   placement: "bottom-start",
-  title: "title",
   size: InputSize.MEDIUM,
   itemSize: ListItemSize.MEDIUM,
 };
