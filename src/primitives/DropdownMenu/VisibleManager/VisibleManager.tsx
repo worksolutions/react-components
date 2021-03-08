@@ -6,12 +6,12 @@ import Wrapper from "primitives/Wrapper";
 import { VisibleManagerContext } from "./VisibleManagerContext";
 import OutsideHandler from "./OutsideHandler";
 
-export interface ManagerProps {
+export interface VisibleManagerProps {
   children: (visible: boolean, toggleVisible: () => void) => JSX.Element;
   outsideHandler: boolean;
 }
 
-const VisibleManager = function ({ children, outsideHandler }: ManagerProps) {
+const VisibleManager = function ({ children, outsideHandler }: VisibleManagerProps) {
   const [dropdownElement, setDropdownElement] = useState(null);
   const [visible, setVisibility] = useState(false);
 

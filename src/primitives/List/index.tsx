@@ -6,8 +6,8 @@ import Typography from "../Typography";
 
 import ListItem, { ListItemInterface } from "./ListItem";
 import { Colors } from "../../constants/colors";
-import { ListItemSize } from "../Dropdown/DropdownItem/types";
-import { getItemStyles } from "../Dropdown/DropdownItem/getItemStyles";
+import { ListItemSize } from "../DropdownMenu/DropdownItem/types";
+import { getItemStyles } from "../DropdownMenu/DropdownItem/getItemStyles";
 
 export type ListItemId = string | number;
 

@@ -1,27 +1,14 @@
 import React, { useCallback, useState } from "react";
-import { Modifier } from "react-popper";
 
-import { Placement } from "@popperjs/core/lib/enums";
+import { createDropdownRightIcon, InputWrapper, width } from "../../index";
 
-import { createDropdownRightIcon, InputSize, InputWrapper, InternalIcons, width } from "../../index";
+import { DropdownManagerContext } from "./DropdownManager/DropdownManagerContext";
 
 import Wrapper from "../Wrapper";
 import DropdownHeader from "./DropdownHeader/DropdownHeader";
 import PopperManager from "../PopperManager";
 
-export interface DropDownMenuInterface {
-  title: string;
-  placeholder: string;
-  stylesReference: any;
-  headerStyle: any;
-  size: InputSize;
-  iconLeft: InternalIcons;
-  children: JSX.Element;
-  placement: Placement;
-  modifiers: ReadonlyArray<Modifier<unknown>>;
-  outsideHandler: boolean;
-  stylesPopper: any;
-}
+import { DropdownMenuInterface } from "./DropdownMenu";
 
 const offsetWidthPopper = 40;
 const defaultModifiers = [
@@ -38,8 +25,7 @@ function getPopperStyles(targetElement: Element | null) {
   return [width(targetElement.clientWidth + offsetWidthPopper)];
 }
 
-function DropdownMenu({
-  title,
+function DropdownContainer({
   children,
   placement,
   stylesReference,
@@ -50,8 +36,9 @@ function DropdownMenu({
   placeholder,
   headerStyle,
   outsideHandler = true,
-}: DropDownMenuInterface) {
+}: DropdownMenuInterface) {
   const [targetElement, setTargetElement] = useState(null);
+  const { selectItem } = React.useContext(DropdownManagerContext);
 
   const popperStyles = useCallback(() => getPopperStyles(targetElement), [targetElement]);
   const popperElement = useCallback(() => <Wrapper styles={[popperStyles, stylesPopper]}>{children}</Wrapper>, [
@@ -68,8 +55,8 @@ function DropdownMenu({
         iconRight={createDropdownRightIcon(visible)}
         outerStyles={[stylesReference]}
         renderComponent={(styles) =>
-          Boolean(title) ? (
-            <DropdownHeader text={title} styles={[styles, headerStyle]} />
+          Boolean(selectItem) ? (
+            <DropdownHeader text={selectItem} styles={[styles, headerStyle]} />
           ) : (
             <DropdownHeader text={placeholder} styles={[styles, headerStyle]} />
           )
@@ -77,7 +64,7 @@ function DropdownMenu({
         onClick={toggleVisible}
       />
     ),
-    [size, iconLeft, stylesReference, title, placeholder, headerStyle, setTargetElement],
+    [size, iconLeft, stylesReference, placeholder, headerStyle, setTargetElement, selectItem],
   );
 
   return (
@@ -91,4 +78,4 @@ function DropdownMenu({
   );
 }
 
-export default React.memo(DropdownMenu);
+export default React.memo(DropdownContainer);

@@ -2,7 +2,7 @@ import React from "react";
 import { Modifier, Popper, Reference } from "react-popper";
 import Wrapper from "../Wrapper";
 
-import VisibleManager from "../Dropdown/VisibleManager/VisibleManager";
+import VisibleManager from "../DropdownMenu/VisibleManager/VisibleManager";
 import { Placement } from "@popperjs/core/lib/enums";
 
 interface PopperManagerProps {

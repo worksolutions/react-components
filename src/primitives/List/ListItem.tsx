@@ -7,9 +7,9 @@ import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import { InputIconProp } from "../Input/InputWrapper";
 
-import { makeIcon } from "../Dropdown/DropdownItem/makeIcon";
-import { getItemStyles } from "../Dropdown/DropdownItem/getItemStyles";
-import { ListItemSize } from "../Dropdown/DropdownItem/types";
+import { makeIcon } from "../DropdownMenu/DropdownItem/makeIcon";
+import { getItemStyles } from "../DropdownMenu/DropdownItem/getItemStyles";
+import { ListItemSize } from "../DropdownMenu/DropdownItem/types";
 
 export interface ListItemInterface<ITEM extends string | number> extends SuggestInterface<ITEM> {
   leftContent?: InputIconProp;

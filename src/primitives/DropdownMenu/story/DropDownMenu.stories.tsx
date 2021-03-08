@@ -5,7 +5,7 @@ import { left, marginRight, position, top, transform, width } from "styles";
 import { selectControl } from "storybook/storyHelpers";
 
 import { Wrapper } from "../../../index";
-import DropDownMenu, { DropDownMenuInterface } from "../DropdownMenu";
+import DropDownMenu, { DropdownMenuInterface } from "../DropdownMenu";
 import { internalIcons } from "../../Icon/list";
 import DropdownItem from "../DropdownItem/DropdownItem";
 import { InputSize } from "../../Input/InputWrapper";
@@ -27,28 +27,16 @@ interface StoryDropDownProp {
   itemSize: ListItemSize;
 }
 
-const Template: Story<DropDownMenuInterface & StoryDropDownProp> = (props: any) => {
-  const [checked, setChecked] = useState("");
-
+const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) => {
   return (
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
-      <DropDownMenu
-        {...props}
-        stylesReference={[width(350)]}
-        title={checked}
-        placeholder="на этом месте будут выбранные элементы"
-      >
+      <DropDownMenu {...props} stylesReference={[width(350)]} placeholder="на этом месте будут выбранные элементы">
         <DropdownGroup
           topElement={
             <>
-              <DropdownItem
-                itemSize={props.itemSize}
-                code="ValueByDefault"
-                selected={checked === "ValueByDefault"}
-                onChange={setChecked}
-              >
+              <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
                 ValueByDefault
               </DropdownItem>
               <DropdownDivider />
@@ -57,52 +45,27 @@ const Template: Story<DropDownMenuInterface & StoryDropDownProp> = (props: any) 
           bottomElement={
             <>
               <DropdownDivider />
-              <DropdownItem
-                itemSize={props.itemSize}
-                code="ValueByDefault"
-                selected={checked === "ValueByDefault"}
-                onChange={setChecked}
-              >
+              <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
                 ValueByDefault
               </DropdownItem>
             </>
           }
         >
-          <DropdownItem
-            selected={checked === "DropdownItemElement3"}
-            code="DropdownItemElement3"
-            itemSize={props.itemSize}
-            onChange={setChecked}
-          >
+          <DropdownItem code="DropdownItemElement3" itemSize={props.itemSize}>
             DropdownItemElement3
           </DropdownItem>
-          <DropdownItem
-            selected={checked === "DropdownItemElement4"}
-            code="DropdownItemElement4"
-            disabled={true}
-            leftContent="user"
-            itemSize={props.itemSize}
-            onChange={setChecked}
-          >
+          <DropdownItem code="DropdownItemElement4" disabled={true} leftContent="user" itemSize={props.itemSize}>
             DropdownItemElement4
           </DropdownItem>
           <DropdownItem
-            selected={checked === "DropdownItemElement1"}
             code="DropdownItemElement1"
             subTitle="Еще один тайтл • email@worksolutions.ru"
             leftContent="user"
             itemSize={props.itemSize}
-            onChange={setChecked}
           >
             DropdownItemElement1
           </DropdownItem>
-          <DropdownItem
-            selected={checked === "DropdownItemElement2"}
-            code="DropdownItemElement2"
-            subTitle="Еще один тайтл"
-            itemSize={props.itemSize}
-            onChange={setChecked}
-          >
+          <DropdownItem code="DropdownItemElement2" subTitle="Еще один тайтл" itemSize={props.itemSize}>
             DropdownItemElement2
           </DropdownItem>
         </DropdownGroup>

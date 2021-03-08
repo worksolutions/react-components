@@ -8,7 +8,7 @@ import { ButtonSize } from "../Button";
 import { ListItemInterface } from "../List/ListItem";
 
 import { DropdownContainerInterface, DropdownItem } from "./types";
-import { ListItemSize } from "./DropdownItem/types";
+import { ListItemSize } from "../DropdownMenu/DropdownItem/types";
 
 export function useItems<CODE extends string | number>(
   excludeSelected?: boolean,

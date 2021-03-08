@@ -13,16 +13,19 @@ import {
 } from "../../../index";
 
 import Wrapper from "../../Wrapper";
-import { VisibleManagerContext } from "../VisibleManager/VisibleManagerContext";
 import Typography from "../../Typography";
+import Icon from "../../Icon";
+
+import { VisibleManagerContext } from "../VisibleManager/VisibleManagerContext";
+import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
+
 import { makeIcon } from "./makeIcon";
 import { getItemStyles } from "./getItemStyles";
+
 import { ListItemSize } from "./types";
-import Icon from "../../Icon";
 
 export interface DropdownItemProps {
   children: string | JSX.Element;
-  selected: boolean;
   disabled?: boolean;
   itemSize?: ListItemSize;
   titleStyles?: any;
@@ -35,11 +38,9 @@ export interface DropdownItemProps {
   heading?: string | number;
   subTitle?: string | number;
   code: string;
-  onChange?: (code: string) => void;
 }
 
 function DropdownItem({
-  selected,
   disabled,
   itemSize = ListItemSize.SMALL,
   titleDots,
@@ -52,12 +53,14 @@ function DropdownItem({
   subTitle,
   circledLeftContent,
   circledRightContent,
-  onChange,
   code,
 }: DropdownItemProps) {
   const { closeHandler } = React.useContext(VisibleManagerContext);
+  const { onChange, selectItem } = React.useContext(DropdownManagerContext);
 
   const enabled = !disabled;
+  const selected = selectItem === code;
+
   const leftIcon = makeIcon(leftContent, marginRight(8), circledLeftContent);
   const rightIcon = makeIcon(rightContent, marginLeft(8), circledRightContent);
 
