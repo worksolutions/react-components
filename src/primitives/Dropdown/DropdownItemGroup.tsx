@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 
 import {
   backgroundColor,
@@ -17,11 +17,13 @@ import Wrapper from "../Wrapper";
 export interface DropdownItemGroupProps {
   children: JSX.Element[] | JSX.Element;
   styles?: any;
+  topElement?: FC<any> | React.ReactNode;
+  bottomElement: FC<any> | React.ReactNode;
 }
 
 const maxSizeDropdownItemGroup = 480;
 
-function DropdownItemGroup({ children, styles }: DropdownItemGroupProps) {
+function DropdownItemGroup({ topElement, children, styles, bottomElement }: DropdownItemGroupProps) {
   return (
     <Wrapper
       styles={[
@@ -36,7 +38,9 @@ function DropdownItemGroup({ children, styles }: DropdownItemGroupProps) {
         styles,
       ]}
     >
+      {topElement}
       {children}
+      {bottomElement}
     </Wrapper>
   );
 }
