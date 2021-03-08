@@ -1,5 +1,14 @@
 import React, { useCallback } from "react";
 
+import Wrapper from "../../Wrapper";
+import Typography from "../../Typography";
+import Icon from "../../Icon";
+
+import { VisibleManagerContext } from "../VisibleManager/VisibleManagerContext";
+import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
+
+import { makeIcon } from "./makeIcon";
+import { getItemStyles } from "./getItemStyles";
 import {
   flexValue,
   textAlign,
@@ -11,16 +20,6 @@ import {
   marginLeft,
   width,
 } from "../../../index";
-
-import Wrapper from "../../Wrapper";
-import Typography from "../../Typography";
-import Icon from "../../Icon";
-
-import { VisibleManagerContext } from "../VisibleManager/VisibleManagerContext";
-import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
-
-import { makeIcon } from "./makeIcon";
-import { getItemStyles } from "./getItemStyles";
 
 import { ListItemSize } from "./types";
 

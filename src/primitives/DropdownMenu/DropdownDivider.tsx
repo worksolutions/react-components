@@ -1,6 +1,7 @@
 import React from "react";
 
 import Wrapper from "../Wrapper";
+
 import { backgroundColor, height, width } from "../../index";
 
 export interface DropdownDividerInterface {

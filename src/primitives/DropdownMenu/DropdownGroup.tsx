@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import Wrapper from "../Wrapper";
+
 import {
   backgroundColor,
   border,
@@ -11,8 +13,6 @@ import {
   overflowY,
   padding,
 } from "../../index";
-
-import Wrapper from "../Wrapper";
 
 export interface DropdownGroupProps {
   children: JSX.Element[] | JSX.Element;

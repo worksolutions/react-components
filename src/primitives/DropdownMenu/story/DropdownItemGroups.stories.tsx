@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Story } from "@storybook/react/types-6-0";
-
-import { left, marginRight, position, top, transform, width } from "styles";
 
 import { Wrapper } from "../../../index";
 import DropdownGroup, { DropdownGroupProps } from "../DropdownGroup";
 import DropdownItem from "../DropdownItem/DropdownItem";
 import DropdownDivider from "../DropdownDivider";
+
+import { left, marginRight, position, top, transform, width } from "styles";
 
 export default {
   title: "DropDownMenu/DropdownItemGroup",

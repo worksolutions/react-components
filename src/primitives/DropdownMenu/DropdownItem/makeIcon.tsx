@@ -4,6 +4,7 @@ import React from "react";
 import { InputIconProp } from "../../Input/InputWrapper";
 import Icon from "../../Icon";
 import Wrapper from "../../Wrapper";
+
 import { ai, borderRadius, flex, flexShrink, jc, overflow } from "../../../styles";
 
 export function makeIcon(icon?: InputIconProp, styles?: any, circledIcon = true) {

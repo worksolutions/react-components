@@ -1,13 +1,13 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { minWidth } from "styles";
-import { selectControl } from "storybook/storyHelpers";
-
 import DropdownItem, { DropdownItemProps } from "../DropdownItem/DropdownItem";
 import Wrapper from "../../Wrapper";
 import { ListItemSize } from "../DropdownItem/types";
 import { internalIcons } from "../../Icon/list";
+
+import { minWidth } from "styles";
+import { selectControl } from "storybook/storyHelpers";
 
 export default {
   title: "DropDownMenu/DropdownItem",

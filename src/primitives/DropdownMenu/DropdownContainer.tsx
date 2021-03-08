@@ -1,12 +1,11 @@
 import React, { useCallback, useState } from "react";
 
-import { createDropdownRightIcon, InputWrapper, width } from "../../index";
-
-import { DropdownManagerContext } from "./DropdownManager/DropdownManagerContext";
-
 import Wrapper from "../Wrapper";
 import DropdownHeader from "./DropdownHeader/DropdownHeader";
 import PopperManager from "../PopperManager";
+
+import { createDropdownRightIcon, InputWrapper, width } from "../../index";
+import { DropdownManagerContext } from "./DropdownManager/DropdownManagerContext";
 
 import { DropdownMenuInterface } from "./DropdownMenu";
 

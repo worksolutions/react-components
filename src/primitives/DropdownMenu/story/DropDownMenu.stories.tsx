@@ -1,8 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Story } from "@storybook/react/types-6-0";
-
-import { left, marginRight, position, top, transform, width } from "styles";
-import { selectControl } from "storybook/storyHelpers";
 
 import { Wrapper } from "../../../index";
 import DropDownMenu, { DropdownMenuInterface } from "../DropdownMenu";
@@ -12,6 +9,9 @@ import { InputSize } from "../../Input/InputWrapper";
 import { ListItemSize } from "../DropdownItem/types";
 import DropdownDivider from "../DropdownDivider";
 import DropdownGroup from "../DropdownGroup";
+
+import { left, marginRight, position, top, transform, width } from "styles";
+import { selectControl } from "storybook/storyHelpers";
 
 export default {
   title: "DropDownMenu/DropDownMenu",
