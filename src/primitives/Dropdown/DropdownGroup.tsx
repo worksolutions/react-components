@@ -14,16 +14,16 @@ import {
 
 import Wrapper from "../Wrapper";
 
-export interface DropdownItemGroupProps {
+export interface DropdownGroupProps {
   children: JSX.Element[] | JSX.Element;
   styles?: any;
   topElement?: FC<any> | React.ReactNode;
-  bottomElement: FC<any> | React.ReactNode;
+  bottomElement?: FC<any> | React.ReactNode;
 }
 
 const maxSizeDropdownItemGroup = 480;
 
-function DropdownItemGroup({ topElement, children, styles, bottomElement }: DropdownItemGroupProps) {
+function DropdownGroup({ topElement, children, styles, bottomElement }: DropdownGroupProps) {
   return (
     <Wrapper
       styles={[
@@ -45,4 +45,4 @@ function DropdownItemGroup({ topElement, children, styles, bottomElement }: Drop
   );
 }
 
-export default React.memo(DropdownItemGroup);
+export default React.memo(DropdownGroup);

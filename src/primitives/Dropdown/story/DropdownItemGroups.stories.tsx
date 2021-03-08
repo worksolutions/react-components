@@ -4,32 +4,49 @@ import { Story } from "@storybook/react/types-6-0";
 import { left, marginRight, position, top, transform, width } from "styles";
 
 import { Wrapper } from "../../../index";
-import DropdownItemGroup, { DropdownItemGroupProps } from "../DropdownItemGroup";
+import DropdownGroup, { DropdownGroupProps } from "../DropdownGroup";
 import DropdownItem from "../DropdownItem/DropdownItem";
+import DropdownDivider from "../DropdownDivider";
 
 export default {
   title: "DropDownMenu/DropdownItemGroup",
-  component: DropdownItemGroup.type,
+  component: DropdownGroup.type,
 };
 
-const Template: Story<DropdownItemGroupProps> = (props: any) => {
+const Template: Story<DropdownGroupProps> = (props: any) => {
   const [checked, setChecked] = useState("");
 
   return (
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
-      <DropdownItemGroup
+      <DropdownGroup
         styles={[width(300)]}
         topElement={
-          <DropdownItem
-            itemSize={props.itemSize}
-            code="ValueByDefault"
-            selected={checked === "ValueByDefault"}
-            onChange={setChecked}
-          >
-            ValueByDefault
-          </DropdownItem>
+          <>
+            <DropdownItem
+              itemSize={props.itemSize}
+              code="ValueByDefault"
+              selected={checked === "ValueByDefault"}
+              onChange={setChecked}
+            >
+              ValueByDefault
+            </DropdownItem>
+            <DropdownDivider />
+          </>
+        }
+        bottomElement={
+          <>
+            <DropdownDivider />
+            <DropdownItem
+              itemSize={props.itemSize}
+              code="ValueByDefault1"
+              selected={checked === "ValueByDefault1"}
+              onChange={setChecked}
+            >
+              ValueByDefault
+            </DropdownItem>
+          </>
         }
       >
         <DropdownItem
@@ -69,7 +86,7 @@ const Template: Story<DropdownItemGroupProps> = (props: any) => {
         >
           DropdownItemElement2
         </DropdownItem>
-      </DropdownItemGroup>
+      </DropdownGroup>
     </Wrapper>
   );
 };

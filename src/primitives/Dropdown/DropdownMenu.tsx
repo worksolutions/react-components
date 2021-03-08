@@ -54,6 +54,11 @@ function DropdownMenu({
   const [targetElement, setTargetElement] = useState(null);
 
   const popperStyles = useCallback(() => getPopperStyles(targetElement), [targetElement]);
+  const popperElement = useCallback(() => <Wrapper styles={[popperStyles, stylesPopper]}>{children}</Wrapper>, [
+    popperStyles,
+    stylesPopper,
+    children,
+  ]);
   const referenceElement = useCallback(
     (visible: boolean, toggleVisible: () => void) => (
       <InputWrapper
@@ -74,12 +79,6 @@ function DropdownMenu({
     ),
     [size, iconLeft, stylesReference, title, placeholder, headerStyle, setTargetElement],
   );
-
-  const popperElement = useCallback(() => <Wrapper styles={[popperStyles, stylesPopper]}>{children}</Wrapper>, [
-    popperStyles,
-    stylesPopper,
-    children,
-  ]);
 
   return (
     <PopperManager
