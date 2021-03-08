@@ -1,9 +1,9 @@
 import React from "react";
 import { Modifier, Popper, Reference } from "react-popper";
-import Wrapper from "../Wrapper";
-
-import VisibleManager from "../DropdownMenu/VisibleManager/VisibleManager";
 import { Placement } from "@popperjs/core/lib/enums";
+
+import Wrapper from "../Wrapper";
+import VisibleManager from "../DropdownMenu/VisibleManager/VisibleManager";
 
 interface PopperManagerProps {
   placement: Placement;
@@ -12,7 +12,7 @@ interface PopperManagerProps {
   referenceElement: (visible: boolean, toggleVisible: () => void) => JSX.Element;
   outsideHandler: boolean;
 }
-
+//TODO добавть возможность использовать стрелку
 function PopperManager({
   referenceElement,
   popperElement,
