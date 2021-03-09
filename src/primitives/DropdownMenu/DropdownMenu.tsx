@@ -15,16 +15,17 @@ export interface DropdownMenuInterface {
   size?: InputSize;
   iconLeft?: InternalIcons;
   children: React.ReactNode;
-  placement?: Placement;
+  placement: Placement;
   modifiers?: StrictModifiers[];
   outsideHandler?: boolean;
   stylesPopper?: any;
   targetElement: React.ReactNode;
+  hoveredItems: boolean;
 }
 
 function DropdownMenu(props: DropdownMenuInterface) {
   return (
-    <DropdownManager>
+    <DropdownManager hoveredItems={props.hoveredItems}>
       <DropdownContainer {...props} size={props.size ? props.size : InputSize.MEDIUM} />
     </DropdownManager>
   );

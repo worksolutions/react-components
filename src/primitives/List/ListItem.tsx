@@ -36,9 +36,9 @@ import { InputIconProp } from "../Input/InputWrapper";
 import { duration160 } from "../../constants/durations";
 
 export interface ListItemInterface<ITEM extends string | number> extends SuggestInterface<ITEM> {
-  leftContent?: InputIconProp;
+  leftContent?: InputIconProp | React.ReactNode;
   leftContentStyles?: any;
-  rightContent?: InputIconProp;
+  rightContent?: InputIconProp | React.ReactNode;
   rightContentStyles?: any;
   heading?: string | number;
   subTitle?: string | number;
@@ -93,7 +93,7 @@ type ListItemComponent<CODE extends string | number> = {
   styles?: any;
 };
 
-function makeIcon(icon?: InputIconProp, styles?: any) {
+function makeIcon(icon?: InputIconProp | React.ReactNode, styles?: any) {
   const content = icon ? isString(icon) ? <Icon icon={icon} /> : icon : null;
   if (!content) return null;
   return <Wrapper styles={[flex, ai("center"), jc("center"), flexShrink(0), styles]}>{content}</Wrapper>;

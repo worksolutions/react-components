@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { StrictModifiers } from "@popperjs/core";
 
 import Wrapper from "../Wrapper";
@@ -37,9 +37,13 @@ function DropdownContainer({
   targetElement,
 }: DropdownMenuInterface) {
   const [targetElementNode, setTargetElement] = useState(null);
-  const { selectedItem } = React.useContext(DropdownManagerContext);
+  const { selectedItem, hoveredItems, onChange } = React.useContext(DropdownManagerContext);
 
-  const popperStyles = useCallback(() => getPopperStyles(targetElementNode), [targetElement]);
+  useEffect(() => {
+    if (hoveredItems) onChange("");
+  }, [hoveredItems]);
+
+  const popperStyles = useCallback(() => getPopperStyles(targetElementNode), [targetElementNode]);
   const popperElement = useCallback(() => <Wrapper styles={[popperStyles, stylesPopper]}>{children}</Wrapper>, [
     popperStyles,
     stylesPopper,

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Story } from "@storybook/react/types-6-0";
+import { placements } from "@popperjs/core/lib/enums";
 
-import { ButtonSize, ButtonType, ListItemSize, Wrapper } from "../../../index";
+import { ListItemSize, Wrapper } from "../../../index";
 import DropDownMenu, { DropdownMenuInterface } from "../DropdownMenu";
 import { internalIcons } from "../../Icon/list";
 import DropdownItem from "../DropdownItem/DropdownItem";
@@ -11,7 +12,6 @@ import DropdownGroup from "../DropdownGroup";
 
 import { left, marginRight, position, top, transform, width } from "styles";
 import { selectControl } from "storybook/storyHelpers";
-import Button from "../../Button";
 
 export default {
   title: "DropDownMenu/DropDownMenu",
@@ -20,6 +20,7 @@ export default {
     iconLeft: selectControl(Object.keys(internalIcons)),
     size: selectControl(Object.values(InputSize)),
     itemSize: selectControl(Object.values(ListItemSize)),
+    placement: selectControl(placements),
   },
 };
 
@@ -32,14 +33,7 @@ const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) 
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
-      <DropDownMenu
-        {...props}
-        stylesReference={[width(350)]}
-        placeholder="на этом месте будут выбранные элементы"
-        targetElement={
-          <Button className="card-actions" type={ButtonType.ICON} size={ButtonSize.SMALL} iconLeft="kebab-horizontal" />
-        }
-      >
+      <DropDownMenu {...props} stylesReference={[width(350)]} placeholder="на этом месте будут выбранные элементы">
         <DropdownGroup>
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
             ValueByDefault
