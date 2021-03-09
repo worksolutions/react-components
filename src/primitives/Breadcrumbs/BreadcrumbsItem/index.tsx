@@ -5,6 +5,7 @@ import Wrapper from "../../Wrapper";
 import { ai, flex, padding } from "../../../styles";
 
 export interface BreadcrumbsItemInterface<ContentProps = any> {
+  styles?: any;
   leftChildren?: React.ReactNode;
   rightChildren?: React.ReactNode;
   content: React.FC<ContentProps> | React.ReactNode;
@@ -12,19 +13,18 @@ export interface BreadcrumbsItemInterface<ContentProps = any> {
 }
 
 function BreadcrumbsItem({
+  styles,
   leftChildren,
   rightChildren,
   content: ContentComponent,
   contentProps,
 }: BreadcrumbsItemInterface) {
   return (
-    <>
-      <Wrapper styles={[flex, flex, ai("center"), padding("2px 8px")]}>
-        {leftChildren}
-        {isReactComponent(ContentComponent) ? <ContentComponent {...contentProps} /> : ContentComponent}
-        {rightChildren}
-      </Wrapper>
-    </>
+    <Wrapper styles={[flex, flex, ai("center"), padding("2px 8px"), styles]}>
+      {leftChildren}
+      {isReactComponent(ContentComponent) ? <ContentComponent {...contentProps} /> : ContentComponent}
+      {rightChildren}
+    </Wrapper>
   );
 }
 

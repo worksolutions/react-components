@@ -142,7 +142,7 @@ function ButtonWrapper({
       child(transitionStyle, ".icon"),
       child(transitionStyle, ".icon use"),
       TypographyTypes["button"],
-      borderRadius(6),
+      borderRadius(4),
       disableOutline,
       resultStyles.default,
       disabled

@@ -24,7 +24,7 @@ export interface Theme extends BaseTheme<Colors> {
         titleActiveColor: Colors;
       };
     };
-    Counter: {
+    Badge: {
       default: {
         backgroundColor: Colors;
       };
@@ -33,6 +33,17 @@ export interface Theme extends BaseTheme<Colors> {
       };
       primary: {
         backgroundColor: Colors;
+      };
+    };
+    Counter: {
+      default: {
+        color: Colors;
+      };
+      prominent: {
+        color: Colors;
+      };
+      primary: {
+        color: Colors;
       };
     };
     Breadcrumbs: {

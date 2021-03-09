@@ -4,17 +4,18 @@ import { InternalIcons } from "../Icon";
 import { ListItemInterface } from "../List/ListItem";
 import { BaseInputWrapperInterface, InputSize } from "../Input/InputWrapper";
 
-export type DropdownItem<CODE extends string | number> = ListItemInterface<CODE>;
-export type DropdownOptionalAction = { title: string; icon?: InternalIcons; onClick: () => void };
+export type DropdownItemInterface<CODE extends string | number> = ListItemInterface<CODE>;
+
+export type DropdownOptionalActionInterface = { title: string; icon?: InternalIcons; onClick: () => void };
 
 export interface DropdownContainerInterface<CODE extends string | number> {
   excludeSelected?: boolean;
   searchable?: boolean;
   searchableEmptyListText?: string;
   searchableNotFoundText?: string;
-  optionalAction?: DropdownOptionalAction;
+  optionalAction?: DropdownOptionalActionInterface;
   size?: InputSize;
-  items?: DropdownItem<CODE>[];
+  items?: DropdownItemInterface<CODE>[];
   selectedItemCodes?: CODE[];
   onChange: (code: CODE) => void;
 }

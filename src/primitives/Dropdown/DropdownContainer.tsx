@@ -28,7 +28,7 @@ import Input, { InputSize } from "../Input/Input";
 import ClearInputWrapper from "../Input/ClearInputWrapper";
 import Icon from "../Icon";
 
-import { DropdownContainerInterface, DropdownItem } from "./types";
+import { DropdownContainerInterface, DropdownItemInterface } from "./types";
 import {
   makeOptionalActionItem,
   matchDropdownSizeAndSearchSize,
@@ -39,7 +39,7 @@ import { duration160 } from "../../constants/durations";
 import { intl } from "../../intl";
 
 export type DropdownContainerComponentInterface<CODE extends string | number> = DropdownContainerInterface<CODE> & {
-  children: (selectedItems: DropdownItem<CODE>[]) => DroppedListInterface<CODE>["children"];
+  children: (selectedItems: DropdownItemInterface<CODE>[]) => DroppedListInterface<CODE>["children"];
 };
 
 function getEmptyText(

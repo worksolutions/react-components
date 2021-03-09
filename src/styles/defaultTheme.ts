@@ -21,7 +21,7 @@ export const defaultTheme: Theme = {
         titleActiveColor: "gray-blue/09",
       },
     },
-    Counter: {
+    Badge: {
       default: {
         backgroundColor: "gray-blue/05",
       },
@@ -30,6 +30,17 @@ export const defaultTheme: Theme = {
       },
       primary: {
         backgroundColor: "blue/05",
+      },
+    },
+    Counter: {
+      default: {
+        color: "white",
+      },
+      prominent: {
+        color: "white",
+      },
+      primary: {
+        color: "white",
       },
     },
     Breadcrumbs: {

@@ -37,6 +37,11 @@ export * from "./primitives/DatePicker";
 
 export { default as Dropdown } from "./primitives/Dropdown";
 export * from "./primitives/Dropdown";
+export type {
+  DropdownInterface,
+  DropdownItemInterface,
+  DropdownOptionalActionInterface,
+} from "./primitives/Dropdown/types";
 
 export { default as DropdownContainer } from "./primitives/Dropdown/DropdownContainer";
 export * from "./primitives/Dropdown/DropdownContainer";
@@ -124,3 +129,9 @@ export * from "./primitives/Breadcrumbs";
 export * from "./primitives/Breadcrumbs/BreadcrumbsItem";
 export { default as BreadcrumbsLink } from "./primitives/Breadcrumbs/ItemContent/BreadcrumbsLink";
 export { default as BreadcrumbsText } from "./primitives/Breadcrumbs/ItemContent/BreadcrumbsText";
+
+export { default as Counter } from "./primitives/Counter";
+export * from "./primitives/Counter";
+
+export { default as Badge } from "./primitives/Badge";
+export * from "./primitives/Badge";

@@ -42,7 +42,7 @@ const Dropdown = function (
             outerRef={provideRef(ref, parentRef)}
             size={size}
             {...inputWrapperProps}
-            iconLeftStyles={[borderRadius("100%"), overflow("hidden")]}
+            iconLeftStyles={[borderRadius("100%")]}
             onClick={state.toggle}
             iconLeft={selectedItem?.leftContent}
             iconRight={createDropdownRightIcon(state.opened)}
@@ -79,5 +79,3 @@ export default React.memo(React.forwardRef(Dropdown)) as <ITEM extends string | 
 ) => JSX.Element;
 
 export { createDropdownRightIcon } from "./DropdownContainer";
-
-export * from "./types";
