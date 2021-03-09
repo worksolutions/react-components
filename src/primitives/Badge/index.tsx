@@ -41,7 +41,7 @@ function Badge({ styles, type = BadgeType.default, withShadow = true, children }
         flex,
         ai("center"),
         jc("center"),
-        horizontalPadding(5),
+        horizontalPadding(4),
         borderRadius(12),
         backgroundColor(colorValue),
         minWidth(20),

@@ -47,6 +47,7 @@ export const internalIcons = {
   notes: require("./icons/notes.svg"),
   "save-indicator": require("./icons/save-indicator.svg"),
   minus: require("./icons/minus.svg"),
+  employee: require("./icons/employee.svg"),
 };
 
 export const expandedIcons: Record<string, string> = {};

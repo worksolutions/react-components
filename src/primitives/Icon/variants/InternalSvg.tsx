@@ -27,7 +27,6 @@ function InternalSvg(
   }: IconVariantProps<keyof typeof internalIcons>,
   ref: any,
 ) {
-  // @ts-ignore
   const rawIcon = React.useMemo(() => (icon in internalIcons ? internalIcons[icon] : icon), [icon]);
 
   return (

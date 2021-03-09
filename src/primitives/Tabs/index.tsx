@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { sum } from "ramda";
-import { useChildrenWidthDetector } from "@worksolutions/react-utils";
+import { isReactComponent, useChildrenWidthDetector } from "@worksolutions/react-utils";
 
 import {
   borderRadius,
@@ -16,19 +16,22 @@ import {
 } from "../../styles";
 
 import Wrapper from "../Wrapper";
-import Tab, { TabInterface, tabHorizontalPadding } from "./Tab";
+import Tab, { TabItemInterface, tabHorizontalPadding } from "./Tab";
 
 import { duration160 } from "../../constants/durations";
+import { isPureObject } from "@worksolutions/utils";
+
+export interface TabInterface {
+  tabItem?: React.FC<TabItemInterface> | React.ReactNode;
+  title: string;
+  content: React.FC<any> | React.ReactNode;
+}
 
 export interface TabsInterface {
   styles?: any;
   activeIndex: number;
   setActiveIndex: (value: number) => void;
-  tabs: {
-    tabItem?: React.FC<TabInterface> | React.ReactNode;
-    title: string;
-    content: React.ReactNode | React.FC<any>;
-  }[];
+  tabs: TabInterface[];
 }
 
 function getLeft(widths: number[], index: number) {
@@ -37,16 +40,17 @@ function getLeft(widths: number[], index: number) {
 
 function Tabs({ activeIndex, styles, tabs, setActiveIndex }: TabsInterface) {
   const { ref, widths } = useChildrenWidthDetector();
-  const { content: Content } = tabs[activeIndex] as any; // todo: проверить тип элемента
-  const element = React.isValidElement(Content) ? Content : <Content />;
+  const { content: Content } = tabs[activeIndex];
+  const element = isReactComponent(Content) ? <Content /> : Content;
 
   return (
     <>
       <Wrapper ref={ref} styles={[flex, position("relative"), zIndex(1), styles]}>
-        {tabs.map(({ tabItem: TabItem = Tab as any, title }, key) => {
-          // todo: проверить тип элемента
-          if (React.isValidElement(TabItem)) return TabItem;
-          return <TabItem title={title} key={title} active={activeIndex === key} onClick={() => setActiveIndex(key)} />;
+        {tabs.map(({ tabItem: TabItem = Tab, title }, key) => {
+          if (!isReactComponent(TabItem)) return TabItem;
+          // Почему-то если указать TabItem по умолчанию, итоговый тип TabItem будет === {} | null
+          // @ts-ignore
+          return <TabItem key={title} title={title} active={activeIndex === key} onClick={() => setActiveIndex(key)} />;
         })}
         {widths && widths.length !== 0 && (
           <Wrapper
@@ -58,7 +62,7 @@ function Tabs({ activeIndex, styles, tabs, setActiveIndex }: TabsInterface) {
               width(widths[activeIndex] - tabHorizontalPadding * 2),
               bottom(-1),
               height(2),
-              backgroundColor("definitions.Tabs.bottomLine.color"),
+              backgroundColor("definitions.Tabs.BottomLine.color"),
             ]}
           />
         )}

@@ -109,6 +109,7 @@ export * from "./primitives/Resizer/useResizer";
 export { default as Spinner } from "./primitives/Spinner";
 
 export { default as Tabs } from "./primitives/Tabs";
+export * from "./primitives/Tabs";
 export * from "./primitives/Tabs/Tab";
 
 export { default as Toggle } from "./primitives/Toggle";
@@ -135,3 +136,6 @@ export * from "./primitives/Counter";
 
 export { default as Badge } from "./primitives/Badge";
 export * from "./primitives/Badge";
+
+export { default as Avatar } from "./primitives/Avatar";
+export * from "./primitives/Avatar";

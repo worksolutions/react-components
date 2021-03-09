@@ -2,10 +2,12 @@ import React from "react";
 import { makeExcludingDeepEqual } from "@worksolutions/utils";
 
 import {
-  active,
   ai,
+  backgroundColor,
   borderNone,
+  borderRadius,
   child,
+  color,
   disableOutline,
   flex,
   flexColumn,
@@ -15,14 +17,12 @@ import {
   pointer,
   transition,
   verticalPadding,
-  backgroundColor,
-  color,
 } from "../../styles";
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import { duration160 } from "../../constants/durations";
 
-export interface TabInterface {
+export interface TabItemInterface {
   title: string;
   active: boolean;
   onClick: () => void;
@@ -30,11 +30,11 @@ export interface TabInterface {
 
 export const tabHorizontalPadding = 8;
 
-function Tab({ active: activeProp, title, onClick }: TabInterface) {
+function Tab({ active, title, onClick }: TabItemInterface) {
   return (
     <Wrapper
       as="button"
-      disabled={activeProp}
+      disabled={active}
       styles={[
         disableOutline,
         verticalPadding(0),
@@ -44,11 +44,9 @@ function Tab({ active: activeProp, title, onClick }: TabInterface) {
         flexColumn,
         ai("center"),
         borderNone,
-        !activeProp && [
-          pointer,
-          hover(child(color("definitions.Tabs.Tab.titleHoverColor"))),
-          active(child(color("definitions.Tabs.Tab.titleActiveColor"))),
-        ],
+        borderRadius(4),
+        transition(`box-shadow ${duration160}`),
+        !active && [pointer, hover(child(color("definitions.Tabs.Tab.hoverColor")))],
       ]}
       onClick={onClick}
     >
@@ -57,7 +55,7 @@ function Tab({ active: activeProp, title, onClick }: TabInterface) {
         styles={[
           transition(`border-bottom-color ${duration160}, color ${duration160}`),
           padding("8px 4px"),
-          color(activeProp ? "definitions.Tabs.titleActiveColor" : "definitions.Tabs.titleColor"),
+          color(active ? "definitions.Tabs.TabTabActive.color" : "definitions.Tabs.Tab.color"),
         ]}
       >
         {title}

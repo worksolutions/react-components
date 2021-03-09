@@ -14,14 +14,16 @@ export interface Theme extends BaseTheme<Colors> {
       };
     };
     Tabs: {
-      bottomLine: {
+      BottomLine: {
         color: Colors;
       };
       Tab: {
         backgroundColor: Colors;
-        titleColor: Colors;
-        titleHoverColor: Colors;
-        titleActiveColor: Colors;
+        color: Colors;
+        hoverColor: Colors;
+      };
+      TabActive: {
+        color: Colors;
       };
     };
     Badge: {
@@ -55,6 +57,15 @@ export interface Theme extends BaseTheme<Colors> {
       };
       BreadcrumbsLink: {
         color: Colors;
+      };
+    };
+    Avatar: {
+      Empty: {
+        color: Colors;
+      };
+      Wrapper: {
+        backgroundColor: Colors;
+        shadowColor: Colors;
       };
     };
   };

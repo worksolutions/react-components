@@ -11,14 +11,16 @@ export const defaultTheme: Theme = {
       },
     },
     Tabs: {
-      bottomLine: {
+      BottomLine: {
         color: "red/05",
       },
       Tab: {
         backgroundColor: "transparent",
-        titleColor: "gray-blue/05",
-        titleHoverColor: "gray-blue/07",
-        titleActiveColor: "gray-blue/09",
+        color: "gray-blue/05",
+        hoverColor: "gray-blue/07",
+      },
+      TabActive: {
+        color: "gray-blue/09",
       },
     },
     Badge: {
@@ -47,6 +49,15 @@ export const defaultTheme: Theme = {
       BreadcrumbsLink: { color: "gray-blue/05" },
       BreadcrumbsText: { color: "gray-blue/05" },
       LevelDivider: { color: "gray-blue/05" },
+    },
+    Avatar: {
+      Empty: {
+        color: "gray-blue/05",
+      },
+      Wrapper: {
+        backgroundColor: "gray-blue/01",
+        shadowColor: "gray-blue/02",
+      },
     },
   },
 };
