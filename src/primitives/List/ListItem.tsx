@@ -21,6 +21,7 @@ import {
   marginLeft,
   marginRight,
   minHeight,
+  opacity,
   overflow,
   pointer,
   textAlign,
@@ -47,11 +48,13 @@ export interface ListItemInterface<ITEM extends string | number> extends Suggest
 export enum ListItemSize {
   LARGE = "LARGE",
   MEDIUM = "MEDIUM",
+  SMALL = "SMALL",
 }
 
 const heightForItemSize: Record<ListItemSize, number> = {
-  [ListItemSize.LARGE]: 40,
-  [ListItemSize.MEDIUM]: 32,
+  [ListItemSize.LARGE]: 48,
+  [ListItemSize.MEDIUM]: 40,
+  [ListItemSize.SMALL]: 32,
 };
 
 export function getItemStyles(itemSize: ListItemSize, enabled: boolean, isActiveItem: boolean) {
@@ -66,8 +69,17 @@ export function getItemStyles(itemSize: ListItemSize, enabled: boolean, isActive
     borderRadius(4),
     horizontalPadding(8),
     transition(`all ${duration160}`),
-    enabled && [pointer, hover([backgroundColor("gray-blue/01")]), focus(boxShadow([0, 0, 0, 2, "blue/04"]))],
-    isActiveItem && [backgroundColor("gray-blue/01"), boxShadow([0, 0, 1, 0, createAlphaColor("black", 81)])],
+    enabled
+      ? [
+          pointer,
+          hover([backgroundColor("definitions.ListItem.selected.backgroundColor")]),
+          focus(boxShadow([0, 0, 0, 2, "definitions.Button.focus.color"])),
+        ]
+      : [opacity(0.3)],
+    isActiveItem && [
+      backgroundColor("definitions.ListItem.selected.backgroundColor"),
+      boxShadow([0, 0, 1, 0, createAlphaColor("black", 81)]),
+    ],
   ];
 }
 

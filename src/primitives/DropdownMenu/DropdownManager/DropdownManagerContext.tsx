@@ -2,10 +2,7 @@ import React from "react";
 
 export interface DropdownManagerContextInterface {
   onChange: (code: string) => void;
-  selectItem: string;
+  selectedItem: string | null;
 }
 
-export const DropdownManagerContext = React.createContext<DropdownManagerContextInterface>({
-  onChange: (code: string) => {},
-  selectItem: "",
-});
+export const DropdownManagerContext = React.createContext({} as DropdownManagerContextInterface);

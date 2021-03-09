@@ -2,14 +2,16 @@ import React from "react";
 
 import Wrapper from "../Wrapper";
 
-import { backgroundColor, height, width } from "../../index";
+import { backgroundColor, fullWidth, height } from "../../index";
 
 export interface DropdownDividerInterface {
   styles?: any;
 }
 
 function DropdownDivider({ styles }: DropdownDividerInterface) {
-  return <Wrapper styles={[width("100%"), height(1), backgroundColor("gray-blue/02"), styles]} />;
+  return (
+    <Wrapper styles={[fullWidth, height(1), backgroundColor("definitions.DropdownDivider.backgroundColor"), styles]} />
+  );
 }
 
 export default React.memo(DropdownDivider);

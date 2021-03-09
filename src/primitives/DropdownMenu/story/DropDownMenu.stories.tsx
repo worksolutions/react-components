@@ -1,12 +1,11 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { Wrapper } from "../../../index";
+import { ListItemSize, Wrapper } from "../../../index";
 import DropDownMenu, { DropdownMenuInterface } from "../DropdownMenu";
 import { internalIcons } from "../../Icon/list";
 import DropdownItem from "../DropdownItem/DropdownItem";
 import { InputSize } from "../../Input/InputWrapper";
-import { ListItemSize } from "../DropdownItem/types";
 import DropdownDivider from "../DropdownDivider";
 import DropdownGroup from "../DropdownGroup";
 
@@ -33,24 +32,11 @@ const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) 
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
       <DropDownMenu {...props} stylesReference={[width(350)]} placeholder="на этом месте будут выбранные элементы">
-        <DropdownGroup
-          topElement={
-            <>
-              <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
-                ValueByDefault
-              </DropdownItem>
-              <DropdownDivider />
-            </>
-          }
-          bottomElement={
-            <>
-              <DropdownDivider />
-              <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
-                ValueByDefault
-              </DropdownItem>
-            </>
-          }
-        >
+        <DropdownGroup>
+          <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
+            ValueByDefault
+          </DropdownItem>
+          <DropdownDivider />
           <DropdownItem code="DropdownItemElement3" itemSize={props.itemSize}>
             DropdownItemElement3
           </DropdownItem>
@@ -67,6 +53,10 @@ const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) 
           </DropdownItem>
           <DropdownItem code="DropdownItemElement2" subTitle="Еще один тайтл" itemSize={props.itemSize}>
             DropdownItemElement2
+          </DropdownItem>
+          <DropdownDivider />
+          <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
+            ValueByDefault
           </DropdownItem>
         </DropdownGroup>
       </DropDownMenu>

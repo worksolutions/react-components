@@ -24,7 +24,6 @@ import Wrapper from "../Wrapper";
 
 import { activeModal, ModalContent, ModalInterface, ModalSize } from "./ModalContent";
 import { zIndex_modal } from "../../constants/zIndexes";
-import { Colors } from "../..";
 
 function Modal({
   actionBlock,

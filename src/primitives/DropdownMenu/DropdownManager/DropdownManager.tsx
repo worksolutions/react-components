@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 
 import { DropdownManagerContext } from "./DropdownManagerContext";
 
 export interface DropdownManagerProps {
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 
 const DropdownManager = function ({ children }: DropdownManagerProps) {
-  const [selectItem, setItem] = useState("");
+  const [selectedItem, setSelect] = useState<string | null>(null);
+  const value = useMemo(() => ({ onChange: setSelect, selectedItem }), [selectedItem, setSelect]);
 
-  return (
-    <DropdownManagerContext.Provider value={{ onChange: setItem, selectItem }}>
-      {children}
-    </DropdownManagerContext.Provider>
-  );
+  return <DropdownManagerContext.Provider value={value}>{children}</DropdownManagerContext.Provider>;
 };
 
 export default React.memo(DropdownManager);

@@ -4,10 +4,8 @@ import { firstChild, flex, flexColumn, lastChild, marginBottom, marginTop } from
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 
-import ListItem, { ListItemInterface } from "./ListItem";
+import ListItem, { getItemStyles, ListItemInterface, ListItemSize } from "./ListItem";
 import { Colors } from "../../constants/colors";
-import { ListItemSize } from "../DropdownMenu/DropdownItem/types";
-import { getItemStyles } from "../DropdownMenu/DropdownItem/getItemStyles";
 
 export type ListItemId = string | number;
 
@@ -26,7 +24,7 @@ interface ListInterface<ITEM extends string | number> {
 
 function List({
   outerStyles,
-  itemSize = ListItemSize.LARGE,
+  itemSize = ListItemSize.MEDIUM,
   emptyText,
   activeItemIds,
   titleDots,

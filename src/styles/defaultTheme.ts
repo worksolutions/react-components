@@ -4,11 +4,17 @@ import { colors as darkColors } from "../constants/colorsMap/dark";
 export const defaultTheme: Theme = {
   colors: darkColors,
   definitions: {
+    Icon: {
+      default: {
+        color: "gray-blue/05",
+      },
+    },
     Button: {
       primary: {
         color: "white",
         backgroundColor: "blue/09",
       },
+      focus: { color: "blue/04" },
     },
     Tabs: {
       bottomLine: {
@@ -47,6 +53,19 @@ export const defaultTheme: Theme = {
       BreadcrumbsLink: { color: "gray-blue/05" },
       BreadcrumbsText: { color: "gray-blue/05" },
       LevelDivider: { color: "gray-blue/05" },
+    },
+    DropdownHeader: {
+      text: "gray-blue/05",
+    },
+    ListItem: {
+      selected: { backgroundColor: "gray-blue/01" },
+    },
+    Popper: {
+      border: "gray-blue/01",
+      boxShadow: "gray-blue/02",
+    },
+    DropdownDivider: {
+      backgroundColor: "gray-blue/02",
     },
   },
 };

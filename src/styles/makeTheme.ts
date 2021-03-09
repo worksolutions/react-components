@@ -7,11 +7,17 @@ import { defaultTheme } from "./defaultTheme";
 
 export interface Theme extends BaseTheme<Colors> {
   definitions: {
+    Icon: {
+      default: {
+        color: Colors;
+      };
+    };
     Button: {
       primary: {
         color: Colors;
         backgroundColor: Colors;
       };
+      focus: { color: Colors };
     };
     Tabs: {
       bottomLine: {
@@ -56,6 +62,19 @@ export interface Theme extends BaseTheme<Colors> {
       BreadcrumbsLink: {
         color: Colors;
       };
+    };
+    DropdownHeader: {
+      text: Colors;
+    };
+    ListItem: {
+      selected: { backgroundColor: Colors };
+    };
+    Popper: {
+      border: Colors;
+      boxShadow: Colors;
+    };
+    DropdownDivider: {
+      backgroundColor: Colors;
     };
   };
 }

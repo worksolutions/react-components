@@ -1,42 +1,25 @@
 import React, { useCallback } from "react";
 
-import Wrapper from "../../Wrapper";
-import Typography from "../../Typography";
-import Icon from "../../Icon";
-
-import { VisibleManagerContext } from "../VisibleManager/VisibleManagerContext";
+import { VisibleManagerContext } from "../../VisibleManager/VisibleManagerContext";
 import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
 
-import { makeIcon } from "./makeIcon";
-import { getItemStyles } from "./getItemStyles";
-import {
-  flexValue,
-  textAlign,
-  flex,
-  flexColumn,
-  overflow,
-  InputIconProp,
-  marginRight,
-  marginLeft,
-  width,
-} from "../../../index";
-
-import { ListItemSize } from "./types";
+import { InputIconProp, ListItemSize } from "../../../index";
+import ListItem from "../../List/ListItem";
 
 export interface DropdownItemProps {
-  children: string | JSX.Element;
+  children: string;
   disabled?: boolean;
   itemSize?: ListItemSize;
   titleStyles?: any;
   titleDots?: boolean;
   styles?: any;
   leftContent?: InputIconProp;
-  circledLeftContent?: boolean;
   rightContent?: InputIconProp;
-  circledRightContent?: boolean;
   heading?: string | number;
   subTitle?: string | number;
   code: string;
+  leftContentStyles?: any;
+  rightContentStyles?: any;
 }
 
 function DropdownItem({
@@ -50,47 +33,48 @@ function DropdownItem({
   heading,
   rightContent,
   subTitle,
-  circledLeftContent,
-  circledRightContent,
+  leftContentStyles,
+  rightContentStyles,
   code,
 }: DropdownItemProps) {
   const { closeHandler } = React.useContext(VisibleManagerContext);
-  const { onChange, selectItem } = React.useContext(DropdownManagerContext);
+  const { onChange, selectedItem } = React.useContext(DropdownManagerContext);
 
-  const enabled = !disabled;
-  const selected = selectItem === code;
+  const selected = selectedItem === code;
 
-  const leftIcon = makeIcon(leftContent, marginRight(8), circledLeftContent);
-  const rightIcon = makeIcon(rightContent, marginLeft(8), circledRightContent);
+  if (selected) {
+    rightContent = rightContent || "check";
+  }
 
-  const onHandlerClick = useCallback(() => {
-    if (!onChange && enabled) return;
-    onChange && onChange(code);
-    closeHandler();
-  }, [onChange, closeHandler, selected, disabled]);
+  const handleOnClick = useCallback(
+    (code) => {
+      if (!onChange) return;
+      onChange(code);
+      closeHandler();
+    },
+    [onChange, closeHandler, code],
+  );
 
   return (
-    <Wrapper
-      as="button"
-      disabled={!!disabled}
-      styles={[getItemStyles(itemSize, enabled, selected), styles, width("100%")]}
-      onClick={() => enabled && onHandlerClick()}
-    >
-      {leftIcon}
-      <Wrapper styles={[flexValue(1), textAlign("left"), flex, flexColumn, overflow("hidden")]}>
-        {heading && <Typography type="caption-regular">{heading}</Typography>}
-        <Typography dots={titleDots} styles={titleStyles}>
-          {children}
-        </Typography>
-        {subTitle && (
-          <Typography color="gray-blue/05" type="caption-regular">
-            {subTitle}
-          </Typography>
-        )}
-      </Wrapper>
-      {rightIcon}
-      {enabled && selected && <Icon icon="check" />}
-    </Wrapper>
+    <ListItem
+      itemSize={itemSize}
+      isActiveItem={selected}
+      titleDots={titleDots}
+      titleStyles={titleStyles}
+      styles={styles}
+      item={{
+        title: children,
+        leftContent,
+        leftContentStyles,
+        rightContent,
+        rightContentStyles,
+        code,
+        disabled,
+        heading,
+        subTitle,
+      }}
+      onClick={handleOnClick}
+    />
   );
 }
 
