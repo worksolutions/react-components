@@ -2,7 +2,6 @@ import React from "react";
 
 export interface DropdownManagerContextInterface {
   selectedItem: string | null;
-  hoveredItems: boolean;
   onChange: (code: string | null) => void;
 }
 

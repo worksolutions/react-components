@@ -20,12 +20,11 @@ export interface DropdownMenuInterface {
   outsideHandler?: boolean;
   stylesPopper?: any;
   targetElement: React.ReactNode;
-  hoveredItems: boolean;
 }
 
 function DropdownMenu(props: DropdownMenuInterface) {
   return (
-    <DropdownManager hoveredItems={props.hoveredItems}>
+    <DropdownManager>
       <DropdownContainer {...props} size={props.size ? props.size : InputSize.MEDIUM} />
     </DropdownManager>
   );

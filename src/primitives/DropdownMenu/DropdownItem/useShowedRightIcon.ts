@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { InputIconProp } from "../../Input/InputWrapper";
 
 export function useShowedRightIcon(
-  isHoveredItems: boolean,
+  isHoveredItems: boolean | undefined,
   selected: boolean,
   rightContent: InputIconProp | React.ReactNode,
 ) {

@@ -8,7 +8,7 @@ import { ButtonSize, ButtonType, ListItemSize, Wrapper } from "../../../index";
 import DropDownMenu, { DropdownMenuInterface } from "../DropdownMenu";
 import DropdownItem from "../DropdownItem/DropdownItem";
 import { InputSize } from "../../Input/InputWrapper";
-import DropdownGroup from "../DropdownGroup";
+import DropdownGroup from "../DropdownGroup/DropdownGroup";
 
 import Button from "../../Button";
 import { selectControl } from "../../../storybook/storyHelpers";

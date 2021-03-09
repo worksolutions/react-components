@@ -4,16 +4,11 @@ import { DropdownManagerContext } from "./DropdownManagerContext";
 
 export interface DropdownManagerProps {
   children: React.ReactNode;
-  hoveredItems: boolean;
 }
 
-const DropdownManager = function ({ children, hoveredItems }: DropdownManagerProps) {
+const DropdownManager = function ({ children }: DropdownManagerProps) {
   const [selectedItem, setSelect] = useState<string | null>(null);
-  const value = useMemo(() => ({ onChange: setSelect, selectedItem, hoveredItems }), [
-    selectedItem,
-    setSelect,
-    hoveredItems,
-  ]);
+  const value = useMemo(() => ({ onChange: setSelect, selectedItem }), [selectedItem, setSelect]);
 
   return <DropdownManagerContext.Provider value={value}>{children}</DropdownManagerContext.Provider>;
 };

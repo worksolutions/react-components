@@ -1,13 +1,14 @@
 import React, { useCallback, useMemo } from "react";
 import { useForceUpdate } from "@worksolutions/react-utils";
 
-import { VisibleManagerContext } from "../../VisibleManager/VisibleManagerContext";
-import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
-
 import { InputIconProp, ListItemSize } from "../../../index";
 import ListItem from "../../List/ListItem";
 import HandleHover from "../../HandleHover/HandleHover";
 import { useShowedRightIcon } from "./useShowedRightIcon";
+
+import { VisibleManagerContext } from "../../VisibleManager/VisibleManagerContext";
+import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
+import { DropdownGroupContext } from "../DropdownGroup/DropdownGroupContext";
 
 export interface DropdownItemProps {
   children: string;
@@ -41,29 +42,29 @@ function DropdownItem({
   code,
 }: DropdownItemProps) {
   const { closeHandler } = React.useContext(VisibleManagerContext);
-  const { selectedItem, hoveredItems, onChange } = React.useContext(DropdownManagerContext);
+  const { selectedItem, onChange } = React.useContext(DropdownManagerContext);
+  const { isHoveredItems } = React.useContext(DropdownGroupContext);
 
   const forceUpdate = useForceUpdate();
 
-  const selected = !hoveredItems ? selectedItem === code : false;
-  console.log(selectedItem);
-  const resultRightContent = useShowedRightIcon(hoveredItems, selected, rightContent);
+  const selected = !isHoveredItems ? selectedItem === code : false;
+
+  const resultRightContent = useShowedRightIcon(isHoveredItems, selected, rightContent);
 
   const handleOnClick = useCallback(
     (code) => {
-      if (!onChange || hoveredItems || disabled) {
+      if (!onChange || isHoveredItems || disabled) {
         closeHandler();
         return;
       }
       onChange(code);
       closeHandler();
     },
-    [onChange, closeHandler, code, hoveredItems, disabled],
+    [onChange, closeHandler, code, isHoveredItems, disabled],
   );
 
-  const itemProps = useMemo(() => {
-    console.log("asd");
-    return {
+  const itemProps = useMemo(
+    () => ({
       rightContent: resultRightContent.current,
       rightContentStyles,
       leftContent,
@@ -73,18 +74,20 @@ function DropdownItem({
       disabled,
       heading,
       subTitle,
-    };
-  }, [
-    children,
-    leftContent,
-    leftContentStyles,
-    rightContent,
-    rightContentStyles,
-    code,
-    heading,
-    subTitle,
-    resultRightContent.current,
-  ]);
+    }),
+    [
+      children,
+      leftContent,
+      leftContentStyles,
+      rightContent,
+      rightContentStyles,
+      code,
+      heading,
+      subTitle,
+      resultRightContent.current,
+      disabled,
+    ],
+  );
 
   const onHandleEnter = useCallback(() => {
     if (disabled) return;
@@ -98,7 +101,7 @@ function DropdownItem({
     forceUpdate();
   }, []);
 
-  if (hoveredItems) {
+  if (isHoveredItems) {
     return (
       <HandleHover onHandleEnter={onHandleEnter} onHandleLeave={onHandleLeave}>
         <ListItem
