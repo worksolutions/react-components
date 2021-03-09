@@ -18,9 +18,9 @@ const defaultModifiers: StrictModifiers = {
   },
 };
 
-function getPopperStyles(targetElement: Element | null) {
-  if (!targetElement) return [];
-  return [width(targetElement.clientWidth + offsetWidthPopper)];
+function getPopperStyles(targetElementNode: Element | null) {
+  if (!targetElementNode) return [];
+  return [width(targetElementNode.clientWidth + offsetWidthPopper)];
 }
 
 function DropdownContainer({
@@ -34,30 +34,34 @@ function DropdownContainer({
   placeholder,
   headerStyle,
   outsideHandler = true,
+  targetElement,
 }: DropdownMenuInterface) {
-  const [targetElement, setTargetElement] = useState(null);
+  const [targetElementNode, setTargetElement] = useState(null);
   const { selectedItem } = React.useContext(DropdownManagerContext);
 
-  const popperStyles = useCallback(() => getPopperStyles(targetElement), [targetElement]);
+  const popperStyles = useCallback(() => getPopperStyles(targetElementNode), [targetElement]);
   const popperElement = useCallback(() => <Wrapper styles={[popperStyles, stylesPopper]}>{children}</Wrapper>, [
     popperStyles,
     stylesPopper,
     children,
   ]);
   const referenceElement = useCallback(
-    (toggleVisible: () => void, visible: boolean) => (
-      <InputWrapper
-        outerRef={setTargetElement}
-        size={size}
-        iconLeft={iconLeft}
-        iconRight={createDropdownRightIcon(visible)}
-        outerStyles={[stylesReference]}
-        renderComponent={(styles) => (
-          <DropdownHeader text={selectedItem ? selectedItem : placeholder} styles={[styles, headerStyle]} />
-        )}
-        onClick={toggleVisible}
-      />
-    ),
+    (toggleVisible: () => void, visible: boolean) =>
+      Boolean(targetElement) ? (
+        <Wrapper onClick={toggleVisible}>{targetElement}</Wrapper>
+      ) : (
+        <InputWrapper
+          outerRef={setTargetElement}
+          size={size}
+          iconLeft={iconLeft}
+          iconRight={createDropdownRightIcon(visible)}
+          outerStyles={[stylesReference]}
+          renderComponent={(styles) => (
+            <DropdownHeader text={selectedItem ? selectedItem : placeholder} styles={[styles, headerStyle]} />
+          )}
+          onClick={toggleVisible}
+        />
+      ),
     [size, iconLeft, stylesReference, placeholder, headerStyle, setTargetElement, selectedItem],
   );
 

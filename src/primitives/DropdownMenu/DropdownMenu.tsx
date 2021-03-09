@@ -19,6 +19,7 @@ export interface DropdownMenuInterface {
   modifiers?: StrictModifiers[];
   outsideHandler?: boolean;
   stylesPopper?: any;
+  targetElement: React.ReactNode;
 }
 
 function DropdownMenu(props: DropdownMenuInterface) {
