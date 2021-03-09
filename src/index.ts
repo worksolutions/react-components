@@ -1,8 +1,10 @@
 export const mainClassName = "ws-box";
 
-export { default as LoadingContainer } from "./components/LoadingContainer/Loading";
+export * from "./components/LoadingContainer/LoadingProvider";
 export { default as LoadingProvider } from "./components/LoadingContainer/LoadingProvider";
-export * from "./components/LoadingContainer/LoadingProviderLogic";
+export * from "./components/LoadingContainer/Loading";
+export { default as Loading } from "./components/LoadingContainer/Loading";
+
 export * from "./constants/colors";
 export * from "./constants/durations";
 export * from "./constants/shadows";
@@ -116,3 +118,9 @@ export * from "./primitives/Typography/TypographyLink";
 
 export { default as Wrapper } from "./primitives/Wrapper";
 export { expandedIcons } from "./primitives/Icon/list";
+
+export { default as Breadcrumbs } from "./primitives/Breadcrumbs";
+export * from "./primitives/Breadcrumbs";
+export * from "./primitives/Breadcrumbs/BreadcrumbsItem";
+export { default as BreadcrumbsLink } from "./primitives/Breadcrumbs/ItemContent/BreadcrumbsLink";
+export { default as BreadcrumbsText } from "./primitives/Breadcrumbs/ItemContent/BreadcrumbsText";

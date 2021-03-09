@@ -13,6 +13,39 @@ export interface Theme extends BaseTheme<Colors> {
         backgroundColor: Colors;
       };
     };
+    Tabs: {
+      bottomLine: {
+        color: Colors;
+      };
+      Tab: {
+        backgroundColor: Colors;
+        titleColor: Colors;
+        titleHoverColor: Colors;
+        titleActiveColor: Colors;
+      };
+    };
+    Counter: {
+      default: {
+        backgroundColor: Colors;
+      };
+      prominent: {
+        backgroundColor: Colors;
+      };
+      primary: {
+        backgroundColor: Colors;
+      };
+    };
+    Breadcrumbs: {
+      LevelDivider: {
+        color: Colors;
+      };
+      BreadcrumbsText: {
+        color: Colors;
+      };
+      BreadcrumbsLink: {
+        color: Colors;
+      };
+    };
   };
 }
 

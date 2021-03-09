@@ -1,5 +1,6 @@
 import React, { ReactNode, Ref } from "react";
 import styled, { createGlobalStyle } from "styled-components";
+import { IncomeColorVariant } from "@worksolutions/react-utils";
 
 import {
   textDots,
@@ -13,6 +14,7 @@ import {
   getColor,
 } from "../../styles";
 import { Colors } from "../../constants/colors";
+import { StyledComponentsAs } from "../../types/StyledComponents";
 
 const TypographyWrapper = styled.span``;
 
@@ -36,9 +38,9 @@ TypographyTypes["overline-bold"] = [...TypographyTypes["overline-medium"], fontW
 export interface TypographyInterface {
   noWrap?: boolean;
   className?: string;
-  as?: string;
+  as?: StyledComponentsAs;
   type?: keyof typeof TypographyTypes;
-  color?: Colors | null;
+  color?: IncomeColorVariant<Colors>;
   styles?: any;
   dots?: boolean;
   children: ReactNode;

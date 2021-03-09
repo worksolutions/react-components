@@ -77,7 +77,6 @@ function CalendarItem({
       onClick={() => canClick && onClick && onClick()}
     >
       <Typography
-        color={null}
         styles={[
           transition(`background-color ${duration160}, box-shadow ${duration160}, color ${duration160}`),
           flex,
