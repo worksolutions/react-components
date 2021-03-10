@@ -19,7 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@ckeditor/ckeditor5-react": "^3.*",
-    "@popperjs/core": "^2.5.*",
+    "@popperjs/core": "^2.8.5",
     "@types/react": "^16.*",
     "@types/react-dom": "^16.*",
     "@types/react-router-dom": "^5.*",
@@ -36,7 +36,7 @@
     "raw-loader": "^4.*",
     "react": "^17.*",
     "react-dom": "^17.*",
-    "react-popper": "^2.2.4",
+    "react-popper": "^2.2.3",
     "react-router-dom": "^5.*",
     "react-spring": "9.0.0-rc.3",
     "react-use": "^15.*",

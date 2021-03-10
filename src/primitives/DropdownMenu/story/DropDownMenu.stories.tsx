@@ -12,8 +12,6 @@ import DropdownGroup from "../DropdownGroup/DropdownGroup";
 
 import { left, marginRight, position, top, transform, width } from "styles";
 import { selectControl } from "storybook/storyHelpers";
-import { props } from "ramda";
-import Button from "../../Button";
 
 export default {
   title: "DropDownMenu/DropDownMenu",
@@ -34,23 +32,7 @@ const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) 
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
-      <DropDownMenu
-        {...props}
-        stylesReference={[width(350)]}
-        placeholder="на этом месте будут выбранные элементы"
-        // modifiers={[
-        //   {
-        //     name: "arrow",
-        //     fn({ state }: any) {
-        //       console.log(state);
-        //     },
-        //     options: {
-        //       padding: ({ popper, reference, placement }: any) => {
-        //         console.log({ popper, reference, placement });
-        //       },
-        //     },
-        //   },
-      >
+      <DropDownMenu {...props} stylesReference={[width(350)]} placeholder="на этом месте будут выбранные элементы">
         <DropdownGroup>
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
             ValueByDefault
