@@ -7,6 +7,14 @@ import { defaultTheme } from "./defaultTheme";
 
 export interface Theme extends BaseTheme<Colors> {
   definitions: {
+    LoadingProvider: {
+      Spinner: {
+        color: Colors;
+      };
+      Backplate: {
+        backgroundColor: Colors;
+      };
+    };
     Button: {
       primary: {
         color: Colors;

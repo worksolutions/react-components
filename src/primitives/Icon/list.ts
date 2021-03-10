@@ -48,6 +48,7 @@ export const internalIcons = {
   "save-indicator": require("./icons/save-indicator.svg"),
   minus: require("./icons/minus.svg"),
   employee: require("./icons/employee.svg"),
+  "arrow-up-long": require("./icons/arrow-up-long.svg"),
 };
 
 export const expandedIcons: Record<string, string> = {};

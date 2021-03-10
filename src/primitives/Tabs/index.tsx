@@ -1,25 +1,13 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { sum } from "ramda";
 import { isReactComponent, useChildrenWidthDetector } from "@worksolutions/react-utils";
 
-import {
-  borderRadius,
-  bottom,
-  flex,
-  height,
-  left,
-  position,
-  transition,
-  width,
-  zIndex,
-  backgroundColor,
-} from "../../styles";
+import { backgroundColor, borderRadius, bottom, flex, height, left, position, transition, width } from "../../styles";
 
 import Wrapper from "../Wrapper";
-import Tab, { TabItemInterface, tabHorizontalPadding } from "./Tab";
+import Tab, { tabHorizontalPadding, TabItemInterface } from "./Tab";
 
 import { duration160 } from "../../constants/durations";
-import { isPureObject } from "@worksolutions/utils";
 
 export interface TabInterface {
   tabItem?: React.FC<TabItemInterface> | React.ReactNode;
@@ -45,7 +33,7 @@ function Tabs({ activeIndex, styles, tabs, setActiveIndex }: TabsInterface) {
 
   return (
     <>
-      <Wrapper ref={ref} styles={[flex, position("relative"), zIndex(1), styles]}>
+      <Wrapper ref={ref} styles={[flex, position("relative"), styles]}>
         {tabs.map(({ tabItem: TabItem = Tab, title }, key) => {
           if (!isReactComponent(TabItem)) return TabItem;
           // Почему-то если указать TabItem по умолчанию, итоговый тип TabItem будет === {} | null

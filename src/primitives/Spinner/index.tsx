@@ -5,6 +5,7 @@ import { string2 } from "@worksolutions/utils";
 
 import { child, getColor } from "../../styles";
 import { Colors } from "../../constants/colors";
+import { IncomeColorVariant } from "@worksolutions/react-utils";
 
 export enum SpinnerSize {
   "extra-small" = "extra-small",
@@ -28,7 +29,8 @@ const sizeWidth: SizeWidth = {
 };
 
 export interface SpinnerInterface {
-  color?: Colors;
+  styles?: any;
+  color?: IncomeColorVariant<Colors>;
   className?: string;
   size?: SpinnerSize;
   width?: number;
@@ -50,9 +52,9 @@ const StyledSpinner = styled.div.attrs({ className: "loader" })<Required<Spinner
   }
 `;
 
-const Spinner = function ({ size = SpinnerSize.medium, ...props }: SpinnerInterface) {
+const Spinner = function ({ size = SpinnerSize.medium, styles, ...props }: SpinnerInterface) {
   return (
-    <StyledSpinner {...(props as any)} size={size}>
+    <StyledSpinner {...(props as any)} size={size} css={styles}>
       <svg className="circular" viewBox="25 25 50 50">
         <circle className="path" cx="50" cy="50" r="20" fill="none" strokeWidth="2" strokeMiterlimit="10" />
       </svg>

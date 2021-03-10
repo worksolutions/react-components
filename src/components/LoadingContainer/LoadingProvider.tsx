@@ -5,28 +5,20 @@ import ReactDOM from "react-dom";
 import Wrapper from "../../primitives/Wrapper";
 import Spinner from "../../primitives/Spinner";
 
-import {
-  absoluteCenter,
-  backgroundColor,
-  bottom,
-  createAlphaColor,
-  left,
-  position,
-  right,
-  top,
-  zIndex,
-} from "../../styles";
+import { ai, backgroundColor, bottom, createAlphaColor, flex, jc, left, position, right, top } from "../../styles";
 import { Colors } from "../../constants/colors";
+import { zIndex_loadingProvider } from "../../constants/zIndexes";
 
 import { LoadingProviderLogic, loadingProviderLogicStore } from "./LoadingProviderLogic";
 
-function LoadingProvider({
-  children,
-  color,
-}: {
+interface LoadingProviderInterface {
+  backplateStyles?: any;
+  styles?: any;
   children: (loadingProviderRef: Ref<HTMLElement | undefined>) => JSX.Element;
   color?: Colors;
-}) {
+}
+
+function LoadingProvider({ styles, backplateStyles, children, color }: LoadingProviderInterface) {
   const id = React.useMemo(() => loadingProviderLogicStore.generateId(), []);
   const ref = React.useRef<HTMLElement>();
 
@@ -65,18 +57,20 @@ function LoadingProvider({
         ReactDOM.createPortal(
           <Wrapper
             styles={[
-              zIndex(1),
-              position("fixed"),
+              zIndex_loadingProvider,
+              position("absolute"),
               left(0),
               right(0),
               top(0),
               bottom(0),
-              backgroundColor(createAlphaColor("white", 160)),
+              backgroundColor(createAlphaColor("definitions.LoadingProvider.Backplate.backgroundColor", 160)),
+              flex,
+              ai("center"),
+              jc("center"),
+              backplateStyles,
             ]}
           >
-            <Wrapper styles={absoluteCenter}>
-              <Spinner color={color} />
-            </Wrapper>
+            <Spinner styles={styles} color={color || "definitions.LoadingProvider.Spinner.color"} />
           </Wrapper>,
           ref.current!,
         )}
