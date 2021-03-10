@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { StrictModifiers } from "@popperjs/core";
+import React, { useCallback, useState } from "react";
 
 import Wrapper from "../Wrapper";
 import DropdownHeader from "./DropdownHeader/DropdownHeader";
@@ -10,13 +9,8 @@ import { DropdownManagerContext } from "./DropdownManager/DropdownManagerContext
 
 import { DropdownMenuInterface } from "./DropdownMenu";
 
+const defaultOffset: [number, number] = [0, 4];
 const offsetWidthPopper = 40;
-const defaultModifiers: StrictModifiers = {
-  name: "offset",
-  options: {
-    offset: [0, 4],
-  },
-};
 
 function getPopperStyles(targetElementNode: Element | null) {
   if (!targetElementNode) return [];
@@ -35,13 +29,10 @@ function DropdownContainer({
   headerStyle,
   outsideHandler = true,
   targetElement,
+  offset,
 }: DropdownMenuInterface) {
   const [targetElementNode, setTargetElement] = useState(null);
-  const { selectedItem, hoveredItems, onChange } = React.useContext(DropdownManagerContext);
-
-  useEffect(() => {
-    if (hoveredItems) onChange("");
-  }, [hoveredItems]);
+  const { selectedItem } = React.useContext(DropdownManagerContext);
 
   const popperStyles = useCallback(() => getPopperStyles(targetElementNode), [targetElementNode]);
   const popperElement = useCallback(() => <Wrapper styles={[popperStyles, stylesPopper]}>{children}</Wrapper>, [
@@ -72,7 +63,8 @@ function DropdownContainer({
   return (
     <PopperManager
       placement={placement}
-      modifiers={Boolean(modifiers) ? modifiers : [defaultModifiers]}
+      modifiers={Boolean(modifiers) ? modifiers : []}
+      offset={Boolean(offset) ? offset : defaultOffset}
       outsideHandler={outsideHandler}
       referenceElement={referenceElement}
       popperElement={popperElement}

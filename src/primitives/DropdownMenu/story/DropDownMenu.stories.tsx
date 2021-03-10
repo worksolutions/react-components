@@ -34,7 +34,23 @@ const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) 
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
-      <DropDownMenu {...props} stylesReference={[width(350)]} placeholder="на этом месте будут выбранные элементы">
+      <DropDownMenu
+        {...props}
+        stylesReference={[width(350)]}
+        placeholder="на этом месте будут выбранные элементы"
+        // modifiers={[
+        //   {
+        //     name: "arrow",
+        //     fn({ state }: any) {
+        //       console.log(state);
+        //     },
+        //     options: {
+        //       padding: ({ popper, reference, placement }: any) => {
+        //         console.log({ popper, reference, placement });
+        //       },
+        //     },
+        //   },
+      >
         <DropdownGroup>
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
             ValueByDefault

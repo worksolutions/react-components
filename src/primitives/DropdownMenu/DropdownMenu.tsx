@@ -20,6 +20,7 @@ export interface DropdownMenuInterface {
   outsideHandler?: boolean;
   stylesPopper?: any;
   targetElement: React.ReactNode;
+  offset?: [number, number];
 }
 
 function DropdownMenu(props: DropdownMenuInterface) {
