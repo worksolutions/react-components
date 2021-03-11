@@ -45,5 +45,31 @@ export const defaultTheme: Theme = {
         shadowColor: "gray-blue/02",
       },
     },
+    Editor: {
+      TopPanel: {
+        borderBottomColor: "gray-blue/02",
+        ButtonsGroupDivider: {
+          color: "gray-blue/02",
+        },
+        Item: {
+          Active: {
+            backgroundColor: "blue/02",
+            color: "blue/05",
+          },
+          Inactive: {
+            color: "gray-blue/07",
+            Hover: {
+              backgroundColor: "blue/01",
+            },
+          },
+        },
+        Dropdown: {
+          borderColor: "gray-blue/02",
+        },
+      },
+      ActiveArea: {
+        backgroundColor: "gray-blue/01",
+      },
+    },
   },
 };

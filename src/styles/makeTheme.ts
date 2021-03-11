@@ -76,6 +76,32 @@ export interface Theme extends BaseTheme<Colors> {
         shadowColor: Colors;
       };
     };
+    Editor: {
+      TopPanel: {
+        borderBottomColor: Colors;
+        ButtonsGroupDivider: {
+          color: Colors;
+        };
+        Item: {
+          Active: {
+            backgroundColor: Colors;
+            color: Colors;
+          };
+          Inactive: {
+            color: Colors;
+            Hover: {
+              backgroundColor: Colors;
+            };
+          };
+        };
+        Dropdown: {
+          borderColor: Colors;
+        };
+      };
+      ActiveArea: {
+        backgroundColor: Colors;
+      };
+    };
   };
 }
 

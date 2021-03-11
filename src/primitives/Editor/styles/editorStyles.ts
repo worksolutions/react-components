@@ -1,8 +1,9 @@
 import { css } from "styled-components";
 
-import { TypographyTypes } from "../Typography";
+import { TypographyTypes } from "../../Typography";
 
-import { border, boxShadow, getColor } from "../../styles";
+import { boxShadow, getColor } from "../../../styles";
+import { elevation16Raw } from "../../../constants/shadows";
 import { htmlTextStyles } from "./htmlStyles";
 
 export const editorStyles = css`
@@ -25,7 +26,7 @@ export const editorStyles = css`
 
     &.ck-editor__top {
       width: 100%;
-      border-bottom: 1px solid ${getColor("gray-blue/02")};
+      border-bottom: 1px solid ${getColor("definitions.Editor.TopPanel.borderBottomColor")};
       z-index: 1;
       position: sticky;
       top: 0;
@@ -36,6 +37,7 @@ export const editorStyles = css`
       }
       .ck-sticky-panel__content {
         position: static !important;
+        box-shadow: none !important;
       }
     }
 
@@ -56,8 +58,12 @@ export const editorStyles = css`
         align-self: center !important;
         height: 12px;
         width: 1px;
-        background-color: ${getColor("gray-blue/02")};
+        background-color: ${getColor("definitions.Editor.TopPanel.ButtonsGroupDivider.color")};
         margin: 0 11px;
+      }
+
+      .ck-dropdown__button .ck-icon.ck-dropdown__arrow {
+        display: none !important;
       }
 
       .ck-button {
@@ -71,27 +77,26 @@ export const editorStyles = css`
         border: none !important;
         box-shadow: none !important;
         cursor: pointer;
-        &.ck-dropdown__button {
-          .ck-icon.ck-dropdown__arrow {
-            display: none !important;
-          }
-        }
-        &:hover {
-          background: ${getColor("blue/01")} !important;
-        }
+        color: ${getColor("definitions.Editor.TopPanel.Item.Inactive.color")} !important;
+
         svg {
           * {
-            fill: ${getColor("gray-blue/07")} !important;
+            fill: ${getColor("definitions.Editor.TopPanel.Button.Inactive.color")} !important;
           }
           height: 24px !important;
           width: 24px !important;
         }
+
+        :hover {
+          background: ${getColor("definitions.Editor.TopPanel.Item.Inactive.Hover.backgroundColor")} !important;
+        }
       }
 
       .ck-button.ck-on {
-        background: ${getColor("blue/02")} !important;
+        background: ${getColor("definitions.Editor.TopPanel.Item.Active.backgroundColor")} !important;
+        color: ${getColor("definitions.Editor.TopPanel.Item.Active.color")} !important;
         svg * {
-          fill: ${getColor("blue/05")} !important;
+          fill: ${getColor("definitions.Editor.TopPanel.Button.Active.color")} !important;
         }
       }
 
@@ -102,11 +107,15 @@ export const editorStyles = css`
       .ck-dropdown__panel {
         top: calc(100% + 6px) !important;
         background: white;
-        ${border(1, "gray-blue/02")} !important;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+        border: 1px solid ${getColor("definitions.Editor.TopPanel.Dropdown.borderColor")} !important;
+        ${boxShadow(...elevation16Raw)}
         border-radius: 6px !important;
         overflow: hidden;
         padding: 7px 8px !important;
+
+        .ck-button.ck-on {
+          color: ${getColor("definitions.Editor.TopPanel.Item.Inactive.color")} !important;
+        }
       }
 
       .ck-insert-table-dropdown__label {
@@ -227,16 +236,15 @@ export const editorStyles = css`
       justify-content: center;
       width: 100%;
       flex-grow: 1;
-      padding: 16px;
+      min-height: 200px;
 
-      & > .ck-editor__editable {
+      > .ck-editor__editable {
+        padding: 16px 24px !important;
+        background: ${getColor("definitions.Editor.ActiveArea.backgroundColor")};
         width: 100%;
-        max-width: 752px;
         min-height: 100%;
-        padding: 40px 64px;
 
-        border: 1px solid ${getColor("gray-blue/02")} !important;
-        border-radius: 6px !important;
+        border: none !important;
         box-shadow: none !important;
         outline: none;
       }
