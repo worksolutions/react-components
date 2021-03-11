@@ -11,13 +11,7 @@ import { DropdownMenuInterface } from "./DropdownMenu";
 
 const defaultOffset: [number, number] = [0, 4];
 const defaultOffsetWithArrow: [number, number] = [0, 18];
-const offsetWidthPopper = 40;
 const defaultArrowPadding = -10;
-
-function getPopperStyles(targetElementNode: Element | null) {
-  if (!targetElementNode) return [];
-  return [width(targetElementNode.clientWidth + offsetWidthPopper)];
-}
 
 function setOffset(offset?: [number, number], haveArrow?: boolean) {
   if (offset) return offset;
@@ -42,12 +36,9 @@ function DropdownContainer({
   arrowElem,
   haveArrow,
 }: DropdownMenuInterface) {
-  const [targetElementNode, setTargetElement] = useState(null);
   const { selectedItem } = React.useContext(DropdownManagerContext);
 
-  const popperStyles = useCallback(() => getPopperStyles(targetElementNode), [targetElementNode]);
-  const popperElement = useCallback(() => <Wrapper styles={[popperStyles, stylesPopper]}>{children}</Wrapper>, [
-    popperStyles,
+  const popperElement = useCallback(() => <Wrapper styles={[stylesPopper]}>{children}</Wrapper>, [
     stylesPopper,
     children,
   ]);
@@ -57,7 +48,6 @@ function DropdownContainer({
         <Wrapper onClick={toggleVisible}>{targetElement}</Wrapper>
       ) : (
         <InputWrapper
-          outerRef={setTargetElement}
           size={size}
           iconLeft={iconLeft}
           iconRight={createDropdownRightIcon(visible)}
@@ -68,7 +58,7 @@ function DropdownContainer({
           onClick={toggleVisible}
         />
       ),
-    [size, iconLeft, stylesReference, placeholder, headerStyle, setTargetElement, selectedItem],
+    [size, iconLeft, stylesReference, placeholder, headerStyle, selectedItem],
   );
 
   const offsetValue = useMemo(() => setOffset(offset, haveArrow), [haveArrow, offset]);

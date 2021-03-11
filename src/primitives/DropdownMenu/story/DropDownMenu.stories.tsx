@@ -2,7 +2,7 @@ import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 import { placements } from "@popperjs/core/lib/enums";
 
-import { backgroundColor, borderRight, borderTop, height, ListItemSize, Wrapper } from "../../../index";
+import { backgroundColor, borderTop, height, ListItemSize, Wrapper } from "../../../index";
 import DropDownMenu, { DropdownMenuInterface } from "../DropdownMenu";
 import { internalIcons } from "../../Icon/list";
 import DropdownItem from "../DropdownItem/DropdownItem";
@@ -11,7 +11,7 @@ import DropdownDivider from "../DropdownDivider";
 import DropdownGroup from "../DropdownGroup/DropdownGroup";
 
 import { left, marginRight, position, top, transform, width } from "styles";
-import { selectControl } from "storybook/storyHelpers";
+import { numbersControl, selectControl } from "storybook/storyHelpers";
 
 export default {
   title: "DropDownMenu/DropDownMenu",
@@ -21,18 +21,20 @@ export default {
     size: selectControl(Object.values(InputSize)),
     itemSize: selectControl(Object.values(ListItemSize)),
     placement: selectControl(placements),
+    widthTargetElem: numbersControl(200, 700, 20),
   },
 };
 
 interface StoryDropDownProp {
   itemSize: ListItemSize;
+  widthTargetElem: number;
 }
 const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) => {
   return (
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
-      <DropDownMenu {...props} stylesReference={[width(350)]} placeholder="на этом месте будут выбранные элементы">
+      <DropDownMenu {...props} stylesReference={[width(props.widthTargetElem)]}>
         <DropdownGroup>
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
             ValueByDefault
@@ -71,4 +73,6 @@ Default.args = {
   placement: "bottom-start",
   size: InputSize.MEDIUM,
   itemSize: ListItemSize.MEDIUM,
+  placeholder: "на этом месте будут выбранные элементы",
+  widthTargetElem: 350,
 };

@@ -11,17 +11,15 @@ function getArrowPositionStyles(placement: any, arrowPropsStyle: any, arrowPaddi
 
   const paddingFromPopperEdge = arrowPadding;
 
-  const styles = reactStylesToStylesComponent(arrowPropsStyle);
+  if (placement.startsWith("left")) return [arrowPropsStyle, right(paddingFromPopperEdge)];
 
-  if (placement.startsWith("left")) return [styles, right(paddingFromPopperEdge)];
+  if (placement.startsWith("bottom")) return [arrowPropsStyle, top(paddingFromPopperEdge)];
 
-  if (placement.startsWith("bottom")) return [styles, top(paddingFromPopperEdge)];
+  if (placement.startsWith("right")) return [arrowPropsStyle, left(paddingFromPopperEdge)];
 
-  if (placement.startsWith("right")) return [styles, left(paddingFromPopperEdge)];
+  if (placement.startsWith("top")) return [arrowPropsStyle, bottom(paddingFromPopperEdge)];
 
-  if (placement.startsWith("top")) return [styles, bottom(paddingFromPopperEdge)];
-
-  return styles;
+  return arrowPropsStyle;
 }
 
 function getArrowStyles(placement: any) {
@@ -36,10 +34,11 @@ function getArrowStyles(placement: any) {
 
 const Triangle = styled.div`
   position: absolute;
-  width: 16px;
-  height: 11px;
+  width: 36px;
+  height: 17px;
   overflow: hidden;
-  left: -9px;
+  left: -18px;
+  top: -7px;
 
   &:after {
     content: "";
@@ -50,22 +49,24 @@ const Triangle = styled.div`
     box-shadow: 0 2px 6px 0 #0000000f, 0 8px 16px 0 #00000014, 0 0 0 1px #d7dbe5;
     width: 20px;
     height: 20px;
-    top: 5px;
-    left: -2px;
+    top: 12px;
+    left: 8px;
   }
 `;
 
 function Arrow({ arrowProps, placement, arrowPadding, arrowElem }: any) {
+  const arrowPopperStyles = useCallback(() => reactStylesToStylesComponent(arrowProps.style), [arrowProps.style]);
+
   const arrowStyles = useCallback(() => getArrowStyles(placement), [placement]);
-  const arrowPositionStyles = useMemo(() => getArrowPositionStyles(placement, arrowProps.style, arrowPadding), [
+  const arrowPositionStyles = useMemo(() => getArrowPositionStyles(placement, arrowPopperStyles, arrowPadding), [
     placement,
-    arrowProps.style,
+    arrowPopperStyles,
     arrowPadding,
   ]);
 
   return (
     <Wrapper ref={arrowProps.ref} data-popper-arrow styles={arrowPositionStyles}>
-      <Wrapper styles={[arrowStyles]}>{arrowElem ? arrowElem : <Triangle />}</Wrapper>
+      <Wrapper styles={arrowStyles}>{arrowElem ? arrowElem : <Triangle />}</Wrapper>
     </Wrapper>
   );
 }

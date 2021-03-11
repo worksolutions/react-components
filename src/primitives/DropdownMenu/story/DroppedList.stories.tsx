@@ -19,6 +19,7 @@ export default {
   component: DropDownMenu.type,
   argTypes: {
     iconLeft: selectControl(Object.keys(internalIcons)),
+    size: selectControl(Object.values(InputSize)),
     itemSize: selectControl(Object.values(ListItemSize)),
     placement: selectControl(placements),
   },
@@ -39,7 +40,7 @@ const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) 
           <Button className="card-actions" type={ButtonType.ICON} size={ButtonSize.SMALL} iconLeft="kebab-horizontal" />
         }
       >
-        <DropdownGroup styles={[width(250)]}>
+        <DropdownGroup>
           <DropdownItem code="DropdownItemElement3">DropdownItemElement3</DropdownItem>
           <DropdownItem code="DropdownItemElement4">DropdownItemElement4</DropdownItem>
         </DropdownGroup>

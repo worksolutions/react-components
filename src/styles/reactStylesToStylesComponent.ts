@@ -1,15 +1,16 @@
 import React from "react";
-import { buildStyles } from "@worksolutions/react-utils";
-const styles = buildStyles();
+
+import * as stylesBuilders from "../styles";
 
 export function reactStylesToStylesComponent(reactStyles: React.CSSProperties): any {
-  if (!reactStyles) return [];
+  if (!reactStyles) return null;
   const stylesComponents: any = [];
-  console.log(reactStyles);
-  Object.entries(reactStyles).forEach(([key, value]) => {
+
+  Object.entries(reactStyles).forEach(([key, value]: [any, React.CSSProperties]) => {
     // @ts-ignore
-    const cssCondition = styles[key];
+    const cssCondition: any = stylesBuilders[key] as any;
     if (cssCondition || !value) stylesComponents.push(cssCondition(value));
   });
+
   return stylesComponents;
 }

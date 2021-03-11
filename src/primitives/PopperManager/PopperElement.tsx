@@ -2,7 +2,7 @@ import React, { forwardRef, useCallback, useEffect, useMemo } from "react";
 import { Popper } from "react-popper";
 import Wrapper from "../Wrapper";
 import Arrow from "./Arrow";
-import { backgroundColor, border, borderRadius, boxShadow, padding } from "../../styles";
+import { backgroundColor, border, borderRadius, boxShadow, minWidth, padding, width } from "../../styles";
 import { elevation16Raw } from "../../constants/shadows";
 import { Placement } from "@popperjs/core/lib/enums";
 import { StrictModifiers } from "@popperjs/core";
@@ -15,6 +15,12 @@ function getPopperStyles() {
     borderRadius(6),
     padding(8),
   ];
+}
+const offsetWidthPopper = 40;
+
+function getPopperWidth(referenceNodeOffsetWidth?: number) {
+  if (!referenceNodeOffsetWidth) return null;
+  return [minWidth(196), width(referenceNodeOffsetWidth + offsetWidthPopper)];
 }
 
 function getModifiers(modifiers?: StrictModifiers[], offset?: [number, number]) {
@@ -36,6 +42,7 @@ interface PopperElementProps {
   modifiers?: StrictModifiers[];
   arrowPadding?: number;
   arrowElem?: React.ReactNode;
+  referenceNode?: HTMLElement;
   haveArrow?: boolean;
 }
 
@@ -48,9 +55,13 @@ function PopperElement({
   arrowPadding,
   arrowElem,
   haveArrow,
+  referenceNode,
 }: PopperElementProps) {
   const resultPopperStyles = useCallback(() => popperStyles || getPopperStyles(), [popperStyles]);
   const resultModifiers = useMemo(() => getModifiers(modifiers, offset), [modifiers, offset]);
+  const calculatePopperWidth = useCallback(() => getPopperWidth(referenceNode?.offsetWidth), [
+    referenceNode?.offsetWidth,
+  ]);
 
   return (
     <Popper placement={placement} modifiers={resultModifiers}>
@@ -58,7 +69,7 @@ function PopperElement({
         <PopperChildren
           ref={ref}
           style={style}
-          resultPopperStyles={resultPopperStyles}
+          resultPopperStyles={[resultPopperStyles, calculatePopperWidth]}
           placement={placement}
           arrowProps={arrowProps}
           children={children}
@@ -66,6 +77,7 @@ function PopperElement({
           arrowPadding={arrowPadding}
           arrowElem={arrowElem}
           update={update}
+          referenceNode={referenceNode}
         />
       )}
     </Popper>
@@ -74,10 +86,31 @@ function PopperElement({
 
 const PopperChildren = React.memo(
   forwardRef(function (
-    { style, placement, resultPopperStyles, children, haveArrow, arrowProps, arrowPadding, arrowElem, update }: any,
+    {
+      style,
+      placement,
+      resultPopperStyles,
+      children,
+      haveArrow,
+      arrowProps,
+      arrowPadding,
+      arrowElem,
+      update,
+      referenceNode,
+    }: any,
     ref,
   ) {
     useEffect(update, [haveArrow]);
+    useEffect(() => {
+      if (!referenceNode) return;
+
+      const resizeObserver = new ResizeObserver(() => update());
+      resizeObserver.observe(referenceNode);
+
+      return () => {
+        resizeObserver.disconnect();
+      };
+    }, [referenceNode]);
 
     return (
       <Wrapper ref={ref} style={style} data-placement={placement} styles={resultPopperStyles}>

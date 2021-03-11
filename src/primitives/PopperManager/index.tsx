@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Popper, Reference } from "react-popper";
 
 import { StrictModifiers } from "@popperjs/core";
@@ -34,11 +34,19 @@ function PopperManager({
   arrowElem,
   haveArrow,
 }: PopperManagerProps) {
+  const referenceNode = useRef();
+
   return (
     <VisibleManager outsideHandler={outsideHandler}>
       {(visible, toggleVisible) => (
         <>
-          <Reference>{({ ref }) => <Wrapper ref={ref}>{referenceElement(toggleVisible, visible)}</Wrapper>}</Reference>
+          <Reference>
+            {({ ref }) => (
+              <Wrapper ref={referenceNode}>
+                <Wrapper ref={ref}>{referenceElement(toggleVisible, visible)}</Wrapper>
+              </Wrapper>
+            )}
+          </Reference>
           {visible && (
             <PopperElement
               placement={placement}
@@ -48,6 +56,7 @@ function PopperManager({
               arrowPadding={arrowPadding}
               arrowElem={arrowElem}
               haveArrow={haveArrow}
+              referenceNode={referenceNode.current}
             >
               {popperElement(toggleVisible, visible)}
             </PopperElement>
