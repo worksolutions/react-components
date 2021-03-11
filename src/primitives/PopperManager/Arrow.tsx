@@ -56,7 +56,7 @@ interface ArrowProps {
 
 const Triangle = React.memo(function () {
   return (
-    <Wrapper styles={[position("absolute"), width(36), height(17), overflow("hidden"), left(-21), top(-7)]}>
+    <Wrapper styles={[position("absolute"), width(36), height(17), overflow("hidden"), left(-22), top(-7)]}>
       <Wrapper
         styles={[
           position("absolute"),

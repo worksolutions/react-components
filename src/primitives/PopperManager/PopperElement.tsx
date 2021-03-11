@@ -19,16 +19,16 @@ function getPopperStyles() {
 
 function getModifiers(modifiers: StrictModifiers[], offset?: [number, number]) {
   return [
-    ...modifiers,
-    {
-      name: "offset",
-      options: { offset: () => offset },
-    },
     {
       name: "arrow",
       options: {
         padding: 20,
       },
+    },
+    ...modifiers,
+    {
+      name: "offset",
+      options: { offset: () => offset },
     },
   ];
 }
@@ -100,7 +100,7 @@ const PopperChildren = React.memo(
     useEffect(() => {
       if (!referenceNode) return;
 
-      const resizeObserver = new ResizeObserver(() => update());
+      const resizeObserver = new ResizeObserver(update);
       resizeObserver.observe(referenceNode);
 
       return () => resizeObserver.disconnect();

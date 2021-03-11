@@ -25,7 +25,7 @@ export interface DropdownMenuInterface {
   arrowPadding?: number;
   arrowElem?: React.ReactNode;
   haveArrow?: boolean;
-  colorTextHeader: Colors;
+  colorTextHeader?: Colors;
 }
 
 function DropdownMenu(props: DropdownMenuInterface) {
