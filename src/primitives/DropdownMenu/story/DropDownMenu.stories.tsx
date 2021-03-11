@@ -32,13 +32,7 @@ const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) 
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
-      <DropDownMenu
-        {...props}
-        stylesReference={[width(350)]}
-        placeholder="на этом месте будут выбранные элементы"
-        useArrow
-        // arrowElem={<Wrapper styles={[width(15), height(15), backgroundColor("black"), borderTop(1, "red/01")]} />}
-      >
+      <DropDownMenu {...props} stylesReference={[width(350)]} placeholder="на этом месте будут выбранные элементы">
         <DropdownGroup>
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
             ValueByDefault

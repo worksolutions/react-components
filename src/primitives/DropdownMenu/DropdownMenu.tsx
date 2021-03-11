@@ -23,7 +23,7 @@ export interface DropdownMenuInterface {
   offset?: [number, number];
   arrowPadding?: number;
   arrowElem: React.ReactNode;
-  useArrow: boolean;
+  haveArrow: boolean;
 }
 
 function DropdownMenu(props: DropdownMenuInterface) {

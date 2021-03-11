@@ -19,9 +19,9 @@ function getPopperStyles(targetElementNode: Element | null) {
   return [width(targetElementNode.clientWidth + offsetWidthPopper)];
 }
 
-function setOffset(offset?: [number, number], useArrow?: boolean) {
+function setOffset(offset?: [number, number], haveArrow?: boolean) {
   if (offset) return offset;
-  if (useArrow) return defaultOffsetWithArrow;
+  if (haveArrow) return defaultOffsetWithArrow;
   return defaultOffset;
 }
 
@@ -40,7 +40,7 @@ function DropdownContainer({
   offset,
   arrowPadding,
   arrowElem,
-  useArrow,
+  haveArrow,
 }: DropdownMenuInterface) {
   const [targetElementNode, setTargetElement] = useState(null);
   const { selectedItem } = React.useContext(DropdownManagerContext);
@@ -71,7 +71,7 @@ function DropdownContainer({
     [size, iconLeft, stylesReference, placeholder, headerStyle, setTargetElement, selectedItem],
   );
 
-  const offsetValue = useMemo(() => setOffset(offset, useArrow), []);
+  const offsetValue = useMemo(() => setOffset(offset, haveArrow), [haveArrow, offset]);
 
   return (
     <PopperManager
@@ -83,7 +83,7 @@ function DropdownContainer({
       referenceElement={referenceElement}
       popperElement={popperElement}
       arrowElem={arrowElem}
-      useArrow={useArrow}
+      haveArrow={haveArrow}
     />
   );
 }

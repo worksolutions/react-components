@@ -19,7 +19,7 @@ interface PopperManagerProps {
   offset?: [number, number];
   arrowPadding?: number;
   arrowElem?: React.ReactNode;
-  useArrow: boolean;
+  haveArrow: boolean;
 }
 
 function PopperManager({
@@ -32,7 +32,7 @@ function PopperManager({
   offset,
   arrowPadding,
   arrowElem,
-  useArrow,
+  haveArrow,
 }: PopperManagerProps) {
   return (
     <VisibleManager outsideHandler={outsideHandler}>
@@ -43,13 +43,14 @@ function PopperManager({
             <PopperElement
               placement={placement}
               offset={offset}
-              popperElement={popperElement}
               modifiers={modifiers}
               popperStyles={popperStyles}
               arrowPadding={arrowPadding}
               arrowElem={arrowElem}
-              useArrow={useArrow}
-            />
+              haveArrow={haveArrow}
+            >
+              {popperElement(toggleVisible, visible)}
+            </PopperElement>
           )}
         </>
       )}
