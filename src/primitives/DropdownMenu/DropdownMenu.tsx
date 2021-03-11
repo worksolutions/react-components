@@ -21,6 +21,7 @@ export interface DropdownMenuInterface {
   stylesPopper?: any;
   targetElement: React.ReactNode;
   offset?: [number, number];
+  arrowPadding: number;
 }
 
 function DropdownMenu(props: DropdownMenuInterface) {

@@ -1,11 +1,11 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { Manager } from "react-popper";
 
 import Wrapper from "primitives/Wrapper";
 
 import { VisibleManagerContext } from "./VisibleManagerContext";
 import { HandleClickOutside } from "../../index";
-import { useBoolean } from "@worksolutions/react-utils";
+import { useBoolean, useForceUpdate } from "@worksolutions/react-utils";
 
 export interface VisibleManagerProps {
   outsideHandler: boolean;

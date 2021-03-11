@@ -9,8 +9,9 @@ import { DropdownManagerContext } from "./DropdownManager/DropdownManagerContext
 
 import { DropdownMenuInterface } from "./DropdownMenu";
 
-const defaultOffset: [number, number] = [0, 4];
+const defaultOffset: [number, number] = [0, 10];
 const offsetWidthPopper = 40;
+const defaultArrowPadding = -10;
 
 function getPopperStyles(targetElementNode: Element | null) {
   if (!targetElementNode) return [];
@@ -30,6 +31,7 @@ function DropdownContainer({
   outsideHandler = true,
   targetElement,
   offset,
+  arrowPadding,
 }: DropdownMenuInterface) {
   const [targetElementNode, setTargetElement] = useState(null);
   const { selectedItem } = React.useContext(DropdownManagerContext);
@@ -65,6 +67,7 @@ function DropdownContainer({
       placement={placement}
       modifiers={Boolean(modifiers) ? modifiers : []}
       offset={Boolean(offset) ? offset : defaultOffset}
+      arrowPadding={Boolean(arrowPadding) ? arrowPadding : defaultArrowPadding}
       outsideHandler={outsideHandler}
       referenceElement={referenceElement}
       popperElement={popperElement}
