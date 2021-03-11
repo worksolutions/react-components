@@ -44,6 +44,7 @@ export interface TypographyInterface {
   styles?: any;
   dots?: boolean;
   children: ReactNode;
+  asHTML?: boolean;
   onClick?: () => void;
 }
 
@@ -58,29 +59,33 @@ const Typography = React.forwardRef(
       type,
       color: colorProp,
       dots: dotsProp,
+      asHTML,
       onClick,
       ...props
     }: TypographyInterface,
     ref: Ref<HTMLSpanElement>,
-  ) => (
-    <TypographyWrapper
-      className={className}
-      ref={ref}
-      as={as as any}
-      css={[
-        display("inline-block"),
-        type ? TypographyTypes[type] : null,
-        colorProp && color(colorProp),
-        dotsProp && textDots,
-        noWrap && whiteSpace("nowrap"),
-        styles,
-      ]}
-      onClick={onClick}
-      {...props}
-    >
-      {children}
-    </TypographyWrapper>
-  ),
+  ) => {
+    const contentProps = asHTML ? { dangerouslySetInnerHTML: { __html: children } } : { children };
+
+    return (
+      <TypographyWrapper
+        className={className}
+        ref={ref}
+        as={as as any}
+        css={[
+          display("inline-block"),
+          type ? TypographyTypes[type] : null,
+          colorProp && color(colorProp),
+          dotsProp && textDots,
+          noWrap && whiteSpace("nowrap"),
+          styles,
+        ]}
+        onClick={onClick}
+        {...props}
+        {...contentProps}
+      />
+    );
+  },
 );
 
 Typography.defaultProps = {

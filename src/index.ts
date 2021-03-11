@@ -48,6 +48,7 @@ export * from "./primitives/Dropdown/DropdownContainer";
 
 export { default as Editor } from "./primitives/Editor";
 export * from "./primitives/Editor";
+export * from "./primitives/Editor/styles/htmlStyles";
 
 export { default as Form } from "./primitives/Form";
 export * from "./primitives/Form";
