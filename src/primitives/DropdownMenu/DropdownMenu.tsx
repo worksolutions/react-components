@@ -7,6 +7,7 @@ import DropdownContainer from "./DropdownContainer";
 import { InternalIcons } from "../Icon";
 import { InputSize } from "../Input/InputWrapper";
 import DropdownManager from "./DropdownManager/DropdownManager";
+import { Colors } from "../../constants/colors";
 
 export interface DropdownMenuInterface {
   placeholder?: string;
@@ -22,8 +23,9 @@ export interface DropdownMenuInterface {
   targetElement: React.ReactNode;
   offset?: [number, number];
   arrowPadding?: number;
-  arrowElem: React.ReactNode;
-  haveArrow: boolean;
+  arrowElem?: React.ReactNode;
+  haveArrow?: boolean;
+  colorTextHeader: Colors;
 }
 
 function DropdownMenu(props: DropdownMenuInterface) {

@@ -57,6 +57,7 @@ function DropdownItem({
         closeHandler();
         return;
       }
+
       onChange(code);
       closeHandler();
     },

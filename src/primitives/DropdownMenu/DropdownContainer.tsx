@@ -25,6 +25,7 @@ function DropdownContainer({
   arrowPadding,
   arrowElem,
   haveArrow,
+  colorTextHeader,
 }: DropdownMenuInterface) {
   const { selectedItem } = React.useContext(DropdownManagerContext);
 
@@ -43,7 +44,11 @@ function DropdownContainer({
           iconRight={createDropdownRightIcon(visible)}
           outerStyles={[stylesReference]}
           renderComponent={(styles) => (
-            <DropdownHeader text={selectedItem ? selectedItem : placeholder} styles={[styles, headerStyle]} />
+            <DropdownHeader
+              text={selectedItem ? selectedItem : placeholder}
+              styles={[styles, headerStyle]}
+              colorTextHeader={colorTextHeader}
+            />
           )}
           onClick={toggleVisible}
         />

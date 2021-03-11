@@ -35,7 +35,7 @@ function getModifiers(modifiers: StrictModifiers[], offset?: [number, number]) {
     {
       name: "arrow",
       options: {
-        padding: 15,
+        padding: 20,
       },
     },
   ];
@@ -111,9 +111,7 @@ const PopperChildren = React.memo(
       const resizeObserver = new ResizeObserver(() => update());
       resizeObserver.observe(referenceNode);
 
-      return () => {
-        resizeObserver.disconnect();
-      };
+      return () => resizeObserver.disconnect();
     }, [referenceNode]);
 
     return (

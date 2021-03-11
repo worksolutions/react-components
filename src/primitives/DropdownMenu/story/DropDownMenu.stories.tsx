@@ -2,7 +2,7 @@ import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 import { placements } from "@popperjs/core/lib/enums";
 
-import { backgroundColor, borderTop, height, ListItemSize, Wrapper } from "../../../index";
+import { color, ListItemSize, Wrapper } from "../../../index";
 import DropDownMenu, { DropdownMenuInterface } from "../DropdownMenu";
 import { internalIcons } from "../../Icon/list";
 import DropdownItem from "../DropdownItem/DropdownItem";
@@ -11,7 +11,7 @@ import DropdownDivider from "../DropdownDivider";
 import DropdownGroup from "../DropdownGroup/DropdownGroup";
 
 import { left, marginRight, position, top, transform, width } from "styles";
-import { numbersControl, selectControl } from "storybook/storyHelpers";
+import { booleanControl, numbersControl, selectControl } from "storybook/storyHelpers";
 
 export default {
   title: "DropDownMenu/DropDownMenu",
@@ -22,20 +22,23 @@ export default {
     itemSize: selectControl(Object.values(ListItemSize)),
     placement: selectControl(placements),
     widthTargetElem: numbersControl(200, 700, 5),
+    isHover: booleanControl(),
   },
 };
 
 interface StoryDropDownProp {
   itemSize: ListItemSize;
   widthTargetElem: number;
+  isHover: boolean;
 }
+
 const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) => {
   return (
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
-      <DropDownMenu {...props} stylesReference={[width(props.widthTargetElem)]}>
-        <DropdownGroup>
+      <DropDownMenu {...props} stylesReference={[width(props.widthTargetElem)]} headerStyle={[color("red/01")]}>
+        <DropdownGroup isHoveredItems={props.isHover}>
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
             ValueByDefault
           </DropdownItem>

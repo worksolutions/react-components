@@ -2,7 +2,7 @@ import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 import { placements } from "@popperjs/core/lib/enums";
 
-import { left, marginRight, position, top, transform, width } from "styles";
+import { left, marginRight, position, top, transform } from "styles";
 
 import { ButtonSize, ButtonType, ListItemSize, Wrapper } from "../../../index";
 import DropDownMenu, { DropdownMenuInterface } from "../DropdownMenu";

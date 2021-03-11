@@ -1,20 +1,25 @@
 import React from "react";
 
-import { ai, flex, flexValue, pointer, textAlign } from "../../../styles";
+import { ai, color, flex, flexValue, pointer, textAlign } from "../../../styles";
 
 import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
+import { Colors } from "../../../constants/colors";
 
 export interface DropdownHeaderProps {
   styles?: any;
   text?: string;
+  colorTextHeader?: Colors;
 }
 
-function DropdownHeader({ styles, text }: DropdownHeaderProps) {
+function DropdownHeader({ styles, text, colorTextHeader }: DropdownHeaderProps) {
   return (
-    <Wrapper as="button" styles={[styles, pointer]}>
+    <Wrapper
+      as="button"
+      styles={[flexValue(1), textAlign("left"), color("definitions.DropdownHeader.text"), pointer, styles]}
+    >
       <Wrapper styles={[flex, ai("center")]}>
-        <Typography color="definitions.DropdownHeader.text" styles={[flexValue(1), textAlign("left")]} dots>
+        <Typography dots color={colorTextHeader}>
           {text}
         </Typography>
       </Wrapper>

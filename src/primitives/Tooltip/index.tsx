@@ -4,10 +4,13 @@ import { color, fontSize, letterSpacing, lineHeight, padding } from "../../style
 
 export interface TooltipProps {
   children: string;
+  styles: any;
 }
-function Tooltip({ children }: TooltipProps) {
+function Tooltip({ children, styles }: TooltipProps) {
   return (
-    <Wrapper styles={[padding("8px 12px"), color("gray-blue/09"), fontSize(12), lineHeight(16), letterSpacing(0.3)]}>
+    <Wrapper
+      styles={[padding("8px 12px"), color("gray-blue/09"), fontSize(12), lineHeight(16), letterSpacing(0.3), styles]}
+    >
       {children}
     </Wrapper>
   );

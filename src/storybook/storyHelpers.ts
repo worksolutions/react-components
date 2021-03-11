@@ -28,3 +28,11 @@ export function numbersControl(min: number, max: number, step: number) {
     },
   };
 }
+
+export function booleanControl() {
+  return {
+    control: {
+      type: "boolean",
+    },
+  };
+}
