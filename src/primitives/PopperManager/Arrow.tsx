@@ -1,10 +1,25 @@
 import React, { useCallback, useMemo } from "react";
-import styled from "styled-components";
+import { PopperArrowProps } from "react-popper";
+import { Placement } from "@popperjs/core/lib/enums";
 
 import Wrapper from "../Wrapper";
 
 import { reactStylesToStylesComponent } from "../../styles/reactStylesToStylesComponent";
-import { bottom, left, right, top, transform } from "../../styles";
+import {
+  backgroundColor,
+  bottom,
+  boxShadow,
+  height,
+  left,
+  overflow,
+  position,
+  right,
+  top,
+  transform,
+  width,
+  zIndex,
+} from "../../styles";
+import { elevation16Raw } from "../../constants/shadows";
 
 function getArrowPositionStyles(placement: any, arrowPropsStyle: any, arrowPadding: number) {
   if (!placement) return [];
@@ -32,32 +47,37 @@ function getArrowStyles(placement: any) {
   if (placement.startsWith("right")) return [transform("rotate(-90deg)")];
 }
 
-const Triangle = styled.div`
-  position: absolute;
-  width: 36px;
-  height: 17px;
-  overflow: hidden;
-  left: -18px;
-  top: -7px;
+interface ArrowProps {
+  arrowProps: PopperArrowProps;
+  placement: Placement;
+  arrowPadding: number;
+  arrowElem: HTMLElement;
+}
 
-  &:after {
-    content: "";
-    position: absolute;
-    z-index: 2;
-    background: #fff;
-    transform: rotate(45deg);
-    box-shadow: 0 2px 6px 0 #0000000f, 0 8px 16px 0 #00000014, 0 0 0 1px #d7dbe5;
-    width: 20px;
-    height: 20px;
-    top: 12px;
-    left: 8px;
-  }
-`;
+const Triangle = React.memo(function () {
+  return (
+    <Wrapper styles={[position("absolute"), width(36), height(17), overflow("hidden"), left(-21), top(-7)]}>
+      <Wrapper
+        styles={[
+          position("absolute"),
+          zIndex(2),
+          backgroundColor("white"),
+          transform("rotate(45deg)"),
+          boxShadow(...elevation16Raw, [0, 0, 0, 1, "gray-blue/02"]),
+          width(20),
+          height(20),
+          left(12),
+          top(12),
+        ]}
+      />
+    </Wrapper>
+  );
+});
 
-function Arrow({ arrowProps, placement, arrowPadding, arrowElem }: any) {
+function Arrow({ arrowProps, placement, arrowPadding, arrowElem }: ArrowProps) {
   const arrowPopperStyles = useCallback(() => reactStylesToStylesComponent(arrowProps.style), [arrowProps.style]);
-
   const arrowStyles = useCallback(() => getArrowStyles(placement), [placement]);
+
   const arrowPositionStyles = useMemo(() => getArrowPositionStyles(placement, arrowPopperStyles, arrowPadding), [
     placement,
     arrowPopperStyles,

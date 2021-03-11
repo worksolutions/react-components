@@ -1,7 +1,7 @@
 import React from "react";
 
-import { StrictModifiers } from "@popperjs/core";
 import { Placement } from "@popperjs/core/lib/enums";
+import { StrictModifiers } from "@popperjs/core/";
 
 import DropdownContainer from "./DropdownContainer";
 import { InternalIcons } from "../Icon";

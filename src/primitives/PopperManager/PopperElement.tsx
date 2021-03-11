@@ -1,11 +1,12 @@
 import React, { forwardRef, useCallback, useEffect, useMemo } from "react";
+import { Placement } from "@popperjs/core/lib/enums";
+import { StrictModifiers } from "@popperjs/core";
 import { Popper } from "react-popper";
+
 import Wrapper from "../Wrapper";
 import Arrow from "./Arrow";
 import { backgroundColor, border, borderRadius, boxShadow } from "../../styles";
 import { elevation16Raw } from "../../constants/shadows";
-import { Placement } from "@popperjs/core/lib/enums";
-import { StrictModifiers } from "@popperjs/core";
 
 function getPopperStyles() {
   return [
@@ -14,15 +15,6 @@ function getPopperStyles() {
     boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Popper.boxShadow"]),
     borderRadius(6),
   ];
-}
-
-function getTranslateXY(element: HTMLElement) {
-  const style = window.getComputedStyle(element);
-  const matrix = new DOMMatrixReadOnly(style.transform);
-  return {
-    x: matrix.m41,
-    y: matrix.m42,
-  };
 }
 
 function getModifiers(modifiers: StrictModifiers[], offset?: [number, number]) {

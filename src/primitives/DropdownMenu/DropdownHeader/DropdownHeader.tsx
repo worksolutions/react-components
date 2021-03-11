@@ -1,9 +1,9 @@
 import React from "react";
 
-import { ai, color, flex, flexValue, pointer, textAlign } from "../../../styles";
-
 import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
+
+import { ai, color, flex, flexValue, pointer, textAlign } from "../../../styles";
 import { Colors } from "../../../constants/colors";
 
 export interface DropdownHeaderProps {

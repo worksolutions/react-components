@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { InputIconProp } from "../../Input/InputWrapper";
 import { useForceUpdate } from "@worksolutions/react-utils";
+
+import { InputIconProp } from "../../Input/InputWrapper";
 
 export function useShowedRightIcon(
   isHoveredItems: boolean | undefined,

@@ -11,7 +11,7 @@ import { InputSize } from "../../Input/InputWrapper";
 import DropdownGroup from "../DropdownGroup/DropdownGroup";
 
 import Button from "../../Button";
-import { selectControl } from "../../../storybook/storyHelpers";
+import { numbersControl, selectControl } from "../../../storybook/storyHelpers";
 import { internalIcons } from "../../Icon/list";
 
 export default {
@@ -22,6 +22,8 @@ export default {
     size: selectControl(Object.values(InputSize)),
     itemSize: selectControl(Object.values(ListItemSize)),
     placement: selectControl(placements),
+    x: numbersControl(-100, 100, 2),
+    y: numbersControl(-50, 50, 1),
   },
 };
 
@@ -39,6 +41,7 @@ const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) 
         targetElement={
           <Button className="card-actions" type={ButtonType.ICON} size={ButtonSize.SMALL} iconLeft="kebab-horizontal" />
         }
+        offset={[props.x, props.y]}
       >
         <DropdownGroup>
           <DropdownItem code="DropdownItemElement3">DropdownItemElement3</DropdownItem>
