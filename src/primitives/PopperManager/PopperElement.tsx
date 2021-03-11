@@ -26,6 +26,7 @@ function PopperElement({
   modifiers,
   arrowPadding,
   arrowElem,
+  useArrow,
 }: any) {
   const resultPopperStyles = useCallback(() => popperStyles || getPopperStyles(), [popperStyles]);
 
@@ -39,18 +40,14 @@ function PopperElement({
           name: "offset",
           options: { offset: () => offset },
         },
-        {
-          name: "arrow",
-          options: {
-            padding: 5,
-          },
-        },
       ]}
     >
       {({ ref, style, placement, arrowProps }) => (
         <Wrapper ref={ref} style={style} data-placement={placement} styles={resultPopperStyles}>
           {popperElement(toggleVisible, visible)}
-          {<Arrow arrowProps={arrowProps} placement={placement} arrowPadding={arrowPadding} arrowElem={arrowElem} />}
+          {useArrow && (
+            <Arrow arrowProps={arrowProps} placement={placement} arrowPadding={arrowPadding} arrowElem={arrowElem} />
+          )}
         </Wrapper>
       )}
     </Popper>

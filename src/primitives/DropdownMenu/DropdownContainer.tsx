@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 
 import Wrapper from "../Wrapper";
 import DropdownHeader from "./DropdownHeader/DropdownHeader";
@@ -9,13 +9,20 @@ import { DropdownManagerContext } from "./DropdownManager/DropdownManagerContext
 
 import { DropdownMenuInterface } from "./DropdownMenu";
 
-const defaultOffset: [number, number] = [0, 10];
+const defaultOffset: [number, number] = [0, 4];
+const defaultOffsetWithArrow: [number, number] = [0, 18];
 const offsetWidthPopper = 40;
 const defaultArrowPadding = -10;
 
 function getPopperStyles(targetElementNode: Element | null) {
   if (!targetElementNode) return [];
   return [width(targetElementNode.clientWidth + offsetWidthPopper)];
+}
+
+function setOffset(offset?: [number, number], useArrow?: boolean) {
+  if (offset) return offset;
+  if (useArrow) return defaultOffsetWithArrow;
+  return defaultOffset;
 }
 
 function DropdownContainer({
@@ -33,6 +40,7 @@ function DropdownContainer({
   offset,
   arrowPadding,
   arrowElem,
+  useArrow,
 }: DropdownMenuInterface) {
   const [targetElementNode, setTargetElement] = useState(null);
   const { selectedItem } = React.useContext(DropdownManagerContext);
@@ -63,16 +71,19 @@ function DropdownContainer({
     [size, iconLeft, stylesReference, placeholder, headerStyle, setTargetElement, selectedItem],
   );
 
+  const offsetValue = useMemo(() => setOffset(offset, useArrow), []);
+
   return (
     <PopperManager
       placement={placement}
       modifiers={Boolean(modifiers) ? modifiers : []}
-      offset={Boolean(offset) ? offset : defaultOffset}
+      offset={offsetValue}
       arrowPadding={Boolean(arrowPadding) ? arrowPadding : defaultArrowPadding}
       outsideHandler={outsideHandler}
       referenceElement={referenceElement}
       popperElement={popperElement}
       arrowElem={arrowElem}
+      useArrow={useArrow}
     />
   );
 }
