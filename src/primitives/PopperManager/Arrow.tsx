@@ -9,7 +9,7 @@ import { bottom, left, right, top, transform } from "../../styles";
 function getArrowPositionStyles(placement: any, arrowPropsStyle: any, arrowPadding: number) {
   if (!placement) return [];
 
-  const paddingFromPopperEdge = arrowPadding;
+  const paddingFromPopperEdge = arrowPadding * -1;
 
   if (placement.startsWith("left")) return [arrowPropsStyle, right(paddingFromPopperEdge)];
 

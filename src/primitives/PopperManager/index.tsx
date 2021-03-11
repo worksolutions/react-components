@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Popper, Reference } from "react-popper";
+import React, { useMemo, useRef } from "react";
+import { Reference } from "react-popper";
 
 import { StrictModifiers } from "@popperjs/core";
 import { Placement } from "@popperjs/core/lib/enums";
@@ -19,7 +19,17 @@ interface PopperManagerProps {
   offset?: [number, number];
   arrowPadding?: number;
   arrowElem?: React.ReactNode;
-  haveArrow: boolean;
+  haveArrow?: boolean;
+}
+
+const defaultOffset: [number, number] = [0, 4];
+const defaultOffsetWithArrow: [number, number] = [0, 14];
+const defaultArrowPadding = 10;
+
+function setOffset(offset?: [number, number], haveArrow?: boolean) {
+  if (offset) return offset;
+  if (haveArrow) return defaultOffsetWithArrow;
+  return defaultOffset;
 }
 
 function PopperManager({
@@ -35,6 +45,7 @@ function PopperManager({
   haveArrow,
 }: PopperManagerProps) {
   const referenceNode = useRef();
+  const offsetValue = useMemo(() => setOffset(offset, haveArrow), [haveArrow, offset]);
 
   return (
     <VisibleManager outsideHandler={outsideHandler}>
@@ -50,10 +61,10 @@ function PopperManager({
           {visible && (
             <PopperElement
               placement={placement}
-              offset={offset}
-              modifiers={modifiers}
+              modifiers={modifiers ? modifiers : []}
               popperStyles={popperStyles}
-              arrowPadding={arrowPadding}
+              offset={offsetValue}
+              arrowPadding={arrowPadding ? arrowPadding : defaultArrowPadding}
               arrowElem={arrowElem}
               haveArrow={haveArrow}
               referenceNode={referenceNode.current}

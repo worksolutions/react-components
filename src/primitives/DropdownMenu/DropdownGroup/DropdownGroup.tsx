@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import Wrapper from "../../Wrapper";
 
 import { DropdownGroupContext } from "./DropdownGroupContext";
-import { fullWidth } from "../../../styles";
+import { fullWidth, padding } from "../../../styles";
 
 export interface DropdownGroupProps {
   children: React.ReactNode[] | React.ReactNode;
@@ -16,7 +16,7 @@ function DropdownGroup({ children, styles, isHoveredItems = false }: DropdownGro
 
   return (
     <DropdownGroupContext.Provider value={value}>
-      <Wrapper styles={[fullWidth, styles]}>{children}</Wrapper>
+      <Wrapper styles={[fullWidth, padding(8), styles]}>{children}</Wrapper>
     </DropdownGroupContext.Provider>
   );
 }

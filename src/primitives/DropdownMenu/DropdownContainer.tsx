@@ -1,23 +1,13 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback } from "react";
 
 import Wrapper from "../Wrapper";
 import DropdownHeader from "./DropdownHeader/DropdownHeader";
 import PopperManager from "../PopperManager";
 
-import { createDropdownRightIcon, InputWrapper, width } from "../../index";
+import { createDropdownRightIcon, InputWrapper } from "../../index";
 import { DropdownManagerContext } from "./DropdownManager/DropdownManagerContext";
 
 import { DropdownMenuInterface } from "./DropdownMenu";
-
-const defaultOffset: [number, number] = [0, 4];
-const defaultOffsetWithArrow: [number, number] = [0, 18];
-const defaultArrowPadding = -10;
-
-function setOffset(offset?: [number, number], haveArrow?: boolean) {
-  if (offset) return offset;
-  if (haveArrow) return defaultOffsetWithArrow;
-  return defaultOffset;
-}
 
 function DropdownContainer({
   children,
@@ -61,14 +51,12 @@ function DropdownContainer({
     [size, iconLeft, stylesReference, placeholder, headerStyle, selectedItem],
   );
 
-  const offsetValue = useMemo(() => setOffset(offset, haveArrow), [haveArrow, offset]);
-
   return (
     <PopperManager
       placement={placement}
-      modifiers={Boolean(modifiers) ? modifiers : []}
-      offset={offsetValue}
-      arrowPadding={Boolean(arrowPadding) ? arrowPadding : defaultArrowPadding}
+      modifiers={modifiers}
+      offset={offset}
+      arrowPadding={arrowPadding}
       outsideHandler={outsideHandler}
       referenceElement={referenceElement}
       popperElement={popperElement}

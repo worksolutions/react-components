@@ -21,7 +21,7 @@ export default {
     size: selectControl(Object.values(InputSize)),
     itemSize: selectControl(Object.values(ListItemSize)),
     placement: selectControl(placements),
-    widthTargetElem: numbersControl(200, 700, 20),
+    widthTargetElem: numbersControl(200, 700, 5),
   },
 };
 
