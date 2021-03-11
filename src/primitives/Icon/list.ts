@@ -49,6 +49,8 @@ export const internalIcons = {
   minus: require("./icons/minus.svg"),
   employee: require("./icons/employee.svg"),
   "arrow-up-long": require("./icons/arrow-up-long.svg"),
+  "16-link": require("./icons/16-link.svg"),
+  "16-ok": require("./icons/16-ok.svg"),
 };
 
 export const expandedIcons: Record<string, string> = {};

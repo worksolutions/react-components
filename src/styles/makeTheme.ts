@@ -34,28 +34,6 @@ export interface Theme extends BaseTheme<Colors> {
         color: Colors;
       };
     };
-    Badge: {
-      default: {
-        backgroundColor: Colors;
-      };
-      prominent: {
-        backgroundColor: Colors;
-      };
-      primary: {
-        backgroundColor: Colors;
-      };
-    };
-    Counter: {
-      default: {
-        color: Colors;
-      };
-      prominent: {
-        color: Colors;
-      };
-      primary: {
-        color: Colors;
-      };
-    };
     Breadcrumbs: {
       LevelDivider: {
         color: Colors;
