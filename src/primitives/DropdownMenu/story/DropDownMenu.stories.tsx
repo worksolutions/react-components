@@ -2,7 +2,7 @@ import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 import { placements } from "@popperjs/core/lib/enums";
 
-import { ListItemSize, Wrapper } from "../../../index";
+import { backgroundColor, borderRight, borderTop, height, ListItemSize, Wrapper } from "../../../index";
 import DropDownMenu, { DropdownMenuInterface } from "../DropdownMenu";
 import { internalIcons } from "../../Icon/list";
 import DropdownItem from "../DropdownItem/DropdownItem";
@@ -32,7 +32,12 @@ const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) 
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
-      <DropDownMenu {...props} stylesReference={[width(350)]} placeholder="на этом месте будут выбранные элементы">
+      <DropDownMenu
+        {...props}
+        stylesReference={[width(350)]}
+        placeholder="на этом месте будут выбранные элементы"
+        arrowElem={<Wrapper styles={[width(15), height(15), backgroundColor("black"), borderTop(1, "red/01")]} />}
+      >
         <DropdownGroup>
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
             ValueByDefault

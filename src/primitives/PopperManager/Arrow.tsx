@@ -53,18 +53,15 @@ const Triangle = styled.div`
   }
 `;
 
-function Arrow({ arrowProps, placement, arrowPadding }: any) {
+function Arrow({ arrowProps, placement, arrowPadding, arrowElem }: any) {
   const arrowStyles = useCallback(getArrowStyles, []);
-
   return (
     <Wrapper
       ref={arrowProps.ref}
       data-popper-arrow
       styles={[() => arrowPositionStyles(placement, arrowProps.style, arrowPadding)]}
     >
-      <Wrapper styles={[() => arrowStyles(placement)]}>
-        <Triangle />
-      </Wrapper>
+      <Wrapper styles={[() => arrowStyles(placement)]}>{arrowElem ? arrowElem : <Triangle />}</Wrapper>
     </Wrapper>
   );
 }

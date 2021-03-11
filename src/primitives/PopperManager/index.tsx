@@ -17,7 +17,8 @@ interface PopperManagerProps {
   popperElement: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
   referenceElement: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
   offset?: [number, number];
-  arrowPadding: number;
+  arrowPadding?: number;
+  arrowElem?: React.ReactNode;
 }
 
 function PopperManager({
@@ -29,6 +30,7 @@ function PopperManager({
   popperElement,
   offset,
   arrowPadding,
+  arrowElem,
 }: PopperManagerProps) {
   return (
     <VisibleManager outsideHandler={outsideHandler}>
@@ -43,6 +45,7 @@ function PopperManager({
               modifiers={modifiers}
               popperStyles={popperStyles}
               arrowPadding={arrowPadding}
+              arrowElem={arrowElem}
             />
           )}
         </>

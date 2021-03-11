@@ -32,6 +32,7 @@ function DropdownContainer({
   targetElement,
   offset,
   arrowPadding,
+  arrowElem,
 }: DropdownMenuInterface) {
   const [targetElementNode, setTargetElement] = useState(null);
   const { selectedItem } = React.useContext(DropdownManagerContext);
@@ -71,6 +72,7 @@ function DropdownContainer({
       outsideHandler={outsideHandler}
       referenceElement={referenceElement}
       popperElement={popperElement}
+      arrowElem={arrowElem}
     />
   );
 }
