@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from "react";
 import { Popper, Reference } from "react-popper";
-
+import styled from "styled-components";
 import { StrictModifiers } from "@popperjs/core";
 import { Placement } from "@popperjs/core/lib/enums";
 
@@ -10,30 +10,20 @@ import VisibleManager from "../VisibleManager/VisibleManager";
 import {
   backgroundColor,
   border,
-  borderBottom,
-  borderLeft,
   borderRadius,
-  borderRight,
   bottom,
   boxShadow,
   flex,
-  height,
+  flexColumn,
   jc,
   left,
-  marginBottom,
-  marginLeft,
-  marginRight,
-  marginTop,
   padding,
   position,
   right,
-  textAlign,
   top,
   transform,
-  width,
 } from "../../styles";
 import { elevation16Raw } from "../../constants/shadows";
-import styled from "styled-components";
 
 function getPopperStyles() {
   return [
@@ -46,50 +36,43 @@ function getPopperStyles() {
 }
 
 function getArrowStyles(placement: any) {
-  const defaultStylesHorizontal = [
-    marginLeft("auto"),
-    marginRight("auto"),
-    left("50%"),
-    right("50%"),
-    textAlign("center"),
-    flex,
-    jc("center"),
-  ];
-  const defaultStylesVertical = [marginTop("auto"), marginBottom("auto"), top(0), bottom(0)];
+  const defaultStylesHorizontal = [left("50%"), flex, jc("center")];
+  const defaultStylesVertical = [top("50%"), flex, flexColumn, jc("center")];
 
-  console.log(placement.startsWith("right"));
   if (placement.startsWith("bottom")) {
-    return [...defaultStylesHorizontal, top(0), transform("translate(50% ,50%)")];
+    return [...defaultStylesHorizontal, top(-10)];
   }
   if (placement.startsWith("top")) {
-    return [...defaultStylesHorizontal, bottom(0)];
+    return [...defaultStylesHorizontal, bottom(-10), transform("rotate(180deg)")];
   }
   if (placement.startsWith("left")) {
-    return [...defaultStylesVertical, right(0)];
+    return [...defaultStylesVertical, right(-5), transform("rotate(90deg)")];
   }
   if (placement.startsWith("right")) {
-    return [...defaultStylesVertical, left(0)];
+    return [...defaultStylesVertical, left(-5), transform("rotate(-90deg)")];
   }
 }
 
 const Triangle = styled.div`
   position: absolute;
   width: 16px;
-  height: 16px;
+  height: 11px;
   overflow: hidden;
+  left: -9px;
+
   &:after {
     content: "";
     position: absolute;
     z-index: 2;
-    width: 16px;
-    height: 16px;
     background: #fff;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
-    top: 10px;
-    left: 0;
     box-shadow: 0px 2px 6px 0px #0000000f, 0px 8px 16px 0px #00000014, 0px 0px 0px 1px #d7dbe5;
+    width: 20px;
+    height: 20px;
+    top: 5px;
+    left: -2px;
   }
 `;
 
@@ -134,7 +117,7 @@ function PopperManager({
                 },
               ]}
             >
-              {({ ref, style, placement, arrowProps }) => (
+              {({ ref, style, placement }) => (
                 <Wrapper ref={ref} style={style} data-placement={placement} styles={resultPopperStyles}>
                   <Wrapper>{popperElement(toggleVisible, visible)}</Wrapper>
                   <Wrapper styles={[position("absolute"), arrowStyles(placement)]}>
