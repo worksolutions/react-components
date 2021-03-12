@@ -9,7 +9,14 @@ export interface TooltipProps {
 function Tooltip({ children, styles }: TooltipProps) {
   return (
     <Wrapper
-      styles={[padding("8px 12px"), color("gray-blue/09"), fontSize(12), lineHeight(16), letterSpacing(0.3), styles]}
+      styles={[
+        padding("8px 12px"),
+        color("definitions.Tooltip.color"),
+        fontSize(12),
+        lineHeight(16),
+        letterSpacing(0.3),
+        styles,
+      ]}
     >
       {children}
     </Wrapper>

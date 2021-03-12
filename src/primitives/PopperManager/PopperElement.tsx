@@ -39,7 +39,7 @@ interface PopperElementProps {
   children?: React.ReactNode;
   popperStyles?: any;
   modifiers: StrictModifiers[];
-  arrowPadding?: number;
+  arrowPadding: number;
   arrowElem?: React.ReactNode;
   referenceNode?: HTMLElement;
   haveArrow?: boolean;
@@ -87,7 +87,7 @@ interface PopperChildrenProps {
   style: React.CSSProperties;
   haveArrow?: boolean;
   arrowProps: PopperArrowProps;
-  arrowPadding?: number;
+  arrowPadding: number;
   arrowElem: React.ReactNode;
   referenceNode?: HTMLElement;
   update: () => void;

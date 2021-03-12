@@ -99,6 +99,9 @@ export interface Theme extends BaseTheme<Colors> {
     DropdownDivider: {
       backgroundColor: Colors;
     };
+    Tooltip: {
+      color: Colors;
+    };
   };
 }
 

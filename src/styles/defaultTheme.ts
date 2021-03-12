@@ -80,5 +80,8 @@ export const defaultTheme: Theme = {
         backgroundColor: "gray-blue/01",
       },
     },
+    Tooltip: {
+      color: "gray-blue/09",
+    },
   },
 };
