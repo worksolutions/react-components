@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useContext, useMemo } from "react";
+import { useEffectSkipFirst } from "@worksolutions/react-utils";
 
 import Wrapper from "../../Wrapper";
 
@@ -15,7 +16,10 @@ export interface DropdownGroupProps {
 function DropdownGroup({ children, styles, isHoveredItems = false }: DropdownGroupProps) {
   const { onChange } = useContext(DropdownManagerContext);
 
-  useEffect(() => onChange(null), [isHoveredItems]);
+  useEffectSkipFirst(() => {
+    if (!onChange) return;
+    onChange(null);
+  }, [isHoveredItems, onChange]);
 
   const value = useMemo(() => ({ isHoveredItems }), [isHoveredItems]);
 

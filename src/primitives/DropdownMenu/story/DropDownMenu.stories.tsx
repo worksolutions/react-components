@@ -3,7 +3,7 @@ import { Story } from "@storybook/react/types-6-0";
 import { placements } from "@popperjs/core/lib/enums";
 
 import { color, ListItemSize, Wrapper } from "../../../index";
-import DropDownMenu, { DropdownMenuInterface } from "../DropdownMenu";
+import DropDownMenu, { DropdownMenuProps } from "../DropdownMenu";
 import { internalIcons } from "../../Icon/list";
 import DropdownItem from "../DropdownItem/DropdownItem";
 import { InputSize } from "../../Input/InputWrapper";
@@ -32,7 +32,7 @@ interface StoryDropDownProp {
   isHover: boolean;
 }
 
-const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) => {
+const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
   return (
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}

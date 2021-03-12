@@ -9,7 +9,7 @@ import { InputSize } from "../Input/InputWrapper";
 import DropdownManager from "./DropdownManager/DropdownManager";
 import { Colors } from "../../constants/colors";
 
-export interface DropdownMenuInterface {
+export interface DropdownMenuProps {
   placeholder?: string;
   stylesReference?: any;
   headerStyle?: any;
@@ -28,7 +28,7 @@ export interface DropdownMenuInterface {
   colorTextHeader?: Colors;
 }
 
-function DropdownMenu(props: DropdownMenuInterface) {
+function DropdownMenu(props: DropdownMenuProps) {
   return (
     <DropdownManager>
       <DropdownContainer {...props} size={props.size ? props.size : InputSize.MEDIUM} />

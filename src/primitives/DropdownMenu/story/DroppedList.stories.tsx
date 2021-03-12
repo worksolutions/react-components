@@ -5,7 +5,7 @@ import { placements } from "@popperjs/core/lib/enums";
 import { left, marginRight, position, top, transform } from "styles";
 
 import { ButtonSize, ButtonType, ListItemSize, Wrapper } from "../../../index";
-import DropDownMenu, { DropdownMenuInterface } from "../DropdownMenu";
+import DropDownMenu, { DropdownMenuProps } from "../DropdownMenu";
 import DropdownItem from "../DropdownItem/DropdownItem";
 import { InputSize } from "../../Input/InputWrapper";
 import DropdownGroup from "../DropdownGroup/DropdownGroup";
@@ -31,7 +31,7 @@ interface StoryDropDownProp {
   itemSize: ListItemSize;
 }
 
-const Template: Story<DropdownMenuInterface & StoryDropDownProp> = (props: any) => {
+const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
   return (
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}

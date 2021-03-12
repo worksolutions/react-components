@@ -7,7 +7,7 @@ import PopperManager from "../PopperManager";
 import { createDropdownRightIcon, InputWrapper } from "../../index";
 import { DropdownManagerContext } from "./DropdownManager/DropdownManagerContext";
 
-import { DropdownMenuInterface } from "./DropdownMenu";
+import { DropdownMenuProps } from "./DropdownMenu";
 
 function DropdownContainer({
   children,
@@ -26,7 +26,7 @@ function DropdownContainer({
   arrowElem,
   haveArrow,
   colorTextHeader,
-}: DropdownMenuInterface) {
+}: DropdownMenuProps) {
   const { selectedItem } = React.useContext(DropdownManagerContext);
 
   const popperElement = useCallback(() => <Wrapper styles={[stylesPopper]}>{children}</Wrapper>, [
