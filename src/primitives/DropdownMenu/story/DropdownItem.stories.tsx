@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { InputSize, ListItemSize, Wrapper } from "../../../index";
+import { ListItemSize, Wrapper } from "../../../index";
 
 import DropdownItem, { DropdownItemProps } from "../DropdownItem/DropdownItem";
 

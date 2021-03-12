@@ -61,7 +61,7 @@ function PopperElement({
   referenceNode,
   styles,
 }: PopperElementProps) {
-  const resultPopperStyles = useCallback(() => popperStyles || getPopperStyles(), [popperStyles]);
+  const resultPopperStyles = useCallback(() => getPopperStyles(), []);
   const resultModifiers = useMemo(() => getModifiers(modifiers, offset), [modifiers, offset]);
 
   return (
@@ -70,7 +70,7 @@ function PopperElement({
         <PopperChildren
           ref={ref}
           style={style}
-          resultPopperStyles={[resultPopperStyles, styles]}
+          resultPopperStyles={[resultPopperStyles, popperStyles, styles]}
           placement={placement}
           arrowProps={arrowProps}
           children={children}

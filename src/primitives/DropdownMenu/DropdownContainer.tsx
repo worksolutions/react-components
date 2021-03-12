@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 
-import Wrapper from "../Wrapper";
 import DropdownReference from "./DropdownReference/DropdownReference";
 import PopperManager from "../PopperManager";
 
@@ -28,10 +27,8 @@ function DropdownContainer({
 }: DropdownMenuProps) {
   const { selectedItem } = React.useContext(DropdownManagerContext);
 
-  const popperElement = useCallback(() => <Wrapper styles={[stylesPopper]}>{children}</Wrapper>, [
-    stylesPopper,
-    children,
-  ]);
+  const popperElement = useCallback(() => children, [children]);
+
   const referenceElement = useCallback(
     (toggleVisible: () => void, visible: boolean) => (
       <InputWrapper
@@ -58,9 +55,10 @@ function DropdownContainer({
       placement={placement}
       offset={offset}
       outsideHandler={outsideHandler}
-      referenceElement={referenceElement}
-      popperElement={popperElement}
       widthPopper={widthPopper}
+      popperStyles={stylesPopper}
+      popperElement={popperElement}
+      referenceElement={referenceElement}
     />
   );
 }

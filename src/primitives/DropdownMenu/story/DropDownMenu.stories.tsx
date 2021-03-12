@@ -132,7 +132,7 @@ const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
         stylesReference={[backgroundColor("blue/01"), emptyBoxShadow, disableOutline]}
         colorTextHeader="gray-blue/08"
         textReferenceStyles={[fontWeight(600)]}
-        stylesPopper={[border(1, "red/04")]}
+        stylesPopper={[border(1, "red/04"), backgroundColor("blue/01")]}
       >
         <List isHoveredItems={props.isHover}>
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
