@@ -1,5 +1,6 @@
-const webpack = require("../webpack");
 const path = require("path");
+
+const webpack = require("../webpack");
 
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.(js|jsx|ts|tsx)"],
@@ -19,7 +20,7 @@ module.exports = {
     return options;
   },
   babel: async (options) => {
-    options.plugins.push([webpack.babelPlugin, { displayName: true }]);
+    Object.assign(options, require("../babel.config.json"));
     return options;
   },
 };

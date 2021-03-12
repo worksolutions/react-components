@@ -1,13 +1,9 @@
 import { css } from "styled-components";
-import "prismjs/themes/prism.css";
 
-import { TypographyTypes } from "../Typography";
-import { blueTypographyLinkStyles } from "../Typography/TypographyLink";
+import { TypographyTypes } from "../../Typography";
+import { blueTypographyLinkStyles } from "../../Typography/TypographyLink";
 
-import { getColor } from "../../styles";
-
-// @ts-ignore
-Prism.manual = true;
+import { getColor } from "../../../styles";
 
 const tableBorder = `1px solid ${getColor("gray-blue/02")}`;
 

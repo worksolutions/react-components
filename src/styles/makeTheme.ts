@@ -12,6 +12,14 @@ export interface Theme extends BaseTheme<Colors> {
         color: Colors;
       };
     };
+    LoadingProvider: {
+      Spinner: {
+        color: Colors;
+      };
+      Backplate: {
+        backgroundColor: Colors;
+      };
+    };
     Button: {
       primary: {
         color: Colors;
@@ -20,35 +28,15 @@ export interface Theme extends BaseTheme<Colors> {
       focus: { color: Colors };
     };
     Tabs: {
-      bottomLine: {
+      BottomLine: {
         color: Colors;
       };
       Tab: {
         backgroundColor: Colors;
-        titleColor: Colors;
-        titleHoverColor: Colors;
-        titleActiveColor: Colors;
-      };
-    };
-    Badge: {
-      default: {
-        backgroundColor: Colors;
-      };
-      prominent: {
-        backgroundColor: Colors;
-      };
-      primary: {
-        backgroundColor: Colors;
-      };
-    };
-    Counter: {
-      default: {
         color: Colors;
+        hoverColor: Colors;
       };
-      prominent: {
-        color: Colors;
-      };
-      primary: {
+      TabActive: {
         color: Colors;
       };
     };
@@ -61,6 +49,41 @@ export interface Theme extends BaseTheme<Colors> {
       };
       BreadcrumbsLink: {
         color: Colors;
+      };
+    };
+    Avatar: {
+      Empty: {
+        color: Colors;
+      };
+      Wrapper: {
+        backgroundColor: Colors;
+        shadowColor: Colors;
+      };
+    };
+    Editor: {
+      TopPanel: {
+        borderBottomColor: Colors;
+        ButtonsGroupDivider: {
+          color: Colors;
+        };
+        Item: {
+          Active: {
+            backgroundColor: Colors;
+            color: Colors;
+          };
+          Inactive: {
+            color: Colors;
+            Hover: {
+              backgroundColor: Colors;
+            };
+          };
+        };
+        Dropdown: {
+          borderColor: Colors;
+        };
+      };
+      ActiveArea: {
+        backgroundColor: Colors;
       };
     };
     DropdownHeader: {

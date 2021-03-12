@@ -9,6 +9,10 @@ export const defaultTheme: Theme = {
         color: "gray-blue/05",
       },
     },
+    LoadingProvider: {
+      Spinner: { color: "gray-blue/09" },
+      Backplate: { backgroundColor: "white" },
+    },
     Button: {
       primary: {
         color: "white",
@@ -17,37 +21,13 @@ export const defaultTheme: Theme = {
       focus: { color: "blue/04" },
     },
     Tabs: {
-      bottomLine: {
-        color: "red/05",
-      },
+      BottomLine: { color: "red/05" },
       Tab: {
         backgroundColor: "transparent",
-        titleColor: "gray-blue/05",
-        titleHoverColor: "gray-blue/07",
-        titleActiveColor: "gray-blue/09",
+        color: "gray-blue/05",
+        hoverColor: "gray-blue/07",
       },
-    },
-    Badge: {
-      default: {
-        backgroundColor: "gray-blue/05",
-      },
-      prominent: {
-        backgroundColor: "red/05",
-      },
-      primary: {
-        backgroundColor: "blue/05",
-      },
-    },
-    Counter: {
-      default: {
-        color: "white",
-      },
-      prominent: {
-        color: "white",
-      },
-      primary: {
-        color: "white",
-      },
+      TabActive: { color: "gray-blue/09" },
     },
     Breadcrumbs: {
       BreadcrumbsLink: { color: "gray-blue/05" },
@@ -66,6 +46,39 @@ export const defaultTheme: Theme = {
     },
     DropdownDivider: {
       backgroundColor: "gray-blue/02",
+    },
+    Avatar: {
+      Empty: { color: "gray-blue/05" },
+      Wrapper: {
+        backgroundColor: "gray-blue/01",
+        shadowColor: "gray-blue/02",
+      },
+    },
+    Editor: {
+      TopPanel: {
+        borderBottomColor: "gray-blue/02",
+        ButtonsGroupDivider: {
+          color: "gray-blue/02",
+        },
+        Item: {
+          Active: {
+            backgroundColor: "blue/02",
+            color: "blue/05",
+          },
+          Inactive: {
+            color: "gray-blue/07",
+            Hover: {
+              backgroundColor: "blue/01",
+            },
+          },
+        },
+        Dropdown: {
+          borderColor: "gray-blue/02",
+        },
+      },
+      ActiveArea: {
+        backgroundColor: "gray-blue/01",
+      },
     },
   },
 };
