@@ -11,7 +11,7 @@ import DropdownDivider from "../DropdownDivider";
 import DropdownGroup from "../DropdownGroup/DropdownGroup";
 
 import { left, marginRight, position, top, transform, width } from "styles";
-import { booleanControl, numbersControl, selectControl } from "storybook/storyHelpers";
+import { booleanControl, colorControl, numbersControl, selectControl } from "storybook/storyHelpers";
 
 export default {
   title: "DropDownMenu/DropDownMenu",
@@ -23,6 +23,7 @@ export default {
     placement: selectControl(placements),
     widthTargetElem: numbersControl(200, 700, 5),
     isHover: booleanControl(),
+    colorTextHeader: colorControl(),
   },
 };
 
