@@ -7,10 +7,9 @@ import { fullWidth, padding } from "../../../styles";
 export interface DropdownGroupProps {
   children: React.ReactNode[] | React.ReactNode;
   styles?: any;
-  isHoveredItems?: boolean;
 }
 
-function List({ children, styles, isHoveredItems = false }: DropdownGroupProps) {
+function List({ children, styles }: DropdownGroupProps) {
   return <Wrapper styles={[fullWidth, padding(8), styles]}>{children}</Wrapper>;
 }
 
