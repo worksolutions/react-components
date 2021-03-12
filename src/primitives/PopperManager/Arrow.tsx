@@ -4,7 +4,6 @@ import { Placement } from "@popperjs/core/lib/enums";
 
 import Wrapper from "../Wrapper";
 
-import { reactStylesToStylesComponent } from "../../styles/reactStylesToStylesComponent";
 import {
   backgroundColor,
   bottom,
@@ -19,6 +18,7 @@ import {
   width,
   zIndex,
 } from "../../styles";
+import { reactStylesToStylesComponent } from "../../styles/reactStylesToStylesComponent";
 import { elevation16Raw } from "../../constants/shadows";
 
 function getArrowPositionStyles(placement: any, arrowPropsStyle: any, arrowPadding: number) {
@@ -47,13 +47,6 @@ function getArrowStyles(placement: any) {
   if (placement.startsWith("right")) return [transform("rotate(-90deg)")];
 }
 
-interface ArrowProps {
-  arrowProps: PopperArrowProps;
-  placement: Placement;
-  arrowPadding: number;
-  arrowElem: HTMLElement;
-}
-
 const Triangle = React.memo(function () {
   return (
     <Wrapper styles={[position("absolute"), width(36), height(17), overflow("hidden"), left(-22), top(-7)]}>
@@ -73,6 +66,13 @@ const Triangle = React.memo(function () {
     </Wrapper>
   );
 });
+
+interface ArrowProps {
+  arrowProps: PopperArrowProps;
+  placement: Placement;
+  arrowPadding: number;
+  arrowElem: React.ReactNode;
+}
 
 function Arrow({ arrowProps, placement, arrowPadding, arrowElem }: ArrowProps) {
   const arrowPopperStyles = useCallback(() => reactStylesToStylesComponent(arrowProps.style), [arrowProps.style]);

@@ -1,7 +1,7 @@
 import React, { forwardRef, useCallback, useEffect, useMemo } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
-import { StrictModifiers } from "@popperjs/core";
-import { Popper } from "react-popper";
+import { State, StrictModifiers } from "@popperjs/core";
+import { Popper, PopperArrowProps } from "react-popper";
 
 import Wrapper from "../Wrapper";
 import Arrow from "./Arrow";
@@ -80,6 +80,19 @@ function PopperElement({
   );
 }
 
+interface PopperChildrenProps {
+  resultPopperStyles?: any;
+  placement: Placement;
+  children: React.ReactNode;
+  style: React.CSSProperties;
+  haveArrow?: boolean;
+  arrowProps: PopperArrowProps;
+  arrowPadding?: number;
+  arrowElem: React.ReactNode;
+  referenceNode?: HTMLElement;
+  update: () => void;
+}
+
 const PopperChildren = React.memo(
   forwardRef(function (
     {
@@ -91,9 +104,9 @@ const PopperChildren = React.memo(
       arrowProps,
       arrowPadding,
       arrowElem,
-      update,
       referenceNode,
-    }: any,
+      update,
+    }: PopperChildrenProps,
     ref,
   ) {
     function updatePopperWhenResizeReferenceElement() {

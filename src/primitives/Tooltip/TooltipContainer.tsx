@@ -14,7 +14,7 @@ export interface TooltipContainerProps {
 
 function TooltipContainer({ haveArrow, placement, tooltipText, tooltipStyles, children }: TooltipContainerProps) {
   const [offset, setOffset] = useState<[number, number] | undefined>();
-  
+
   const popperElement = useCallback(() => <Tooltip styles={tooltipStyles}>{tooltipText}</Tooltip>, [
     tooltipStyles,
     tooltipText,

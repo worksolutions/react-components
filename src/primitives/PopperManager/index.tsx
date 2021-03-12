@@ -14,12 +14,12 @@ interface PopperManagerProps {
   placement?: Placement;
   modifiers?: StrictModifiers[];
   outsideHandler?: boolean;
-  popperElement: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
-  referenceElement: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
   offset?: [number, number];
   arrowPadding?: number;
   arrowElem?: React.ReactNode;
   haveArrow?: boolean;
+  popperElement: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
+  referenceElement: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
 }
 
 const defaultOffset: [number, number] = [0, 4];
@@ -37,12 +37,12 @@ function PopperManager({
   modifiers,
   placement,
   outsideHandler = true,
-  referenceElement,
-  popperElement,
   offset,
   arrowPadding,
   arrowElem,
   haveArrow,
+  referenceElement,
+  popperElement,
 }: PopperManagerProps) {
   const referenceNode = useRef();
   const offsetValue = useMemo(() => setOffset(offset, haveArrow), [haveArrow, offset]);
