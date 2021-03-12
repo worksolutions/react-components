@@ -28,3 +28,12 @@ export function numbersControl(min: number, max: number, step: number) {
     },
   };
 }
+
+export function momentControl() {
+  return {
+    control: {
+      type: "select",
+      options: Object.keys(colors),
+    },
+  };
+}

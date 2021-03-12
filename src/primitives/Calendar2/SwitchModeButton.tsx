@@ -16,12 +16,12 @@ import {
   border,
   borderColor,
   boxShadow,
-} from "../../../styles";
+} from "../../styles";
 
-import Typography from "../../Typography";
-import Icon from "../../Icon";
-import Wrapper from "../../Wrapper";
-import { duration160 } from "../../../constants/durations";
+import Typography from "../Typography";
+import Icon from "../Icon";
+import Wrapper from "../Wrapper";
+import { duration160 } from "../../constants/durations";
 
 interface SwitchModeButtonInterface {
   opened: boolean;
