@@ -32,7 +32,7 @@ const VisibleManager = function ({ children, outsideHandler }: VisibleManagerPro
             {(ref) => <Wrapper ref={ref}>{children(visible, toggleVisible)}</Wrapper>}
           </HandleClickOutside>
         ) : (
-          <Wrapper>{children(visible, toggleVisible)}</Wrapper>
+          children(visible, toggleVisible)
         )}
       </VisibleManagerContext.Provider>
     </Manager>

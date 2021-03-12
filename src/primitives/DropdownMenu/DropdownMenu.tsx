@@ -26,6 +26,7 @@ export interface DropdownMenuProps {
   arrowElem?: React.ReactNode;
   haveArrow?: boolean;
   colorTextHeader?: Colors;
+  widthPopper?: number | string | "auto";
 }
 
 function DropdownMenu(props: DropdownMenuProps) {

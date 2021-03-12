@@ -26,6 +26,7 @@ function DropdownContainer({
   arrowElem,
   haveArrow,
   colorTextHeader,
+  widthPopper,
 }: DropdownMenuProps) {
   const { selectedItem } = React.useContext(DropdownManagerContext);
 
@@ -67,6 +68,7 @@ function DropdownContainer({
       popperElement={popperElement}
       arrowElem={arrowElem}
       haveArrow={haveArrow}
+      widthPopper={widthPopper}
     />
   );
 }

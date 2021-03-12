@@ -1,24 +1,23 @@
-import React, { useEffect, useRef } from "react";
-import { useForceUpdate } from "@worksolutions/react-utils";
+import React, { useRef } from "react";
 
 import { InputIconProp } from "../../Input/InputWrapper";
 
 export function useShowedRightIcon(
-  isHoveredItems: boolean | undefined,
   selected: boolean,
   rightContent: InputIconProp | React.ReactNode,
-) {
+  showArrowOnSelection?: boolean,
+): any {
   const resultRightContent = useRef<InputIconProp | React.ReactNode | undefined>(undefined);
-  const forceUpdate = useForceUpdate();
 
-  useEffect(() => {
-    if (isHoveredItems) {
-      resultRightContent.current = undefined;
-      forceUpdate();
-    }
-  }, [isHoveredItems]);
+  if (showArrowOnSelection) {
+    if (selected) resultRightContent.current = "check";
+    return resultRightContent;
+  }
 
-  if (selected) resultRightContent.current = rightContent || "check";
+  if (rightContent) {
+    resultRightContent.current = rightContent;
+    return resultRightContent;
+  }
 
   return resultRightContent;
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Story } from "@storybook/react/types-6-0";
 
 import {
+  absoluteCenter,
   AvatarSize,
   backgroundColor,
   borderRadius,
@@ -16,12 +17,12 @@ import AvatarComponent from "../../Avatar";
 import Icon from "../../Icon";
 import DropdownItem from "../DropdownItem/DropdownItem";
 import DropdownDivider from "../DropdownDivider";
-import DropdownGroup, { DropdownGroupProps } from "../DropdownGroup/DropdownGroup";
+import DropdownGroup, { DropdownGroupProps } from "../List/List";
 
-import { left, marginRight, position, top, transform } from "styles";
+import { top } from "styles";
 
 export default {
-  title: "DropDownMenu/DropdownGroup",
+  title: "DropDownMenu/List",
   component: DropdownGroup.type,
   argTypes: {},
 };
@@ -31,9 +32,7 @@ const Template: Story<DropdownGroupProps> = (props: any) => {
   const [hideElement, setHideElement] = useState(true);
 
   return (
-    <Wrapper
-      styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
-    >
+    <Wrapper styles={[absoluteCenter, top("40%")]}>
       <DropdownGroup {...props} styles={[width(250)]}>
         <DropdownItem itemSize={itemSize} code="ValueByDefault">
           ValueByDefault

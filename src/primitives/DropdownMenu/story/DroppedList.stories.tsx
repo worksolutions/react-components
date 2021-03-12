@@ -2,12 +2,12 @@ import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 import { placements } from "@popperjs/core/lib/enums";
 
-import { left, marginRight, position, top, transform } from "styles";
+import { absoluteCenter, left, marginRight, position, top, transform } from "styles";
 
 import { ButtonSize, ButtonType, ListItemSize, Wrapper } from "../../../index";
 import DropDownMenu, { DropdownMenuProps } from "../DropdownMenu";
 import DropdownItem from "../DropdownItem/DropdownItem";
-import DropdownGroup from "../DropdownGroup/DropdownGroup";
+import List from "../List/List";
 
 import Button from "../../Button";
 import { numbersControl, selectControl } from "../../../storybook/storyHelpers";
@@ -29,9 +29,7 @@ interface StoryDropDownProp {
 
 const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
   return (
-    <Wrapper
-      styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
-    >
+    <Wrapper styles={[absoluteCenter, top("40%")]}>
       <DropDownMenu
         {...props}
         targetElement={
@@ -39,14 +37,14 @@ const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
         }
         offset={[props.x, props.y]}
       >
-        <DropdownGroup>
+        <List>
           <DropdownItem code="DropdownItemElement3" itemSize={props.itemSize}>
             DropdownItemElement3
           </DropdownItem>
           <DropdownItem code="DropdownItemElement4" itemSize={props.itemSize}>
             DropdownItemElement4
           </DropdownItem>
-        </DropdownGroup>
+        </List>
       </DropDownMenu>
     </Wrapper>
   );

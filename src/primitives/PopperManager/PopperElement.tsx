@@ -38,6 +38,7 @@ interface PopperElementProps {
   placement?: Placement;
   children?: React.ReactNode;
   popperStyles?: any;
+  styles?: any;
   modifiers: StrictModifiers[];
   arrowPadding: number;
   arrowElem?: React.ReactNode;
@@ -55,6 +56,7 @@ function PopperElement({
   arrowElem,
   haveArrow,
   referenceNode,
+  styles,
 }: PopperElementProps) {
   const resultPopperStyles = useCallback(() => popperStyles || getPopperStyles(), [popperStyles]);
   const resultModifiers = useMemo(() => getModifiers(modifiers, offset), [modifiers, offset]);
@@ -65,7 +67,7 @@ function PopperElement({
         <PopperChildren
           ref={ref}
           style={style}
-          resultPopperStyles={resultPopperStyles}
+          resultPopperStyles={[resultPopperStyles, styles]}
           placement={placement}
           arrowProps={arrowProps}
           children={children}

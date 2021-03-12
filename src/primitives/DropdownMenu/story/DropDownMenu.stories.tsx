@@ -2,20 +2,32 @@ import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 import { placements } from "@popperjs/core/lib/enums";
 
-import { color, ListItemSize, Wrapper } from "../../../index";
-import DropDownMenu, { DropdownMenuProps } from "../DropdownMenu";
+import {
+  absoluteCenter,
+  AvatarSize,
+  backgroundColor,
+  borderRadius,
+  color,
+  flex,
+  hover,
+  ListItemSize,
+  padding,
+  Wrapper,
+} from "../../../index";
+import DropdownMenu, { DropdownMenuProps } from "../DropdownMenu";
 import { internalIcons } from "../../Icon/list";
 import DropdownItem from "../DropdownItem/DropdownItem";
 import { InputSize } from "../../Input/InputWrapper";
 import DropdownDivider from "../DropdownDivider";
-import DropdownGroup from "../DropdownGroup/DropdownGroup";
+import List from "../List/List";
 
-import { left, marginRight, position, top, transform, width } from "styles";
+import { marginRight, top, width } from "styles";
 import { booleanControl, colorControl, numbersControl, selectControl } from "storybook/storyHelpers";
+import AvatarComponent from "../../Avatar";
 
 export default {
-  title: "DropDownMenu/DropDownMenu",
-  component: DropDownMenu.type,
+  title: "DropdownMenu/DropdownMenu",
+  component: DropdownMenu.type,
   argTypes: {
     iconLeft: selectControl(Object.keys(internalIcons)),
     size: selectControl(Object.values(InputSize)),
@@ -35,11 +47,85 @@ interface StoryDropDownProp {
 
 const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
   return (
-    <Wrapper
-      styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
-    >
-      <DropDownMenu {...props} stylesReference={[width(props.widthTargetElem)]} headerStyle={[color("red/01")]}>
-        <DropdownGroup isHoveredItems={props.isHover}>
+    <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
+      <Wrapper styles={[marginRight(50)]}>
+        <DropdownMenu {...props} stylesReference={[width(props.widthTargetElem)]} widthPopper={"120%"}>
+          <List isHoveredItems={props.isHover}>
+            <DropdownItem
+              itemSize={props.itemSize}
+              code="ValueByDefault"
+              canSelect={false}
+              showArrowOnSelection={false}
+            >
+              ValueByDefault
+            </DropdownItem>
+            <DropdownDivider />
+            <DropdownItem code="DropdownItemElement3" itemSize={props.itemSize} showArrowOnSelection>
+              DropdownItemElement3
+            </DropdownItem>
+            <DropdownItem
+              code="DropdownItemElement4"
+              disabled={true}
+              leftContent="user"
+              itemSize={props.itemSize}
+              rightContent={
+                <Wrapper
+                  styles={[padding(5), borderRadius("50%"), hover([backgroundColor("blue/05")])]}
+                  onClick={() => console.log("asdsa")}
+                >
+                  <AvatarComponent size={AvatarSize.SMALL} />
+                </Wrapper>
+              }
+            >
+              DropdownItemElement4
+            </DropdownItem>
+            <DropdownItem
+              code="DropdownItemElement1"
+              subTitle="Еще один тайтл • email@worksolutions.ru"
+              leftContent="user"
+              itemSize={props.itemSize}
+              showIconRightHover
+              showIconLeftHover
+              showArrowOnSelection={false}
+              rightContent={
+                <Wrapper
+                  styles={[padding(5), borderRadius("50%"), hover([backgroundColor("blue/05")])]}
+                  onClick={() => console.log("asdsa")}
+                >
+                  <AvatarComponent size={AvatarSize.SMALL} />
+                </Wrapper>
+              }
+            >
+              DropdownItemElement1
+            </DropdownItem>
+            <DropdownItem
+              code="DropdownItemElement2"
+              subTitle="Еще один тайтл"
+              itemSize={props.itemSize}
+              showArrowOnSelection={false}
+            >
+              DropdownItemElement2
+            </DropdownItem>
+            <DropdownDivider />
+            <DropdownItem
+              itemSize={props.itemSize}
+              code="ValueByDefault"
+              showArrowOnSelection={false}
+              canSelect={false}
+              rightContent={
+                <Wrapper styles={[padding(5), borderRadius("50%"), hover([backgroundColor("blue/05")])]}>
+                  <AvatarComponent size={AvatarSize.SMALL} />
+                </Wrapper>
+              }
+            >
+              ValueByDefault
+            </DropdownItem>
+          </List>
+        </DropdownMenu>
+      </Wrapper>
+
+      <DropdownMenu {...props} stylesReference={[width(props.widthTargetElem)]} headerStyle={[color("red/01")]}>
+        <List isHoveredItems={props.isHover}>
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
             ValueByDefault
           </DropdownItem>
@@ -65,8 +151,8 @@ const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
             ValueByDefault
           </DropdownItem>
-        </DropdownGroup>
-      </DropDownMenu>
+        </List>
+      </DropdownMenu>
     </Wrapper>
   );
 };

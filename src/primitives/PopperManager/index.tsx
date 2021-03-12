@@ -1,5 +1,6 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { Reference } from "react-popper";
+import { provideRef } from "@worksolutions/react-utils";
 
 import { StrictModifiers } from "@popperjs/core";
 import { Placement } from "@popperjs/core/lib/enums";
@@ -8,6 +9,8 @@ import Wrapper from "../Wrapper";
 import VisibleManager from "../VisibleManager/VisibleManager";
 
 import PopperElement from "./PopperElement";
+import { width } from "../../styles";
+import { convertPercentageStringToNumber } from "../../utils/convertPercentageStringToNumber";
 
 interface PopperManagerProps {
   popperStyles?: any;
@@ -18,6 +21,7 @@ interface PopperManagerProps {
   arrowPadding?: number;
   arrowElem?: React.ReactNode;
   haveArrow?: boolean;
+  widthPopper?: number | string | "auto";
   popperElement: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
   referenceElement: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
 }
@@ -32,6 +36,16 @@ function setOffset(offset?: [number, number], haveArrow?: boolean) {
   return defaultOffset;
 }
 
+function setPopperWidth(referenceWidth?: number, widthPopper?: number | string | "auto") {
+  if (!referenceWidth) return [];
+  if (!widthPopper) return [];
+  if (widthPopper === "auto") return [];
+  console.log(widthPopper);
+  if (typeof widthPopper === "number") return [width(widthPopper)];
+  console.log(convertPercentageStringToNumber(widthPopper));
+  return [width(convertPercentageStringToNumber(widthPopper) * referenceWidth)];
+}
+
 function PopperManager({
   popperStyles,
   modifiers,
@@ -43,9 +57,16 @@ function PopperManager({
   haveArrow,
   referenceElement,
   popperElement,
+  widthPopper,
 }: PopperManagerProps) {
-  const referenceNode = useRef();
+  const [referenceNode, setReferenceNode] = useState<HTMLElement | undefined>();
+
   const offsetValue = useMemo(() => setOffset(offset, haveArrow), [haveArrow, offset]);
+  const popperWidth = useMemo(
+    // @ts-ignore
+    () => setPopperWidth(referenceNode?.offsetWidth, widthPopper),
+    [referenceNode?.offsetWidth, widthPopper],
+  );
 
   return (
     <VisibleManager outsideHandler={outsideHandler}>
@@ -53,9 +74,7 @@ function PopperManager({
         <>
           <Reference>
             {({ ref }) => (
-              <Wrapper ref={referenceNode}>
-                <Wrapper ref={ref}>{referenceElement(toggleVisible, visible)}</Wrapper>
-              </Wrapper>
+              <Wrapper ref={provideRef(ref, setReferenceNode)}>{referenceElement(toggleVisible, visible)}</Wrapper>
             )}
           </Reference>
           {visible && (
@@ -63,11 +82,12 @@ function PopperManager({
               placement={placement}
               modifiers={modifiers ? modifiers : []}
               popperStyles={popperStyles}
+              styles={popperWidth}
               offset={offsetValue}
               arrowPadding={arrowPadding ? arrowPadding : defaultArrowPadding}
               arrowElem={arrowElem}
               haveArrow={haveArrow}
-              referenceNode={referenceNode.current}
+              referenceNode={referenceNode}
             >
               {popperElement(toggleVisible, visible)}
             </PopperElement>

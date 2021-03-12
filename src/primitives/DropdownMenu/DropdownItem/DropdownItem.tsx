@@ -1,5 +1,4 @@
-import React, { useCallback, useMemo } from "react";
-import { useForceUpdate } from "@worksolutions/react-utils";
+import React, { useCallback, useMemo, useRef } from "react";
 
 import { InputIconProp, ListItemSize } from "../../../index";
 import ListItem from "../../List/ListItem";
@@ -7,8 +6,6 @@ import { useShowedRightIcon } from "./useShowedRightIcon";
 
 import { VisibleManagerContext } from "../../VisibleManager/VisibleManagerContext";
 import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
-import { DropdownGroupContext } from "../DropdownGroup/DropdownGroupContext";
-import Wrapper from "../../Wrapper";
 
 export interface DropdownItemProps {
   children: string;
@@ -20,10 +17,14 @@ export interface DropdownItemProps {
   leftContent?: InputIconProp | React.ReactNode;
   rightContent?: InputIconProp | React.ReactNode;
   heading?: string | number;
-  subTitle?: string | number;
+  subTitle?: string;
   code: string;
   leftContentStyles?: any;
   rightContentStyles?: any;
+  showArrowOnSelection?: boolean;
+  showIconRightHover?: boolean;
+  showIconLeftHover?: boolean;
+  canSelect?: boolean;
 }
 
 function DropdownItem({
@@ -40,20 +41,23 @@ function DropdownItem({
   leftContentStyles,
   rightContentStyles,
   code,
+  showIconRightHover,
+  showIconLeftHover,
+  showArrowOnSelection = true,
+  canSelect = true,
 }: DropdownItemProps) {
   const { closeHandler } = React.useContext(VisibleManagerContext);
   const { selectedItem, onChange } = React.useContext(DropdownManagerContext);
-  const { isHoveredItems } = React.useContext(DropdownGroupContext);
 
-  const forceUpdate = useForceUpdate();
+  const selected = Boolean(selectedItem) && selectedItem === code;
 
-  const selected = !isHoveredItems ? selectedItem === code : false;
-
-  const resultRightContent = useShowedRightIcon(isHoveredItems, selected, rightContent);
+  const resultRightContent = useShowedRightIcon(selected, rightContent, showArrowOnSelection);
 
   const handleOnClick = useCallback(
     (code) => {
-      if (!onChange || isHoveredItems || disabled) {
+      if (!canSelect) return;
+
+      if (!onChange || disabled) {
         closeHandler();
         return;
       }
@@ -61,7 +65,7 @@ function DropdownItem({
       onChange(code);
       closeHandler();
     },
-    [onChange, closeHandler, code, isHoveredItems, disabled],
+    [onChange, closeHandler, code, disabled],
   );
 
   const itemProps = useMemo(
@@ -87,36 +91,9 @@ function DropdownItem({
       subTitle,
       resultRightContent.current,
       disabled,
+      showArrowOnSelection,
     ],
   );
-
-  const onHandleEnter = useCallback(() => {
-    if (disabled) return;
-    resultRightContent.current = rightContent || "check";
-    forceUpdate();
-  }, [resultRightContent.current, disabled]);
-
-  const onHandleLeave = useCallback(() => {
-    if (disabled) return;
-    resultRightContent.current = undefined;
-    forceUpdate();
-  }, [resultRightContent.current, disabled]);
-
-  if (isHoveredItems) {
-    return (
-      <Wrapper onMouseEnter={onHandleEnter} onMouseLeave={onHandleLeave}>
-        <ListItem
-          itemSize={itemSize}
-          isActiveItem={selected}
-          titleDots={titleDots}
-          titleStyles={titleStyles}
-          styles={styles}
-          item={itemProps}
-          onClick={handleOnClick}
-        />
-      </Wrapper>
-    );
-  }
 
   return (
     <ListItem
@@ -126,6 +103,9 @@ function DropdownItem({
       titleStyles={titleStyles}
       styles={styles}
       item={itemProps}
+      showIconRightHover={showIconRightHover}
+      showIconLeftHover={showIconLeftHover}
+      showArrowOnSelection={showArrowOnSelection}
       onClick={handleOnClick}
     />
   );
