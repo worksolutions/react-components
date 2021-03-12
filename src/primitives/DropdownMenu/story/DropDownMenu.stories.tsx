@@ -6,6 +6,7 @@ import {
   absoluteCenter,
   AvatarSize,
   backgroundColor,
+  border,
   borderRadius,
   disableOutline,
   emptyBoxShadow,
@@ -24,7 +25,7 @@ import DropdownDivider from "../DropdownDivider";
 import List from "../List/List";
 
 import { marginRight, top, width } from "styles";
-import { booleanControl, colorControl, numbersControl, selectControl } from "storybook/storyHelpers";
+import { colorControl, numbersControl, selectControl } from "storybook/storyHelpers";
 import AvatarComponent from "../../Avatar";
 
 export default {
@@ -50,7 +51,7 @@ const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
   return (
     <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
       <Wrapper styles={[marginRight(50)]}>
-        <DropdownMenu {...props} stylesReference={[width(props.widthTargetElem)]} widthPopper={"120%"}>
+        <DropdownMenu {...props} stylesReference={[width(props.widthTargetElem)]}>
           <List isHoveredItems={props.isHover}>
             <DropdownItem
               itemSize={props.itemSize}
@@ -131,6 +132,7 @@ const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
         stylesReference={[backgroundColor("blue/01"), emptyBoxShadow, disableOutline]}
         colorTextHeader="gray-blue/08"
         textReferenceStyles={[fontWeight(600)]}
+        stylesPopper={[border(1, "red/04")]}
       >
         <List isHoveredItems={props.isHover}>
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">

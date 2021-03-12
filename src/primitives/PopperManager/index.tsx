@@ -37,13 +37,14 @@ function setOffset(offset?: number, haveArrow?: boolean) {
 }
 
 function setPopperWidth(referenceWidth?: number, widthPopper?: number | string | "auto") {
-  if (!referenceWidth) return [];
-  if (!widthPopper) return [];
-  if (widthPopper === "auto") return [];
+  if (!referenceWidth) return null;
+  if (!widthPopper) return null;
+  if (widthPopper === "auto") return null;
 
   if (typeof widthPopper === "number") return [width(widthPopper)];
+  if (typeof widthPopper === "string") return [width(convertPercentageStringToNumber(widthPopper) * referenceWidth)];
 
-  return [width(convertPercentageStringToNumber(widthPopper) * referenceWidth)];
+  return [];
 }
 
 function PopperManager({

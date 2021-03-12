@@ -140,7 +140,7 @@ function ListItem<CODE extends string | number>({
 
   return (
     <HoverIcons
-      showIconRightHover={disabled || !showArrowOnSelection ? showIconRightHover : false}
+      showIconRightHover={enabled && !showArrowOnSelection ? showIconRightHover : false}
       showIconLeftHover={enabled && showIconLeftHover}
       styles={[getItemStyles(itemSize, enabled, isActiveItem), styles]}
       onClick={() => onClick && enabled && onClick(code)}
