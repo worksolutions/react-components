@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Reference } from "react-popper";
 import { provideRef } from "@worksolutions/react-utils";
 
@@ -17,7 +17,7 @@ interface PopperManagerProps {
   placement?: Placement;
   modifiers?: StrictModifiers[];
   outsideHandler?: boolean;
-  offset?: [number, number];
+  offset?: number;
   arrowPadding?: number;
   arrowElem?: React.ReactNode;
   haveArrow?: boolean;
@@ -26,11 +26,11 @@ interface PopperManagerProps {
   referenceElement: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
 }
 
-const defaultOffset: [number, number] = [0, 4];
-const defaultOffsetWithArrow: [number, number] = [0, 14];
+const defaultOffset: number = 4;
+const defaultOffsetWithArrow: number = 14;
 const defaultArrowPadding = 10;
 
-function setOffset(offset?: [number, number], haveArrow?: boolean) {
+function setOffset(offset?: number, haveArrow?: boolean) {
   if (offset) return offset;
   if (haveArrow) return defaultOffsetWithArrow;
   return defaultOffset;
@@ -40,9 +40,9 @@ function setPopperWidth(referenceWidth?: number, widthPopper?: number | string |
   if (!referenceWidth) return [];
   if (!widthPopper) return [];
   if (widthPopper === "auto") return [];
-  console.log(widthPopper);
+
   if (typeof widthPopper === "number") return [width(widthPopper)];
-  console.log(convertPercentageStringToNumber(widthPopper));
+
   return [width(convertPercentageStringToNumber(widthPopper) * referenceWidth)];
 }
 

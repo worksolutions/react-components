@@ -1,13 +1,14 @@
 import React, { useCallback } from "react";
 
 import Wrapper from "../Wrapper";
-import DropdownHeader from "./DropdownHeader/DropdownHeader";
+import DropdownReference from "./DropdownReference/DropdownReference";
 import PopperManager from "../PopperManager";
 
-import { createDropdownRightIcon, InputWrapper } from "../../index";
+import { duration160, InputWrapper, InternalIcons, transform, transition } from "../../index";
 import { DropdownManagerContext } from "./DropdownManager/DropdownManagerContext";
 
 import { DropdownMenuProps } from "./DropdownMenu";
+import Icon from "../Icon";
 
 function DropdownContainer({
   children,
@@ -16,17 +17,14 @@ function DropdownContainer({
   stylesPopper,
   iconLeft,
   size,
-  modifiers,
   placeholder,
-  headerStyle,
   outsideHandler = true,
-  targetElement,
   offset,
-  arrowPadding,
-  arrowElem,
-  haveArrow,
   colorTextHeader,
   widthPopper,
+  textReferenceStyles,
+  iconReferenceRight,
+  error,
 }: DropdownMenuProps) {
   const { selectedItem } = React.useContext(DropdownManagerContext);
 
@@ -35,42 +33,46 @@ function DropdownContainer({
     children,
   ]);
   const referenceElement = useCallback(
-    (toggleVisible: () => void, visible: boolean) =>
-      Boolean(targetElement) ? (
-        <Wrapper onClick={toggleVisible}>{targetElement}</Wrapper>
-      ) : (
-        <InputWrapper
-          size={size}
-          iconLeft={iconLeft}
-          iconRight={createDropdownRightIcon(visible)}
-          outerStyles={[stylesReference]}
-          renderComponent={(styles) => (
-            <DropdownHeader
-              text={selectedItem ? selectedItem : placeholder}
-              styles={[styles, headerStyle]}
-              colorTextHeader={colorTextHeader}
-            />
-          )}
-          onClick={toggleVisible}
-        />
-      ),
-    [size, iconLeft, stylesReference, placeholder, headerStyle, selectedItem],
+    (toggleVisible: () => void, visible: boolean) => (
+      <InputWrapper
+        size={size}
+        iconLeft={iconLeft}
+        iconRight={createDropdownRightIcon(visible, iconReferenceRight)}
+        error={error}
+        renderComponent={(styles) => (
+          <DropdownReference
+            text={selectedItem ? selectedItem : placeholder}
+            styles={[styles, stylesReference]}
+            textReferenceStyles={textReferenceStyles}
+            colorTextHeader={colorTextHeader}
+          />
+        )}
+        onClick={toggleVisible}
+      />
+    ),
+    [size, iconLeft, stylesReference, placeholder, selectedItem],
   );
 
   return (
     <PopperManager
       placement={placement}
-      modifiers={modifiers}
       offset={offset}
-      arrowPadding={arrowPadding}
       outsideHandler={outsideHandler}
       referenceElement={referenceElement}
       popperElement={popperElement}
-      arrowElem={arrowElem}
-      haveArrow={haveArrow}
       widthPopper={widthPopper}
     />
   );
 }
 
 export default React.memo(DropdownContainer);
+
+export function createDropdownRightIcon(opened: boolean, icon: InternalIcons = "arrow-down") {
+  return (
+    <Icon
+      icon={icon}
+      styles={[transition(`all ${duration160}`), transform(`rotateZ(${opened ? "180deg" : "0deg"})`)]}
+      color="gray-blue/07"
+    />
+  );
+}

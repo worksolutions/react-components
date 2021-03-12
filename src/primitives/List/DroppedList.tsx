@@ -2,12 +2,12 @@ import React from "react";
 import { animated } from "react-spring";
 import { useHover } from "react-use";
 import { Placement } from "@popperjs/core";
-import { provideRef, useEffectSkipFirst, preventDefaultAndStopPropagationHandler } from "@worksolutions/react-utils";
+import { preventDefaultAndStopPropagationHandler, provideRef, useEffectSkipFirst } from "@worksolutions/react-utils";
 
-import { borderRadius, cursor, maxWidth, minWidth, padding, position, backgroundColor, boxShadow } from "../../styles";
+import { backgroundColor, borderRadius, boxShadow, cursor, maxWidth, minWidth, padding, position } from "../../styles";
 
 import Wrapper from "../Wrapper";
-import { usePopper, getPopperMarginStyleForPlacement } from "../Popper/usePopper";
+import { getPopperMarginStyleForPlacement, usePopper } from "../Popper/usePopper";
 import HandleClickOutside from "../HandleClickOutside";
 import { useVisibilityAnimation } from "../Popper/useVisibilityAnimation";
 

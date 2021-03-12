@@ -1,12 +1,14 @@
 import React, { forwardRef, useCallback, useEffect, useMemo } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
-import { State, StrictModifiers } from "@popperjs/core";
+import { StrictModifiers } from "@popperjs/core";
 import { Popper, PopperArrowProps } from "react-popper";
 
 import Wrapper from "../Wrapper";
 import Arrow from "./Arrow";
+
 import { backgroundColor, border, borderRadius, boxShadow } from "../../styles";
 import { elevation16Raw } from "../../constants/shadows";
+import { zIndex_popup } from "../../constants/zIndexes";
 
 function getPopperStyles() {
   return [
@@ -14,10 +16,11 @@ function getPopperStyles() {
     backgroundColor("white"),
     boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Popper.boxShadow"]),
     borderRadius(6),
+    zIndex_popup,
   ];
 }
 
-function getModifiers(modifiers: StrictModifiers[], offset?: [number, number]) {
+function getModifiers(modifiers: StrictModifiers[], offset?: number) {
   return [
     {
       name: "arrow",
@@ -28,13 +31,13 @@ function getModifiers(modifiers: StrictModifiers[], offset?: [number, number]) {
     ...modifiers,
     {
       name: "offset",
-      options: { offset: () => offset },
+      options: { offset: () => [0, offset] },
     },
   ];
 }
 
 interface PopperElementProps {
-  offset?: [number, number];
+  offset?: number;
   placement?: Placement;
   children?: React.ReactNode;
   popperStyles?: any;

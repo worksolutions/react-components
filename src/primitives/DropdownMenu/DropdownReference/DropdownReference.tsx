@@ -10,16 +10,22 @@ export interface DropdownHeaderProps {
   styles?: any;
   text?: string;
   colorTextHeader?: Colors;
+  textReferenceStyles: any;
 }
 
-function DropdownHeader({ styles, text, colorTextHeader }: DropdownHeaderProps) {
+function DropdownReference({
+  styles,
+  text,
+  colorTextHeader = "gray-blue/05",
+  textReferenceStyles,
+}: DropdownHeaderProps) {
   return (
     <Wrapper
       as="button"
-      styles={[flexValue(1), textAlign("left"), color("definitions.DropdownHeader.text"), pointer, styles]}
+      styles={[flexValue(1), textAlign("left"), color("definitions.DropdownReference.text"), pointer, styles]}
     >
       <Wrapper styles={[flex, ai("center")]}>
-        <Typography dots color={colorTextHeader}>
+        <Typography dots color={colorTextHeader} styles={textReferenceStyles}>
           {text}
         </Typography>
       </Wrapper>
@@ -27,4 +33,4 @@ function DropdownHeader({ styles, text, colorTextHeader }: DropdownHeaderProps) 
   );
 }
 
-export default React.memo(DropdownHeader);
+export default React.memo(DropdownReference);

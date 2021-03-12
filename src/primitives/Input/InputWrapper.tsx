@@ -275,4 +275,4 @@ function InputWrapper({
   );
 }
 
-export default InputWrapper;
+export default React.memo(InputWrapper);

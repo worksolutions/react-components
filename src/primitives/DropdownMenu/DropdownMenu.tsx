@@ -12,21 +12,18 @@ import { Colors } from "../../constants/colors";
 export interface DropdownMenuProps {
   placeholder?: string;
   stylesReference?: any;
-  headerStyle?: any;
   size?: InputSize;
   iconLeft?: InternalIcons;
   children: React.ReactNode;
   placement: Placement;
-  modifiers?: StrictModifiers[];
   outsideHandler?: boolean;
   stylesPopper?: any;
-  targetElement: React.ReactNode;
-  offset?: [number, number];
-  arrowPadding?: number;
-  arrowElem?: React.ReactNode;
-  haveArrow?: boolean;
+  offset?: number;
   colorTextHeader?: Colors;
   widthPopper?: number | string | "auto";
+  textReferenceStyles: any;
+  iconReferenceRight?: InternalIcons;
+  error: boolean;
 }
 
 function DropdownMenu(props: DropdownMenuProps) {

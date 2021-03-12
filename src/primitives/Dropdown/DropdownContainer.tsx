@@ -21,7 +21,6 @@ import {
   borderTop,
 } from "../../styles";
 
-import ListItem from "../List/ListItem";
 import Wrapper from "../Wrapper";
 import DroppedList, { DroppedListInterface } from "../List/DroppedList";
 import Input, { InputSize } from "../Input/Input";
@@ -37,6 +36,7 @@ import {
 } from "./libs";
 import { duration160 } from "../../constants/durations";
 import { intl } from "../../intl";
+import ListItem from "../List/ListItem";
 
 export type DropdownContainerComponentInterface<CODE extends string | number> = DropdownContainerInterface<CODE> & {
   children: (selectedItems: DropdownItemInterface<CODE>[]) => DroppedListInterface<CODE>["children"];

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from "react";
+import React, { useCallback, useMemo } from "react";
 
 import { InputIconProp, ListItemSize } from "../../../index";
 import ListItem from "../../List/ListItem";

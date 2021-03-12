@@ -7,8 +7,10 @@ import {
   AvatarSize,
   backgroundColor,
   borderRadius,
-  color,
+  disableOutline,
+  emptyBoxShadow,
   flex,
+  fontWeight,
   hover,
   ListItemSize,
   padding,
@@ -34,7 +36,6 @@ export default {
     itemSize: selectControl(Object.values(ListItemSize)),
     placement: selectControl(placements),
     widthTargetElem: numbersControl(200, 700, 5),
-    isHover: booleanControl(),
     colorTextHeader: colorControl(),
   },
 };
@@ -124,7 +125,13 @@ const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
         </DropdownMenu>
       </Wrapper>
 
-      <DropdownMenu {...props} stylesReference={[width(props.widthTargetElem)]} headerStyle={[color("red/01")]}>
+      <DropdownMenu
+        {...props}
+        placeholder="Без периода"
+        stylesReference={[backgroundColor("blue/01"), emptyBoxShadow, disableOutline]}
+        colorTextHeader="gray-blue/08"
+        textReferenceStyles={[fontWeight(600)]}
+      >
         <List isHoveredItems={props.isHover}>
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
             ValueByDefault
