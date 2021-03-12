@@ -94,13 +94,13 @@ function DropdownItem({
     if (disabled) return;
     resultRightContent.current = rightContent || "check";
     forceUpdate();
-  }, []);
+  }, [resultRightContent.current, disabled]);
 
   const onHandleLeave = useCallback(() => {
     if (disabled) return;
     resultRightContent.current = undefined;
     forceUpdate();
-  }, []);
+  }, [resultRightContent.current, disabled]);
 
   if (isHoveredItems) {
     return (
