@@ -22,7 +22,7 @@ function getModifiers(modifiers: StrictModifiers[], offset?: [number, number]) {
     {
       name: "arrow",
       options: {
-        padding: 20,
+        padding: 12,
       },
     },
     ...modifiers,
@@ -96,15 +96,17 @@ const PopperChildren = React.memo(
     }: any,
     ref,
   ) {
-    useEffect(update, [haveArrow]);
-    useEffect(() => {
+    function updatePopperWhenResizeReferenceElement() {
       if (!referenceNode) return;
 
       const resizeObserver = new ResizeObserver(update);
       resizeObserver.observe(referenceNode);
 
       return () => resizeObserver.disconnect();
-    }, [referenceNode]);
+    }
+
+    useEffect(update, [haveArrow]);
+    useEffect(updatePopperWhenResizeReferenceElement, [referenceNode]);
 
     return (
       <Wrapper ref={ref} style={style} data-placement={placement} styles={resultPopperStyles}>

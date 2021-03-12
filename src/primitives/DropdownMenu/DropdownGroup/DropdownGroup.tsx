@@ -1,9 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 
 import Wrapper from "../../Wrapper";
 
 import { DropdownGroupContext } from "./DropdownGroupContext";
 import { fullWidth, padding } from "../../../styles";
+import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
 
 export interface DropdownGroupProps {
   children: React.ReactNode[] | React.ReactNode;
@@ -12,6 +13,10 @@ export interface DropdownGroupProps {
 }
 
 function DropdownGroup({ children, styles, isHoveredItems = false }: DropdownGroupProps) {
+  const { onChange } = useContext(DropdownManagerContext);
+
+  useEffect(() => onChange(null), [isHoveredItems]);
+
   const value = useMemo(() => ({ isHoveredItems }), [isHoveredItems]);
 
   return (

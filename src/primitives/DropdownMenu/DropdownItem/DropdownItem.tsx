@@ -3,12 +3,12 @@ import { useForceUpdate } from "@worksolutions/react-utils";
 
 import { InputIconProp, ListItemSize } from "../../../index";
 import ListItem from "../../List/ListItem";
-import HandleHover from "../../HandleHover/HandleHover";
 import { useShowedRightIcon } from "./useShowedRightIcon";
 
 import { VisibleManagerContext } from "../../VisibleManager/VisibleManagerContext";
 import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
 import { DropdownGroupContext } from "../DropdownGroup/DropdownGroupContext";
+import Wrapper from "../../Wrapper";
 
 export interface DropdownItemProps {
   children: string;
@@ -104,7 +104,7 @@ function DropdownItem({
 
   if (isHoveredItems) {
     return (
-      <HandleHover onHandleEnter={onHandleEnter} onHandleLeave={onHandleLeave}>
+      <Wrapper onMouseEnter={onHandleEnter} onMouseLeave={onHandleLeave}>
         <ListItem
           itemSize={itemSize}
           isActiveItem={selected}
@@ -114,7 +114,7 @@ function DropdownItem({
           item={itemProps}
           onClick={handleOnClick}
         />
-      </HandleHover>
+      </Wrapper>
     );
   }
 
