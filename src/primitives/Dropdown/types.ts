@@ -1,5 +1,3 @@
-import React from "react";
-
 import { InternalIcons } from "../Icon";
 import { ListItemInterface } from "../List/ListItem";
 import { BaseInputWrapperInterface, InputSize } from "../Input/InputWrapper";
@@ -30,5 +28,3 @@ export interface DropdownInterface<CODE extends string | number>
   placeholder?: string;
   selectedItemCode?: CODE;
 }
-
-export type StylesType = { [key: string]: React.CSSProperties };
