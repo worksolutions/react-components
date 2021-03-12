@@ -9,7 +9,7 @@ export function reactStylesToStylesComponent(reactStyles: React.CSSProperties): 
   Object.entries(reactStyles).forEach(([key, value]: [any, React.CSSProperties]) => {
     // @ts-ignore
     const cssCondition: any = stylesBuilders[key] as any;
-    if (cssCondition || !value) stylesComponents.push(cssCondition(value));
+    if (cssCondition && value) stylesComponents.push(cssCondition(value));
   });
 
   return stylesComponents;
