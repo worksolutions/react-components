@@ -14,7 +14,7 @@ export default {
   title: "Tooltip",
   component: TooltipContainer.type,
   argTypes: {
-    placement: selectControl(placements),
+    primaryPlacement: selectControl(placements),
   },
 };
 

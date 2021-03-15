@@ -14,7 +14,7 @@ function DropdownContainer({
   stylesSource,
   stylesTextSource,
   children,
-  placement,
+  primaryPlacement,
   iconLeft,
   size,
   placeholder,
@@ -50,7 +50,7 @@ function DropdownContainer({
 
   return (
     <PopperManager
-      primaryPlacement={placement}
+      primaryPlacement={primaryPlacement}
       offset={offset}
       outsideHandler={closeOnOutsideClick}
       widthPopper={widthPopper}

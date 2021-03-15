@@ -10,17 +10,17 @@ export interface TooltipContainerInterface {
   tooltipStyles?: any;
   primaryPlacement?: Placement;
   tooltipText: string;
-  hasArrow: boolean;
+  hasArrow?: boolean;
   children: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
 }
 const offsetTooltipWhenNotArrow = 14;
 
 function TooltipContainer({
   tooltipStyles,
-  hasArrow,
   primaryPlacement,
   tooltipText,
   children,
+  hasArrow = true,
 }: TooltipContainerInterface) {
   const [offset, setOffset] = useState<number | undefined>();
 

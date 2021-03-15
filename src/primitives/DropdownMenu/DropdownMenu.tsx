@@ -15,7 +15,7 @@ export interface DropdownMenuInterface {
   size?: InputSize;
   iconLeft?: InternalIcons;
   children: React.ReactNode;
-  placement: Placement;
+  primaryPlacement: Placement;
   closeOnOutsideClick?: boolean;
   offset?: number;
   widthPopper?: number | string | "auto";

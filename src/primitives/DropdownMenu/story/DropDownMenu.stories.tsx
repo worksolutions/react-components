@@ -9,6 +9,8 @@ import {
   border,
   borderRadius,
   color,
+  DatePicker,
+  DatePickerMode,
   disableOutline,
   emptyBoxShadow,
   flex,
@@ -31,6 +33,9 @@ import List from "../List/List";
 
 import AvatarComponent from "../../Avatar";
 import { colorControl, numbersControl, selectControl } from "../../../storybook/storyHelpers";
+import { BaseInput } from "../../Input/story/Input.stories";
+import TooltipContainer from "../../Tooltip/TooltipContainer";
+import Combobox from "../../Combobox";
 
 export default {
   title: "DropdownMenu/DropdownMenu",
@@ -39,7 +44,7 @@ export default {
     iconLeft: selectControl(Object.keys(internalIcons)),
     size: selectControl(Object.values(InputSize)),
     itemSize: selectControl(Object.values(ListItemSize)),
-    placement: selectControl(placements),
+    primaryPlacement: selectControl(placements),
     widthTargetElem: numbersControl(200, 700, 5),
   },
 };
@@ -151,6 +156,18 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
           <DropdownItem code="DropdownItemElement4" disabled={true} leftContent="user" itemSize={props.itemSize}>
             DropdownItemElement4
           </DropdownItem>
+          <Combobox
+            {...props}
+            onChange={() => {}}
+            onChangeItemsList={() => {}}
+            selectedItemCodes={[]}
+            items={[
+              {
+                title: "Курьерская служба доставки",
+                code: "1",
+              },
+            ]}
+          />
           <DropdownItem
             code="DropdownItemElement1"
             subTitle="Еще один тайтл • email@worksolutions.ru"
@@ -159,6 +176,7 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
           >
             DropdownItemElement1
           </DropdownItem>
+          <DatePicker mode={DatePickerMode.DATE} hasCurrentDayButton onChange={() => {}} />
           <DropdownItem code="DropdownItemElement2" subTitle="Еще один тайтл" itemSize={props.itemSize}>
             DropdownItemElement2
           </DropdownItem>
@@ -166,6 +184,13 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
             ValueByDefault
           </DropdownItem>
+          <TooltipContainer tooltipText="text" primaryPlacement="right">
+            {(toggleVisible) => (
+              <Wrapper onClick={toggleVisible}>
+                <BaseInput value="baseValue" onChange={() => {}} />
+              </Wrapper>
+            )}
+          </TooltipContainer>
         </List>
       </DropdownMenu>
     </Wrapper>
@@ -175,7 +200,7 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
 export const Default = Template.bind({});
 
 Default.args = {
-  placement: "bottom-start",
+  primaryPlacement: "bottom-start",
   size: InputSize.MEDIUM,
   itemSize: ListItemSize.MEDIUM,
   placeholder: "на этом месте будут выбранные элементы",
