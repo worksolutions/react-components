@@ -15,7 +15,12 @@ export function useSetRightIcon({ selected, rightContent, showArrowOnSelection }
 
   useEffect(() => {
     if (showArrowOnSelection) {
-      if (selected) setResultRightContent("check");
+      if (selected) {
+        setResultRightContent("check");
+        return;
+      }
+      
+      setResultRightContent(undefined);
       return;
     }
 
