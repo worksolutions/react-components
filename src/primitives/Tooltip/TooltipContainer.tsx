@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
 
 import PopperManager from "../PopupManager";
-import Tooltip from "./index";
+import TooltipTextContent from "./index";
 
 export interface TooltipContainerInterface {
   tooltipStyles?: any;
@@ -22,7 +22,7 @@ function TooltipContainer({
 }: TooltipContainerInterface) {
   const [offset, setOffset] = useState<number | undefined>();
 
-  const tooltipElement = useMemo(() => <Tooltip styles={tooltipStyles}>{tooltipText}</Tooltip>, [
+  const tooltipElement = useMemo(() => <TooltipTextContent styles={tooltipStyles}>{tooltipText}</TooltipTextContent>, [
     tooltipStyles,
     tooltipText,
   ]);

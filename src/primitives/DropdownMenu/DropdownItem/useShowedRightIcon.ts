@@ -6,7 +6,6 @@ interface HookShowedRightIconInterface {
   selected: boolean;
   rightContent: InputIconProp | React.ReactNode;
   showArrowOnSelection?: boolean;
-  canSelect: boolean;
 }
 
 type ResultRightContentType = InputIconProp | React.ReactNode | undefined;
@@ -14,7 +13,6 @@ export function useShowedRightIcon({
   selected,
   rightContent,
   showArrowOnSelection,
-  canSelect,
 }: HookShowedRightIconInterface): any {
   const resultRightContent = useRef<ResultRightContentType>(undefined);
 
@@ -22,8 +20,6 @@ export function useShowedRightIcon({
     resultRightContent.current = rightContent;
     return resultRightContent;
   };
-
-  if (!canSelect) return setAndReturnRightContent(undefined);
 
   if (showArrowOnSelection) {
     if (selected) return setAndReturnRightContent("check");

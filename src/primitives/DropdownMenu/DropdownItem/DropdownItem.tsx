@@ -57,7 +57,7 @@ function DropdownItem({
 
   const selected = useMemo(isSelected, [selectedItem, code, canSelect, disabled]);
 
-  const resultRightContent = useShowedRightIcon({ selected, rightContent, showArrowOnSelection, canSelect });
+  const resultRightContent = useShowedRightIcon({ selected, rightContent, showArrowOnSelection });
 
   const handleOnClick = useCallback(() => {
     if (!canSelect) return;
@@ -89,10 +89,10 @@ function DropdownItem({
       children,
       leftContent,
       rightContent,
+      resultRightContent.current,
       code,
       heading,
       subTitle,
-      resultRightContent.current,
       disabled,
       showArrowOnSelection,
     ],

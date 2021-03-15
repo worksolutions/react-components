@@ -17,7 +17,7 @@ function VisibleManager({ children, outsideHandler }: VisibleManagerProps) {
 
   const toggleVisibility = useCallback(() => (visibility ? setNotVisibility() : setVisibility()), [visibility]);
 
-  const value = useMemo(
+  const visibleManagerContextValue = useMemo(
     () => ({
       toggle: toggleVisibility,
       show: setVisibility,
@@ -29,7 +29,7 @@ function VisibleManager({ children, outsideHandler }: VisibleManagerProps) {
 
   return (
     <ReactPopperManager>
-      <VisibilityManagerContext.Provider value={value}>
+      <VisibilityManagerContext.Provider value={visibleManagerContextValue}>
         {outsideHandler ? (
           <HandleClickOutside onClickOutside={setNotVisibility}>
             {(ref) => <Wrapper ref={ref}>{children(toggleVisibility, visibility)}</Wrapper>}

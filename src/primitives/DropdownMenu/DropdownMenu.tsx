@@ -20,7 +20,7 @@ export interface DropdownMenuInterface {
   offset?: number;
   widthPopper?: number | string | "auto";
   iconReferenceRight?: InternalIcons;
-  error: boolean;
+  error?: boolean;
 }
 
 function DropdownMenu(props: DropdownMenuInterface) {

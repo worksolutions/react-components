@@ -119,7 +119,10 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
               showArrowOnSelection={false}
               canSelect={false}
               rightContent={
-                <Wrapper styles={[padding(5), borderRadius("50%"), hover([backgroundColor("blue/05")])]}>
+                <Wrapper
+                  styles={[padding(5), borderRadius("50%"), hover([backgroundColor("blue/05")])]}
+                  onClick={() => console.log("asdsa")}
+                >
                   <AvatarComponent size={AvatarSize.SMALL} />
                 </Wrapper>
               }
