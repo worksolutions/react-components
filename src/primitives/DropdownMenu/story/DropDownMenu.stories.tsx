@@ -55,7 +55,7 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
   return (
     <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
       <Wrapper styles={[marginRight(50)]}>
-        <DropdownMenu {...props} stylesSource={[width(props.widthTargetElem)]}>
+        <DropdownMenu {...props} stylesSource={[width(props.widthTargetElem)]} widthPopper={"140%"}>
           <List>
             <DropdownItem
               itemSize={props.itemSize}

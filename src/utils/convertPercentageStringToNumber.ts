@@ -3,7 +3,7 @@ export function convertPercentageStringToNumber(percentageString: string) {
 
   const number = parseFloat(percentageString);
 
-  if (isNaN(number)) return number / 100;
+  if (!isNaN(number)) return number / 100;
 
   return 1;
 }

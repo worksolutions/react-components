@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 
 import { InputIconProp, ListItemSize } from "../../../index";
 import ListItem from "../../List/ListItem";
-import { useShowedRightIcon } from "./useShowedRightIcon";
+import { useSetRightIcon } from "./useSetRightIcon";
 
 import { VisibilityManagerContext } from "../../VisibleManager/VisibilityManagerContext";
 import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
@@ -57,7 +57,7 @@ function DropdownItem({
 
   const selected = useMemo(isSelected, [selectedItem, code, canSelect, disabled]);
 
-  const resultRightContent = useShowedRightIcon({ selected, rightContent, showArrowOnSelection });
+  const resultRightContent = useSetRightIcon({ selected, rightContent, showArrowOnSelection });
 
   const handleClick = useCallback(() => {
     if (!canSelect) return;

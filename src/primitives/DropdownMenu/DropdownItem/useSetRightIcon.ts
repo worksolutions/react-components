@@ -10,11 +10,7 @@ interface HookShowedRightIconInterface {
 
 type ResultRightContentType = InputIconProp | undefined;
 
-export function useShowedRightIcon({
-  selected,
-  rightContent,
-  showArrowOnSelection,
-}: HookShowedRightIconInterface): any {
+export function useSetRightIcon({ selected, rightContent, showArrowOnSelection }: HookShowedRightIconInterface): any {
   const [resultRightContent, setResultRightContent] = useState<ResultRightContentType>();
 
   useEffect(() => {
