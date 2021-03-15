@@ -127,7 +127,7 @@ type ListItemComponent<CODE extends string | number> = {
   onClick?: (id: CODE) => void;
 };
 
-function makeIcon(icon?: InputIconProp | React.ReactNode, styles?: any) {
+function makeIcon(icon?: InputIconProp, styles?: any) {
   const content = icon ? isString(icon) ? <Icon icon={icon} /> : icon : null;
   if (!content) return null;
   return <Wrapper styles={[flex, ai("center"), jc("center"), flexShrink(0), styles]}>{content}</Wrapper>;

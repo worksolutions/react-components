@@ -4,17 +4,17 @@ import { InputIconProp } from "../../Input/InputWrapper";
 
 interface HookShowedRightIconInterface {
   selected: boolean;
-  rightContent: InputIconProp | React.ReactNode;
+  rightContent: InputIconProp;
   showArrowOnSelection?: boolean;
 }
 
-type ResultRightContentType = InputIconProp | React.ReactNode | undefined;
+type ResultRightContentType = InputIconProp | undefined;
 export function useShowedRightIcon({
   selected,
   rightContent,
   showArrowOnSelection,
 }: HookShowedRightIconInterface): any {
-  const resultRightContent = useRef<ResultRightContentType>(undefined);
+  const resultRightContent = useRef<ResultRightContentType>();
 
   const setAndReturnRightContent = (rightContent: ResultRightContentType) => {
     resultRightContent.current = rightContent;
