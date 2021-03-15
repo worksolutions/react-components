@@ -17,12 +17,12 @@ import {
   backgroundColor,
   boxShadow,
   color,
-} from "../../../../styles";
+} from "../../../styles";
 
-import Wrapper from "../../../Wrapper";
-import Typography from "../../../Typography";
+import Wrapper from "../../Wrapper";
+import Typography from "../../Typography";
 
-import { duration160 } from "../../../../constants/durations";
+import { duration160 } from "../../../constants/durations";
 
 type ItemVariants = { isToday?: boolean; selected?: boolean; holiday?: boolean };
 

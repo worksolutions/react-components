@@ -9,7 +9,6 @@ export * from "./constants/colors";
 export * from "./constants/durations";
 export * from "./constants/shadows";
 export * from "./constants/zIndexes";
-export * from "./intl/en";
 export * from "./intl/ru";
 export * from "./intl";
 export * from "./styles";
@@ -31,9 +30,6 @@ export * from "./primitives/Checkbox";
 
 export { default as Combobox } from "./primitives/Combobox";
 export * from "./primitives/Combobox";
-
-export { default as DatePicker } from "./primitives/DatePicker";
-export * from "./primitives/DatePicker";
 
 export { default as Dropdown } from "./primitives/Dropdown";
 export * from "./primitives/Dropdown";
@@ -140,3 +136,6 @@ export * from "./primitives/Badge";
 
 export { default as Avatar } from "./primitives/Avatar";
 export * from "./primitives/Avatar";
+
+export { default as Calendar } from "./primitives/Calendar";
+export * from "./primitives/Calendar";

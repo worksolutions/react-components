@@ -96,13 +96,13 @@ function ButtonsList({ items, selectedItemIndex, onClick }: ButtonsListInterface
         child([marginBottom(8), horizontalMargin(4)]),
       ]}
     >
-      {items.map((item, index) =>
-        isNil(item) ? null : selectedItemIndex === index ? (
-          <SelectedItem key={item} ref={scrollToElementRef} value={item} />
-        ) : (
-          <UnselectedItem key={item} value={item} onClick={() => onClick(index)} />
-        ),
-      )}
+      {items.map((item, index) => {
+        if (isNil(item)) return null;
+
+        if (selectedItemIndex === index) return <SelectedItem key={item} ref={scrollToElementRef} value={item} />;
+
+        return <UnselectedItem key={item} value={item} onClick={() => onClick(index)} />;
+      })}
     </Wrapper>
   );
 }
