@@ -1,36 +1,38 @@
 import React from "react";
 import { isNil, range } from "ramda";
 import { DateTime } from "luxon";
+import { isDateSame } from "@worksolutions/utils";
 
 import { ai, alignContent, child, flex, flexWrap, fullWidth, height, jc, width } from "../../../styles";
-import { intl } from "../../../intl";
 
 import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
 
 import CalendarItem from "./CalendarItem";
 import { useHolyDays, useSelectedDays } from "./hooks";
-import { allWeekDays } from "../info";
+import { allWeekDays, currentDate } from "../info";
 
 interface CalendarViewInterface {
   styles?: any;
-  selectedValue: DateTime | null;
-  currentInnerValue: DateTime;
+  viewDateTime: DateTime;
+  selectedDateTime: DateTime | null;
   onChange: (day: number) => void;
 }
 
 function getDaysRange(value: DateTime) {
-  const firstDayInMonthWeekday = value.set({ day: 1 }).weekday;
+  const firstDayInMonthWeekday = value.set({ day: 1 }).weekday - 1;
   const emptyDaysToFillFirstWeek: null[] = (range(0, firstDayInMonthWeekday) as any).fill(null!);
   return [...emptyDaysToFillFirstWeek, ...range(1, value.daysInMonth + 1)];
 }
 
-function CalendarView({ styles, currentInnerValue, selectedValue, onChange }: CalendarViewInterface) {
-  const days = React.useMemo(() => getDaysRange(currentInnerValue), [currentInnerValue]);
+function CalendarView({ styles, viewDateTime, selectedDateTime, onChange }: CalendarViewInterface) {
+  const days = React.useMemo(() => getDaysRange(viewDateTime), [viewDateTime]);
+  const selectedDays = useSelectedDays(viewDateTime, selectedDateTime, days);
+  const holidays = useHolyDays(viewDateTime, days);
 
-  const selectedDays = useSelectedDays(currentInnerValue, selectedValue, days);
-
-  const holidays = useHolyDays(currentInnerValue, days);
+  const isSameMonth = React.useMemo(() => isDateSame({ value: currentDate, comparisonWith: viewDateTime }, "months"), [
+    viewDateTime,
+  ]);
 
   return (
     <Wrapper
@@ -54,20 +56,20 @@ function CalendarView({ styles, currentInnerValue, selectedValue, onChange }: Ca
           </Typography>
         </Wrapper>
       ))}
-      {days.map((day, index) =>
-        isNil(day) ? (
+      {days.map((day, index) => {
+        return isNil(day) ? (
           <CalendarItem key={index} />
         ) : (
           <CalendarItem
             key={index}
             value={day}
-            selected={!!selectedDays[index]}
-            holiday={!!holidays[index]}
-            isToday={intl.currentDate.diff(currentInnerValue, "month").months === 0 && intl.currentDate.day === day}
+            selected={selectedDays[index]}
+            holiday={holidays[index]}
+            isToday={isSameMonth && currentDate.day === day}
             onClick={() => onChange(day)}
           />
-        ),
-      )}
+        );
+      })}
     </Wrapper>
   );
 }
