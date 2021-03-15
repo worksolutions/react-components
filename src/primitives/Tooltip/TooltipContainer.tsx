@@ -4,6 +4,8 @@ import { Placement } from "@popperjs/core/lib/enums";
 import PopperManager from "../PopupManager";
 import TooltipTextContent from "./index";
 
+import { zIndex_hint } from "../../constants/zIndexes";
+
 export interface TooltipContainerInterface {
   tooltipStyles?: any;
   primaryPlacement?: Placement;
@@ -38,6 +40,7 @@ function TooltipContainer({
       renderMainElement={children}
       renderPopupElement={tooltipElement}
       offset={offset}
+      popperStyles={zIndex_hint}
     />
   );
 }

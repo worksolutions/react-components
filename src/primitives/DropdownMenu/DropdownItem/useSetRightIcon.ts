@@ -19,7 +19,7 @@ export function useSetRightIcon({ selected, rightContent, showArrowOnSelection }
         setResultRightContent("check");
         return;
       }
-      
+
       setResultRightContent(undefined);
       return;
     }

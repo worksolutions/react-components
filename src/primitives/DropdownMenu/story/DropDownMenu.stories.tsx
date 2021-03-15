@@ -41,7 +41,6 @@ export default {
     itemSize: selectControl(Object.values(ListItemSize)),
     placement: selectControl(placements),
     widthTargetElem: numbersControl(200, 700, 5),
-    colorTextHeader: colorControl(),
   },
 };
 
