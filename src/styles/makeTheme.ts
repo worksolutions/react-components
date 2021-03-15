@@ -96,7 +96,6 @@ export interface Theme extends BaseTheme<Colors> {
       color: Colors;
     };
     Popper: {
-      borderColor: Colors;
       boxShadowColor: Colors;
     };
     DropdownDivider: {

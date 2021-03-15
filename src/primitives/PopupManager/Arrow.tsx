@@ -56,7 +56,7 @@ const Triangle = React.memo(function () {
           zIndex(2),
           backgroundColor("white"),
           transform("rotate(45deg)"),
-          boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Popper.boxShadow"]),
+          boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Popper.boxShadowColor"]),
           width(20),
           height(20),
           left(2),

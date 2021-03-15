@@ -41,7 +41,6 @@ export const defaultTheme: Theme = {
       Selected: { backgroundColor: "gray-blue/01" },
     },
     Popper: {
-      borderColor: "gray-blue/01",
       boxShadowColor: "gray-blue/02",
     },
     DropdownDivider: {

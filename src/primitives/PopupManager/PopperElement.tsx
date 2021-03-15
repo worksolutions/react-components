@@ -10,9 +10,8 @@ import PopperChildren from "./PopperChildren";
 
 function getPopperStyles() {
   return [
-    border(1, "definitions.Popper.border"),
     backgroundColor("white"),
-    boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Popper.boxShadow"]),
+    boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Popper.boxShadowColor"]),
     borderRadius(6),
     zIndex_popup,
   ];
