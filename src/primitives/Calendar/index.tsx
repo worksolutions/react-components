@@ -37,28 +37,17 @@ export interface CalendarInterface {
   min?: string;
   max?: string;
   value?: string;
-  availableModes?: CalendarViewMode[];
   hasCurrentDayButton?: boolean;
   onChange: (value: string) => void;
 }
 
-export enum CalendarViewMode {
+enum CalendarViewMode {
   YEAR,
   MONTH,
   DATE,
 }
 
-const defaultAvailableModes = [CalendarViewMode.YEAR, CalendarViewMode.MONTH, CalendarViewMode.DATE];
-
-function Calendar({
-  value,
-  min: minProp,
-  max: maxProp,
-  mode,
-  availableModes = defaultAvailableModes,
-  hasCurrentDayButton,
-  onChange,
-}: CalendarInterface) {
+function Calendar({ value, min: minProp, max: maxProp, mode, hasCurrentDayButton, onChange }: CalendarInterface) {
   function getDateTimeFromProps() {
     return value ? intl.getDateTime(value, mode) : currentDate;
   }
@@ -89,7 +78,7 @@ function Calendar({
     }
 
     setViewDateTime(currentDate.set({ day: 1 }));
-  }, [currentDate, mode, currentSelectedDateTime, onChange]);
+  }, [mode, currentSelectedDateTime, onChange]);
 
   const handleChangeYear = React.useCallback(
     function (year: number) {
@@ -104,8 +93,6 @@ function Calendar({
         setViewDateTime(max.set({ day: 1 }));
         return;
       }
-
-      // setViewDateTime(newDateTime);
     },
     [viewDateTime, min, max],
   );

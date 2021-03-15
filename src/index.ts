@@ -136,3 +136,6 @@ export * from "./primitives/Badge";
 
 export { default as Avatar } from "./primitives/Avatar";
 export * from "./primitives/Avatar";
+
+export { default as Calendar } from "./primitives/Calendar";
+export * from "./primitives/Calendar";
