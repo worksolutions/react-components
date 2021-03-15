@@ -44,7 +44,6 @@ const Dropdown = function (
             {...inputWrapperProps}
             iconLeftStyles={[borderRadius("100%")]}
             onClick={state.toggle}
-            // @ts-ignore
             iconLeft={selectedItem?.leftContent}
             iconRight={createDropdownRightIcon(state.opened)}
             renderComponent={(styles) => (

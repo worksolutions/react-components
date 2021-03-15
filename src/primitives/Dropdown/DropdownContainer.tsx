@@ -22,6 +22,7 @@ import {
 } from "../../styles";
 
 import Wrapper from "../Wrapper";
+import ListItem from "../List/ListItem";
 import DroppedList, { DroppedListInterface } from "../List/DroppedList";
 import Input, { InputSize } from "../Input/Input";
 import ClearInputWrapper from "../Input/ClearInputWrapper";
@@ -36,7 +37,6 @@ import {
 } from "./libs";
 import { duration160 } from "../../constants/durations";
 import { intl } from "../../intl";
-import ListItem from "../List/ListItem";
 
 export type DropdownContainerComponentInterface<CODE extends string | number> = DropdownContainerInterface<CODE> & {
   children: (selectedItems: DropdownItemInterface<CODE>[]) => DroppedListInterface<CODE>["children"];
@@ -114,7 +114,7 @@ const DropdownContainer = function ({
             <ListItem
               item={makeOptionalActionItem(optionalAction.title, optionalAction.icon)}
               isActiveItem={false}
-              itemSize={itemSize}
+              size={itemSize}
               styles={marginTop(4)}
               onClick={optionalAction.onClick}
             />

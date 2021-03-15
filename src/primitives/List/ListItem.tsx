@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { isString, SuggestInterface } from "@worksolutions/utils";
 
 import {
@@ -7,7 +7,7 @@ import {
   borderNone,
   borderRadius,
   boxShadow,
-  createAlphaColor,
+  child,
   disableOutline,
   flex,
   flexColumn,
@@ -34,12 +34,11 @@ import Icon from "../Icon";
 import { InputIconProp } from "../Input/InputWrapper";
 
 import { duration160 } from "../../constants/durations";
-import styled from "styled-components";
 
 export interface ListItemInterface<ITEM extends string | number> extends SuggestInterface<ITEM> {
-  leftContent?: InputIconProp | React.ReactNode;
+  leftContent?: InputIconProp;
   leftContentStyles?: any;
-  rightContent?: InputIconProp | React.ReactNode;
+  rightContent?: InputIconProp;
   rightContentStyles?: any;
   heading?: string | number;
   subTitle?: string | number;
@@ -73,24 +72,58 @@ export function getItemStyles(itemSize: ListItemSize, enabled: boolean, isActive
     enabled
       ? [
           pointer,
-          hover([backgroundColor("definitions.ListItem.selected.backgroundColor")]),
+          hover([backgroundColor("definitions.ListItem.Selected.backgroundColor")]),
           focus(boxShadow([0, 0, 0, 2, "definitions.Button.focus.color"])),
         ]
       : [opacity(0.3)],
-    isActiveItem && [backgroundColor("definitions.ListItem.selected.backgroundColor")],
+    isActiveItem && [backgroundColor("definitions.ListItem.Selected.backgroundColor")],
   ];
+}
+interface HoveredStylesRightContentInterface {
+  disabled?: boolean;
+  showArrowOnSelection?: boolean;
+  showIconRightOnHover?: boolean;
+  showIconLeftOnHover?: boolean;
+}
+
+export function getHoveredStylesRightContent({
+  disabled,
+  showArrowOnSelection,
+  showIconRightOnHover,
+}: HoveredStylesRightContentInterface) {
+  if (disabled || showArrowOnSelection) return null;
+  if (showIconRightOnHover) {
+    return [hover(child(opacity(1), ".rightIcon")), child(opacity(0), ".rightIcon")];
+  }
+  return null;
+}
+
+export function getHoveredStylesLeftContent({ disabled, showIconLeftOnHover }: HoveredStylesRightContentInterface) {
+  if (disabled) return null;
+
+  if (showIconLeftOnHover) {
+    return [hover(child(opacity(1), ".leftIcon")), child(opacity(0), ".leftIcon")];
+  }
+  return null;
 }
 
 type ListItemComponent<CODE extends string | number> = {
   item: ListItemInterface<CODE>;
-  itemSize: ListItemSize;
   isActiveItem: boolean;
   titleStyles?: any;
-  titleDots?: boolean;
-  showIconRightHover?: boolean;
-  showArrowOnSelection?: boolean;
-  showIconLeftHover?: boolean;
   styles?: any;
+  title?: string;
+  leftContent?: InputIconProp;
+  rightContent?: InputIconProp;
+  heading?: string | number;
+  subTitle?: string | number;
+  disabled?: boolean;
+  size: ListItemSize;
+  code?: CODE;
+  titleDots?: boolean;
+  showIconRightOnHover?: boolean;
+  showIconLeftOnHover?: boolean;
+  showArrowOnSelection?: boolean;
   onClick?: (id: CODE) => void;
 };
 
@@ -100,36 +133,15 @@ function makeIcon(icon?: InputIconProp | React.ReactNode, styles?: any) {
   return <Wrapper styles={[flex, ai("center"), jc("center"), flexShrink(0), styles]}>{content}</Wrapper>;
 }
 
-const HoverIcons = styled(Wrapper)`
-  .rightIcon {
-    transition: 100ms;
-    opacity: ${({ showIconRightHover }) => (showIconRightHover ? 0 : 1)};
-  }
-  .leftIcon {
-    transition: 100ms;
-    opacity: ${({ showIconLeftHover }) => (showIconLeftHover ? 0 : 1)};
-  }
-
-  &:hover {
-    .rightIcon {
-      opacity: 1;
-    }
-
-    .leftIcon {
-      opacity: 1;
-    }
-  }
-`;
-
 function ListItem<CODE extends string | number>({
   item: { title, leftContent, leftContentStyles, rightContent, rightContentStyles, code, disabled, heading, subTitle },
-  itemSize,
+  size,
   isActiveItem,
   titleDots,
   titleStyles,
   styles,
-  showIconRightHover,
-  showIconLeftHover,
+  showIconRightOnHover,
+  showIconLeftOnHover,
   showArrowOnSelection,
   onClick,
 }: ListItemComponent<CODE>) {
@@ -137,11 +149,18 @@ function ListItem<CODE extends string | number>({
   const leftIcon = makeIcon(leftContent, [marginRight(8), leftContentStyles]);
   const rightIcon = makeIcon(rightContent, [marginLeft(8), rightContentStyles]);
 
+  const rightIconHoverStyles = useMemo(
+    () => getHoveredStylesRightContent({ disabled, showArrowOnSelection, showIconRightOnHover }),
+    [disabled, showArrowOnSelection, showIconRightOnHover, showIconLeftOnHover],
+  );
+  const leftIconHoverStyles = useMemo(() => getHoveredStylesLeftContent({ disabled, showIconLeftOnHover }), [
+    disabled,
+    showIconLeftOnHover,
+  ]);
+
   return (
-    <HoverIcons
-      showIconRightHover={enabled && !showArrowOnSelection ? showIconRightHover : false}
-      showIconLeftHover={enabled && showIconLeftHover}
-      styles={[getItemStyles(itemSize, enabled, isActiveItem), styles]}
+    <Wrapper
+      styles={[getItemStyles(size, enabled, isActiveItem), rightIconHoverStyles, leftIconHoverStyles, styles]}
       onClick={() => onClick && enabled && onClick(code)}
     >
       {leftIcon && <Wrapper className="leftIcon">{leftIcon}</Wrapper>}
@@ -161,7 +180,7 @@ function ListItem<CODE extends string | number>({
         )}
       </Wrapper>
       {rightIcon && <Wrapper className="rightIcon">{rightIcon}</Wrapper>}
-    </HoverIcons>
+    </Wrapper>
   );
 }
 

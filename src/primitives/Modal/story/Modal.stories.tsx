@@ -36,16 +36,6 @@ const ModalTemplate: Story<ModalInterface> = (props) => {
       {() => (
         <Wrapper styles={horizontalPadding(modalHorizontalPadding)}>
           <Typography>Тут некий контент</Typography>
-          <Dropdown
-            selectedItemCode={size}
-            placeholder="тест 1"
-            items={[
-              { title: "SMALL", code: ModalSize.SMALL },
-              { title: "ADJUST_CONTENT", code: ModalSize.ADJUST_CONTENT },
-              { title: "FULL_WIDTH", code: ModalSize.FULL_WIDTH },
-            ]}
-            onChange={setSize}
-          />
           <Modal
             size={size}
             title="Модальное окно 2"

@@ -4,7 +4,11 @@ import { BaseInputWrapperInterface, InputSize } from "../Input/InputWrapper";
 
 export type DropdownItemInterface<CODE extends string | number> = ListItemInterface<CODE>;
 
-export type DropdownOptionalActionInterface = { title: string; icon?: InternalIcons; onClick: () => void };
+export type DropdownOptionalActionInterface = {
+  title: string;
+  icon?: InternalIcons;
+  onClick: (id: string | number) => void;
+};
 
 export interface DropdownContainerInterface<CODE extends string | number> {
   excludeSelected?: boolean;

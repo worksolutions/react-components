@@ -34,15 +34,15 @@ export const defaultTheme: Theme = {
       BreadcrumbsText: { color: "gray-blue/05" },
       LevelDivider: { color: "gray-blue/05" },
     },
-    DropdownHeader: {
-      text: "gray-blue/05",
+    DropdownSource: {
+      textColor: "gray-blue/05",
     },
     ListItem: {
-      selected: { backgroundColor: "gray-blue/01" },
+      Selected: { backgroundColor: "gray-blue/01" },
     },
     Popper: {
-      border: "gray-blue/01",
-      boxShadow: "gray-blue/02",
+      borderColor: "gray-blue/01",
+      boxShadowColor: "gray-blue/02",
     },
     DropdownDivider: {
       backgroundColor: "gray-blue/02",
@@ -79,6 +79,9 @@ export const defaultTheme: Theme = {
       ActiveArea: {
         backgroundColor: "gray-blue/01",
       },
+    },
+    DropdownRightIcon: {
+      color: "gray-blue/07",
     },
     Tooltip: {
       color: "gray-blue/09",

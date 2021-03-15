@@ -21,30 +21,30 @@ import {
 import { reactStylesToStylesComponent } from "../../styles/reactStylesToStylesComponent";
 import { elevation16Raw } from "../../constants/shadows";
 
-function getArrowPositionStyles(placement: any, arrowPropsStyle: any, arrowPadding: number) {
-  if (!placement) return [];
+function getArrowPositionStyles(placement: Placement, arrowPadding: number) {
+  if (!placement) return null;
 
   const paddingFromPopperEdge = arrowPadding * -1;
 
-  if (placement.startsWith("left")) return [arrowPropsStyle, right(paddingFromPopperEdge)];
+  if (placement.startsWith("left")) return right(paddingFromPopperEdge);
 
-  if (placement.startsWith("bottom")) return [arrowPropsStyle, top(paddingFromPopperEdge)];
+  if (placement.startsWith("bottom")) return top(paddingFromPopperEdge);
 
-  if (placement.startsWith("right")) return [arrowPropsStyle, left(paddingFromPopperEdge)];
+  if (placement.startsWith("right")) return left(paddingFromPopperEdge);
 
-  if (placement.startsWith("top")) return [arrowPropsStyle, bottom(paddingFromPopperEdge)];
+  if (placement.startsWith("top")) return bottom(paddingFromPopperEdge);
 
-  return arrowPropsStyle;
+  return null;
 }
 
-function getArrowStyles(placement: any) {
-  if (!placement) return [];
+function getArrowStyles(placement: Placement) {
+  if (!placement) return null;
 
-  if (placement.startsWith("top")) return [transform("rotate(180deg)")];
+  if (placement.startsWith("top")) return transform("rotate(180deg)");
 
-  if (placement.startsWith("left")) return [transform("rotate(90deg)")];
+  if (placement.startsWith("left")) return transform("rotate(90deg)");
 
-  if (placement.startsWith("right")) return [transform("rotate(-90deg)")];
+  if (placement.startsWith("right")) return transform("rotate(-90deg)");
 }
 
 const Triangle = React.memo(function () {
@@ -76,16 +76,12 @@ interface ArrowProps {
 
 function Arrow({ arrowProps, placement, arrowPadding, arrowElem }: ArrowProps) {
   const arrowPopperStyles = useCallback(() => reactStylesToStylesComponent(arrowProps.style), [arrowProps.style]);
-  const arrowStyles = useCallback(() => getArrowStyles(placement), [placement]);
 
-  const arrowPositionStyles = useMemo(() => getArrowPositionStyles(placement, arrowPopperStyles, arrowPadding), [
-    placement,
-    arrowPopperStyles,
-    arrowPadding,
-  ]);
+  const arrowStyles = useMemo(() => getArrowStyles(placement), [placement]);
+  const arrowPositionStyles = useMemo(() => getArrowPositionStyles(placement, arrowPadding), [placement, arrowPadding]);
 
   return (
-    <Wrapper ref={arrowProps.ref} data-popper-arrow styles={arrowPositionStyles}>
+    <Wrapper ref={arrowProps.ref} data-popper-arrow styles={[arrowPopperStyles, arrowPositionStyles]}>
       <Wrapper styles={arrowStyles}>{arrowElem ? arrowElem : <Triangle />}</Wrapper>
     </Wrapper>
   );

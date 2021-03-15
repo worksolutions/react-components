@@ -86,15 +86,18 @@ export interface Theme extends BaseTheme<Colors> {
         backgroundColor: Colors;
       };
     };
-    DropdownHeader: {
-      text: Colors;
+    DropdownSource: {
+      textColor: Colors;
     };
     ListItem: {
-      selected: { backgroundColor: Colors };
+      Selected: { backgroundColor: Colors };
+    };
+    DropdownRightIcon: {
+      color: Colors;
     };
     Popper: {
-      border: Colors;
-      boxShadow: Colors;
+      borderColor: Colors;
+      boxShadowColor: Colors;
     };
     DropdownDivider: {
       backgroundColor: Colors;

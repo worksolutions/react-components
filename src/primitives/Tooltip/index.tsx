@@ -1,25 +1,18 @@
 import React from "react";
-import Wrapper from "../Wrapper";
-import { color, fontSize, letterSpacing, lineHeight, padding } from "../../styles";
+
+import { padding } from "../../styles";
+import { Typography } from "../../index";
 
 export interface TooltipProps {
   children: string;
   styles: any;
 }
-function Tooltip({ children, styles }: TooltipProps) {
+
+function TooltipTextContent({ children, styles }: TooltipProps) {
   return (
-    <Wrapper
-      styles={[
-        padding("8px 12px"),
-        color("definitions.Tooltip.color"),
-        fontSize(12),
-        lineHeight(16),
-        letterSpacing(0.3),
-        styles,
-      ]}
-    >
+    <Typography type="caption-regular" styles={[padding("8px 12px"), styles]}>
       {children}
-    </Wrapper>
+    </Typography>
   );
 }
-export default React.memo(Tooltip);
+export default React.memo(TooltipTextContent);

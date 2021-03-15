@@ -1,40 +1,42 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
 
-import PopperManager from "../PopperManager";
+import PopperManager from "../PopupManager";
 import Tooltip from "./index";
 
-export interface TooltipContainerProps {
-  placement?: Placement;
-  tooltipText: string;
+export interface TooltipContainerInterface {
   tooltipStyles?: any;
-  haveArrow: boolean;
+  primaryPlacement?: Placement;
+  tooltipText: string;
+  hasArrow: boolean;
   children: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
 }
+const offsetTooltipWhenNotArrow = 14;
 
-function TooltipContainer({ haveArrow, placement, tooltipText, tooltipStyles, children }: TooltipContainerProps) {
+function TooltipContainer({
+  tooltipStyles,
+  hasArrow,
+  primaryPlacement,
+  tooltipText,
+  children,
+}: TooltipContainerInterface) {
   const [offset, setOffset] = useState<number | undefined>();
 
-  const popperElement = useCallback(() => <Tooltip styles={tooltipStyles}>{tooltipText}</Tooltip>, [
+  const tooltipElement = useMemo(() => <Tooltip styles={tooltipStyles}>{tooltipText}</Tooltip>, [
     tooltipStyles,
     tooltipText,
   ]);
 
   useEffect(() => {
-    if (haveArrow) {
-      setOffset(undefined);
-      return;
-    }
-
-    setOffset(14);
-  }, [haveArrow]);
+    hasArrow ? setOffset(undefined) : setOffset(offsetTooltipWhenNotArrow);
+  }, [hasArrow]);
 
   return (
     <PopperManager
-      haveArrow={haveArrow}
-      placement={placement}
+      hasArrow={hasArrow}
+      primaryPlacement={primaryPlacement}
       referenceElement={children}
-      popperElement={popperElement}
+      renderPopupElement={tooltipElement}
       offset={offset}
     />
   );

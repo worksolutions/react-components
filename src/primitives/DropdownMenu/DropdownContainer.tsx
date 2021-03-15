@@ -1,63 +1,61 @@
 import React, { useCallback } from "react";
 
-import DropdownReference from "./DropdownReference/DropdownReference";
-import PopperManager from "../PopperManager";
+import DropdownSource from "./DropdownSource/DropdownSource";
+import PopperManager from "../PopupManager";
 
 import { duration160, InputWrapper, InternalIcons, transform, transition } from "../../index";
 import { DropdownManagerContext } from "./DropdownManager/DropdownManagerContext";
 
-import { DropdownMenuProps } from "./DropdownMenu";
+import { DropdownMenuInterface } from "./DropdownMenu";
 import Icon from "../Icon";
 
 function DropdownContainer({
-  stylesReference,
   stylesPopper,
-  stylesTextReference,
+  stylesSource,
+  stylesTextSource,
   children,
   placement,
   iconLeft,
   size,
   placeholder,
-  outsideHandler = true,
   offset,
-  colorTextHeader,
   widthPopper,
   iconReferenceRight,
   error,
-}: DropdownMenuProps) {
+  closeOnOutsideClick = true,
+}: DropdownMenuInterface) {
   const { selectedItem } = React.useContext(DropdownManagerContext);
 
-  const popperElement = useCallback(() => children, [children]);
-
   const referenceElement = useCallback(
-    (toggleVisible: () => void, visible: boolean) => (
-      <InputWrapper
-        size={size}
-        iconLeft={iconLeft}
-        iconRight={createDropdownRightIcon(visible, iconReferenceRight)}
-        error={error}
-        renderComponent={(styles) => (
-          <DropdownReference
-            text={selectedItem ? selectedItem : placeholder}
-            styles={[styles, stylesReference]}
-            stylesTextReference={stylesTextReference}
-            colorTextHeader={colorTextHeader}
-          />
-        )}
-        onClick={toggleVisible}
-      />
-    ),
-    [size, iconLeft, stylesReference, placeholder, selectedItem],
+    (toggleVisible: () => void, visible: boolean) => {
+      return (
+        <InputWrapper
+          size={size}
+          iconLeft={iconLeft}
+          iconRight={createDropdownRightIcon(visible, iconReferenceRight)}
+          error={error}
+          renderComponent={(styles) => (
+            <DropdownSource
+              text={selectedItem || placeholder}
+              styles={[styles, stylesSource]}
+              stylesTextSource={stylesTextSource}
+            />
+          )}
+          onClick={toggleVisible}
+        />
+      );
+    },
+    [size, iconLeft, stylesSource, placeholder, selectedItem],
   );
 
   return (
     <PopperManager
-      placement={placement}
+      primaryPlacement={placement}
       offset={offset}
-      outsideHandler={outsideHandler}
+      outsideHandler={closeOnOutsideClick}
       widthPopper={widthPopper}
       popperStyles={stylesPopper}
-      popperElement={popperElement}
+      renderPopupElement={children}
       referenceElement={referenceElement}
     />
   );
@@ -70,7 +68,7 @@ export function createDropdownRightIcon(opened: boolean, icon: InternalIcons = "
     <Icon
       icon={icon}
       styles={[transition(`all ${duration160}`), transform(`rotateZ(${opened ? "180deg" : "0deg"})`)]}
-      color="gray-blue/07"
+      color="definitions.DropdownRightIcon.color"
     />
   );
 }

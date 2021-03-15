@@ -3,7 +3,7 @@ import { Story } from "@storybook/react/types-6-0";
 import { placements } from "@popperjs/core/lib/enums";
 
 import Tooltip from "../index";
-import TooltipContainer, { TooltipContainerProps } from "../TooltipContainer";
+import TooltipContainer, { TooltipContainerInterface } from "../TooltipContainer";
 import Wrapper from "../../Wrapper";
 import { BaseInput } from "../../Input/story/Input.stories";
 
@@ -18,7 +18,7 @@ export default {
   },
 };
 
-const Template: Story<TooltipContainerProps> = (props) => {
+const Template: Story<TooltipContainerInterface> = (props) => {
   return (
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
@@ -37,6 +37,6 @@ const Template: Story<TooltipContainerProps> = (props) => {
 export const Default = Template.bind({});
 
 Default.args = {
-  haveArrow: true,
+  hasArrow: true,
   tooltipText: "text",
 };

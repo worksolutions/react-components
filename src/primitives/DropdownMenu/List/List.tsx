@@ -10,7 +10,7 @@ export interface DropdownGroupProps {
 }
 
 function List({ children, styles }: DropdownGroupProps) {
-  return <Wrapper styles={[fullWidth, padding(8), styles]}>{children}</Wrapper>;
+  return <Wrapper styles={[padding(8), styles]}>{children}</Wrapper>;
 }
 
 export default React.memo(List);

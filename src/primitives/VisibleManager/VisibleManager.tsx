@@ -1,42 +1,45 @@
-import React, { useCallback, useEffect, useMemo } from "react";
-import { Manager } from "react-popper";
+import React, { useCallback, useMemo } from "react";
+import { Manager as ReactPopperManager } from "react-popper";
+import { useBoolean } from "@worksolutions/react-utils";
 
 import Wrapper from "primitives/Wrapper";
 
-import { VisibleManagerContext } from "./VisibleManagerContext";
+import { VisibilityManagerContext } from "./VisibilityManagerContext";
 import { HandleClickOutside } from "../../index";
-import { useBoolean, useForceUpdate } from "@worksolutions/react-utils";
 
 export interface VisibleManagerProps {
   outsideHandler: boolean;
-  children: (visible: boolean, toggleVisible: () => void) => React.ReactNode;
+  children: (toggleVisibility: () => void, visibility: boolean) => React.ReactNode;
 }
 
-const VisibleManager = function ({ children, outsideHandler }: VisibleManagerProps) {
-  const [visible, setVisibility, setNotVisibility] = useBoolean(false);
+function VisibleManager({ children, outsideHandler }: VisibleManagerProps) {
+  const [visibility, setVisibility, setNotVisibility] = useBoolean(false);
 
-  const toggleVisible = useCallback(() => (visible ? setNotVisibility() : setVisibility()), [visible]);
-  const close = useCallback(() => setNotVisibility(), [setVisibility]);
+  const toggleVisibility = useCallback(() => (visibility ? setNotVisibility() : setVisibility()), [visibility]);
+
   const value = useMemo(
     () => ({
-      closeHandler: close,
+      toggle: toggleVisibility,
+      show: setVisibility,
+      hide: setNotVisibility,
+      visibility,
     }),
-    [close],
+    [setNotVisibility, toggleVisibility, setNotVisibility, setVisibility],
   );
 
   return (
-    <Manager>
-      <VisibleManagerContext.Provider value={value}>
+    <ReactPopperManager>
+      <VisibilityManagerContext.Provider value={value}>
         {outsideHandler ? (
-          <HandleClickOutside onClickOutside={close}>
-            {(ref) => <Wrapper ref={ref}>{children(visible, toggleVisible)}</Wrapper>}
+          <HandleClickOutside onClickOutside={setNotVisibility}>
+            {(ref) => <Wrapper ref={ref}>{children(toggleVisibility, visibility)}</Wrapper>}
           </HandleClickOutside>
         ) : (
-          children(visible, toggleVisible)
+          children(toggleVisibility, visibility)
         )}
-      </VisibleManagerContext.Provider>
-    </Manager>
+      </VisibilityManagerContext.Provider>
+    </ReactPopperManager>
   );
-};
+}
 
 export default React.memo(VisibleManager);

@@ -5,4 +5,9 @@ export interface DropdownManagerContextInterface {
   onChange: (code: string | null) => void;
 }
 
-export const DropdownManagerContext = React.createContext({} as DropdownManagerContextInterface);
+export const DropdownManagerContext = React.createContext({
+  selectedItem: null,
+  onChange: () => {
+    throw new Error("Нет onChange провайдера в DropdownManagerContext");
+  },
+} as DropdownManagerContextInterface);

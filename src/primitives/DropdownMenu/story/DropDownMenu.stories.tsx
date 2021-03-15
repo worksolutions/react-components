@@ -8,25 +8,29 @@ import {
   backgroundColor,
   border,
   borderRadius,
+  color,
   disableOutline,
   emptyBoxShadow,
   flex,
   fontWeight,
   hover,
   ListItemSize,
+  marginRight,
   padding,
+  top,
+  width,
   Wrapper,
 } from "../../../index";
-import DropdownMenu, { DropdownMenuProps } from "../DropdownMenu";
+
+import DropdownMenu, { DropdownMenuInterface } from "../DropdownMenu";
 import { internalIcons } from "../../Icon/list";
 import DropdownItem from "../DropdownItem/DropdownItem";
 import { InputSize } from "../../Input/InputWrapper";
-import DropdownDivider from "../DropdownDivider";
+import DropdownDivider from "../ListItemsDivider";
 import List from "../List/List";
 
-import { marginRight, top, width } from "styles";
-import { colorControl, numbersControl, selectControl } from "storybook/storyHelpers";
 import AvatarComponent from "../../Avatar";
+import { colorControl, numbersControl, selectControl } from "../../../storybook/storyHelpers";
 
 export default {
   title: "DropdownMenu/DropdownMenu",
@@ -41,17 +45,17 @@ export default {
   },
 };
 
-interface StoryDropDownProp {
+interface StoryDropdownProps {
   itemSize: ListItemSize;
   widthTargetElem: number;
   isHover: boolean;
 }
 
-const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
+const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
   return (
     <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
       <Wrapper styles={[marginRight(50)]}>
-        <DropdownMenu {...props} stylesReference={[width(props.widthTargetElem)]}>
+        <DropdownMenu {...props} stylesSource={[width(props.widthTargetElem)]}>
           <List>
             <DropdownItem
               itemSize={props.itemSize}
@@ -86,8 +90,8 @@ const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
               subTitle="Еще один тайтл • email@worksolutions.ru"
               leftContent="user"
               itemSize={props.itemSize}
-              showIconRightHover
-              showIconLeftHover
+              showIconRightOnHover
+              showIconLeftOnHover
               showArrowOnSelection={false}
               rightContent={
                 <Wrapper
@@ -129,9 +133,8 @@ const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
       <DropdownMenu
         {...props}
         placeholder="Без периода"
-        stylesReference={[backgroundColor("blue/01"), emptyBoxShadow, disableOutline]}
-        colorTextHeader="gray-blue/08"
-        stylesTextReference={[fontWeight(600)]}
+        stylesSource={[backgroundColor("blue/01"), emptyBoxShadow, disableOutline]}
+        stylesTextSource={[fontWeight(600), color("gray-blue/08")]}
         stylesPopper={[border(1, "red/04"), backgroundColor("blue/01")]}
         size={InputSize.SMALL}
       >

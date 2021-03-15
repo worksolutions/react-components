@@ -1,9 +1,9 @@
 export function convertPercentageStringToNumber(percentageString: string) {
   if (!percentageString.endsWith("%")) return 1;
 
-  const number = parseInt(percentageString, 10);
+  const number = parseFloat(percentageString);
 
-  if (Boolean(number)) return number / 100;
+  if (isNaN(number)) return number / 100;
 
   return 1;
 }

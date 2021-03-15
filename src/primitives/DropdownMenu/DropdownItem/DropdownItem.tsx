@@ -4,7 +4,7 @@ import { InputIconProp, ListItemSize } from "../../../index";
 import ListItem from "../../List/ListItem";
 import { useShowedRightIcon } from "./useShowedRightIcon";
 
-import { VisibleManagerContext } from "../../VisibleManager/VisibleManagerContext";
+import { VisibilityManagerContext } from "../../VisibleManager/VisibilityManagerContext";
 import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
 
 export interface DropdownItemProps {
@@ -16,14 +16,14 @@ export interface DropdownItemProps {
   titleStyles?: any;
   titleDots?: boolean;
   styles?: any;
-  leftContent?: InputIconProp | React.ReactNode;
-  rightContent?: InputIconProp | React.ReactNode;
+  leftContent?: InputIconProp;
+  rightContent?: InputIconProp;
   heading?: string | number;
   subTitle?: string;
   code: string;
   showArrowOnSelection?: boolean;
-  showIconRightHover?: boolean;
-  showIconLeftHover?: boolean;
+  showIconRightOnHover?: boolean;
+  showIconLeftOnHover?: boolean;
   canSelect?: boolean;
 }
 
@@ -40,13 +40,13 @@ function DropdownItem({
   rightContent,
   subTitle,
   code,
-  showIconRightHover,
-  showIconLeftHover,
+  showIconRightOnHover,
+  showIconLeftOnHover,
   itemSize = ListItemSize.SMALL,
   showArrowOnSelection = true,
   canSelect = true,
 }: DropdownItemProps) {
-  const { closeHandler } = React.useContext(VisibleManagerContext);
+  const { hide } = React.useContext(VisibilityManagerContext);
   const { selectedItem, onChange } = React.useContext(DropdownManagerContext);
 
   const isSelected = () => {
@@ -63,13 +63,13 @@ function DropdownItem({
     if (!canSelect) return;
 
     if (!onChange || disabled) {
-      closeHandler();
+      hide();
       return;
     }
 
     onChange(code);
-    closeHandler();
-  }, [onChange, closeHandler, code, disabled]);
+    hide();
+  }, [onChange, hide, code, disabled]);
 
   const itemProps = useMemo(
     () => ({
@@ -100,16 +100,20 @@ function DropdownItem({
 
   return (
     <ListItem
-      itemSize={itemSize}
+      rightContent={resultRightContent.current}
+      code={code}
+      disabled={disabled}
+      size={itemSize}
       isActiveItem={selected}
       titleDots={titleDots}
       titleStyles={titleStyles}
       styles={styles}
       item={itemProps}
-      showIconRightHover={showIconRightHover}
-      showIconLeftHover={showIconLeftHover}
+      showIconRightOnHover={showIconRightOnHover}
+      showIconLeftOnHover={showIconLeftOnHover}
       showArrowOnSelection={showArrowOnSelection}
       onClick={handleOnClick}
+      title={children}
     />
   );
 }

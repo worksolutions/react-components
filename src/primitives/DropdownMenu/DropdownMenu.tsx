@@ -6,26 +6,24 @@ import DropdownContainer from "./DropdownContainer";
 import { InternalIcons } from "../Icon";
 import { InputSize } from "../Input/InputWrapper";
 import DropdownManager from "./DropdownManager/DropdownManager";
-import { Colors } from "../../constants/colors";
 
-export interface DropdownMenuProps {
+export interface DropdownMenuInterface {
   stylesPopper?: any;
-  stylesReference?: any;
-  stylesTextReference: any;
-  placeholder?: string;
+  stylesSource?: any;
+  stylesTextSource?: any;
+  placeholder: string;
   size?: InputSize;
   iconLeft?: InternalIcons;
   children: React.ReactNode;
   placement: Placement;
-  outsideHandler?: boolean;
+  closeOnOutsideClick?: boolean;
   offset?: number;
-  colorTextHeader?: Colors;
   widthPopper?: number | string | "auto";
   iconReferenceRight?: InternalIcons;
   error: boolean;
 }
 
-function DropdownMenu(props: DropdownMenuProps) {
+function DropdownMenu(props: DropdownMenuInterface) {
   return (
     <DropdownManager>
       <DropdownContainer {...props} size={props.size ? props.size : InputSize.MEDIUM} />

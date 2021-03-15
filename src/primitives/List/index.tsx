@@ -45,7 +45,7 @@ function List({
         items.map((item) => (
           <ListItem
             key={item.code}
-            itemSize={itemSize}
+            size={itemSize}
             titleDots={titleDots}
             titleStyles={titleStyles}
             styles={itemStyles}
