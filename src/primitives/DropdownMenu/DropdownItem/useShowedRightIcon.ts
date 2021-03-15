@@ -2,22 +2,36 @@ import React, { useRef } from "react";
 
 import { InputIconProp } from "../../Input/InputWrapper";
 
-export function useShowedRightIcon(
-  selected: boolean,
-  rightContent: InputIconProp | React.ReactNode,
-  showArrowOnSelection?: boolean,
-): any {
-  const resultRightContent = useRef<InputIconProp | React.ReactNode | undefined>(undefined);
+interface HookShowedRightIconInterface {
+  selected: boolean;
+  rightContent: InputIconProp | React.ReactNode;
+  showArrowOnSelection?: boolean;
+  canSelect: boolean;
+}
 
-  if (showArrowOnSelection) {
-    if (selected) resultRightContent.current = "check";
-    return resultRightContent;
-  }
+type ResultRightContentType = InputIconProp | React.ReactNode | undefined;
+export function useShowedRightIcon({
+  selected,
+  rightContent,
+  showArrowOnSelection,
+  canSelect,
+}: HookShowedRightIconInterface): any {
+  const resultRightContent = useRef<ResultRightContentType>(undefined);
 
-  if (rightContent) {
+  const setAndReturnRightContent = (rightContent: ResultRightContentType) => {
     resultRightContent.current = rightContent;
     return resultRightContent;
+  };
+
+  if (!canSelect) return setAndReturnRightContent(undefined);
+
+  if (showArrowOnSelection) {
+    if (selected) return setAndReturnRightContent("check");
+
+    return setAndReturnRightContent(undefined);
   }
 
-  return resultRightContent;
+  if (rightContent) return setAndReturnRightContent(rightContent);
+
+  return setAndReturnRightContent(undefined);
 }

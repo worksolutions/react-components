@@ -9,18 +9,18 @@ import DropdownManager from "./DropdownManager/DropdownManager";
 import { Colors } from "../../constants/colors";
 
 export interface DropdownMenuProps {
-  placeholder?: string;
+  stylesPopper?: any;
   stylesReference?: any;
+  stylesTextReference: any;
+  placeholder?: string;
   size?: InputSize;
   iconLeft?: InternalIcons;
   children: React.ReactNode;
   placement: Placement;
   outsideHandler?: boolean;
-  stylesPopper?: any;
   offset?: number;
   colorTextHeader?: Colors;
   widthPopper?: number | string | "auto";
-  textReferenceStyles: any;
   iconReferenceRight?: InternalIcons;
   error: boolean;
 }

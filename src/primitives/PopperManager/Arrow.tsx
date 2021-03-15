@@ -49,7 +49,7 @@ function getArrowStyles(placement: any) {
 
 const Triangle = React.memo(function () {
   return (
-    <Wrapper styles={[position("absolute"), width(36), height(17), overflow("hidden"), left(-22), top(-7)]}>
+    <Wrapper styles={[position("absolute"), width(24), height(17), overflow("hidden"), left(-12), top(-7)]}>
       <Wrapper
         styles={[
           position("absolute"),
@@ -59,7 +59,7 @@ const Triangle = React.memo(function () {
           boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Popper.boxShadow"]),
           width(20),
           height(20),
-          left(12),
+          left(2),
           top(12),
         ]}
       />

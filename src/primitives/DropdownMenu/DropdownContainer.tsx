@@ -10,10 +10,11 @@ import { DropdownMenuProps } from "./DropdownMenu";
 import Icon from "../Icon";
 
 function DropdownContainer({
-  children,
-  placement,
   stylesReference,
   stylesPopper,
+  stylesTextReference,
+  children,
+  placement,
   iconLeft,
   size,
   placeholder,
@@ -21,7 +22,6 @@ function DropdownContainer({
   offset,
   colorTextHeader,
   widthPopper,
-  textReferenceStyles,
   iconReferenceRight,
   error,
 }: DropdownMenuProps) {
@@ -40,7 +40,7 @@ function DropdownContainer({
           <DropdownReference
             text={selectedItem ? selectedItem : placeholder}
             styles={[styles, stylesReference]}
-            textReferenceStyles={textReferenceStyles}
+            stylesTextReference={stylesTextReference}
             colorTextHeader={colorTextHeader}
           />
         )}

@@ -8,6 +8,8 @@ import { VisibleManagerContext } from "../../VisibleManager/VisibleManagerContex
 import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
 
 export interface DropdownItemProps {
+  leftContentStyles?: any;
+  rightContentStyles?: any;
   children: string;
   disabled?: boolean;
   itemSize?: ListItemSize;
@@ -19,8 +21,6 @@ export interface DropdownItemProps {
   heading?: string | number;
   subTitle?: string;
   code: string;
-  leftContentStyles?: any;
-  rightContentStyles?: any;
   showArrowOnSelection?: boolean;
   showIconRightHover?: boolean;
   showIconLeftHover?: boolean;
@@ -28,8 +28,9 @@ export interface DropdownItemProps {
 }
 
 function DropdownItem({
+  leftContentStyles,
+  rightContentStyles,
   disabled,
-  itemSize = ListItemSize.SMALL,
   titleDots,
   titleStyles,
   styles,
@@ -38,42 +39,44 @@ function DropdownItem({
   heading,
   rightContent,
   subTitle,
-  leftContentStyles,
-  rightContentStyles,
   code,
   showIconRightHover,
   showIconLeftHover,
+  itemSize = ListItemSize.SMALL,
   showArrowOnSelection = true,
   canSelect = true,
 }: DropdownItemProps) {
   const { closeHandler } = React.useContext(VisibleManagerContext);
   const { selectedItem, onChange } = React.useContext(DropdownManagerContext);
 
-  const selected = Boolean(selectedItem) && selectedItem === code;
+  const isSelected = () => {
+    if (disabled) return false;
+    if (!canSelect) return false;
+    return Boolean(selectedItem) && selectedItem === code;
+  };
 
-  const resultRightContent = useShowedRightIcon(selected, rightContent, showArrowOnSelection);
+  const selected = useMemo(isSelected, [selectedItem, code, canSelect, disabled]);
 
-  const handleOnClick = useCallback(
-    (code) => {
-      if (!canSelect) return;
+  const resultRightContent = useShowedRightIcon({ selected, rightContent, showArrowOnSelection, canSelect });
 
-      if (!onChange || disabled) {
-        closeHandler();
-        return;
-      }
+  const handleOnClick = useCallback(() => {
+    if (!canSelect) return;
 
-      onChange(code);
+    if (!onChange || disabled) {
       closeHandler();
-    },
-    [onChange, closeHandler, code, disabled],
-  );
+      return;
+    }
+
+    onChange(code);
+    closeHandler();
+  }, [onChange, closeHandler, code, disabled]);
 
   const itemProps = useMemo(
     () => ({
-      rightContent: resultRightContent.current,
       rightContentStyles,
-      leftContent,
       leftContentStyles,
+      rightContent: resultRightContent.current,
+      leftContent,
       title: children,
       code,
       disabled,
@@ -81,11 +84,11 @@ function DropdownItem({
       subTitle,
     }),
     [
+      rightContentStyles,
+      leftContentStyles,
       children,
       leftContent,
-      leftContentStyles,
       rightContent,
-      rightContentStyles,
       code,
       heading,
       subTitle,

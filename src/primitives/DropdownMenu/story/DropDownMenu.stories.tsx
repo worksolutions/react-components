@@ -52,7 +52,7 @@ const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
     <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
       <Wrapper styles={[marginRight(50)]}>
         <DropdownMenu {...props} stylesReference={[width(props.widthTargetElem)]}>
-          <List isHoveredItems={props.isHover}>
+          <List>
             <DropdownItem
               itemSize={props.itemSize}
               code="ValueByDefault"
@@ -131,10 +131,11 @@ const Template: Story<DropdownMenuProps & StoryDropDownProp> = (props: any) => {
         placeholder="Без периода"
         stylesReference={[backgroundColor("blue/01"), emptyBoxShadow, disableOutline]}
         colorTextHeader="gray-blue/08"
-        textReferenceStyles={[fontWeight(600)]}
+        stylesTextReference={[fontWeight(600)]}
         stylesPopper={[border(1, "red/04"), backgroundColor("blue/01")]}
+        size={InputSize.SMALL}
       >
-        <List isHoveredItems={props.isHover}>
+        <List>
           <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
             ValueByDefault
           </DropdownItem>

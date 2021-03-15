@@ -77,10 +77,7 @@ export function getItemStyles(itemSize: ListItemSize, enabled: boolean, isActive
           focus(boxShadow([0, 0, 0, 2, "definitions.Button.focus.color"])),
         ]
       : [opacity(0.3)],
-    isActiveItem && [
-      backgroundColor("definitions.ListItem.selected.backgroundColor"),
-      boxShadow([0, 0, 1, 0, createAlphaColor("black", 81)]),
-    ],
+    isActiveItem && [backgroundColor("definitions.ListItem.selected.backgroundColor")],
   ];
 }
 
@@ -105,9 +102,11 @@ function makeIcon(icon?: InputIconProp | React.ReactNode, styles?: any) {
 
 const HoverIcons = styled(Wrapper)`
   .rightIcon {
+    transition: 100ms;
     opacity: ${({ showIconRightHover }) => (showIconRightHover ? 0 : 1)};
   }
   .leftIcon {
+    transition: 100ms;
     opacity: ${({ showIconLeftHover }) => (showIconLeftHover ? 0 : 1)};
   }
 

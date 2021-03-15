@@ -7,17 +7,17 @@ import { ai, color, flex, flexValue, pointer, textAlign } from "../../../styles"
 import { Colors } from "../../../constants/colors";
 
 export interface DropdownHeaderProps {
+  stylesTextReference: any;
   styles?: any;
   text?: string;
   colorTextHeader?: Colors;
-  textReferenceStyles: any;
 }
 
 function DropdownReference({
   styles,
+  stylesTextReference,
   text,
   colorTextHeader = "gray-blue/05",
-  textReferenceStyles,
 }: DropdownHeaderProps) {
   return (
     <Wrapper
@@ -25,7 +25,7 @@ function DropdownReference({
       styles={[flexValue(1), textAlign("left"), color("definitions.DropdownReference.text"), pointer, styles]}
     >
       <Wrapper styles={[flex, ai("center")]}>
-        <Typography dots color={colorTextHeader} styles={textReferenceStyles}>
+        <Typography dots color={colorTextHeader} styles={stylesTextReference}>
           {text}
         </Typography>
       </Wrapper>
