@@ -56,7 +56,7 @@ function DropdownContainer({
       widthPopper={widthPopper}
       popperStyles={stylesPopper}
       renderPopupElement={children}
-      referenceElement={referenceElement}
+      renderMainElement={referenceElement}
     />
   );
 }

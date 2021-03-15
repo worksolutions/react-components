@@ -5,8 +5,9 @@ import { provideRef } from "@worksolutions/react-utils";
 
 import { paddingRight, pointer } from "../../styles";
 
-import DropdownContainer, { createDropdownRightIcon } from "../Dropdown/DropdownContainer";
 import TokenList from "../TokenList";
+import { createDropdownRightIcon } from "../Dropdown";
+import DropdownContainer from "primitives/Dropdown/DropdownContainer";
 import { InputSize } from "../Input/Input";
 
 import { ComboboxInterface } from "./types";

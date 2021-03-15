@@ -52,14 +52,14 @@ function DropdownItem({
   const isSelected = () => {
     if (disabled) return false;
     if (!canSelect) return false;
-    return Boolean(selectedItem) && selectedItem === code;
+    return selectedItem ? selectedItem === code : false;
   };
 
   const selected = useMemo(isSelected, [selectedItem, code, canSelect, disabled]);
 
   const resultRightContent = useShowedRightIcon({ selected, rightContent, showArrowOnSelection });
 
-  const handleOnClick = useCallback(() => {
+  const handleClick = useCallback(() => {
     if (!canSelect) return;
 
     if (!onChange || disabled) {
@@ -75,7 +75,7 @@ function DropdownItem({
     () => ({
       rightContentStyles,
       leftContentStyles,
-      rightContent: resultRightContent.current,
+      rightContent: resultRightContent,
       leftContent,
       title: children,
       code,
@@ -89,7 +89,7 @@ function DropdownItem({
       children,
       leftContent,
       rightContent,
-      resultRightContent.current,
+      resultRightContent,
       code,
       heading,
       subTitle,
@@ -100,7 +100,7 @@ function DropdownItem({
 
   return (
     <ListItem
-      rightContent={resultRightContent.current}
+      rightContent={resultRightContent}
       code={code}
       disabled={disabled}
       size={itemSize}
@@ -112,7 +112,7 @@ function DropdownItem({
       showIconRightOnHover={showIconRightOnHover}
       showIconLeftOnHover={showIconLeftOnHover}
       showArrowOnSelection={showArrowOnSelection}
-      onClick={handleOnClick}
+      onClick={handleClick}
       title={children}
     />
   );

@@ -2,7 +2,7 @@ import React from "react";
 
 import Wrapper from "../../Wrapper";
 
-import { fullWidth, padding } from "../../../styles";
+import { padding } from "../../../styles";
 
 export interface DropdownGroupProps {
   children: React.ReactNode[] | React.ReactNode;

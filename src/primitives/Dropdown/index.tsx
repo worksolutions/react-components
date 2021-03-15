@@ -9,7 +9,7 @@ import { InputSize } from "../Input/Input";
 import InputWrapper from "../Input/InputWrapper";
 
 import { DropdownInterface } from "./types";
-import DropdownContainer, { createDropdownRightIcon } from "./DropdownContainer";
+import { createDropdownRightIcon, DropdownContainer } from "../../index";
 
 const Dropdown = function (
   {

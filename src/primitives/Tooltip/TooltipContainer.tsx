@@ -35,7 +35,7 @@ function TooltipContainer({
     <PopperManager
       hasArrow={hasArrow}
       primaryPlacement={primaryPlacement}
-      referenceElement={children}
+      renderMainElement={children}
       renderPopupElement={tooltipElement}
       offset={offset}
     />

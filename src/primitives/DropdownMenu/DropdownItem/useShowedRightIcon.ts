@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useEffect, useState } from "react";
 
 import { InputIconProp } from "../../Input/InputWrapper";
 
@@ -9,25 +9,27 @@ interface HookShowedRightIconInterface {
 }
 
 type ResultRightContentType = InputIconProp | undefined;
+
 export function useShowedRightIcon({
   selected,
   rightContent,
   showArrowOnSelection,
 }: HookShowedRightIconInterface): any {
-  const resultRightContent = useRef<ResultRightContentType>();
+  const [resultRightContent, setResultRightContent] = useState<ResultRightContentType>();
 
-  const setAndReturnRightContent = (rightContent: ResultRightContentType) => {
-    resultRightContent.current = rightContent;
-    return resultRightContent;
-  };
+  useEffect(() => {
+    if (showArrowOnSelection) {
+      if (selected) setResultRightContent("check");
+      return;
+    }
 
-  if (showArrowOnSelection) {
-    if (selected) return setAndReturnRightContent("check");
+    if (rightContent) {
+      setResultRightContent(rightContent);
+      return;
+    }
 
-    return setAndReturnRightContent(undefined);
-  }
+    setResultRightContent(undefined);
+  }, [resultRightContent, showArrowOnSelection, selected, rightContent, setResultRightContent]);
 
-  if (rightContent) return setAndReturnRightContent(rightContent);
-
-  return setAndReturnRightContent(undefined);
+  return resultRightContent;
 }

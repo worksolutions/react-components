@@ -24,7 +24,7 @@ interface PopperManagerProps {
   hasArrow?: boolean;
   widthPopper?: number | string | "auto";
   renderPopupElement: React.ReactNode;
-  referenceElement: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
+  renderMainElement: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
 }
 
 const defaultOffset: number = 4;
@@ -57,7 +57,7 @@ function PopupManager({
   arrowPadding,
   arrowElem,
   hasArrow,
-  referenceElement,
+  renderMainElement,
   renderPopupElement,
   widthPopper,
 }: PopperManagerProps) {
@@ -75,7 +75,7 @@ function PopupManager({
         <>
           <ReactPopperReference>
             {({ ref }) => (
-              <Wrapper ref={provideRef(ref, setReferenceNode)}>{referenceElement(toggleVisibility, visible)}</Wrapper>
+              <Wrapper ref={provideRef(ref, setReferenceNode)}>{renderMainElement(toggleVisibility, visible)}</Wrapper>
             )}
           </ReactPopperReference>
           {visible && (
