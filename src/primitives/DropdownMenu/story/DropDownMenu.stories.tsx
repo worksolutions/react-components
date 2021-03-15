@@ -9,8 +9,6 @@ import {
   border,
   borderRadius,
   color,
-  DatePicker,
-  DatePickerMode,
   disableOutline,
   emptyBoxShadow,
   flex,
@@ -32,7 +30,7 @@ import DropdownDivider from "../ListItemsDivider";
 import List from "../List/List";
 
 import AvatarComponent from "../../Avatar";
-import { colorControl, numbersControl, selectControl } from "../../../storybook/storyHelpers";
+import { numbersControl, selectControl } from "../../../storybook/storyHelpers";
 import { BaseInput } from "../../Input/story/Input.stories";
 import TooltipContainer from "../../Tooltip/TooltipContainer";
 import Combobox from "../../Combobox";
@@ -59,7 +57,7 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
   return (
     <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
       <Wrapper styles={[marginRight(50)]}>
-        <DropdownMenu {...props} stylesSource={[width(props.widthTargetElem)]} widthPopper={"140%"}>
+        <DropdownMenu {...props} stylesSource={[width(props.widthTargetElem)]} widthPopper="140%">
           <List>
             <DropdownItem
               itemSize={props.itemSize}
@@ -176,7 +174,6 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
           >
             DropdownItemElement1
           </DropdownItem>
-          <DatePicker mode={DatePickerMode.DATE} hasCurrentDayButton onChange={() => {}} />
           <DropdownItem code="DropdownItemElement2" subTitle="Еще один тайтл" itemSize={props.itemSize}>
             DropdownItemElement2
           </DropdownItem>

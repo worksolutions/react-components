@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Placement } from "@popperjs/core/lib/enums";
 
 import DropdownContainer from "./DropdownContainer";

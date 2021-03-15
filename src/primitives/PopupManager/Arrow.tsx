@@ -24,15 +24,12 @@ import { elevation16Raw } from "../../constants/shadows";
 function getArrowPositionStyles(placement: Placement, arrowPadding: number) {
   if (!placement) return null;
 
-  const paddingFromPopperEdge = arrowPadding * -1;
+  const invertedArrowPadding = arrowPadding * -1;
 
-  if (placement.startsWith("left")) return right(paddingFromPopperEdge);
-
-  if (placement.startsWith("bottom")) return top(paddingFromPopperEdge);
-
-  if (placement.startsWith("right")) return left(paddingFromPopperEdge);
-
-  if (placement.startsWith("top")) return bottom(paddingFromPopperEdge);
+  if (placement.startsWith("left")) return right(invertedArrowPadding);
+  if (placement.startsWith("bottom")) return top(invertedArrowPadding);
+  if (placement.startsWith("right")) return left(invertedArrowPadding);
+  if (placement.startsWith("top")) return bottom(invertedArrowPadding);
 
   return null;
 }
@@ -41,10 +38,10 @@ function getArrowStyles(placement: Placement) {
   if (!placement) return null;
 
   if (placement.startsWith("top")) return transform("rotate(180deg)");
-
   if (placement.startsWith("left")) return transform("rotate(90deg)");
-
   if (placement.startsWith("right")) return transform("rotate(-90deg)");
+
+  return null;
 }
 
 const Triangle = React.memo(function () {
@@ -67,14 +64,13 @@ const Triangle = React.memo(function () {
   );
 });
 
-interface ArrowProps {
+interface PopupArrowInterface {
   arrowProps: PopperArrowProps;
   placement: Placement;
   arrowPadding: number;
-  arrowElem: React.ReactNode;
 }
 
-function Arrow({ arrowProps, placement, arrowPadding, arrowElem }: ArrowProps) {
+function Arrow({ arrowProps, placement, arrowPadding }: PopupArrowInterface) {
   const arrowPopperStyles = useCallback(() => reactStylesToStylesComponent(arrowProps.style), [arrowProps.style]);
 
   const arrowStyles = useMemo(() => getArrowStyles(placement), [placement]);
@@ -82,7 +78,9 @@ function Arrow({ arrowProps, placement, arrowPadding, arrowElem }: ArrowProps) {
 
   return (
     <Wrapper ref={arrowProps.ref} data-popper-arrow styles={[arrowPopperStyles, arrowPositionStyles]}>
-      <Wrapper styles={arrowStyles}>{arrowElem ? arrowElem : <Triangle />}</Wrapper>
+      <Wrapper styles={arrowStyles}>
+        <Triangle />
+      </Wrapper>
     </Wrapper>
   );
 }

@@ -26,7 +26,7 @@ function DropdownContainer({
 }: DropdownMenuInterface) {
   const { selectedItem } = React.useContext(DropdownManagerContext);
 
-  const referenceElement = useCallback(
+  const popupMainElement = useCallback(
     (toggleVisible: () => void, visible: boolean) => {
       return (
         <InputWrapper
@@ -45,18 +45,18 @@ function DropdownContainer({
         />
       );
     },
-    [size, iconLeft, stylesSource, placeholder, selectedItem],
+    [size, iconLeft, iconReferenceRight, error, selectedItem, placeholder, stylesSource, stylesTextSource],
   );
 
   return (
     <PopperManager
       primaryPlacement={primaryPlacement}
       offset={offset}
-      outsideHandler={closeOnOutsideClick}
-      widthPopper={widthPopper}
+      closeOnClickOutside={closeOnOutsideClick}
+      popupWidth={widthPopper}
       popperStyles={stylesPopper}
-      renderPopupElement={children}
-      renderMainElement={referenceElement}
+      popupElement={children}
+      renderMainElement={popupMainElement}
     />
   );
 }
