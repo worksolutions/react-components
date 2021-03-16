@@ -4,13 +4,13 @@ import Wrapper from "../../Wrapper";
 
 import { ai, color, flex, flexValue, lineHeight, pointer, textAlign, textDots } from "../../../styles";
 
-export interface DropdownSourceProps {
+export interface DropdownSourceInterface {
   stylesTextSource: any;
   styles?: any;
   text: string;
 }
 
-function DropdownSource({ styles, stylesTextSource, text }: DropdownSourceProps) {
+function DropdownSource({ styles, stylesTextSource, text }: DropdownSourceInterface) {
   return (
     <Wrapper
       as="button"

@@ -7,7 +7,7 @@ import { useSetRightIcon } from "./useSetRightIcon";
 import { VisibilityManagerContext } from "../../VisibleManager/VisibilityManagerContext";
 import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
 
-export interface DropdownItemProps {
+export interface DropdownItemInterface {
   leftContentStyles?: any;
   rightContentStyles?: any;
   children: string;
@@ -45,7 +45,7 @@ function DropdownItem({
   itemSize = ListItemSize.SMALL,
   showArrowOnSelection = true,
   canSelect = true,
-}: DropdownItemProps) {
+}: DropdownItemInterface) {
   const { hide } = React.useContext(VisibilityManagerContext);
   const { selectedItem, onChange } = React.useContext(DropdownManagerContext);
 
@@ -69,7 +69,7 @@ function DropdownItem({
 
     onChange(code);
     hide();
-  }, [onChange, hide, code, disabled]);
+  }, [canSelect, onChange, disabled, code, hide]);
 
   const itemProps = useMemo(
     () => ({
@@ -94,7 +94,6 @@ function DropdownItem({
       heading,
       subTitle,
       disabled,
-      showArrowOnSelection,
     ],
   );
 

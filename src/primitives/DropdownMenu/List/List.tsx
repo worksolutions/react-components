@@ -4,12 +4,12 @@ import Wrapper from "../../Wrapper";
 
 import { padding } from "../../../styles";
 
-export interface DropdownGroupProps {
+export interface DropdownGroupInterface {
   children: React.ReactNode[] | React.ReactNode;
   styles?: any;
 }
 
-function List({ children, styles }: DropdownGroupProps) {
+function List({ children, styles }: DropdownGroupInterface) {
   return <Wrapper styles={[padding(8), styles]}>{children}</Wrapper>;
 }
 
