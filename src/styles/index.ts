@@ -6,6 +6,7 @@ const styles = buildStyles<Colors>();
 
 export const getColor = styles.getColor;
 export const backgroundColor = styles.backgroundColor;
+export const backgroundColorWithoutMemoization = styles.backgroundColorWithoutMemoization;
 export const border = styles.border;
 export const borderBottom = styles.borderBottom;
 export const borderColor = styles.borderColor;
