@@ -24,8 +24,8 @@ const Template: Story<TooltipContainerInterface> = (props) => {
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
       <TooltipContainer {...props}>
-        {(toggleVisibility) => (
-          <Wrapper onClick={toggleVisibility}>
+        {({ toggle }) => (
+          <Wrapper onClick={toggle}>
             <BaseInput value="baseValue" onChange={() => {}} />
           </Wrapper>
         )}

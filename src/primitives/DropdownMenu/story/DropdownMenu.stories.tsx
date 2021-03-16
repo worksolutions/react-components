@@ -162,8 +162,8 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
             ValueByDefault
           </DropdownItem>
           <TooltipContainer tooltipText="text" primaryPlacement="right">
-            {(toggleVisibility) => (
-              <Wrapper onClick={toggleVisibility}>
+            {({ toggle }) => (
+              <Wrapper onClick={toggle}>
                 <Input value="baseValue" onChange={() => {}} />
               </Wrapper>
             )}

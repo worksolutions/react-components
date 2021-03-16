@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { Reference as MainElement } from "react-popper";
+import { Manager as ReactPopperManager, Reference as MainElement } from "react-popper";
+
 import { provideRef } from "@worksolutions/react-utils";
 import { isNumber, isString } from "@worksolutions/utils";
 import { StrictModifiers } from "@popperjs/core";
@@ -7,7 +8,7 @@ import { Placement } from "@popperjs/core/lib/enums";
 
 import Wrapper from "../Wrapper";
 import PopperElement from "./PopperElement";
-import VisibilityManager from "../VisibilityManager";
+import VisibilityManager, { VisibilityManagerChildrenInterface } from "../VisibilityManager";
 
 import { display, width } from "../../styles";
 import { convertPercentageStringToNumber } from "../../utils/convertPercentageStringToNumber";
@@ -22,7 +23,7 @@ export interface PopperManagerInterface {
   hasArrow?: boolean;
   popupWidth?: number | string | "auto";
   popperElement: React.ReactNode;
-  renderMainElement: (toggleVisibility: () => void, visibility: boolean) => React.ReactNode;
+  renderMainElement: ({ visibility, show, hide, toggle }: VisibilityManagerChildrenInterface) => React.ReactNode;
 }
 
 const defaultOffsets = {
@@ -69,32 +70,34 @@ function PopupManager({
   ]);
 
   return (
-    <VisibilityManager onClickOutside={closeOnClickOutside}>
-      {(toggleVisibility: () => void, visibility: boolean) => (
-        <>
-          <MainElement>
-            {({ ref }) => (
-              <Wrapper ref={provideRef(ref, setMainWrapperRef)}>
-                {renderMainElement(toggleVisibility, visibility)}
-              </Wrapper>
-            )}
-          </MainElement>
-          <Wrapper styles={display(visibility ? "" : "none")}>
-            <PopperElement
-              primaryPlacement={primaryPlacement}
-              modifiers={popupModifiers}
-              styles={[popperStyles, popperWidthStyles]}
-              offset={offsetValue}
-              arrowPadding={arrowPadding || defaultArrowPadding}
-              hasArrow={hasArrow}
-              mainWrapperElement={mainWrapperRef}
-            >
-              {popperElement}
-            </PopperElement>
-          </Wrapper>
-        </>
-      )}
-    </VisibilityManager>
+    <ReactPopperManager>
+      <VisibilityManager onClickOutside={closeOnClickOutside}>
+        {({ visibility, toggle, hide, show }) => (
+          <>
+            <MainElement>
+              {({ ref }) => (
+                <Wrapper ref={provideRef(ref, setMainWrapperRef)}>
+                  {renderMainElement({ toggle, visibility, hide, show })}
+                </Wrapper>
+              )}
+            </MainElement>
+            <Wrapper styles={display(visibility ? "" : "none")}>
+              <PopperElement
+                primaryPlacement={primaryPlacement}
+                modifiers={popupModifiers}
+                styles={[popperStyles, popperWidthStyles]}
+                offset={offsetValue}
+                arrowPadding={arrowPadding || defaultArrowPadding}
+                hasArrow={hasArrow}
+                mainWrapperElement={mainWrapperRef}
+              >
+                {popperElement}
+              </PopperElement>
+            </Wrapper>
+          </>
+        )}
+      </VisibilityManager>
+    </ReactPopperManager>
   );
 }
 

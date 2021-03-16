@@ -1,9 +1,11 @@
-import React, { forwardRef, Ref, useEffect } from "react";
+import React, { forwardRef, Ref, useContext, useEffect } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
 import { PopperArrowProps } from "react-popper";
 
 import Wrapper from "../../Wrapper";
 import Arrow from "../Arrow";
+
+import { VisibilityManagerContext } from "../../VisibilityManager/VisibilityManagerContext";
 
 interface PopperChildrenProps {
   styles?: any;
@@ -31,8 +33,10 @@ const PopperChildrenWrapper = forwardRef(function (
   }: PopperChildrenProps,
   ref: Ref<HTMLElement>,
 ) {
-  useEffect(update, [update, hasArrow]);
+  const { visibility } = useContext(VisibilityManagerContext);
 
+  useEffect(update, [update, visibility]);
+  useEffect(update, [update, hasArrow]);
   useEffect(() => {
     if (!mainWrapperElement) return () => {};
 

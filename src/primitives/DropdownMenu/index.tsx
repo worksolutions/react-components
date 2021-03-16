@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
 
 import DropdownMainButton from "./DropdownMainButton";
-import PopperManager from "../PopupManager";
+import PopupManager from "../PopupManager";
 
 import { duration160, InternalIcons, transform, transition } from "../../index";
 
@@ -42,7 +42,7 @@ function DropdownMenu({
   closeOnOutsideClick = true,
 }: DropdownMenuInterface) {
   const popupMainElement = useCallback(
-    (toggleVisibility: () => void, visibility: boolean) => {
+    ({ toggle, visibility }) => {
       return (
         <InputContainer
           size={size}
@@ -56,7 +56,7 @@ function DropdownMenu({
               stylesTextMainButton={stylesTextMainButton}
             />
           )}
-          onClick={toggleVisibility}
+          onClick={toggle}
         />
       );
     },
@@ -64,7 +64,7 @@ function DropdownMenu({
   );
 
   return (
-    <PopperManager
+    <PopupManager
       primaryPlacement={primaryPlacement}
       offset={offset}
       closeOnClickOutside={closeOnOutsideClick}

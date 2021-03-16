@@ -5,13 +5,14 @@ import PopperManager from "../PopupManager";
 import TooltipTextContent from "./index";
 
 import { zIndex_hint } from "../../constants/zIndexes";
+import { VisibilityManagerChildrenInterface } from "../VisibilityManager";
 
 export interface TooltipContainerInterface {
   tooltipStyles?: any;
   primaryPlacement?: Placement;
   tooltipText: string;
   hasArrow?: boolean;
-  children: (toggleVisibility: () => void, visibility: boolean) => React.ReactNode;
+  children: ({ visibility, show, hide, toggle }: VisibilityManagerChildrenInterface) => React.ReactNode;
 }
 const offsetTooltipWhenNotArrow = 14;
 
