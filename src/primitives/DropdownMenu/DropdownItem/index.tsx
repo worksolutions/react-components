@@ -24,6 +24,7 @@ export interface DropdownItemInterface {
   showArrowOnSelection?: boolean;
   showIconRightOnHover?: boolean;
   showIconLeftOnHover?: boolean;
+  hovered?: boolean;
 }
 
 function DropdownItem({ disabled, rightContent, code, showArrowOnSelection = true, ...props }: DropdownItemInterface) {

@@ -31,6 +31,7 @@ export interface ListItemInterface {
   showArrowOnSelection?: boolean;
   children: string;
   code: CODE;
+  hovered?: boolean;
   onClick?: (code: CODE) => void;
 }
 
@@ -52,6 +53,7 @@ function ListItem({
   showIconRightOnHover,
   showIconLeftOnHover,
   showArrowOnSelection,
+  hovered = true,
   onClick,
 }: ListItemInterface) {
   const enabled = !disabled;
@@ -68,9 +70,16 @@ function ListItem({
     [disabled, showArrowOnSelection, showIconRightOnHover],
   );
 
+  const listItemStyles = useMemo(() => getListItemStyles({ size, enabled, active, hovered }), [
+    active,
+    enabled,
+    hovered,
+    size,
+  ]);
+
   return (
     <Wrapper
-      styles={[getListItemStyles(size, enabled, active), rightContentStyles, leftContentStyles, styles]}
+      styles={[listItemStyles, rightContentStyles, leftContentStyles, styles]}
       onClick={() => onClick && enabled && onClick(code)}
     >
       {leftIcon && <Wrapper className="leftIcon">{leftIcon}</Wrapper>}

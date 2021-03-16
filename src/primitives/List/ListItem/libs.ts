@@ -24,13 +24,19 @@ const heightForItemSize: Record<ListItemSize, number> = {
   [ListItemSize.MEDIUM]: 40,
   [ListItemSize.SMALL]: 32,
 };
+interface ListItemStylesInterface {
+  size: ListItemSize;
+  enabled: boolean;
+  active?: boolean;
+  hovered?: boolean;
+}
 
-export function getListItemStyles(itemSize: ListItemSize, enabled: boolean, active?: boolean) {
+export function getListItemStyles({ size, enabled, active, hovered }: ListItemStylesInterface) {
   return [
     backgroundColor("transparent"),
     disableOutline,
     borderNone,
-    minHeight(heightForItemSize[itemSize]),
+    minHeight(heightForItemSize[size]),
     flex,
     margin("2px 1px"),
     ai("center"),
@@ -40,7 +46,7 @@ export function getListItemStyles(itemSize: ListItemSize, enabled: boolean, acti
     enabled
       ? [
           pointer,
-          hover([backgroundColor("definitions.ListItem.Selected.backgroundColor")]),
+          hovered && hover([backgroundColor("definitions.ListItem.Selected.backgroundColor")]),
           focus(boxShadow([0, 0, 0, 2, "definitions.Button.focus.color"])),
         ]
       : [opacity(0.3)],
