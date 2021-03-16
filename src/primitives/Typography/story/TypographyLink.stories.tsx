@@ -9,7 +9,7 @@ import Wrapper from "../../Wrapper";
 import { borderBottom, flex, flexColumn, fullWidth, marginBottom, paddingBottom, whiteSpace, width } from "styles";
 
 export default {
-  title: "Typography",
+  title: "TypographyLink",
   component: TypographyLinkComponent.type,
   argTypes: {
     color: colorControl(),

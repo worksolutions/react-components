@@ -104,7 +104,7 @@ function DropdownItem({
       code={code}
       disabled={disabled}
       size={itemSize}
-      isActiveItem={selected}
+      active={selected}
       titleDots={titleDots}
       titleStyles={titleStyles}
       styles={styles}

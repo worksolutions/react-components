@@ -4,63 +4,36 @@ import { firstChild, flex, flexColumn, lastChild, marginBottom, marginTop } from
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 
-import ListItem, { getItemStyles, ListItemInterface, ListItemSize } from "./ListItem";
-import { Colors } from "../../constants/colors";
+import ListItem, { ListItemInterface } from "./ListItem";
+import { getListItemStyles } from "./ListItem/libs";
+import { ListItemSize } from "./ListItem/enum";
 
-export type ListItemId = string | number;
-
-interface ListInterface<ITEM extends string | number> {
-  itemSize?: ListItemSize;
+export interface ListInterface<CODE extends string | number> {
+  emptyItemSize?: ListItemSize;
+  items: ListItemInterface<CODE>[];
   emptyText?: string;
   outerStyles?: any;
-  titleStyles?: any;
-  itemStyles?: any;
-  titleDots?: boolean;
-  dividerColor?: Colors;
-  activeItemIds: (ITEM | null | undefined)[];
-  items: ListItemInterface<ITEM>[];
-  onClick?: (id: ITEM) => void;
 }
 
-function List({
+function List<CODE extends string | number>({
   outerStyles,
-  itemSize = ListItemSize.MEDIUM,
+  emptyItemSize = ListItemSize.MEDIUM,
   emptyText,
-  activeItemIds,
-  titleDots,
-  titleStyles,
-  itemStyles,
   items,
-  onClick,
-}: ListInterface<any>) {
+}: ListInterface<CODE>) {
   return (
     <Wrapper styles={[flex, flexColumn, outerStyles, firstChild(marginTop(4)), lastChild(marginBottom(4))]}>
       {items.length === 0 && emptyText ? (
-        <Wrapper styles={getItemStyles(itemSize, false, false)}>
+        <Wrapper styles={getListItemStyles(emptyItemSize, false, false)}>
           <Typography color="gray-blue/03" noWrap>
             {emptyText}
           </Typography>
         </Wrapper>
       ) : (
-        items.map((item) => (
-          <ListItem
-            key={item.code}
-            size={itemSize}
-            titleDots={titleDots}
-            titleStyles={titleStyles}
-            styles={itemStyles}
-            item={item}
-            isActiveItem={activeItemIds.includes(item.code)}
-            onClick={onClick}
-          />
-        ))
+        items.map((item) => <ListItem key={item.code} {...item} />)
       )}
     </Wrapper>
   );
 }
 
-List.defaultProps = {
-  dividerColor: "gray-blue/02",
-};
-
-export default React.memo(List) as <ITEM extends string | number>(props: ListInterface<ITEM>) => JSX.Element;
+export default React.memo(List) as <CODE extends string | number>(props: ListInterface<CODE>) => JSX.Element;

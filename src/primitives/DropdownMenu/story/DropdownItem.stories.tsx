@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from "react";
 import { Story } from "@storybook/react/types-6-0";
 
+import { selectControl } from "../../../storybook/storyHelpers";
+
 import { left, ListItemSize, marginRight, position, top, transform, Wrapper } from "../../../index";
 
 import DropdownItem, { DropdownItemProps } from "../DropdownItem/DropdownItem";
-
-import { selectControl } from "../../../storybook/storyHelpers";
 import { internalIcons } from "../../Icon/list";
 import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
 
