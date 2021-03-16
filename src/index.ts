@@ -53,8 +53,8 @@ export * from "./primitives/Input/Input";
 export { default as ClearInputWrapper } from "./primitives/Input/ClearInputWrapper";
 export * from "./primitives/Input/ClearInputWrapper";
 
-export { default as InputWrapper } from "./primitives/Input/InputWrapper";
-export * from "./primitives/Input/InputWrapper";
+export { default as InputWrapper } from "./primitives/InputContainer";
+export * from "./primitives/InputContainer";
 
 export { default as MaskedInput } from "./primitives/Input/MaskedInput";
 export * from "./primitives/Input/MaskedInput";
@@ -67,9 +67,6 @@ export * from "./primitives/LayoutGrid";
 
 export { default as Modal } from "./primitives/Modal";
 export * from "./primitives/Modal/ModalContent";
-
-export * from "./primitives/Popper/usePopper";
-export * from "./primitives/Popper/useVisibilityAnimation";
 
 export { default as ProgressBar } from "./primitives/ProgressBar";
 

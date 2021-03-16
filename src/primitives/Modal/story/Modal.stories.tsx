@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { Dropdown, horizontalPadding, Typography } from "index";
+import { horizontalPadding, Typography } from "index";
 
 import Modal from "../index";
 import { modalHorizontalPadding, ModalInterface, ModalSize } from "../ModalContent";
@@ -16,7 +16,7 @@ export default {
 const ModalTemplate: Story<ModalInterface> = (props) => {
   const [primaryLoading, setPrimaryLoading] = React.useState(false);
   const [actionsInColumn, setActionsInColumn] = React.useState(false);
-  const [size, setSize] = React.useState(ModalSize.SMALL);
+  const [size] = React.useState(ModalSize.SMALL);
 
   return (
     <Modal
@@ -36,16 +36,6 @@ const ModalTemplate: Story<ModalInterface> = (props) => {
       {() => (
         <Wrapper styles={horizontalPadding(modalHorizontalPadding)}>
           <Typography>Тут некий контент</Typography>
-          <Dropdown
-            selectedItemCode={size}
-            placeholder="тест 1"
-            items={[
-              { title: "SMALL", code: ModalSize.SMALL },
-              { title: "ADJUST_CONTENT", code: ModalSize.ADJUST_CONTENT },
-              { title: "FULL_WIDTH", code: ModalSize.FULL_WIDTH },
-            ]}
-            onChange={setSize}
-          />
           <Modal
             size={size}
             title="Модальное окно 2"

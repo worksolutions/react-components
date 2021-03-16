@@ -1,19 +1,19 @@
 import React, { useMemo, useState } from "react";
-import { Reference as ReactPopperReference } from "react-popper";
+import { Reference as MainElement } from "react-popper";
 import { provideRef } from "@worksolutions/react-utils";
 import { isNumber, isString } from "@worksolutions/utils";
 import { StrictModifiers } from "@popperjs/core";
 import { Placement } from "@popperjs/core/lib/enums";
 
 import Wrapper from "../Wrapper";
-import VisibleManager from "../VisibleManager/VisibleManager";
-import PopperElement from "./PopperElement";
+import VisibilityManager from "../VisibilityManager";
+import PopupElement from "./PopperElement";
 
-import { width } from "../../styles";
+import { display, width } from "../../styles";
 import { convertPercentageStringToNumber } from "../../utils/convertPercentageStringToNumber";
 
 export interface PopperManagerInterface {
-  popperStyles?: any;
+  popupStyles?: any;
   primaryPlacement?: Placement;
   popperModifiers?: StrictModifiers[];
   closeOnClickOutside?: boolean;
@@ -22,7 +22,7 @@ export interface PopperManagerInterface {
   hasArrow?: boolean;
   popupWidth?: number | string | "auto";
   popupElement: React.ReactNode;
-  renderMainElement: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
+  renderMainElement: (toggleVisibility: () => void, visibility: boolean) => React.ReactNode;
 }
 
 const defaultOffsets = {
@@ -38,18 +38,18 @@ function setOffset(offset?: number, haveArrow?: boolean) {
   return defaultOffsets.withoutArrow;
 }
 
-function getPopperStyles(mainWrapperWidth?: number, popperWidth?: number | string | "auto") {
-  if (!mainWrapperWidth || !popperWidth) return null;
-  if (popperWidth === "auto") return null;
+function getPopperStyles(mainWrapperWidth?: number, popupWidth?: number | string | "auto") {
+  if (!mainWrapperWidth || !popupWidth) return null;
+  if (popupWidth === "auto") return null;
 
-  if (isNumber(popperWidth)) return width(popperWidth);
-  if (isString(popperWidth)) return width(convertPercentageStringToNumber(popperWidth) * mainWrapperWidth);
+  if (isNumber(popupWidth)) return width(popupWidth);
+  if (isString(popupWidth)) return width(convertPercentageStringToNumber(popupWidth) * mainWrapperWidth);
 
   return null;
 }
 
 function PopupManager({
-  popperStyles,
+  popupStyles,
   popperModifiers,
   primaryPlacement,
   closeOnClickOutside = true,
@@ -69,30 +69,32 @@ function PopupManager({
   ]);
 
   return (
-    <VisibleManager outsideHandler={closeOnClickOutside}>
-      {(toggleVisibility, visible) => (
+    <VisibilityManager onClickOutside={closeOnClickOutside}>
+      {(toggleVisibility: () => void, visibility: boolean) => (
         <>
-          <ReactPopperReference>
+          <MainElement>
             {({ ref }) => (
-              <Wrapper ref={provideRef(ref, setMainWrapperRef)}>{renderMainElement(toggleVisibility, visible)}</Wrapper>
+              <Wrapper ref={provideRef(ref, setMainWrapperRef)}>
+                {renderMainElement(toggleVisibility, visibility)}
+              </Wrapper>
             )}
-          </ReactPopperReference>
-          {visible && (
-            <PopperElement
+          </MainElement>
+          <Wrapper styles={display(visibility ? "" : "none")}>
+            <PopupElement
               primaryPlacement={primaryPlacement}
               modifiers={popperModifiers}
-              styles={[popperStyles, popperWidthStyles]}
+              styles={[popupStyles, popperWidthStyles]}
               offset={offsetValue}
-              arrowPadding={arrowPadding ? arrowPadding : defaultArrowPadding}
+              arrowPadding={arrowPadding || defaultArrowPadding}
               hasArrow={hasArrow}
               mainWrapperElement={mainWrapperRef}
             >
               {popupElement}
-            </PopperElement>
-          )}
+            </PopupElement>
+          </Wrapper>
         </>
       )}
-    </VisibleManager>
+    </VisibilityManager>
   );
 }
 

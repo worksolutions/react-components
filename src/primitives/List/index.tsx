@@ -1,39 +1,49 @@
-import React from "react";
-import { firstChild, flex, flexColumn, lastChild, marginBottom, marginTop } from "../../styles";
+import React, { useCallback, useMemo, useState } from "react";
+import { firstChild, flex, flexColumn, lastChild, marginBottom, marginTop, padding } from "../../styles";
 
 import Wrapper from "../Wrapper";
-import Typography from "../Typography";
+import { ListSelectedManagerContext } from "./ListSelectedManagerContext";
+import { removeItemByIndex } from "../../utils/removeItemByIndex";
 
-import ListItem, { ListItemInterface } from "./ListItem";
-import { getListItemStyles } from "./ListItem/libs";
-import { ListItemSize } from "./ListItem/enum";
-
-export interface ListInterface<CODE extends string | number> {
-  emptyItemSize?: ListItemSize;
-  items: ListItemInterface<CODE>[];
-  emptyText?: string;
+export interface ListInterface {
   outerStyles?: any;
+  multiselect?: boolean;
+  children: React.ReactNode;
 }
 
-function List<CODE extends string | number>({
-  outerStyles,
-  emptyItemSize = ListItemSize.MEDIUM,
-  emptyText,
-  items,
-}: ListInterface<CODE>) {
+function List({ children, outerStyles, multiselect = false }: ListInterface) {
+  const [selectedItems, setSelectedItem] = useState<string[]>([]);
+
+  const setSelectedItems = useCallback(
+    (code: string) => {
+      const foundIndex = selectedItems.indexOf(code);
+
+      if (foundIndex === -1) {
+        setSelectedItem((prevSelectedItems) => prevSelectedItems.concat(code));
+        return;
+      }
+      setSelectedItem((prevSelectedItems) => removeItemByIndex(prevSelectedItems, foundIndex));
+    },
+    [selectedItems, setSelectedItem],
+  );
+
+  const value = useMemo(
+    () => ({
+      onChange: (code: string) => (multiselect ? setSelectedItems(code) : setSelectedItem([code])),
+      selectedItems,
+    }),
+    [multiselect, selectedItems, setSelectedItems, setSelectedItem],
+  );
+
   return (
-    <Wrapper styles={[flex, flexColumn, outerStyles, firstChild(marginTop(4)), lastChild(marginBottom(4))]}>
-      {items.length === 0 && emptyText ? (
-        <Wrapper styles={getListItemStyles(emptyItemSize, false, false)}>
-          <Typography color="gray-blue/03" noWrap>
-            {emptyText}
-          </Typography>
-        </Wrapper>
-      ) : (
-        items.map((item) => <ListItem key={item.code} {...item} />)
-      )}
-    </Wrapper>
+    <ListSelectedManagerContext.Provider value={value}>
+      <Wrapper
+        styles={[flex, flexColumn, padding(8), outerStyles, firstChild(marginTop(4)), lastChild(marginBottom(4))]}
+      >
+        {children}
+      </Wrapper>
+    </ListSelectedManagerContext.Provider>
   );
 }
 
-export default React.memo(List) as <CODE extends string | number>(props: ListInterface<CODE>) => JSX.Element;
+export default React.memo(List);

@@ -4,6 +4,8 @@ import { Theme as BaseTheme } from "@worksolutions/react-utils";
 
 import { Colors } from "../constants/colors";
 import { defaultTheme } from "./defaultTheme";
+import { colorsByVariant, InputContainerVariantType } from "../primitives/InputContainer/libs";
+import { InputContainerVariant } from "../primitives/InputContainer/enums";
 
 export interface Theme extends BaseTheme<Colors> {
   definitions: {
@@ -104,6 +106,19 @@ export interface Theme extends BaseTheme<Colors> {
     Tooltip: {
       color: Colors;
     };
+    DropdownMainButton: {
+      colorText: Colors;
+    };
+    InputContainer: {
+      rightIconColor: Colors;
+      leftIconColor: Colors;
+      hoverBoxShadowColor: Colors;
+      focusBoxShadowColor: Colors;
+    };
+    InputContainerVariantDefault: InputContainerVariantType;
+    InputContainerVariantError: InputContainerVariantType;
+    InputContainerVariantSuccess: InputContainerVariantType;
+    InputContainerVariantDisabled: InputContainerVariantType;
   };
 }
 

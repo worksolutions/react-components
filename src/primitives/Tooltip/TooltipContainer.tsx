@@ -11,7 +11,7 @@ export interface TooltipContainerInterface {
   primaryPlacement?: Placement;
   tooltipText: string;
   hasArrow?: boolean;
-  children: (toggleVisible: () => void, visible: boolean) => React.ReactNode;
+  children: (toggleVisibility: () => void, visibility: boolean) => React.ReactNode;
 }
 const offsetTooltipWhenNotArrow = 14;
 
@@ -40,7 +40,7 @@ function TooltipContainer({
       renderMainElement={children}
       popupElement={tooltipElement}
       offset={offset}
-      popperStyles={zIndex_hint}
+      popupStyles={zIndex_hint}
     />
   );
 }

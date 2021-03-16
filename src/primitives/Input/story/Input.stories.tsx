@@ -5,10 +5,10 @@ import { selectControl } from "storybook/storyHelpers";
 
 import { marginBottom } from "styles";
 
-import Input, { InputInterface, InputSize } from "../Input";
+import Input, { InputInterface } from "../Input";
 
 import { internalIcons } from "../../Icon/list";
-import { InputTitlePosition } from "../InputWrapper";
+import { InputContainerSize, InputContainerTitlePosition } from "../../InputContainer/enums";
 
 export default {
   title: "Inputs",
@@ -16,8 +16,8 @@ export default {
   argTypes: {
     iconLeft: selectControl(Object.keys(internalIcons)),
     iconRight: selectControl(Object.keys(internalIcons)),
-    titlePosition: selectControl([InputTitlePosition.LEFT, InputTitlePosition.TOP]),
-    size: selectControl([InputSize.LARGE, InputSize.MEDIUM]),
+    titlePosition: selectControl([InputContainerTitlePosition.LEFT, InputContainerTitlePosition.TOP]),
+    size: selectControl([InputContainerSize.LARGE, InputContainerSize.MEDIUM]),
   },
 };
 
@@ -47,7 +47,7 @@ DisableInput.args = {
 SuccessInput.args = {
   ...BaseInput,
   title: "title",
-  size: InputSize.LARGE,
+  size: InputContainerSize.LARGE,
   tip: "success",
   success: true,
 };

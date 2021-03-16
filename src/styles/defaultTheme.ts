@@ -1,5 +1,6 @@
 import { Theme } from "./makeTheme";
 import { colors as darkColors } from "../constants/colorsMap/dark";
+import { InputContainerVariant } from "../primitives/InputContainer/enums";
 
 export const defaultTheme: Theme = {
   colors: darkColors,
@@ -84,6 +85,43 @@ export const defaultTheme: Theme = {
     },
     Tooltip: {
       color: "gray-blue/09",
+    },
+    DropdownMainButton: {
+      colorText: "gray-blue/05",
+    },
+    InputContainer: {
+      rightIconColor: "gray-blue/07",
+      leftIconColor: "gray-blue/05",
+      hoverBoxShadowColor: "gray-blue/03",
+      focusBoxShadowColor: "blue/05",
+    },
+    InputContainerVariantDefault: {
+      background: "gray-blue/01",
+      shadowColor: "gray-blue/02",
+      tip: "gray-blue/07",
+      placeholder: "gray-blue/04",
+      color: "gray-blue/09",
+    },
+    InputContainerVariantError: {
+      background: "red/01",
+      shadowColor: "red/05",
+      tip: "red/07",
+      placeholder: "red/03",
+      color: "gray-blue/09",
+    },
+    InputContainerVariantSuccess: {
+      background: "green/01",
+      shadowColor: "green/05",
+      tip: "green/07",
+      placeholder: "gray-blue/04",
+      color: "gray-blue/09",
+    },
+    InputContainerVariantDisabled: {
+      background: "gray-blue/01",
+      shadowColor: "transparent",
+      tip: "gray-blue/07",
+      placeholder: "gray-blue/02",
+      color: "gray-blue/03",
     },
   },
 };

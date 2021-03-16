@@ -4,15 +4,15 @@ import { InputIconProp, ListItemSize } from "../../../index";
 import ListItem from "../../List/ListItem";
 import { useSetRightIcon } from "./useSetRightIcon";
 
-import { VisibilityManagerContext } from "../../VisibleManager/VisibilityManagerContext";
-import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
+import { VisibilityManagerContext } from "../../VisibilityManager/VisibilityManagerContext";
+import { ListSelectedManagerContext } from "../../List/ListSelectedManagerContext";
 
 export interface DropdownItemInterface {
   leftContentStyles?: any;
   rightContentStyles?: any;
   children: string;
   disabled?: boolean;
-  itemSize?: ListItemSize;
+  size?: ListItemSize;
   titleStyles?: any;
   titleDots?: boolean;
   styles?: any;
@@ -24,44 +24,22 @@ export interface DropdownItemInterface {
   showArrowOnSelection?: boolean;
   showIconRightOnHover?: boolean;
   showIconLeftOnHover?: boolean;
-  canSelect?: boolean;
 }
 
-function DropdownItem({
-  leftContentStyles,
-  rightContentStyles,
-  disabled,
-  titleDots,
-  titleStyles,
-  styles,
-  children,
-  leftContent,
-  heading,
-  rightContent,
-  subTitle,
-  code,
-  showIconRightOnHover,
-  showIconLeftOnHover,
-  itemSize = ListItemSize.SMALL,
-  showArrowOnSelection = true,
-  canSelect = true,
-}: DropdownItemInterface) {
+function DropdownItem({ disabled, rightContent, code, showArrowOnSelection = true, ...props }: DropdownItemInterface) {
   const { hide } = React.useContext(VisibilityManagerContext);
-  const { selectedItem, onChange } = React.useContext(DropdownManagerContext);
+  const { selectedItems, onChange } = React.useContext(ListSelectedManagerContext);
 
   const isSelected = () => {
     if (disabled) return false;
-    if (!canSelect) return false;
-    return selectedItem ? selectedItem === code : false;
+    return selectedItems.length !== 0 ? selectedItems.includes(code) : false;
   };
 
-  const selected = useMemo(isSelected, [selectedItem, code, canSelect, disabled]);
+  const selected = useMemo(isSelected, [selectedItems, code, disabled]);
 
   const resultRightContent = useSetRightIcon({ selected, rightContent, showArrowOnSelection });
 
   const handleClick = useCallback(() => {
-    if (!canSelect) return;
-
     if (!onChange || disabled) {
       hide();
       return;
@@ -69,50 +47,17 @@ function DropdownItem({
 
     onChange(code);
     hide();
-  }, [canSelect, onChange, disabled, code, hide]);
-
-  const itemProps = useMemo(
-    () => ({
-      rightContentStyles,
-      leftContentStyles,
-      rightContent: resultRightContent,
-      leftContent,
-      title: children,
-      code,
-      disabled,
-      heading,
-      subTitle,
-    }),
-    [
-      rightContentStyles,
-      leftContentStyles,
-      children,
-      leftContent,
-      rightContent,
-      resultRightContent,
-      code,
-      heading,
-      subTitle,
-      disabled,
-    ],
-  );
+  }, [onChange, disabled, code, hide]);
 
   return (
     <ListItem
+      {...props}
       rightContent={resultRightContent}
       code={code}
       disabled={disabled}
-      size={itemSize}
       active={selected}
-      titleDots={titleDots}
-      titleStyles={titleStyles}
-      styles={styles}
-      item={itemProps}
-      showIconRightOnHover={showIconRightOnHover}
-      showIconLeftOnHover={showIconLeftOnHover}
       showArrowOnSelection={showArrowOnSelection}
       onClick={handleClick}
-      title={children}
     />
   );
 }

@@ -1,8 +1,8 @@
 import React from "react";
 
-import Wrapper from "../Wrapper";
+import Wrapper from "../../Wrapper";
 
-import { backgroundColor, fullWidth, height } from "../../index";
+import { backgroundColor, fullWidth, height } from "../../../index";
 
 export interface DropdownDividerInterface {
   styles?: any;

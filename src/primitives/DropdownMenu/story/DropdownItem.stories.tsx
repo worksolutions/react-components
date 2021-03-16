@@ -7,7 +7,7 @@ import { left, ListItemSize, marginRight, position, top, transform, Wrapper } fr
 
 import DropdownItem, { DropdownItemInterface } from "../DropdownItem/DropdownItem";
 import { internalIcons } from "../../Icon/list";
-import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
+import { ListSelectedManagerContext } from "../../List/ListSelectedManagerContext";
 
 export default {
   title: "DropdownMenu/DropdownItem",
@@ -15,21 +15,21 @@ export default {
   argTypes: {
     leftContent: selectControl(Object.keys(internalIcons)),
     rightContent: selectControl(Object.keys(internalIcons)),
-    itemSize: selectControl(Object.values(ListItemSize)),
+    size: selectControl(Object.values(ListItemSize)),
   },
 };
 
 const Template: Story<DropdownItemInterface> = (props: any) => {
-  const [selectedItem, setSelect] = useState<string | null>(null);
-  const value = useMemo(() => ({ onChange: setSelect, selectedItem }), [selectedItem, setSelect]);
+  const [selectedItems, setSelect] = useState<any>([]);
+  const value = useMemo(() => ({ onChange: setSelect, selectedItems }), [selectedItems, setSelect]);
 
   return (
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
-      <DropdownManagerContext.Provider value={value}>
+      <ListSelectedManagerContext.Provider value={value}>
         <DropdownItem {...props}>ValueByDefault</DropdownItem>
-      </DropdownManagerContext.Provider>
+      </ListSelectedManagerContext.Provider>
     </Wrapper>
   );
 };
@@ -37,7 +37,7 @@ const Template: Story<DropdownItemInterface> = (props: any) => {
 export const Default = Template.bind({});
 
 Default.args = {
-  itemSize: ListItemSize.MEDIUM,
+  size: ListItemSize.MEDIUM,
   subTitle: "subTitle",
   code: "code",
 };

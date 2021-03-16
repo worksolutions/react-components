@@ -24,22 +24,23 @@ import {
   Wrapper,
 } from "../../../index";
 
-import DropdownMenu, { DropdownMenuInterface } from "../DropdownMenu";
+import DropdownMenu, { DropdownMenuInterface } from "../index";
 import { internalIcons } from "../../Icon/list";
 import DropdownItem from "../DropdownItem/DropdownItem";
-import { InputSize } from "../../Input/InputWrapper";
-import DropdownDivider from "../ListItemsDivider";
+import DropdownDivider from "../../List/ListItem/ListItemsDivider";
 
 import AvatarComponent from "../../Avatar";
 import { numbersControl, selectControl } from "../../../storybook/storyHelpers";
 import TooltipContainer from "../../Tooltip/TooltipContainer";
+import { InputContainerSize } from "../../InputContainer/enums";
+import ListItem from "../../List/ListItem";
 
 export default {
   title: "DropdownMenu/DropdownMenu",
   component: DropdownMenu.type,
   argTypes: {
     iconLeft: selectControl(Object.keys(internalIcons)),
-    size: selectControl(Object.values(InputSize)),
+    size: selectControl(Object.values(InputContainerSize)),
     itemSize: selectControl(Object.values(ListItemSize)),
     primaryPlacement: selectControl(placements),
     widthTargetElem: numbersControl(200, 700, 5),
@@ -56,25 +57,20 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
   return (
     <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
       <Wrapper styles={[marginRight(50)]}>
-        <DropdownMenu {...props} stylesSource={[width(props.widthTargetElem)]} widthPopper="140%">
-          <Wrapper>
-            <DropdownItem
-              itemSize={props.itemSize}
-              code="ValueByDefault"
-              canSelect={false}
-              showArrowOnSelection={false}
-            >
+        <DropdownMenu {...props} stylesMainButton={[width(props.widthTargetElem)]} widthPopper="140%">
+          <List multiselect>
+            <ListItem size={props.itemSize} code="ValueByDefault" showArrowOnSelection={false}>
               ValueByDefault
-            </DropdownItem>
+            </ListItem>
             <DropdownDivider />
-            <DropdownItem code="DropdownItemElement3" itemSize={props.itemSize} showArrowOnSelection>
+            <DropdownItem code="DropdownItemElement3" size={props.itemSize} showArrowOnSelection>
               DropdownItemElement3
             </DropdownItem>
             <DropdownItem
               code="DropdownItemElement4"
               disabled={true}
               leftContent="user"
-              itemSize={props.itemSize}
+              size={props.itemSize}
               rightContent={
                 <Wrapper
                   styles={[padding(5), borderRadius("50%"), hover([backgroundColor("blue/05")])]}
@@ -90,7 +86,7 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
               code="DropdownItemElement1"
               subTitle="Еще один тайтл • email@worksolutions.ru"
               leftContent="user"
-              itemSize={props.itemSize}
+              size={props.itemSize}
               showIconRightOnHover
               showIconLeftOnHover
               showArrowOnSelection={false}
@@ -108,17 +104,17 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
             <DropdownItem
               code="DropdownItemElement2"
               subTitle="Еще один тайтл"
-              itemSize={props.itemSize}
+              size={props.itemSize}
               showArrowOnSelection={false}
             >
               DropdownItemElement2
             </DropdownItem>
             <DropdownDivider />
-            <DropdownItem
-              itemSize={props.itemSize}
+            <ListItem
+              size={props.itemSize}
               code="ValueByDefault"
               showArrowOnSelection={false}
-              canSelect={false}
+              children="ValueByDefault"
               rightContent={
                 <Wrapper
                   styles={[padding(5), borderRadius("50%"), hover([backgroundColor("blue/05")])]}
@@ -127,54 +123,52 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
                   <AvatarComponent size={AvatarSize.SMALL} />
                 </Wrapper>
               }
-            >
-              ValueByDefault
-            </DropdownItem>
-          </Wrapper>
+            />
+          </List>
         </DropdownMenu>
       </Wrapper>
       <DropdownMenu
         {...props}
         placeholder="Без периода"
-        stylesSource={[backgroundColor("blue/01"), emptyBoxShadow, disableOutline]}
-        stylesTextSource={[fontWeight(600), color("gray-blue/08")]}
+        stylesMainButton={[backgroundColor("blue/01"), emptyBoxShadow, disableOutline]}
+        stylesTextMainButton={[fontWeight(600), color("gray-blue/08")]}
         stylesPopper={[border(1, "red/04"), backgroundColor("blue/01")]}
-        size={InputSize.SMALL}
+        size={InputContainerSize.SMALL}
       >
-        <Wrapper>
-          <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
+        <List>
+          <DropdownItem size={props.itemSize} code="ValueByDefault">
             ValueByDefault
           </DropdownItem>
           <DropdownDivider />
-          <DropdownItem code="DropdownItemElement3" itemSize={props.itemSize}>
+          <DropdownItem code="DropdownItemElement3" size={props.itemSize}>
             DropdownItemElement3
           </DropdownItem>
-          <DropdownItem code="DropdownItemElement4" disabled={true} leftContent="user" itemSize={props.itemSize}>
+          <DropdownItem code="DropdownItemElement4" disabled leftContent="user" size={props.itemSize}>
             DropdownItemElement4
           </DropdownItem>
           <DropdownItem
             code="DropdownItemElement1"
             subTitle="Еще один тайтл • email@worksolutions.ru"
             leftContent="user"
-            itemSize={props.itemSize}
+            size={props.itemSize}
           >
             DropdownItemElement1
           </DropdownItem>
-          <DropdownItem code="DropdownItemElement2" subTitle="Еще один тайтл" itemSize={props.itemSize}>
+          <DropdownItem code="DropdownItemElement2" subTitle="Еще один тайтл" size={props.itemSize}>
             DropdownItemElement2
           </DropdownItem>
           <DropdownDivider />
-          <DropdownItem itemSize={props.itemSize} code="ValueByDefault">
+          <DropdownItem size={props.itemSize} code="ValueByDefault">
             ValueByDefault
           </DropdownItem>
           <TooltipContainer tooltipText="text" primaryPlacement="right">
-            {(toggleVisible) => (
-              <Wrapper onClick={toggleVisible}>
+            {(toggleVisibility) => (
+              <Wrapper onClick={toggleVisibility}>
                 <Input value="baseValue" onChange={() => {}} />
               </Wrapper>
             )}
           </TooltipContainer>
-        </Wrapper>
+        </List>
       </DropdownMenu>
     </Wrapper>
   );
@@ -184,7 +178,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   primaryPlacement: "bottom-start",
-  size: InputSize.MEDIUM,
+  size: InputContainerSize.MEDIUM,
   itemSize: ListItemSize.MEDIUM,
   placeholder: "на этом месте будут выбранные элементы",
   widthTargetElem: 350,

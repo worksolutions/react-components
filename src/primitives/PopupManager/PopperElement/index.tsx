@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
 import { StrictModifiers } from "@popperjs/core";
-import { Popper } from "react-popper";
+import { Popper as ReactPopper } from "react-popper";
 
 import { backgroundColor, borderRadius, boxShadow } from "../../../styles";
 import { elevation16Raw } from "../../../constants/shadows";
@@ -59,7 +59,7 @@ function PopperElement({
   const popperModifiers = useMemo(() => getModifiers(modifiers, offset), [modifiers, offset]);
 
   return (
-    <Popper placement={primaryPlacement} modifiers={popperModifiers}>
+    <ReactPopper placement={primaryPlacement} modifiers={popperModifiers}>
       {({ ref, style, placement, arrowProps, update }) => (
         <PopperChildrenWrapper
           ref={ref}
@@ -75,7 +75,7 @@ function PopperElement({
           {children}
         </PopperChildrenWrapper>
       )}
-    </Popper>
+    </ReactPopper>
   );
 }
 

@@ -1,18 +1,34 @@
 import React, { useCallback } from "react";
+import { Placement } from "@popperjs/core/lib/enums";
 
-import DropdownSource from "./DropdownSource/DropdownSource";
+import DropdownMainButton from "./DropdownMainButton";
 import PopperManager from "../PopupManager";
 
 import { duration160, InputWrapper, InternalIcons, transform, transition } from "../../index";
-import { DropdownManagerContext } from "./DropdownManager/DropdownManagerContext";
 
-import { DropdownMenuInterface } from "./DropdownMenu";
 import Icon from "../Icon";
+import { InputContainerSize } from "../InputContainer/enums";
 
-function DropdownContainer({
+export interface DropdownMenuInterface {
+  stylesPopper?: any;
+  stylesMainButton?: any;
+  stylesTextMainButton?: any;
+  placeholder: string;
+  size?: InputContainerSize;
+  iconLeft?: InternalIcons;
+  children: React.ReactNode;
+  primaryPlacement: Placement;
+  closeOnOutsideClick?: boolean;
+  offset?: number;
+  widthPopper?: number | string | "auto";
+  iconReferenceRight?: InternalIcons;
+  error?: boolean;
+}
+
+function DropdownMenu({
   stylesPopper,
-  stylesSource,
-  stylesTextSource,
+  stylesMainButton,
+  stylesTextMainButton,
   children,
   primaryPlacement,
   iconLeft,
@@ -24,28 +40,26 @@ function DropdownContainer({
   error,
   closeOnOutsideClick = true,
 }: DropdownMenuInterface) {
-  const { selectedItem } = React.useContext(DropdownManagerContext);
-
   const popupMainElement = useCallback(
-    (toggleVisible: () => void, visible: boolean) => {
+    (toggleVisibility: () => void, visibility: boolean) => {
       return (
         <InputWrapper
           size={size}
           iconLeft={iconLeft}
-          iconRight={createDropdownRightIcon(visible, iconReferenceRight)}
+          iconRight={createDropdownRightIcon(visibility, iconReferenceRight)}
           error={error}
           renderComponent={(styles) => (
-            <DropdownSource
-              text={selectedItem || placeholder}
-              styles={[styles, stylesSource]}
-              stylesTextSource={stylesTextSource}
+            <DropdownMainButton
+              text={placeholder}
+              styles={[styles, stylesMainButton]}
+              stylesTextMainButton={stylesTextMainButton}
             />
           )}
-          onClick={toggleVisible}
+          onClick={toggleVisibility}
         />
       );
     },
-    [size, iconLeft, iconReferenceRight, error, selectedItem, placeholder, stylesSource, stylesTextSource],
+    [size, iconLeft, iconReferenceRight, error, placeholder, stylesMainButton, stylesTextMainButton],
   );
 
   return (
@@ -54,14 +68,14 @@ function DropdownContainer({
       offset={offset}
       closeOnClickOutside={closeOnOutsideClick}
       popupWidth={widthPopper}
-      popperStyles={stylesPopper}
+      popupStyles={stylesPopper}
       popupElement={children}
       renderMainElement={popupMainElement}
     />
   );
 }
 
-export default React.memo(DropdownContainer);
+export default React.memo(DropdownMenu);
 
 export function createDropdownRightIcon(opened: boolean, icon: InternalIcons = "arrow-down") {
   return (

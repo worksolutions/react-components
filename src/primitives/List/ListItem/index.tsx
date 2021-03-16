@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { SuggestInterface } from "@worksolutions/utils";
 
 import { flex, flexColumn, flexValue, marginLeft, marginRight, overflow, textAlign } from "../../../styles";
 
@@ -11,7 +10,7 @@ import { getHoveredStylesForLeftContent, getHoveredStylesForRightContent, makeIc
 import { getListItemStyles } from "./libs";
 import { ListItemSize } from "./enum";
 
-export interface ListItemInterface<CODE extends string | number> extends SuggestInterface<CODE> {
+export interface ListItemInterface {
   leftContentStyles?: any;
   leftContent?: React.ReactNode | InternalIcons;
   rightContentStyles?: any;
@@ -22,16 +21,18 @@ export interface ListItemInterface<CODE extends string | number> extends Suggest
   heading?: string | number;
   subTitle?: string | number;
   disabled?: boolean;
-  size: ListItemSize;
+  size?: ListItemSize;
   titleDots?: boolean;
   showIconRightOnHover?: boolean;
   showIconLeftOnHover?: boolean;
   showArrowOnSelection?: boolean;
-  onClick?: (id: CODE) => void;
+  onClick?: (id: string) => void;
+  children: string;
+  code: string;
 }
 
-function ListItem<CODE extends string | number>({
-  title,
+function ListItem({
+  children,
   leftContent,
   leftContentStyles: leftContentStylesProp,
   rightContent,
@@ -40,7 +41,7 @@ function ListItem<CODE extends string | number>({
   disabled,
   heading,
   subTitle,
-  size,
+  size = ListItemSize.MEDIUM,
   active,
   titleDots,
   titleStyles,
@@ -49,7 +50,7 @@ function ListItem<CODE extends string | number>({
   showIconLeftOnHover,
   showArrowOnSelection,
   onClick,
-}: ListItemInterface<CODE>) {
+}: ListItemInterface) {
   const enabled = !disabled;
   const leftIcon = makeIcon(leftContent, [marginRight(8), leftContentStylesProp]);
   const rightIcon = makeIcon(rightContent, [marginLeft(8), rightContentStylesProp]);
@@ -61,7 +62,7 @@ function ListItem<CODE extends string | number>({
 
   const rightContentStyles = useMemo(
     () => getHoveredStylesForRightContent({ disabled, showArrowOnSelection, showIconRightOnHover }),
-    [disabled, showArrowOnSelection, showIconRightOnHover, showIconLeftOnHover],
+    [disabled, showArrowOnSelection, showIconRightOnHover],
   );
 
   return (
@@ -77,7 +78,7 @@ function ListItem<CODE extends string | number>({
           </Typography>
         )}
         <Typography dots={titleDots} noWrap styles={titleStyles}>
-          {title}
+          {children}
         </Typography>
         {subTitle && (
           <Typography color="gray-blue/05" type="caption-regular" noWrap>
@@ -90,4 +91,4 @@ function ListItem<CODE extends string | number>({
   );
 }
 
-export default React.memo(ListItem) as <CODE extends string | number>(props: ListItemInterface<CODE>) => JSX.Element;
+export default React.memo(ListItem);

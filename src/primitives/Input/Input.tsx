@@ -4,7 +4,7 @@ import { useDebouncedInput } from "@worksolutions/react-utils";
 
 import Wrapper from "../Wrapper";
 
-import InputWrapper, { BaseInputWrapperInterface } from "./InputWrapper";
+import InputWrapper, { BaseInputWrapperInterface } from "../InputContainer";
 
 export interface InputInterface extends Omit<BaseInputWrapperInterface, "onClick"> {
   autofocus?: boolean;
@@ -54,5 +54,3 @@ const Input = React.forwardRef(function (
 });
 
 export default React.memo(Input);
-
-export { InputSize } from "./InputWrapper";

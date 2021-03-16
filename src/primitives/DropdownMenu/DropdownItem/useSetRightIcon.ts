@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { InputIconProp } from "../../Input/InputWrapper";
+import { InputIconProp } from "../../InputContainer";
 
 interface HookShowedRightIconInterface {
   selected: boolean;

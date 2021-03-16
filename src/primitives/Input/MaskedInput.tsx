@@ -5,7 +5,7 @@ import { provideRef, useDebouncedInput } from "@worksolutions/react-utils";
 
 import Wrapper from "../Wrapper";
 
-import InputWrapper from "./InputWrapper";
+import InputWrapper from "../InputContainer";
 import { InputInterface } from "./Input";
 
 export interface MaskedInputInterface extends InputInterface {
@@ -65,8 +65,6 @@ const MaskedInput = React.forwardRef(function (
 });
 
 export default React.memo(MaskedInput);
-
-export { InputSize } from "./InputWrapper";
 
 export const makeMask = function (elements: (RegExp | string)[]) {
   return { elements, maxLength: elements.length };

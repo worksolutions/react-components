@@ -6,7 +6,7 @@ import { useDebouncedInput } from "@worksolutions/react-utils";
 import Wrapper from "../Wrapper";
 import Button, { ButtonSize, ButtonType } from "../Button";
 
-import InputWrapper from "./InputWrapper";
+import InputWrapper from "../InputContainer";
 import { InputInterface } from "./Input";
 
 export interface InputPasswordInterface extends Omit<InputInterface, "iconRight"> {}
@@ -45,5 +45,3 @@ const Password = React.forwardRef(function (
 });
 
 export default React.memo(Password);
-
-export { InputSize } from "./InputWrapper";
