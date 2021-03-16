@@ -5,6 +5,8 @@ import Wrapper from "../Wrapper";
 import { ListSelectedManagerContext } from "./ListSelectedManagerContext";
 import { removeItemByIndex } from "../../utils/removeItemByIndex";
 
+import { CODE } from "./ListItem";
+
 export interface ListInterface {
   outerStyles?: any;
   multiselect?: boolean;
@@ -12,10 +14,10 @@ export interface ListInterface {
 }
 
 function List({ children, outerStyles, multiselect = false }: ListInterface) {
-  const [selectedItems, setSelectedItem] = useState<string[]>([]);
+  const [selectedItems, setSelectedItem] = useState<CODE[]>([]);
 
   const setSelectedItems = useCallback(
-    (code: string) => {
+    (code: CODE) => {
       const foundIndex = selectedItems.indexOf(code);
 
       if (foundIndex === -1) {
@@ -29,7 +31,7 @@ function List({ children, outerStyles, multiselect = false }: ListInterface) {
 
   const value = useMemo(
     () => ({
-      onChange: (code: string) => (multiselect ? setSelectedItems(code) : setSelectedItem([code])),
+      onChange: (code: CODE) => (multiselect ? setSelectedItems(code) : setSelectedItem([code])),
       selectedItems,
     }),
     [multiselect, selectedItems, setSelectedItems, setSelectedItem],

@@ -5,7 +5,7 @@ import { selectControl } from "../../../storybook/storyHelpers";
 
 import { left, ListItemSize, marginRight, position, top, transform, Wrapper } from "../../../index";
 
-import DropdownItem, { DropdownItemInterface } from "../DropdownItem/DropdownItem";
+import DropdownItem, { DropdownItemInterface } from "../DropdownItem";
 import { internalIcons } from "../../Icon/list";
 import { ListSelectedManagerContext } from "../../List/ListSelectedManagerContext";
 

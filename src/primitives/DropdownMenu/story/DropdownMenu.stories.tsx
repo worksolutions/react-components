@@ -26,7 +26,7 @@ import {
 
 import DropdownMenu, { DropdownMenuInterface } from "../index";
 import { internalIcons } from "../../Icon/list";
-import DropdownItem from "../DropdownItem/DropdownItem";
+import DropdownItem from "../DropdownItem";
 import DropdownDivider from "../../List/ListItem/ListItemsDivider";
 
 import AvatarComponent from "../../Avatar";

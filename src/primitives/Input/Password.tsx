@@ -6,20 +6,20 @@ import { useDebouncedInput } from "@worksolutions/react-utils";
 import Wrapper from "../Wrapper";
 import Button, { ButtonSize, ButtonType } from "../Button";
 
-import InputWrapper from "../InputContainer";
+import InputContainer from "../InputContainer";
 import { InputInterface } from "./Input";
 
 export interface InputPasswordInterface extends Omit<InputInterface, "iconRight"> {}
 
 const Password = React.forwardRef(function (
-  { value, onChange, placeholder, debounce = 100, styles, ...inputWrapperProps }: InputPasswordInterface,
+  { value, onChange, placeholder, debounce = 100, styles, ...InputContainerProps }: InputPasswordInterface,
   ref: Ref<HTMLInputElement>,
 ) {
   const { onInputChange, inputValue } = useDebouncedInput(value, debounce, onChange);
   const [showPassword, toggleShowPassword] = useToggle(false);
   return (
-    <InputWrapper
-      {...inputWrapperProps}
+    <InputContainer
+      {...InputContainerProps}
       iconRight={
         <Button
           size={ButtonSize.SMALL}
@@ -32,7 +32,7 @@ const Password = React.forwardRef(function (
         <Wrapper
           ref={ref}
           as="input"
-          disabled={inputWrapperProps.disabled}
+          disabled={InputContainerProps.disabled}
           type={showPassword ? "text" : "password"}
           styles={[inputStyles, styles]}
           value={inputValue}

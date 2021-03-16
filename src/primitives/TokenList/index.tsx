@@ -5,7 +5,7 @@ import { flex, flexValue, flexWrap, height, marginBottom, marginRight, minWidth,
 
 import Form from "../Form";
 import Wrapper from "../Wrapper";
-import InputWrapper, { BaseInputWrapperInterface } from "../InputContainer";
+import InputContainer, { BaseInputWrapperInterface } from "../InputContainer";
 
 import Token from "./Token";
 import { InputContainerSize } from "../InputContainer/enums";
@@ -33,7 +33,7 @@ function TokenList(
     canRemove = true,
     onRemove,
     onCreate,
-    ...inputWrapperProps
+    ...InputContainerProps
   }: TokenListInterface<string>,
   ref: Ref<HTMLElement>,
 ) {
@@ -49,11 +49,11 @@ function TokenList(
   }
 
   return (
-    <InputWrapper
+    <InputContainer
       outerStyles={outerStyles}
       outerRef={ref}
       size={InputContainerSize.LARGE}
-      {...inputWrapperProps}
+      {...InputContainerProps}
       renderComponent={(styles) => (
         <Wrapper styles={[styles, flex, flexWrap, padding("8px 8px 4px 8px"), stylesProp]}>
           {items.map(({ code, title }) => (

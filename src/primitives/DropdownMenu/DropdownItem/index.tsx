@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 
-import { InputIconProp, ListItemSize } from "../../../index";
+import { CODE, InputIconProp, ListItemSize } from "../../../index";
 import ListItem from "../../List/ListItem";
 import { useSetRightIcon } from "./useSetRightIcon";
 
@@ -20,7 +20,7 @@ export interface DropdownItemInterface {
   rightContent?: InputIconProp;
   heading?: string | number;
   subTitle?: string;
-  code: string;
+  code: CODE;
   showArrowOnSelection?: boolean;
   showIconRightOnHover?: boolean;
   showIconLeftOnHover?: boolean;

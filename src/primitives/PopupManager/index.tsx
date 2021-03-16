@@ -6,22 +6,22 @@ import { StrictModifiers } from "@popperjs/core";
 import { Placement } from "@popperjs/core/lib/enums";
 
 import Wrapper from "../Wrapper";
+import PopperElement from "./PopperElement";
 import VisibilityManager from "../VisibilityManager";
-import PopupElement from "./PopperElement";
 
 import { display, width } from "../../styles";
 import { convertPercentageStringToNumber } from "../../utils/convertPercentageStringToNumber";
 
 export interface PopperManagerInterface {
-  popupStyles?: any;
+  popperStyles?: any;
   primaryPlacement?: Placement;
-  popperModifiers?: StrictModifiers[];
+  popupModifiers?: StrictModifiers[];
   closeOnClickOutside?: boolean;
   offset?: number;
   arrowPadding?: number;
   hasArrow?: boolean;
   popupWidth?: number | string | "auto";
-  popupElement: React.ReactNode;
+  popperElement: React.ReactNode;
   renderMainElement: (toggleVisibility: () => void, visibility: boolean) => React.ReactNode;
 }
 
@@ -38,26 +38,26 @@ function setOffset(offset?: number, haveArrow?: boolean) {
   return defaultOffsets.withoutArrow;
 }
 
-function getPopperStyles(mainWrapperWidth?: number, popupWidth?: number | string | "auto") {
-  if (!mainWrapperWidth || !popupWidth) return null;
-  if (popupWidth === "auto") return null;
+function getPopperStyles(mainWrapperWidth?: number, popperWidth?: number | string | "auto") {
+  if (!mainWrapperWidth || !popperWidth) return null;
+  if (popperWidth === "auto") return null;
 
-  if (isNumber(popupWidth)) return width(popupWidth);
-  if (isString(popupWidth)) return width(convertPercentageStringToNumber(popupWidth) * mainWrapperWidth);
+  if (isNumber(popperWidth)) return width(popperWidth);
+  if (isString(popperWidth)) return width(convertPercentageStringToNumber(popperWidth) * mainWrapperWidth);
 
   return null;
 }
 
 function PopupManager({
-  popupStyles,
-  popperModifiers,
+  popperStyles,
+  popupModifiers,
   primaryPlacement,
   closeOnClickOutside = true,
   offset,
   arrowPadding,
   hasArrow,
   renderMainElement,
-  popupElement,
+  popperElement,
   popupWidth,
 }: PopperManagerInterface) {
   const [mainWrapperRef, setMainWrapperRef] = useState<HTMLElement | undefined>();
@@ -80,17 +80,17 @@ function PopupManager({
             )}
           </MainElement>
           <Wrapper styles={display(visibility ? "" : "none")}>
-            <PopupElement
+            <PopperElement
               primaryPlacement={primaryPlacement}
-              modifiers={popperModifiers}
-              styles={[popupStyles, popperWidthStyles]}
+              modifiers={popupModifiers}
+              styles={[popperStyles, popperWidthStyles]}
               offset={offsetValue}
               arrowPadding={arrowPadding || defaultArrowPadding}
               hasArrow={hasArrow}
               mainWrapperElement={mainWrapperRef}
             >
-              {popupElement}
-            </PopupElement>
+              {popperElement}
+            </PopperElement>
           </Wrapper>
         </>
       )}

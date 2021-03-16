@@ -1,12 +1,19 @@
-import { Colors } from "../../constants/colors";
-import Wrapper from "../Wrapper";
-import { marginTop, maxHeight, opacity, overflow, transition } from "../../styles";
-import { duration160 } from "../../constants/durations";
-import Typography from "../Typography";
 import { nbspString } from "@worksolutions/utils";
 import React from "react";
 
-function Tip({ tip, color }: { tip: string | undefined; color: Colors }) {
+import Wrapper from "../../Wrapper";
+import Typography from "../../Typography";
+
+import { Colors } from "../../../constants/colors";
+import { marginTop, maxHeight, opacity, overflow, transition } from "../../../styles";
+import { duration160 } from "../../../constants/durations";
+
+interface TipInterface {
+  tip: string | undefined;
+  color: Colors;
+}
+
+function Tip({ tip, color }: TipInterface) {
   const hasTip = !!tip;
 
   return (

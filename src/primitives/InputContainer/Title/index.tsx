@@ -1,7 +1,13 @@
-import Typography from "../Typography";
 import React from "react";
 
-function Title({ title, styles }: { title?: string | number; styles?: any }) {
+import Typography from "../../Typography";
+
+interface TitleInterface {
+  title?: string | number;
+  styles?: any;
+}
+
+function Title({ title, styles }: TitleInterface) {
   if (!title) return null;
   return (
     <Typography styles={styles} color="gray-blue/05" noWrap>

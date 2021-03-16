@@ -4,10 +4,11 @@ import { Placement } from "@popperjs/core/lib/enums";
 import DropdownMainButton from "./DropdownMainButton";
 import PopperManager from "../PopupManager";
 
-import { duration160, InputWrapper, InternalIcons, transform, transition } from "../../index";
+import { duration160, InternalIcons, transform, transition } from "../../index";
 
 import Icon from "../Icon";
 import { InputContainerSize } from "../InputContainer/enums";
+import InputContainer from "../InputContainer";
 
 export interface DropdownMenuInterface {
   stylesPopper?: any;
@@ -43,7 +44,7 @@ function DropdownMenu({
   const popupMainElement = useCallback(
     (toggleVisibility: () => void, visibility: boolean) => {
       return (
-        <InputWrapper
+        <InputContainer
           size={size}
           iconLeft={iconLeft}
           iconRight={createDropdownRightIcon(visibility, iconReferenceRight)}
@@ -68,8 +69,8 @@ function DropdownMenu({
       offset={offset}
       closeOnClickOutside={closeOnOutsideClick}
       popupWidth={widthPopper}
-      popupStyles={stylesPopper}
-      popupElement={children}
+      popperStyles={stylesPopper}
+      popperElement={children}
       renderMainElement={popupMainElement}
     />
   );

@@ -38,9 +38,9 @@ function TooltipContainer({
       hasArrow={hasArrow}
       primaryPlacement={primaryPlacement}
       renderMainElement={children}
-      popupElement={tooltipElement}
+      popperElement={tooltipElement}
       offset={offset}
-      popupStyles={zIndex_hint}
+      popperStyles={zIndex_hint}
     />
   );
 }

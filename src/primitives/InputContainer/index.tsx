@@ -1,6 +1,21 @@
 import React from "react";
 import { isString } from "@worksolutions/utils";
 
+import Wrapper from "../Wrapper";
+import Title from "./Title";
+import Tip from "./Tip";
+import Icon, { InternalIcons } from "../Icon";
+
+import { Colors } from "../../constants/colors";
+import { InputContainerSize, InputContainerTitlePosition, InputContainerVariant } from "./enums";
+import {
+  colorsByVariant,
+  createDefaultInputStyles,
+  getInputVariant,
+  getStylesNameOnIcons,
+  stylesForSize,
+  wrapperStylesByTitlePosition,
+} from "./libs";
 import {
   borderRadius,
   focus,
@@ -15,21 +30,6 @@ import {
   boxShadow,
   color,
 } from "../../styles";
-
-import Wrapper from "../Wrapper";
-import Title from "./Title";
-import Tip from "./Tip";
-import Icon, { InternalIcons } from "../Icon";
-import { Colors } from "../../constants/colors";
-import { InputContainerSize, InputContainerTitlePosition, InputContainerVariant } from "./enums";
-import {
-  colorsByVariant,
-  createDefaultInputStyles,
-  getInputVariant,
-  getStylesNameOnIcons,
-  stylesForSize,
-  wrapperStylesByTitlePosition,
-} from "./libs";
 
 export type InputIconProp = InternalIcons | JSX.Element | undefined;
 
@@ -49,16 +49,6 @@ export interface BaseInputWrapperInterface {
   children?: React.ReactNode;
   outerRef?: any;
   onClick?: () => void;
-}
-
-const defaultIconStyles = [position("absolute"), top("50%"), transform("translateY(-50%)")];
-
-function makeIconElement(icon: InputIconProp, defaultColor: Colors, styles: any) {
-  return icon ? (
-    <Wrapper styles={[defaultIconStyles, styles]}>
-      {isString(icon) ? <Icon color={defaultColor} icon={icon} /> : icon}
-    </Wrapper>
-  ) : undefined;
 }
 
 function InputContainer({
@@ -127,3 +117,13 @@ function InputContainer({
 }
 
 export default React.memo(InputContainer);
+
+const defaultIconStyles = [position("absolute"), top("50%"), transform("translateY(-50%)")];
+
+function makeIconElement(icon: InputIconProp, defaultColor: Colors, styles: any) {
+  return icon ? (
+    <Wrapper styles={[defaultIconStyles, styles]}>
+      {isString(icon) ? <Icon color={defaultColor} icon={icon} /> : icon}
+    </Wrapper>
+  ) : undefined;
+}

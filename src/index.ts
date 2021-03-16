@@ -53,7 +53,7 @@ export * from "./primitives/Input/Input";
 export { default as ClearInputWrapper } from "./primitives/Input/ClearInputWrapper";
 export * from "./primitives/Input/ClearInputWrapper";
 
-export { default as InputWrapper } from "./primitives/InputContainer";
+export { default as InputContainer } from "./primitives/InputContainer";
 export * from "./primitives/InputContainer";
 
 export { default as MaskedInput } from "./primitives/Input/MaskedInput";

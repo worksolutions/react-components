@@ -8,7 +8,10 @@ import { InternalIcons } from "../../Icon";
 
 import { getHoveredStylesForLeftContent, getHoveredStylesForRightContent, makeIcon } from "./additionalContent";
 import { getListItemStyles } from "./libs";
+
 import { ListItemSize } from "./enum";
+
+export type CODE = string | number;
 
 export interface ListItemInterface {
   leftContentStyles?: any;
@@ -26,9 +29,9 @@ export interface ListItemInterface {
   showIconRightOnHover?: boolean;
   showIconLeftOnHover?: boolean;
   showArrowOnSelection?: boolean;
-  onClick?: (id: string) => void;
   children: string;
-  code: string;
+  code: CODE;
+  onClick?: (code: CODE) => void;
 }
 
 function ListItem({

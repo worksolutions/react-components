@@ -1,8 +1,9 @@
 import React from "react";
+import { CODE } from "./ListItem";
 
 export interface ListSelectedManagerInterface {
-  selectedItems: string[];
-  onChange: (code: string) => void;
+  selectedItems: CODE[];
+  onChange: (code: CODE) => void;
 }
 
 export const ListSelectedManagerContext = React.createContext({
