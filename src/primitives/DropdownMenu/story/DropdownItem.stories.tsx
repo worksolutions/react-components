@@ -5,7 +5,7 @@ import { selectControl } from "../../../storybook/storyHelpers";
 
 import { left, ListItemSize, marginRight, position, top, transform, Wrapper } from "../../../index";
 
-import DropdownItem, { DropdownItemProps } from "../DropdownItem/DropdownItem";
+import DropdownItem, { DropdownItemInterface } from "../DropdownItem/DropdownItem";
 import { internalIcons } from "../../Icon/list";
 import { DropdownManagerContext } from "../DropdownManager/DropdownManagerContext";
 
@@ -19,7 +19,7 @@ export default {
   },
 };
 
-const Template: Story<DropdownItemProps> = (props: any) => {
+const Template: Story<DropdownItemInterface> = (props: any) => {
   const [selectedItem, setSelect] = useState<string | null>(null);
   const value = useMemo(() => ({ onChange: setSelect, selectedItem }), [selectedItem, setSelect]);
 
