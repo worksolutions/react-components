@@ -39,7 +39,7 @@ Default.args = {
       {
         id: "2",
         text: "Two",
-        icon: "arrow-left-long",
+        icon: "arrow_long-left",
         items: [
           { id: "3", text: "three" },
           { id: "4", text: "four" },
