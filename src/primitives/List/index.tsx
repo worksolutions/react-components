@@ -1,40 +1,41 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import { firstChild, flex, flexColumn, lastChild, marginBottom, marginTop, padding } from "../../styles";
 
 import Wrapper from "../Wrapper";
 import { ListSelectedManagerContext } from "./ListSelectedManagerContext";
-import { removeItemByIndex } from "../../utils/removeItemByIndex";
-
 import { CODE } from "./ListItem";
+import { removeItemByIndex } from "../../utils/removeItemByIndex";
 
 export interface ListInterface {
   outerStyles?: any;
   multiselect?: boolean;
   children: React.ReactNode;
+  selectedItems: CODE[];
+  onChange?: React.Dispatch<React.SetStateAction<CODE[]>>;
 }
 
-function List({ children, outerStyles, multiselect = false }: ListInterface) {
-  const [selectedItems, setSelectedItem] = useState<CODE[]>([]);
-
+function List({ children, outerStyles, multiselect = false, selectedItems, onChange }: ListInterface) {
   const setSelectedItems = useCallback(
     (code: CODE) => {
+      if (!onChange || !selectedItems) return;
+
       const foundIndex = selectedItems.indexOf(code);
 
       if (foundIndex === -1) {
-        setSelectedItem((prevSelectedItems) => prevSelectedItems.concat(code));
+        onChange((prevSelectedItems) => prevSelectedItems.concat(code));
         return;
       }
-      setSelectedItem((prevSelectedItems) => removeItemByIndex(prevSelectedItems, foundIndex));
+      onChange((prevSelectedItems) => removeItemByIndex(prevSelectedItems, foundIndex));
     },
-    [selectedItems, setSelectedItem],
+    [selectedItems, onChange],
   );
 
   const value = useMemo(
     () => ({
-      onChange: (code: CODE) => (multiselect ? setSelectedItems(code) : setSelectedItem([code])),
+      onChange: (code: CODE) => (multiselect ? setSelectedItems(code) : onChange && onChange([code])),
       selectedItems,
     }),
-    [multiselect, selectedItems, setSelectedItems, setSelectedItem],
+    [multiselect, selectedItems, setSelectedItems, onChange],
   );
 
   return (

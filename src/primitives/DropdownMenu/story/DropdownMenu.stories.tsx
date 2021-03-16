@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Story } from "@storybook/react/types-6-0";
 import { placements } from "@popperjs/core/lib/enums";
 
@@ -8,6 +8,7 @@ import {
   backgroundColor,
   border,
   borderRadius,
+  CODE,
   color,
   disableOutline,
   emptyBoxShadow,
@@ -54,11 +55,13 @@ interface StoryDropdownProps {
 }
 
 const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
+  const [selectedItems, setSelectedItems] = useState<CODE[]>([]);
+
   return (
     <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
       <Wrapper styles={[marginRight(50)]}>
         <DropdownMenu {...props} stylesMainButton={[width(props.widthTargetElem)]} widthPopper="140%">
-          <List multiselect>
+          <List multiselect selectedItems={selectedItems} onChange={setSelectedItems}>
             <ListItem size={props.itemSize} code="ValueByDefault" showArrowOnSelection={false}>
               ValueByDefault
             </ListItem>
@@ -135,8 +138,8 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
         stylesPopper={[border(1, "red/04"), backgroundColor("blue/01")]}
         size={InputContainerSize.SMALL}
       >
-        <List>
-          <DropdownItem size={props.itemSize} code="ValueByDefault">
+        <List multiselect selectedItems={selectedItems} onChange={setSelectedItems}>
+          <DropdownItem hovered={false} size={props.itemSize} code="ValueByDefault">
             ValueByDefault
           </DropdownItem>
           <DropdownDivider />

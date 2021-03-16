@@ -81,7 +81,7 @@ function PopupManager({
                 </Wrapper>
               )}
             </MainElement>
-            <Wrapper styles={display(visibility ? "" : "none")}>
+            {visibility && (
               <PopperElement
                 primaryPlacement={primaryPlacement}
                 modifiers={popupModifiers}
@@ -93,7 +93,7 @@ function PopupManager({
               >
                 {popperElement}
               </PopperElement>
-            </Wrapper>
+            )}
           </>
         )}
       </VisibilityManager>
