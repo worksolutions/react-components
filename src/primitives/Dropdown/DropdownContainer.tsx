@@ -25,7 +25,7 @@ import ListItem from "../List/ListItem";
 import Wrapper from "../Wrapper";
 import DroppedList, { DroppedListInterface } from "../List/DroppedList";
 import Input, { InputSize } from "../Input/Input";
-import ClearInputWrapper from "../Input/ClearInputWrapper";
+import ClearInputWrapper from "../ClearInputWrapper";
 import Icon from "../Icon";
 
 import { DropdownContainerInterface, DropdownItemInterface } from "./types";
@@ -84,7 +84,7 @@ const DropdownContainer = function ({
           <ClearInputWrapper
             styles={[marginLeft(4), marginRight(4), borderBottom(1, "gray-blue/02"), paddingBottom(4)]}
             needShow={!!search}
-            size={matchDropdownSizeAndSearchSize[size].clearButtonSize}
+            clearButtonSize={matchDropdownSizeAndSearchSize[size].clearButtonSize}
             clear={clearSearch}
           >
             <Input
