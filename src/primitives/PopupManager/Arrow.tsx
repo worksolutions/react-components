@@ -46,7 +46,9 @@ function getArrowStyles(placement: Placement) {
 
 const Triangle = React.memo(function () {
   return (
-    <Wrapper styles={[position("absolute"), width(30), height(17), overflow("hidden"), left(-15), top(-6)]}>
+    <Wrapper
+      styles={[position("absolute"), width(30), height(17), overflow("hidden"), transform("translate(-50%, -6px)")]}
+    >
       <Wrapper
         styles={[
           position("absolute"),

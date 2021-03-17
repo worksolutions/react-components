@@ -34,7 +34,6 @@ import AvatarComponent from "../../Avatar";
 import { numbersControl, selectControl } from "../../../storybook/storyHelpers";
 import TooltipContainer from "../../Tooltip/TooltipContainer";
 import { InputContainerSize } from "../../InputContainer/enums";
-import ListItem from "../../List/ListItem";
 
 export default {
   title: "DropdownMenu/DropdownMenu",
@@ -56,15 +55,36 @@ interface StoryDropdownProps {
 
 const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
   const [selectedItems, setSelectedItems] = useState<CODE[]>([]);
+  const selectedElement = React.useMemo(
+    () =>
+      selectedItems.length === 0 ? null : (
+        <DropdownItem code={selectedItems[0]} size={props.itemSize}>
+          DropdownItemElement3
+        </DropdownItem>
+      ),
+    [props.itemSize, selectedItems],
+  );
 
   return (
     <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
       <Wrapper styles={[marginRight(50)]}>
-        <DropdownMenu {...props} stylesMainButton={[width(props.widthTargetElem)]} widthPopper="140%">
-          <List multiselect selectedItems={selectedItems} onChange={setSelectedItems}>
-            <ListItem size={props.itemSize} code="Невозможно выбрать" showArrowOnSelection={false}>
+        <DropdownMenu
+          {...props}
+          selectedItem={selectedElement}
+          stylesMainButton={[width(props.widthTargetElem)]}
+          widthPopper="140%"
+          // onChange={(code) => console.log(code)}
+          // selectedItems={selectedItems}
+        >
+          <List multiselect selectedItems={selectedItems} setSelectedItems={setSelectedItems}>
+            <DropdownItem
+              size={props.itemSize}
+              code="Невозможно выбрать"
+              showArrowOnSelection={false}
+              canSelect={false}
+            >
               Невозможно выбрать
-            </ListItem>
+            </DropdownItem>
             <DropdownDivider />
             <DropdownItem code="DropdownItemElement3" size={props.itemSize} showArrowOnSelection>
               DropdownItemElement3
@@ -113,10 +133,11 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
               DropdownItemElement2
             </DropdownItem>
             <DropdownDivider />
-            <ListItem
+            <DropdownItem
               size={props.itemSize}
               code="ValueByDefault"
               showArrowOnSelection={false}
+              canSelect={false}
               rightContent={
                 <Wrapper
                   styles={[padding(5), borderRadius("50%"), hover([backgroundColor("blue/05")])]}
@@ -127,7 +148,7 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
               }
             >
               Невозможно выбрать, но с аватаркой
-            </ListItem>
+            </DropdownItem>
           </List>
         </DropdownMenu>
       </Wrapper>
@@ -139,7 +160,7 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
         stylesPopper={[border(1, "red/04"), backgroundColor("blue/01")]}
         size={InputContainerSize.SMALL}
       >
-        <List multiselect selectedItems={selectedItems} onChange={setSelectedItems}>
+        <List multiselect selectedItems={selectedItems} setSelectedItems={setSelectedItems}>
           <DropdownItem hovered={false} size={props.itemSize} code="ValueByDefault">
             ValueByDefault
           </DropdownItem>

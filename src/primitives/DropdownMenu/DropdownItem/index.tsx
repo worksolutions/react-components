@@ -5,7 +5,7 @@ import ListItem from "../../List/ListItem";
 import { useSetRightIcon } from "./useSetRightIcon";
 
 import { VisibilityManagerContext } from "../../VisibilityManager/VisibilityManagerContext";
-import { ListSelectedItemsManagerContext } from "../../List/ListSelectedItemsManagerContext";
+import { useSelectedItemsManagerContext } from "../../List/SelectedItemsManagerContext";
 
 export interface DropdownItemInterface {
   leftContentStyles?: any;
@@ -25,13 +25,22 @@ export interface DropdownItemInterface {
   showIconRightOnHover?: boolean;
   showIconLeftOnHover?: boolean;
   hovered?: boolean;
+  canSelect?: boolean;
 }
 
-function DropdownItem({ disabled, rightContent, code, showArrowOnSelection = true, ...props }: DropdownItemInterface) {
+function DropdownItem({
+  disabled,
+  rightContent,
+  code,
+  showArrowOnSelection = true,
+  canSelect = true,
+  ...props
+}: DropdownItemInterface) {
   const { hide } = React.useContext(VisibilityManagerContext);
-  const { selectedItems, onChange } = React.useContext(ListSelectedItemsManagerContext);
+  const { selectedItems, onChange } = useSelectedItemsManagerContext();
 
   const isSelected = () => {
+    if (!canSelect) return false;
     if (disabled) return false;
     return selectedItems.length !== 0 ? selectedItems.includes(code) : false;
   };
@@ -41,6 +50,8 @@ function DropdownItem({ disabled, rightContent, code, showArrowOnSelection = tru
   const resultRightContent = useSetRightIcon({ selected, rightContent, showArrowOnSelection });
 
   const handleClick = useCallback(() => {
+    if (!canSelect) return;
+
     if (!onChange || disabled) {
       hide();
       return;
@@ -48,7 +59,7 @@ function DropdownItem({ disabled, rightContent, code, showArrowOnSelection = tru
 
     onChange(code);
     hide();
-  }, [onChange, disabled, code, hide]);
+  }, [canSelect, onChange, disabled, code, hide]);
 
   return (
     <ListItem

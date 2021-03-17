@@ -1,52 +1,23 @@
-import React, { useCallback, useMemo } from "react";
-import { firstChild, flex, flexColumn, lastChild, marginBottom, marginTop, padding } from "../../styles";
+import React from "react";
 
-import Wrapper from "../Wrapper";
-import { ListSelectedItemsManagerContext } from "./ListSelectedItemsManagerContext";
+import { useSelectedItemsManagerContext } from "./SelectedItemsManagerContext";
 import { CODE } from "./ListItem";
-import { removeItemByIndex } from "../../utils/removeItemByIndex";
+import ListWithDefaultContext from "./ListWithDefaultContext";
+import ListWrapper from "./ListWrapper";
 
 export interface ListInterface {
   outerStyles?: any;
   multiselect?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   selectedItems: CODE[];
-  onChange?: React.Dispatch<React.SetStateAction<CODE[]>>;
+  setSelectedItems?: (...args: any) => any;
 }
 
-function List({ children, outerStyles, multiselect = false, selectedItems, onChange }: ListInterface) {
-  const setSelectedItems = useCallback(
-    (code: CODE) => {
-      if (!onChange || !selectedItems) return;
+function List(props: ListInterface) {
+  const context = useSelectedItemsManagerContext();
 
-      const foundIndex = selectedItems.indexOf(code);
-
-      if (foundIndex === -1) {
-        onChange((prevSelectedItems) => prevSelectedItems.concat(code));
-        return;
-      }
-      onChange((prevSelectedItems) => removeItemByIndex(prevSelectedItems, foundIndex));
-    },
-    [selectedItems, onChange],
-  );
-
-  const value = useMemo(
-    () => ({
-      onChange: (code: CODE) => (multiselect ? setSelectedItems(code) : onChange && onChange([code])),
-      selectedItems,
-    }),
-    [multiselect, selectedItems, setSelectedItems, onChange],
-  );
-
-  return (
-    <ListSelectedItemsManagerContext.Provider value={value}>
-      <Wrapper
-        styles={[flex, flexColumn, padding(8), outerStyles, firstChild(marginTop(4)), lastChild(marginBottom(4))]}
-      >
-        {children}
-      </Wrapper>
-    </ListSelectedItemsManagerContext.Provider>
-  );
+  if (context.alreadyInUse) return <ListWrapper outerStyles={props.outerStyles}>{props.children}</ListWrapper>;
+  return <ListWithDefaultContext {...props} />;
 }
 
 export default React.memo(List);
