@@ -9,7 +9,13 @@ export interface VisibilityManagerContextInterface {
 
 export const VisibilityManagerContext = React.createContext<VisibilityManagerContextInterface>({
   visibility: false,
-  show: () => {},
-  hide: () => {},
-  toggle: () => {},
+  show: () => {
+    throw new Error("Нет show() провайдера в VisibilityManagerContext");
+  },
+  hide: () => {
+    throw new Error("Нет hide() провайдера в VisibilityManagerContext");
+  },
+  toggle: () => {
+    throw new Error("Нет toggle() провайдера в VisibilityManagerContext");
+  },
 });

@@ -5,7 +5,7 @@ import ListItem from "../../List/ListItem";
 import { useSetRightIcon } from "./useSetRightIcon";
 
 import { VisibilityManagerContext } from "../../VisibilityManager/VisibilityManagerContext";
-import { ListSelectedManagerContext } from "../../List/ListSelectedManagerContext";
+import { ListSelectedItemsManagerContext } from "../../List/ListSelectedItemsManagerContext";
 
 export interface DropdownItemInterface {
   leftContentStyles?: any;
@@ -29,7 +29,7 @@ export interface DropdownItemInterface {
 
 function DropdownItem({ disabled, rightContent, code, showArrowOnSelection = true, ...props }: DropdownItemInterface) {
   const { hide } = React.useContext(VisibilityManagerContext);
-  const { selectedItems, onChange } = React.useContext(ListSelectedManagerContext);
+  const { selectedItems, onChange } = React.useContext(ListSelectedItemsManagerContext);
 
   const isSelected = () => {
     if (disabled) return false;

@@ -26,7 +26,7 @@ const MaskedInput = React.forwardRef(function (
     maskCharacter,
     mask,
     onChange,
-    ...InputContainerProps
+    ...inputContainerProps
   }: MaskedInputInterface,
   innerRef: Ref<HTMLInputElement>,
 ) {
@@ -46,7 +46,7 @@ const MaskedInput = React.forwardRef(function (
 
   return (
     <InputContainer
-      {...InputContainerProps}
+      {...inputContainerProps}
       renderComponent={(inputStyles) => (
         <Wrapper
           ref={provideRef((element) => {
@@ -54,7 +54,7 @@ const MaskedInput = React.forwardRef(function (
             provideRef(innerRef)(element);
           }, ref)}
           as="input"
-          disabled={InputContainerProps.disabled}
+          disabled={inputContainerProps.disabled}
           styles={[inputStyles, styles]}
           placeholder={placeholder}
           onChange={onChangeMasked}

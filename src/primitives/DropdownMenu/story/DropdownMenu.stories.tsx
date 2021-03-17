@@ -62,8 +62,8 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
       <Wrapper styles={[marginRight(50)]}>
         <DropdownMenu {...props} stylesMainButton={[width(props.widthTargetElem)]} widthPopper="140%">
           <List multiselect selectedItems={selectedItems} onChange={setSelectedItems}>
-            <ListItem size={props.itemSize} code="ValueByDefault" showArrowOnSelection={false}>
-              ValueByDefault
+            <ListItem size={props.itemSize} code="Невозможно выбрать" showArrowOnSelection={false}>
+              Невозможно выбрать
             </ListItem>
             <DropdownDivider />
             <DropdownItem code="DropdownItemElement3" size={props.itemSize} showArrowOnSelection>
@@ -117,7 +117,6 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
               size={props.itemSize}
               code="ValueByDefault"
               showArrowOnSelection={false}
-              children="ValueByDefault"
               rightContent={
                 <Wrapper
                   styles={[padding(5), borderRadius("50%"), hover([backgroundColor("blue/05")])]}
@@ -126,7 +125,9 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
                   <AvatarComponent size={AvatarSize.SMALL} />
                 </Wrapper>
               }
-            />
+            >
+              Невозможно выбрать, но с аватаркой
+            </ListItem>
           </List>
         </DropdownMenu>
       </Wrapper>

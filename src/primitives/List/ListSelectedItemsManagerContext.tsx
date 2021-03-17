@@ -6,9 +6,9 @@ export interface ListSelectedManagerInterface {
   onChange: (code: CODE) => void;
 }
 
-export const ListSelectedManagerContext = React.createContext({
+export const ListSelectedItemsManagerContext = React.createContext({
   selectedItems: [],
   onChange: () => {
-    throw new Error("Нет onChange провайдера в ListSelectedManagerContext");
+    throw new Error("Нет onChange провайдера в ListSelectedItemsManagerContext");
   },
 } as ListSelectedManagerInterface);

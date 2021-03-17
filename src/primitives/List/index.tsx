@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { firstChild, flex, flexColumn, lastChild, marginBottom, marginTop, padding } from "../../styles";
 
 import Wrapper from "../Wrapper";
-import { ListSelectedManagerContext } from "./ListSelectedManagerContext";
+import { ListSelectedItemsManagerContext } from "./ListSelectedItemsManagerContext";
 import { CODE } from "./ListItem";
 import { removeItemByIndex } from "../../utils/removeItemByIndex";
 
@@ -39,13 +39,13 @@ function List({ children, outerStyles, multiselect = false, selectedItems, onCha
   );
 
   return (
-    <ListSelectedManagerContext.Provider value={value}>
+    <ListSelectedItemsManagerContext.Provider value={value}>
       <Wrapper
         styles={[flex, flexColumn, padding(8), outerStyles, firstChild(marginTop(4)), lastChild(marginBottom(4))]}
       >
         {children}
       </Wrapper>
-    </ListSelectedManagerContext.Provider>
+    </ListSelectedItemsManagerContext.Provider>
   );
 }
 

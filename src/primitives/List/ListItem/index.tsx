@@ -4,20 +4,20 @@ import { flex, flexColumn, flexValue, marginLeft, marginRight, overflow, textAli
 
 import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
-import { InternalIcons } from "../../Icon";
 
 import { getHoveredStylesForLeftContent, getHoveredStylesForRightContent, makeIcon } from "./additionalContent";
 import { getListItemStyles } from "./libs";
 
 import { ListItemSize } from "./enum";
+import { InputIconProp } from "../../InputContainer";
 
 export type CODE = string | number;
 
 export interface ListItemInterface {
   leftContentStyles?: any;
-  leftContent?: React.ReactNode | InternalIcons;
+  leftContent?: InputIconProp;
   rightContentStyles?: any;
-  rightContent?: React.ReactNode | InternalIcons;
+  rightContent?: InputIconProp;
   active?: boolean;
   titleStyles?: any;
   styles?: any;

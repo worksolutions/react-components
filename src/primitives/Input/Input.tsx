@@ -26,14 +26,14 @@ const Input = React.forwardRef(function (
     debounce = 100,
     styles,
     type,
-    ...InputContainerProps
+    ...inputContainerProps
   }: InputInterface & { type?: string },
   ref: Ref<HTMLInputElement>,
 ) {
   const { onInputChange, inputValue } = useDebouncedInput(value, debounce, onChange);
   return (
     <InputContainer
-      {...InputContainerProps}
+      {...inputContainerProps}
       renderComponent={(inputStyles) => (
         <>
           <Wrapper
@@ -41,7 +41,7 @@ const Input = React.forwardRef(function (
             {...(multiline ? { as: "textarea" } : { as: "input" })}
             type={type}
             autoFocus={autofocus}
-            disabled={InputContainerProps.disabled}
+            disabled={inputContainerProps.disabled}
             styles={[inputStyles, styles]}
             value={inputValue}
             placeholder={placeholder}

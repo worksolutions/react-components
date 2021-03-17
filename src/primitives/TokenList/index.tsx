@@ -33,7 +33,7 @@ function TokenList(
     canRemove = true,
     onRemove,
     onCreate,
-    ...InputContainerProps
+    ...inputContainerProps
   }: TokenListInterface<string>,
   ref: Ref<HTMLElement>,
 ) {
@@ -53,7 +53,7 @@ function TokenList(
       outerStyles={outerStyles}
       outerRef={ref}
       size={InputContainerSize.LARGE}
-      {...InputContainerProps}
+      {...inputContainerProps}
       renderComponent={(styles) => (
         <Wrapper styles={[styles, flex, flexWrap, padding("8px 8px 4px 8px"), stylesProp]}>
           {items.map(({ code, title }) => (

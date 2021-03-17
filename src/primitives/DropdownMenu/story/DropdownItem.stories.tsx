@@ -7,7 +7,7 @@ import { left, ListItemSize, marginRight, position, top, transform, Wrapper } fr
 
 import DropdownItem, { DropdownItemInterface } from "../DropdownItem";
 import { internalIcons } from "../../Icon/list";
-import { ListSelectedManagerContext } from "../../List/ListSelectedManagerContext";
+import { ListSelectedItemsManagerContext } from "../../List/ListSelectedItemsManagerContext";
 
 export default {
   title: "DropdownMenu/DropdownItem",
@@ -27,9 +27,9 @@ const Template: Story<DropdownItemInterface> = (props: any) => {
     <Wrapper
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
-      <ListSelectedManagerContext.Provider value={value}>
+      <ListSelectedItemsManagerContext.Provider value={value}>
         <DropdownItem {...props}>ValueByDefault</DropdownItem>
-      </ListSelectedManagerContext.Provider>
+      </ListSelectedItemsManagerContext.Provider>
     </Wrapper>
   );
 };
