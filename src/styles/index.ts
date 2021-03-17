@@ -16,6 +16,7 @@ export const borderRight = styles.borderRight;
 export const borderTop = styles.borderTop;
 export const color = styles.color;
 export const createAlphaColor = styles.createAlphaColor;
+export const createRadialGradientColor = styles.createRadialGradientColor;
 export const fillColor = styles.fillColor;
 export const boxShadowString = styles.boxShadowString;
 export const boxShadow = styles.boxShadow;
