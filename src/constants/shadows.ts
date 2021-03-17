@@ -3,7 +3,7 @@ import { BoxShadowTypeMaker } from "@worksolutions/react-utils/dist/styles/shado
 import { boxShadow, createAlphaColor } from "../styles";
 import { Colors } from "./colors";
 
-type BoxShadow = BoxShadowTypeMaker<Colors>;
+export type BoxShadow = BoxShadowTypeMaker<Colors>;
 
 export const elevation8Raw: BoxShadow[] = [
   [0, 0, 2, 0, createAlphaColor("black", 15)],

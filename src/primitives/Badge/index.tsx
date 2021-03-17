@@ -6,17 +6,17 @@ import Wrapper from "../Wrapper";
 import {
   ai,
   backgroundColor,
-  border,
   borderRadius,
+  boxShadow,
   flex,
   height,
-  horizontalPadding,
   jc,
   minHeight,
   minWidth,
+  width,
 } from "../../styles";
 
-import { elevation16 } from "../../constants/shadows";
+import { BoxShadow, elevation16Raw } from "../../constants/shadows";
 import { Colors } from "../../constants/colors";
 
 export interface BadgeInterface {
@@ -24,23 +24,25 @@ export interface BadgeInterface {
   children?: React.ReactNode;
   color: IncomeColorVariant<Colors>;
   withShadow?: boolean;
+  size?: number;
+  borderWidth?: number;
 }
 
-function Badge({ styles, color, withShadow = true, children }: BadgeInterface) {
+function Badge({ styles, color, withShadow = true, children, size = 20, borderWidth = 2 }: BadgeInterface) {
+  const shadow = [0, 0, 0, borderWidth, "white"] as BoxShadow;
   return (
     <Wrapper
       styles={[
         flex,
         ai("center"),
         jc("center"),
-        horizontalPadding(4),
-        borderRadius(12),
+        borderRadius("100%"),
         backgroundColor(color),
-        minWidth(20),
-        minHeight(20),
-        height(20),
-        border(2, "white"),
-        withShadow && elevation16,
+        minWidth(size),
+        minHeight(size),
+        width(size),
+        height(size),
+        withShadow ? boxShadow(...elevation16Raw, shadow) : boxShadow(shadow),
         styles,
       ]}
     >
