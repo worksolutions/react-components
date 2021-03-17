@@ -25,6 +25,7 @@ export const focus = styles.focus;
 export const active = styles.active;
 export const mediaScreen = styles.mediaScreen;
 export const animation = styles.animation;
+export const animationDuration = styles.animationDuration;
 export const background = styles.background;
 export const backgroundImage = styles.backgroundImage;
 export const backgroundRepeat = styles.backgroundRepeat;
