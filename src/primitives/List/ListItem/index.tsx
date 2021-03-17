@@ -11,9 +11,7 @@ import { getListItemStyles } from "./libs";
 import { ListItemSize } from "./enum";
 import { InputIconProp } from "../../InputContainer";
 
-export type CODE = string | number;
-
-export interface ListItemInterface {
+export interface ListItemInterface<CODE extends string | number> {
   leftContentStyles?: any;
   leftContent?: InputIconProp;
   rightContentStyles?: any;
@@ -35,7 +33,7 @@ export interface ListItemInterface {
   onClick?: (code: CODE) => void;
 }
 
-function ListItem({
+function ListItem<CODE extends string | number>({
   children,
   leftContent,
   leftContentStyles: leftContentStylesProp,
@@ -55,7 +53,7 @@ function ListItem({
   showArrowOnSelection,
   hovered = true,
   onClick,
-}: ListItemInterface) {
+}: ListItemInterface<CODE>) {
   const enabled = !disabled;
   const leftIcon = makeIcon(leftContent, [marginRight(8), leftContentStylesProp]);
   const rightIcon = makeIcon(rightContent, [marginLeft(8), rightContentStylesProp]);

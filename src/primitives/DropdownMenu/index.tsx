@@ -1,11 +1,10 @@
-import React, { useCallback, useMemo } from "react";
+import React, { Ref, useCallback, useMemo } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
 
 import DropdownMainButton from "./DropdownMainButton";
 import PopupManager from "../PopupManager";
 
 import {
-  CODE,
   duration160,
   InternalIcons,
   lineHeight,
@@ -19,9 +18,10 @@ import {
 import Icon from "../Icon";
 import { InputContainerSize } from "../InputContainer/enums";
 import InputContainer from "../InputContainer";
-import SelectedItemsManagerContextProvider from "../List/SelectedItemsManagerContext";
+import SelectedItemsManagerContextProvider from "../List/ListContext";
+import { TokenListInterface } from "../TokenList";
 
-export interface DropdownMenuInterface {
+export interface DropdownMenuInterface<CODE extends string | number> {
   stylesPopper?: any;
   stylesMainButton?: any;
   stylesTextMainButton?: any;
@@ -40,7 +40,7 @@ export interface DropdownMenuInterface {
   onChange?: (code: CODE) => void;
 }
 
-function DropdownMenu({
+function DropdownMenu<CODE extends string | number>({
   stylesPopper,
   stylesMainButton,
   stylesTextMainButton,
@@ -57,7 +57,7 @@ function DropdownMenu({
   selectedItem,
   selectedItems,
   onChange,
-}: DropdownMenuInterface) {
+}: DropdownMenuInterface<CODE>) {
   const popupMainElement = useCallback(
     ({ toggle, visibility }) => {
       return (
@@ -68,9 +68,7 @@ function DropdownMenu({
           error={error}
           renderComponent={(styles) => (
             <DropdownMainButton styles={[styles, stylesMainButton, selectedItem && padding(0)]}>
-              {selectedItem ? (
-                selectedItem
-              ) : (
+              {selectedItem || (
                 <Typography
                   color="definitions.DropdownMainButton.colorText"
                   styles={[textDots, lineHeight("143%"), stylesTextMainButton]}
@@ -110,7 +108,9 @@ function DropdownMenu({
   );
 }
 
-export default React.memo(DropdownMenu);
+export default React.memo(DropdownMenu) as <CODE extends string | number>(
+  props: DropdownMenuInterface<CODE>,
+) => JSX.Element;
 
 export function createDropdownRightIcon(opened: boolean, icon: InternalIcons = "arrow-down") {
   return (

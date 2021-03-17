@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo } from "react";
 
-import { CODE, InputIconProp, ListItemSize } from "../../../index";
+import { InputIconProp, ListItemSize } from "../../../index";
 import ListItem from "../../List/ListItem";
 import { useSetRightIcon } from "./useSetRightIcon";
 
 import { VisibilityManagerContext } from "../../VisibilityManager/VisibilityManagerContext";
-import { useSelectedItemsManagerContext } from "../../List/SelectedItemsManagerContext";
+import { useListContext } from "../../List/ListContext";
 
 export interface DropdownItemInterface {
   leftContentStyles?: any;
@@ -20,7 +20,7 @@ export interface DropdownItemInterface {
   rightContent?: InputIconProp;
   heading?: string | number;
   subTitle?: string;
-  code: CODE;
+  code: string | number;
   showArrowOnSelection?: boolean;
   showIconRightOnHover?: boolean;
   showIconLeftOnHover?: boolean;
@@ -37,7 +37,7 @@ function DropdownItem({
   ...props
 }: DropdownItemInterface) {
   const { hide } = React.useContext(VisibilityManagerContext);
-  const { selectedItems, onChange } = useSelectedItemsManagerContext();
+  const { selectedItems, onChange } = useListContext();
 
   const isSelected = () => {
     if (!canSelect) return false;
@@ -45,7 +45,7 @@ function DropdownItem({
     return selectedItems.length !== 0 ? selectedItems.includes(code) : false;
   };
 
-  const selected = useMemo(isSelected, [selectedItems, code, disabled]);
+  const selected = useMemo(isSelected, [canSelect, disabled, selectedItems, code]);
 
   const resultRightContent = useSetRightIcon({ selected, rightContent, showArrowOnSelection });
 

@@ -1,40 +1,41 @@
 import React, { useCallback, useMemo } from "react";
 
-import { CODE } from "../ListItem";
-import SelectedItemsManagerContextProvider from "../SelectedItemsManagerContext";
+import SelectedItemsManagerContextProvider from "../ListContext";
 import { ListInterface } from "../index";
 import ListWrapper from "../ListWrapper";
 
 import { removeItemByIndex } from "../../../utils/removeItemByIndex";
 
-function ListWithDefaultContext({
+function ListWithDefaultContext<CODE extends string | number>({
   selectedItems,
   multiselect,
   children,
   outerStyles,
   setSelectedItems,
-}: ListInterface) {
-  const onChange = useCallback(
+}: ListInterface<CODE>) {
+  const multiselectOnChange = useCallback(
     (code: CODE) => {
       if (!setSelectedItems) return;
-
       const foundIndex = selectedItems.indexOf(code);
-
-      if (foundIndex === -1) {
-        setSelectedItems(selectedItems.concat(code));
-        return;
-      }
-      setSelectedItems(removeItemByIndex(selectedItems, foundIndex));
+      setSelectedItems(foundIndex === -1 ? selectedItems.concat(code) : removeItemByIndex(selectedItems, foundIndex));
     },
     [selectedItems, setSelectedItems],
   );
 
+  const singleOnChange = useCallback(
+    (code: CODE) => {
+      if (!setSelectedItems) return;
+      setSelectedItems([code]);
+    },
+    [setSelectedItems],
+  );
+
   const value = useMemo(
     () => ({
-      onChange: (code: CODE) => (multiselect ? onChange(code) : setSelectedItems && setSelectedItems([code])),
       selectedItems,
+      onChange: (code: CODE) => (multiselect ? multiselectOnChange(code) : singleOnChange(code)),
     }),
-    [multiselect, selectedItems, setSelectedItems, onChange],
+    [selectedItems, multiselect, multiselectOnChange, singleOnChange],
   );
 
   return (
@@ -44,4 +45,4 @@ function ListWithDefaultContext({
   );
 }
 
-export default React.memo(ListWithDefaultContext);
+export default ListWithDefaultContext;

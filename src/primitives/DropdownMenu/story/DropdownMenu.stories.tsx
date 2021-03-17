@@ -8,7 +8,6 @@ import {
   backgroundColor,
   border,
   borderRadius,
-  CODE,
   color,
   disableOutline,
   emptyBoxShadow,
@@ -37,7 +36,7 @@ import { InputContainerSize } from "../../InputContainer/enums";
 
 export default {
   title: "DropdownMenu/DropdownMenu",
-  component: DropdownMenu.type,
+  component: DropdownMenu,
   argTypes: {
     iconLeft: selectControl(Object.keys(internalIcons)),
     size: selectControl(Object.values(InputContainerSize)),
@@ -53,8 +52,8 @@ interface StoryDropdownProps {
   isHover: boolean;
 }
 
-const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
-  const [selectedItems, setSelectedItems] = useState<CODE[]>([]);
+const Template: Story<DropdownMenuInterface<string> & StoryDropdownProps> = (props) => {
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const selectedElement = React.useMemo(
     () =>
       selectedItems.length === 0 ? null : (
@@ -73,8 +72,7 @@ const Template: Story<DropdownMenuInterface & StoryDropdownProps> = (props) => {
           selectedItem={selectedElement}
           stylesMainButton={[width(props.widthTargetElem)]}
           widthPopper="140%"
-          // onChange={(code) => console.log(code)}
-          // selectedItems={selectedItems}
+          selectedItems={selectedItems}
         >
           <List multiselect selectedItems={selectedItems} setSelectedItems={setSelectedItems}>
             <DropdownItem

@@ -7,7 +7,7 @@ import { left, ListItemSize, marginRight, position, top, transform, Wrapper } fr
 
 import DropdownItem, { DropdownItemInterface } from "../DropdownItem";
 import { internalIcons } from "../../Icon/list";
-import SelectedItemsManagerContextProvider from "../../List/SelectedItemsManagerContext";
+import SelectedItemsManagerContextProvider from "../../List/ListContext";
 
 export default {
   title: "DropdownMenu/DropdownItem",
