@@ -5,7 +5,7 @@ export interface HandleClickOutsideInterface {
   onClickOutside: () => void;
   enabled?: boolean;
   ignoreElements?: (HTMLElement | undefined | null)[];
-  children: (ref: { current: HTMLElement | null }) => JSX.Element;
+  children: (ref: { current: HTMLElement | null }) => React.ReactNode;
 }
 
 const emptyFunc = () => null;
@@ -25,7 +25,7 @@ const HandleClickOutside = function ({
 
   useClickAway(ref, enabled ? handler : emptyFunc);
 
-  return children(ref);
+  return <>{children(ref)}</>;
 };
 
 export default React.memo(HandleClickOutside);

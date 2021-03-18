@@ -1,10 +1,8 @@
 import React, { useMemo } from "react";
-import { Placement } from "@popperjs/core/lib/enums";
 
-import Typography from "primitives/Typography";
-
+import Typography from "../Typography";
 import DropdownMainButton from "./internal/DropdownMainButton";
-import PopupManager from "../PopupManager";
+import PopupManager, { PopupManagerInterface } from "../PopupManager";
 import Icon, { InternalIcons } from "../Icon";
 import { InputContainerSize } from "../InputContainer/enums";
 import InputContainer from "../InputContainer";
@@ -14,21 +12,16 @@ import { padding, transform, transition } from "../../styles";
 import { duration160 } from "../../constants/durations";
 import { VisibilityManagerContextInterface } from "../VisibilityManager/types";
 
-export interface DropdownMenuInterface<CODE extends string | number> {
-  popperStyles?: any;
+export interface DropdownMenuInterface<CODE extends string | number>
+  extends Omit<PopupManagerInterface, "popupElement" | "renderMainElement"> {
   stylesMainButton?: any;
   stylesTextMainButton?: any;
   placeholder: string;
   size?: InputContainerSize;
   iconLeft?: InternalIcons;
   children: React.ReactNode;
-  primaryPlacement: Placement;
-  closeOnClickOutside?: boolean;
-  offset?: number;
-  popupWidth?: number | string | "auto";
   iconReferenceRight?: InternalIcons;
   error?: boolean;
-  closeAfterClickItem?: boolean;
   selectedElement: React.ReactNode;
   selectedItemCodes?: CODE[];
   onChange?: (code: CODE) => void;
@@ -45,7 +38,6 @@ function DropdownMenu<CODE extends string | number>({
   error,
   selectedElement,
   selectedItemCodes,
-  closeAfterClickItem,
   onChange,
   ...props
 }: DropdownMenuInterface<CODE>) {
@@ -68,7 +60,7 @@ function DropdownMenu<CODE extends string | number>({
     />
   );
 
-  const popperElement = useMemo(() => {
+  const popperElement = useMemo(() => { // todo убрать memo
     if (!onChange || !selectedItemCodes) return children;
 
     return (
@@ -78,14 +70,7 @@ function DropdownMenu<CODE extends string | number>({
     );
   }, [children, onChange, selectedItemCodes]);
 
-  return (
-    <PopupManager
-      {...props}
-      closeAfterClick={closeAfterClickItem}
-      popupElement={popperElement}
-      renderMainElement={popupMainElement}
-    />
-  );
+  return <PopupManager {...props} popupElement={popperElement} renderMainElement={popupMainElement} />;
 }
 
 export default React.memo(DropdownMenu) as <CODE extends string | number>(

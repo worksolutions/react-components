@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Manager as ReactPopperManager, Reference as MainElement } from "react-popper";
 import { provideRef } from "@worksolutions/react-utils";
 import { isNumber, isString } from "@worksolutions/utils";
-import { StrictModifiers } from "@popperjs/core";
+import { PositioningStrategy, StrictModifiers } from "@popperjs/core";
 import { Placement } from "@popperjs/core/lib/enums";
 
 import Wrapper from "../Wrapper";
@@ -13,8 +13,8 @@ import { width } from "../../styles";
 import { convertPercentageStringToNumber } from "../../utils/convertPercentageStringToNumber";
 import { VisibilityManagerContextInterface } from "../VisibilityManager/types";
 
-export interface PopperManagerInterface {
-  popperStyles?: any;
+export interface PopupManagerInterface {
+  popupStyles?: any;
   primaryPlacement?: Placement;
   popupModifiers?: StrictModifiers[];
   offset?: number;
@@ -24,7 +24,8 @@ export interface PopperManagerInterface {
   popupElement: React.ReactNode;
   closeAfterClick?: boolean;
   closeOnClickOutside?: boolean;
-  renderMainElement: ({ visibility, show, hide, toggle }: VisibilityManagerContextInterface) => React.ReactNode;
+  strategy?: PositioningStrategy;
+  renderMainElement: (data: VisibilityManagerContextInterface) => React.ReactNode;
 }
 
 const defaultOffsets = {
@@ -51,7 +52,7 @@ function getPopperStyles(mainWrapperWidth?: number, popperWidth?: number | strin
 }
 
 function PopupManager({
-  popperStyles,
+  popupStyles,
   popupModifiers,
   primaryPlacement,
   closeOnClickOutside,
@@ -61,8 +62,9 @@ function PopupManager({
   popupElement,
   popupWidth,
   closeAfterClick,
+  strategy,
   renderMainElement,
-}: PopperManagerInterface) {
+}: PopupManagerInterface) {
   const [mainWrapperRef, setMainWrapperRef] = useState<HTMLElement | undefined>();
 
   const offsetValue = useMemo(() => setOffset(offset, hasArrow), [hasArrow, offset]);
@@ -77,21 +79,20 @@ function PopupManager({
         {({ visibility, toggle, hide, show }) => (
           <>
             <MainElement>
-              {({ ref }) => (
-                <Wrapper ref={provideRef(ref, setMainWrapperRef)}>
-                  {renderMainElement({ toggle, visibility, hide, show })}
-                </Wrapper>
-              )}
+              {({ ref }) =>
+                renderMainElement({ toggle, visibility, hide, show, ref: provideRef(ref, setMainWrapperRef) })
+              }
             </MainElement>
             {visibility && (
               <PopperElement
                 primaryPlacement={primaryPlacement}
                 modifiers={popupModifiers}
-                styles={[popperStyles, popperWidthStyles]}
+                styles={[popupStyles, popperWidthStyles]}
                 offset={offsetValue}
                 arrowPadding={arrowPadding || defaultArrowPadding}
                 hasArrow={hasArrow}
                 mainWrapperElement={mainWrapperRef}
+                strategy={strategy}
               >
                 {popupElement}
               </PopperElement>

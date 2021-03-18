@@ -1,6 +1,6 @@
 import React from "react";
 
-import Typography from "primitives/Typography";
+import Typography from "../../Typography";
 
 import { padding } from "../../../styles";
 
@@ -16,4 +16,5 @@ function TooltipTextContent({ children, styles }: TooltipTextContentInterface) {
     </Typography>
   );
 }
+
 export default React.memo(TooltipTextContent);

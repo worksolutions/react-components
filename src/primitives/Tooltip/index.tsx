@@ -1,36 +1,24 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Placement } from "@popperjs/core/lib/enums";
 import { isNotNil } from "@worksolutions/utils";
 
-import PopperManager from "../PopupManager";
+import PopupManager, { PopupManagerInterface } from "../PopupManager";
 import TooltipTextContent from "./internal/TooltipTextContent";
 
-import { zIndex_hint } from "../../constants/zIndexes";
 import { VisibilityManagerContextInterface } from "../VisibilityManager/types";
 import { popupArrowWidth } from "../PopupManager/PopperElement/Arrow";
 
-export interface TooltipInterface {
-  styles?: any;
-  offset?: number;
-  primaryPlacement?: Placement;
+export interface TooltipInterface extends Omit<PopupManagerInterface, "renderMainElement" | "popupElement"> {
+  textStyles?: any;
   text?: React.ReactNode;
-  hasArrow?: boolean;
   children: ({ visibility, show, hide, toggle }: VisibilityManagerContextInterface) => React.ReactNode;
 }
 
-function Tooltip({
-  styles,
-  primaryPlacement,
-  text,
-  children,
-  hasArrow = true,
-  offset: offsetProp = 0,
-}: TooltipInterface) {
+function Tooltip({ textStyles, text, children, hasArrow = true, offset: offsetProp = 0, ...props }: TooltipInterface) {
   const [offset, setOffset] = useState<number | undefined>();
 
   const tooltipElement = useMemo(
-    () => isNotNil(text) && <TooltipTextContent styles={styles}>{text!}</TooltipTextContent>,
-    [styles, text],
+    () => isNotNil(text) && <TooltipTextContent styles={textStyles}>{text!}</TooltipTextContent>,
+    [textStyles, text],
   );
 
   useEffect(() => {
@@ -38,13 +26,12 @@ function Tooltip({
   }, [hasArrow]);
 
   return (
-    <PopperManager
+    <PopupManager
+      {...props}
       hasArrow={hasArrow}
-      primaryPlacement={primaryPlacement}
       renderMainElement={children}
       popupElement={tooltipElement}
       offset={offset}
-      popperStyles={zIndex_hint}
     />
   );
 }
