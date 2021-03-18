@@ -17,6 +17,7 @@ import {
   Input,
   List,
   ListItemSize,
+  margin,
   marginRight,
   padding,
   top,
@@ -57,8 +58,21 @@ const Template: Story<DropdownMenuInterface<string> & StoryDropdownProps> = (pro
   const selectedElement = React.useMemo(
     () =>
       selectedItems.length === 0 ? null : (
-        <DropdownItem code={selectedItems[0]} size={props.itemSize}>
-          DropdownItemElement3
+        <DropdownItem
+          code={selectedItems[0]}
+          size={props.itemSize}
+          styles={[margin(0)]}
+          showArrowOnSelection={false}
+          rightContent={
+            <Wrapper
+              styles={[padding(5), borderRadius("50%"), hover([backgroundColor("blue/05")])]}
+              onClick={() => console.log("asdsa")}
+            >
+              <AvatarComponent size={AvatarSize.SMALL} />
+            </Wrapper>
+          }
+        >
+          DropdownItemElement1
         </DropdownItem>
       ),
     [props.itemSize, selectedItems],
