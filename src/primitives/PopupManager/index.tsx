@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
 import { Manager as ReactPopperManager, Reference as MainElement } from "react-popper";
-
 import { provideRef } from "@worksolutions/react-utils";
 import { isNumber, isString } from "@worksolutions/utils";
 import { StrictModifiers } from "@popperjs/core";
@@ -10,7 +9,7 @@ import Wrapper from "../Wrapper";
 import PopperElement from "./PopperElement";
 import VisibilityManager, { VisibilityManagerChildrenInterface } from "../VisibilityManager";
 
-import { display, width } from "../../styles";
+import { width } from "../../styles";
 import { convertPercentageStringToNumber } from "../../utils/convertPercentageStringToNumber";
 
 export interface PopperManagerInterface {

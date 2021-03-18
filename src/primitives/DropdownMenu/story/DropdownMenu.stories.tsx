@@ -32,7 +32,7 @@ import DropdownDivider from "../../List/ListItem/ListItemsDivider";
 
 import AvatarComponent from "../../Avatar";
 import { booleanControl, numbersControl, selectControl } from "../../../storybook/storyHelpers";
-import TooltipContainer from "../../Tooltip/TooltipContainer";
+import TooltipContainer from "../../Tooltip";
 import { InputContainerSize } from "../../InputContainer/enums";
 
 export default {

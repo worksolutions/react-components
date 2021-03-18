@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
 
 import Typography from "primitives/Typography";
@@ -10,9 +10,9 @@ import { InputContainerSize } from "../InputContainer/enums";
 import InputContainer from "../InputContainer";
 import SelectedItemsManagerContextProvider from "../List/ListContext";
 
-import { lineHeight, padding, transform, transition } from "../../styles";
+import { padding, transform, transition } from "../../styles";
 import { duration160 } from "../../constants/durations";
-import { VisibilityManagerChildrenInterface, VisibilityManagerInterface } from "../VisibilityManager";
+import { VisibilityManagerChildrenInterface } from "../VisibilityManager";
 
 export interface DropdownMenuInterface<CODE extends string | number> {
   popperStyles?: any;
