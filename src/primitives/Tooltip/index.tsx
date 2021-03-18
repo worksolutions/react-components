@@ -1,31 +1,40 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
+import { isNotNil } from "@worksolutions/utils";
 
 import PopperManager from "../PopupManager";
-import TooltipTextContent from "./TooltipTextContent";
+import TooltipTextContent from "./internal/TooltipTextContent";
 
 import { zIndex_hint } from "../../constants/zIndexes";
-import { VisibilityManagerChildrenInterface } from "../VisibilityManager";
+import { VisibilityManagerContextInterface } from "../VisibilityManager/types";
+import { popupArrowWidth } from "../PopupManager/PopperElement/Arrow";
 
 export interface TooltipInterface {
-  tooltipStyles?: any;
+  styles?: any;
+  offset?: number;
   primaryPlacement?: Placement;
-  tooltipText: string;
+  text?: React.ReactNode;
   hasArrow?: boolean;
-  children: ({ visibility, show, hide, toggle }: VisibilityManagerChildrenInterface) => React.ReactNode;
+  children: ({ visibility, show, hide, toggle }: VisibilityManagerContextInterface) => React.ReactNode;
 }
-const offsetTooltipWhenNotArrow = 14;
 
-function Tooltip({ tooltipStyles, primaryPlacement, tooltipText, children, hasArrow = true }: TooltipInterface) {
+function Tooltip({
+  styles,
+  primaryPlacement,
+  text,
+  children,
+  hasArrow = true,
+  offset: offsetProp = 0,
+}: TooltipInterface) {
   const [offset, setOffset] = useState<number | undefined>();
 
-  const tooltipElement = useMemo(() => <TooltipTextContent styles={tooltipStyles}>{tooltipText}</TooltipTextContent>, [
-    tooltipStyles,
-    tooltipText,
-  ]);
+  const tooltipElement = useMemo(
+    () => isNotNil(text) && <TooltipTextContent styles={styles}>{text!}</TooltipTextContent>,
+    [styles, text],
+  );
 
   useEffect(() => {
-    hasArrow ? setOffset(undefined) : setOffset(offsetTooltipWhenNotArrow);
+    setOffset(hasArrow ? offsetProp + popupArrowWidth : offsetProp);
   }, [hasArrow]);
 
   return (
@@ -33,7 +42,7 @@ function Tooltip({ tooltipStyles, primaryPlacement, tooltipText, children, hasAr
       hasArrow={hasArrow}
       primaryPlacement={primaryPlacement}
       renderMainElement={children}
-      popperElement={tooltipElement}
+      popupElement={tooltipElement}
       offset={offset}
       popperStyles={zIndex_hint}
     />

@@ -2,8 +2,8 @@ import React, { useCallback, useMemo } from "react";
 import { useEffectSkipFirst } from "@worksolutions/react-utils";
 import { remove } from "ramda";
 
-import SelectedItemsManagerContextProvider from "../ListContext";
-import { ListInterface } from "../index";
+import SelectedItemsManagerContextProvider from "../../ListContext/ListContextProvider";
+import { ListInterface } from "../../index";
 import ListWrapper from "../ListWrapper";
 
 function ListWithDefaultContext<CODE extends string | number>({

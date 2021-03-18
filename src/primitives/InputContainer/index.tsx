@@ -8,6 +8,7 @@ import Icon, { InternalIcons } from "../Icon";
 
 import { Colors } from "../../constants/colors";
 import { InputContainerSize, InputContainerTitlePosition, InputContainerVariant } from "./enums";
+
 import {
   colorsByVariant,
   createDefaultInputStyles,
@@ -16,6 +17,7 @@ import {
   stylesForSize,
   wrapperStylesByTitlePosition,
 } from "./libs";
+
 import {
   borderRadius,
   focus,
@@ -33,7 +35,7 @@ import {
 
 export type InputIconProp = InternalIcons | JSX.Element | undefined;
 
-export interface BaseInputWrapperInterface {
+export interface InputContainerInterface {
   outerStyles?: any;
   iconLeft?: InputIconProp;
   iconRight?: InputIconProp;
@@ -68,7 +70,7 @@ function InputContainer({
   renderComponent,
   outerRef,
   onClick,
-}: BaseInputWrapperInterface & {
+}: InputContainerInterface & {
   renderComponent: (styles: any) => JSX.Element;
 }) {
   const leftIconElement = makeIconElement(iconLeft, "definitions.InputContainer.leftIconColor" as Colors, [

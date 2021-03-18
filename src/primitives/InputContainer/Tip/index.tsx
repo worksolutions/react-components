@@ -1,5 +1,6 @@
-import { nbspString } from "@worksolutions/utils";
 import React, { useMemo } from "react";
+import { nbspString } from "@worksolutions/utils";
+import { IncomeColorVariant } from "@worksolutions/react-utils";
 
 import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
@@ -10,7 +11,7 @@ import { duration160 } from "../../../constants/durations";
 
 interface TipInterface {
   tip: string | undefined;
-  color: Colors;
+  color: IncomeColorVariant<Colors>;
 }
 
 function getTipVisibilitiesStylesStyles(hasTip: boolean) {

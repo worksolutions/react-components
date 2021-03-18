@@ -3,7 +3,7 @@ import { Story } from "@storybook/react/types-6-0";
 
 import { left, marginTop, position, transform } from "styles";
 
-import Toast, { ToastPropsInterface } from "../index";
+import Toast, { ToastComponentInterface } from "../index";
 import Wrapper from "../../Wrapper";
 
 export default {
@@ -15,7 +15,7 @@ interface ToastStoriesInterface {
   haveCancelButton: boolean;
 }
 
-const TemplateDefault: Story<ToastPropsInterface & ToastStoriesInterface> = (props) => {
+const TemplateDefault: Story<ToastComponentInterface & ToastStoriesInterface> = (props) => {
   const [actionText, setActionText] = React.useState(props.text);
   const [isOpened, setOpened] = React.useState(true);
 

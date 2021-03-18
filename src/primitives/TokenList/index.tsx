@@ -5,13 +5,13 @@ import { flex, flexValue, flexWrap, height, marginBottom, marginRight, minWidth,
 
 import Form from "../Form";
 import Wrapper from "../Wrapper";
-import InputContainer, { BaseInputWrapperInterface } from "../InputContainer";
+import InputContainer, { InputContainerInterface } from "../InputContainer";
 
 import Token from "./Token";
 import { InputContainerSize } from "../InputContainer/enums";
 import { createDefaultInputStyles } from "../InputContainer/libs";
 
-export interface TokenListInterface<CODE extends string | number> extends Omit<BaseInputWrapperInterface, "size"> {
+export interface TokenListInterface<CODE extends string | number> extends Omit<InputContainerInterface, "size"> {
   placeholder?: string;
   styles?: any;
   items: SuggestInterface<CODE>[];

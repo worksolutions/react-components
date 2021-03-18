@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 
-import { InputIconProp } from "../../InputContainer";
+import { InternalIcons } from "../../../Icon";
+
+export type SideIconType = InternalIcons | JSX.Element | undefined;
 
 interface HookShowedRightIconInterface {
   selected: boolean;
-  rightContent: InputIconProp;
+  rightContent: SideIconType;
   showArrowOnSelection?: boolean;
 }
 
 export function useRightIcon({ selected, rightContent, showArrowOnSelection }: HookShowedRightIconInterface) {
-  const [resultRightContent, setResultRightContent] = useState<InputIconProp | undefined>();
+  const [resultRightContent, setResultRightContent] = useState<SideIconType>();
 
   useEffect(() => {
     if (showArrowOnSelection) {

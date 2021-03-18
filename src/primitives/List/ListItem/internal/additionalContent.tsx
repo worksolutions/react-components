@@ -1,9 +1,9 @@
 import React from "react";
 import { isString } from "@worksolutions/utils";
 
-import { ai, child, flex, flexShrink, hover, jc, opacity } from "../../../styles";
-import Icon, { InternalIcons } from "../../Icon";
-import Wrapper from "../../Wrapper";
+import { ai, child, flex, flexShrink, hover, jc, opacity } from "../../../../styles";
+import Icon, { InternalIcons } from "../../../Icon";
+import Wrapper from "../../../Wrapper";
 
 interface HoveredStylesRightContentInterface {
   disabled?: boolean;

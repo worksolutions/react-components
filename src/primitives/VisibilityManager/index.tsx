@@ -3,23 +3,21 @@ import { useBoolean } from "@worksolutions/react-utils";
 
 import Wrapper from "primitives/Wrapper";
 
+import HandleClickOutside from "../HandleClickOutside";
 import { VisibilityManagerContext } from "./VisibilityManagerContext";
-import { HandleClickOutside } from "../../index";
-
-export interface VisibilityManagerChildrenInterface {
-  visibility: boolean;
-  show: () => void;
-  hide: () => void;
-  toggle: () => void;
-}
+import { VisibilityManagerContextInterface } from "./types";
 
 export interface VisibilityManagerInterface {
-  onClickOutside?: boolean;
+  closeOnClickOutside?: boolean;
   closeAfterClick?: boolean;
-  children: ({ visibility, show, hide, toggle }: VisibilityManagerChildrenInterface) => React.ReactNode;
+  children: ({ visibility, show, hide, toggle }: VisibilityManagerContextInterface) => React.ReactNode;
 }
 
-function VisibilityManager({ children, onClickOutside = true, closeAfterClick = true }: VisibilityManagerInterface) {
+function VisibilityManager({
+  children,
+  closeOnClickOutside = true,
+  closeAfterClick = true,
+}: VisibilityManagerInterface) {
   const [visibility, show, hide] = useBoolean(false);
 
   const toggle = useCallback(() => (visibility ? hide() : show()), [hide, show, visibility]);
@@ -36,7 +34,7 @@ function VisibilityManager({ children, onClickOutside = true, closeAfterClick = 
 
   return (
     <VisibilityManagerContext.Provider value={visibilityManagerContextValue}>
-      {onClickOutside ? (
+      {closeOnClickOutside ? (
         <HandleClickOutside onClickOutside={hide}>
           {(ref) => <Wrapper ref={ref}>{children({ visibility, show, hide, toggle })}</Wrapper>}
         </HandleClickOutside>

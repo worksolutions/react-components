@@ -1,7 +1,7 @@
 import React from "react";
 
-import Wrapper from "../../Wrapper";
-import { firstChild, flex, flexColumn, lastChild, marginBottom, marginTop, padding } from "../../../styles";
+import Wrapper from "../../../Wrapper";
+import { firstChild, flex, flexColumn, lastChild, marginBottom, marginTop, padding } from "../../../../styles";
 
 interface ListWrapperInterface {
   children?: React.ReactNode;

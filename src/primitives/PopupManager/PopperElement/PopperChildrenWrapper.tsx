@@ -4,7 +4,7 @@ import { useEffectSkipFirst } from "@worksolutions/react-utils";
 import { PopperArrowProps } from "react-popper";
 
 import Wrapper from "../../Wrapper";
-import Arrow from "../Arrow";
+import Arrow from "./Arrow";
 
 interface PopperChildrenProps {
   styles?: any;

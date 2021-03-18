@@ -7,10 +7,11 @@ import { Placement } from "@popperjs/core/lib/enums";
 
 import Wrapper from "../Wrapper";
 import PopperElement from "./PopperElement";
-import VisibilityManager, { VisibilityManagerChildrenInterface } from "../VisibilityManager";
+import VisibilityManager from "../VisibilityManager";
 
 import { width } from "../../styles";
 import { convertPercentageStringToNumber } from "../../utils/convertPercentageStringToNumber";
+import { VisibilityManagerContextInterface } from "../VisibilityManager/types";
 
 export interface PopperManagerInterface {
   popperStyles?: any;
@@ -20,10 +21,10 @@ export interface PopperManagerInterface {
   arrowPadding?: number;
   hasArrow?: boolean;
   popupWidth?: number | string | "auto";
-  popperElement: React.ReactNode;
+  popupElement: React.ReactNode;
   closeAfterClick?: boolean;
   closeOnClickOutside?: boolean;
-  renderMainElement: ({ visibility, show, hide, toggle }: VisibilityManagerChildrenInterface) => React.ReactNode;
+  renderMainElement: ({ visibility, show, hide, toggle }: VisibilityManagerContextInterface) => React.ReactNode;
 }
 
 const defaultOffsets = {
@@ -57,7 +58,7 @@ function PopupManager({
   offset,
   arrowPadding,
   hasArrow,
-  popperElement,
+  popupElement,
   popupWidth,
   closeAfterClick,
   renderMainElement,
@@ -72,7 +73,7 @@ function PopupManager({
 
   return (
     <ReactPopperManager>
-      <VisibilityManager onClickOutside={closeOnClickOutside} closeAfterClick={closeAfterClick}>
+      <VisibilityManager closeOnClickOutside={closeOnClickOutside} closeAfterClick={closeAfterClick}>
         {({ visibility, toggle, hide, show }) => (
           <>
             <MainElement>
@@ -92,7 +93,7 @@ function PopupManager({
                 hasArrow={hasArrow}
                 mainWrapperElement={mainWrapperRef}
               >
-                {popperElement}
+                {popupElement}
               </PopperElement>
             )}
           </>

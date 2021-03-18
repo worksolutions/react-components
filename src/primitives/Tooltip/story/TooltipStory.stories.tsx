@@ -37,5 +37,5 @@ export const Default = Template.bind({});
 
 Default.args = {
   hasArrow: true,
-  tooltipText: "text",
+  text: "text",
 };

@@ -1,8 +1,8 @@
 import React from "react";
 
-import Wrapper from "../../Wrapper";
+import Wrapper from "../../../Wrapper";
 
-import { ai, flex, flexValue, pointer, textAlign } from "../../../styles";
+import { ai, flex, flexValue, pointer, textAlign } from "../../../../styles";
 
 export interface DropdownMenuMainButtonInterface {
   styles?: any;

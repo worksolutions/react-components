@@ -18,25 +18,25 @@ import {
   Wrapper,
 } from "../../../index";
 
-import DropdownDivider from "../ListItem/ListItemsDivider";
+import ListItemsDivider from "../ListItemsDivider";
 
 import AvatarComponent from "../../Avatar";
 import { selectControl } from "../../../storybook/storyHelpers";
 
 export default {
-  title: "List/List",
+  title: "List",
   component: List,
   argTypes: {
     itemSize: selectControl(Object.values(ListItemSize)),
   },
 };
 
-interface StoryDropdownProps {
-  itemSize: ListItemSize;
-  isHover: boolean;
-}
-
-const Template: Story<ListInterface<string> & StoryDropdownProps> = (props) => {
+const Template: Story<
+  ListInterface<string> & {
+    itemSize: ListItemSize;
+    isHover: boolean;
+  }
+> = (props) => {
   const [selectedItemCodes, setSelectedItemCodes] = useState<string[]>([]);
 
   return (
@@ -50,7 +50,7 @@ const Template: Story<ListInterface<string> & StoryDropdownProps> = (props) => {
         <ListItem size={props.itemSize} code="Невозможно выбрать" showArrowOnSelection={false} canSelect={false}>
           Невозможно выбрать
         </ListItem>
-        <DropdownDivider />
+        <ListItemsDivider />
         <ListItem code="DropdownItemElement3" size={props.itemSize} showArrowOnSelection>
           DropdownItemElement3
         </ListItem>
@@ -81,7 +81,7 @@ const Template: Story<ListInterface<string> & StoryDropdownProps> = (props) => {
         >
           DropdownItemElement2
         </ListItem>
-        <DropdownDivider />
+        <ListItemsDivider />
         <ListItem
           size={props.itemSize}
           code="ValueByDefault"

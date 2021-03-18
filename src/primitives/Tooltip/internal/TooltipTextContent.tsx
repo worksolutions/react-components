@@ -2,10 +2,10 @@ import React from "react";
 
 import Typography from "primitives/Typography";
 
-import { padding } from "../../styles";
+import { padding } from "../../../styles";
 
 export interface TooltipTextContentInterface {
-  children: string;
+  children: React.ReactNode;
   styles: any;
 }
 

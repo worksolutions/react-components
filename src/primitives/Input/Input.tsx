@@ -4,9 +4,9 @@ import { useDebouncedInput } from "@worksolutions/react-utils";
 
 import Wrapper from "../Wrapper";
 
-import InputContainer, { BaseInputWrapperInterface } from "../InputContainer";
+import InputContainer, { InputContainerInterface } from "../InputContainer";
 
-export interface InputInterface extends Omit<BaseInputWrapperInterface, "onClick"> {
+export interface InputInterface extends Omit<InputContainerInterface, "onClick"> {
   autofocus?: boolean;
   multiline?: boolean;
   styles?: any;

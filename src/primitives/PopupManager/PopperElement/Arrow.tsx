@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { PopperArrowProps } from "react-popper";
 import { Placement } from "@popperjs/core/lib/enums";
 
-import Wrapper from "../Wrapper";
+import Wrapper from "../../Wrapper";
 
 import {
   backgroundColor,
@@ -17,9 +17,9 @@ import {
   transform,
   width,
   zIndex,
-} from "../../styles";
-import { reactStylesToStylesComponent } from "../../styles/reactStylesToStylesComponent";
-import { elevation16Raw } from "../../constants/shadows";
+} from "../../../styles";
+import { reactStylesToStylesComponent } from "../../../styles/reactStylesToStylesComponent";
+import { elevation16Raw } from "../../../constants/shadows";
 
 function getArrowPositionStyles(placement: Placement, arrowPadding: number) {
   if (!placement) return null;
@@ -43,6 +43,8 @@ function getArrowStyles(placement: Placement) {
 
   return null;
 }
+
+export const popupArrowWidth = 14;
 
 const Triangle = React.memo(function () {
   return (

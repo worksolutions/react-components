@@ -9,6 +9,7 @@ export interface HandleClickOutsideInterface {
 }
 
 const emptyFunc = () => null;
+
 const HandleClickOutside = function ({
   children,
   ignoreElements,

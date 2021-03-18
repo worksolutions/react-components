@@ -1,4 +1,3 @@
-import { memoizeWith } from "ramda";
 import { IncomeColorVariant } from "@worksolutions/react-utils";
 
 import {
@@ -109,21 +108,20 @@ const cssAnimateProperties = [
 
 const transitionStyle = transition(cssAnimateProperties.map((val) => `${val} ${duration160}`).join(","));
 
-export const createDefaultInputStyles = memoizeWith(
-  (placeholderColor) => placeholderColor || "",
-  (placeholderColor: Colors = "definitions.InputContainer.placeholderColor" as Colors) => [
-    padding(0),
-    TypographyTypes["body-regular"],
-    transitionStyle,
-    borderWidth(0),
-    borderRadius(6),
-    fullWidth,
-    fullHeight,
-    disableOutline,
-    backgroundColor("transparent"),
-    child([color(placeholderColor), transition(`color ${duration160}`)], "::placeholder, .placeholder"),
-  ],
-);
+export const createDefaultInputStyles = (
+  placeholderColor: IncomeColorVariant<Colors> = "definitions.InputContainer.placeholderColor",
+) => [
+  padding(0),
+  TypographyTypes["body-regular"],
+  transitionStyle,
+  borderWidth(0),
+  borderRadius(6),
+  fullWidth,
+  fullHeight,
+  disableOutline,
+  backgroundColor("transparent"),
+  child([color(placeholderColor), transition(`color ${duration160}`)], "::placeholder, .placeholder"),
+];
 
 export const wrapperStylesByTitlePosition: Record<InputContainerTitlePosition, { wrapper?: any; title?: any }> = {
   [InputContainerTitlePosition.LEFT]: { wrapper: [flex, ai("center")], title: marginRight(8) },

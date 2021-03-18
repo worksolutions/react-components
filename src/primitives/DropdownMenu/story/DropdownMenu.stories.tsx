@@ -28,7 +28,7 @@ import {
 import DropdownMenu, { DropdownMenuInterface } from "../index";
 import { internalIcons } from "../../Icon/list";
 import DropdownItem from "../DropdownItem";
-import DropdownDivider from "../../List/ListItem/ListItemsDivider";
+import DropdownDivider from "../../List/ListItemsDivider";
 
 import AvatarComponent from "../../Avatar";
 import { booleanControl, numbersControl, selectControl } from "../../../storybook/storyHelpers";
@@ -206,7 +206,7 @@ const Template: Story<DropdownMenuInterface<string> & StoryDropdownProps> = ({
           <DropdownItem size={props.itemSize} code="ValueByDefault">
             ValueByDefault
           </DropdownItem>
-          <TooltipContainer tooltipText="text" primaryPlacement="right">
+          <TooltipContainer text="text" primaryPlacement="right">
             {({ toggle }) => (
               <Wrapper onClick={toggle}>
                 <Input value="baseValue" onChange={() => {}} />

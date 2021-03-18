@@ -27,7 +27,7 @@ import { zIndex_toast } from "../../constants/zIndexes";
 
 import { calcToastBottom, toastAnimations, toastHeight, toastMarginTop } from "./libs";
 
-interface BaseToastInterface {
+interface ToastInterface {
   text: string;
   error?: boolean;
   cancelButton?: {
@@ -36,12 +36,12 @@ interface BaseToastInterface {
   };
 }
 
-export interface ToastPropsInterface extends BaseToastInterface {
+export interface ToastComponentInterface extends ToastInterface {
   index: number;
   removeToast: () => void;
 }
 
-function Toast({ index, text, error, cancelButton, removeToast }: ToastPropsInterface) {
+function Toast({ index, text, error, cancelButton, removeToast }: ToastComponentInterface) {
   return (
     <Wrapper
       styles={[
@@ -74,7 +74,7 @@ function Toast({ index, text, error, cancelButton, removeToast }: ToastPropsInte
             styles={marginRight(8)}
             type={ButtonType.GHOST}
             size={ButtonSize.MEDIUM}
-            onClick={cancelButton!.onClick}
+            onClick={cancelButton.onClick}
           >
             {cancelButton.text}
           </Button>

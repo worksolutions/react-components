@@ -9,10 +9,12 @@ interface TitleInterface {
 
 function Title({ title, styles }: TitleInterface) {
   if (!title) return null;
+
   return (
     <Typography styles={styles} color="definitions.InputContainerTitle.color" noWrap>
       {title}
     </Typography>
   );
 }
+
 export default React.memo(Title);

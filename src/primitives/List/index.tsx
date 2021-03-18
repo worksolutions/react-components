@@ -1,8 +1,8 @@
 import React from "react";
 
-import { useListContext } from "./ListContext";
-import ListWithDefaultContext from "./ListWithDefaultContext";
-import ListWrapper from "./ListWrapper";
+import ListWithDefaultContext from "./internal/ListWithDefaultContext";
+import ListWrapper from "./internal/ListWrapper";
+import { useListContext } from "./ListContext/useListContext";
 
 export interface ListInterface<CODE extends string | number> {
   outerStyles?: any;

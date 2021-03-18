@@ -1,11 +1,6 @@
 import React from "react";
 
-export interface VisibilityManagerContextInterface {
-  visibility: boolean;
-  show: () => void;
-  hide: () => void;
-  toggle: () => void;
-}
+import { VisibilityManagerContextInterface } from "./types";
 
 export const VisibilityManagerContext = React.createContext<VisibilityManagerContextInterface>({
   visibility: false,

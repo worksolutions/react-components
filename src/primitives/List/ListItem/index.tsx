@@ -4,16 +4,17 @@ import { flex, flexColumn, flexValue, marginLeft, marginRight, overflow, textAli
 
 import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
-import { InternalIcons } from "../../Icon";
 
-import { getHoveredStylesForLeftContent, getHoveredStylesForRightContent, makeIcon } from "./additionalContent";
-import { getListItemStyles } from "./libs";
-import { useRightIcon } from "./useRightIcon";
-import { useListContext } from "../ListContext";
+import {
+  getHoveredStylesForLeftContent,
+  getHoveredStylesForRightContent,
+  makeIcon,
+} from "./internal/additionalContent";
+import { getListItemStyles } from "./internal/libs";
+import { SideIconType, useRightIcon } from "./internal/useRightIcon";
 
 import { ListItemSize } from "./enum";
-
-export type SideIconType = InternalIcons | JSX.Element | undefined;
+import { useListContext } from "../ListContext/useListContext";
 
 export interface ListItemInterface<CODE extends string | number> {
   leftContentStyles?: any;

@@ -14,10 +14,10 @@ import {
   opacity,
   pointer,
   transition,
-} from "../../../styles";
-import { duration160 } from "../../../constants/durations";
+} from "../../../../styles";
+import { duration160 } from "../../../../constants/durations";
 
-import { ListItemSize } from "./enum";
+import { ListItemSize } from "../enum";
 
 const heightForItemSize: Record<ListItemSize, number> = {
   [ListItemSize.LARGE]: 48,

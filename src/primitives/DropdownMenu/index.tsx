@@ -3,16 +3,16 @@ import { Placement } from "@popperjs/core/lib/enums";
 
 import Typography from "primitives/Typography";
 
-import DropdownMainButton from "./DropdownMainButton";
+import DropdownMainButton from "./internal/DropdownMainButton";
 import PopupManager from "../PopupManager";
 import Icon, { InternalIcons } from "../Icon";
 import { InputContainerSize } from "../InputContainer/enums";
 import InputContainer from "../InputContainer";
-import SelectedItemsManagerContextProvider from "../List/ListContext";
+import SelectedItemsManagerContextProvider from "../List/ListContext/ListContextProvider";
 
 import { padding, transform, transition } from "../../styles";
 import { duration160 } from "../../constants/durations";
-import { VisibilityManagerChildrenInterface } from "../VisibilityManager";
+import { VisibilityManagerContextInterface } from "../VisibilityManager/types";
 
 export interface DropdownMenuInterface<CODE extends string | number> {
   popperStyles?: any;
@@ -49,7 +49,7 @@ function DropdownMenu<CODE extends string | number>({
   onChange,
   ...props
 }: DropdownMenuInterface<CODE>) {
-  const popupMainElement = ({ toggle, visibility }: VisibilityManagerChildrenInterface) => (
+  const popupMainElement = ({ toggle, visibility }: VisibilityManagerContextInterface) => (
     <InputContainer
       size={size}
       iconLeft={iconLeft}
@@ -82,7 +82,7 @@ function DropdownMenu<CODE extends string | number>({
     <PopupManager
       {...props}
       closeAfterClick={closeAfterClickItem}
-      popperElement={popperElement}
+      popupElement={popperElement}
       renderMainElement={popupMainElement}
     />
   );
@@ -92,7 +92,7 @@ export default React.memo(DropdownMenu) as <CODE extends string | number>(
   props: DropdownMenuInterface<CODE>,
 ) => JSX.Element;
 
-export function createDropdownRightIcon(opened: boolean, icon: InternalIcons = "arrow-down") {
+function createDropdownRightIcon(opened: boolean, icon: InternalIcons = "arrow-down") {
   return (
     <Icon
       icon={icon}
