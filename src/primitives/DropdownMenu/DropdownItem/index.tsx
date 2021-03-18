@@ -12,4 +12,6 @@ function DropdownItem<CODE extends string | number>(props: DropdownItemInterface
   return <ListItem {...props} onAfterClick={hide} />;
 }
 
-export default React.memo(DropdownItem);
+export default React.memo(DropdownItem) as <CODE extends string | number>(
+  props: DropdownItemInterface<CODE>,
+) => JSX.Element;

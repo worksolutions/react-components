@@ -124,4 +124,4 @@ function ListItem<CODE extends string | number>({
   );
 }
 
-export default React.memo(ListItem);
+export default React.memo(ListItem) as <CODE extends string | number>(props: ListItemInterface<CODE>) => JSX.Element;

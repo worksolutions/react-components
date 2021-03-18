@@ -1,4 +1,5 @@
 import { memoizeWith } from "ramda";
+import { IncomeColorVariant } from "@worksolutions/react-utils";
 
 import {
   ai,
@@ -44,41 +45,41 @@ export const stylesForSize = {
 };
 
 export type InputContainerVariantType = {
-  background: Colors;
-  shadowColor: Colors;
-  tip: Colors;
-  placeholder: Colors;
-  color: Colors;
+  background: IncomeColorVariant<Colors>;
+  shadowColor: IncomeColorVariant<Colors>;
+  tip: IncomeColorVariant<Colors>;
+  placeholder: IncomeColorVariant<Colors>;
+  color: IncomeColorVariant<Colors>;
 };
 
 export const colorsByVariant: Record<InputContainerVariant, InputContainerVariantType> = {
   [InputContainerVariant.DEFAULT]: {
-    background: "definitions.InputContainerVariantDefault.background" as Colors,
-    shadowColor: "definitions.InputContainerVariantDefault.shadowColor" as Colors,
-    tip: "definitions.InputContainerVariantDefault.tip" as Colors,
-    placeholder: "definitions.InputContainerVariantDefault.placeholder" as Colors,
-    color: "definitions.InputContainerVariantDefault.color" as Colors,
+    background: "definitions.InputContainerVariantDefault.background",
+    shadowColor: "definitions.InputContainerVariantDefault.shadowColor",
+    tip: "definitions.InputContainerVariantDefault.tip",
+    placeholder: "definitions.InputContainerVariantDefault.placeholder",
+    color: "definitions.InputContainerVariantDefault.color",
   },
   [InputContainerVariant.ERROR]: {
-    background: "definitions.InputContainerVariantError.background" as Colors,
-    shadowColor: "definitions.InputContainerVariantError.shadowColor" as Colors,
-    tip: "definitions.InputContainerVariantError.tip" as Colors,
-    placeholder: "definitions.InputContainerVariantError.placeholder" as Colors,
-    color: "definitions.InputContainerVariantError.color" as Colors,
+    background: "definitions.InputContainerVariantError.background",
+    shadowColor: "definitions.InputContainerVariantError.shadowColor",
+    tip: "definitions.InputContainerVariantError.tip",
+    placeholder: "definitions.InputContainerVariantError.placeholder",
+    color: "definitions.InputContainerVariantError.color",
   },
   [InputContainerVariant.SUCCESS]: {
-    background: "definitions.InputContainerVariantSuccess.background" as Colors,
-    shadowColor: "definitions.InputContainerVariantSuccess.shadowColor" as Colors,
-    tip: "definitions.InputContainerVariantSuccess.tip" as Colors,
-    placeholder: "definitions.InputContainerVariantSuccess.placeholder" as Colors,
-    color: "definitions.InputContainerVariantSuccess.color" as Colors,
+    background: "definitions.InputContainerVariantSuccess.background",
+    shadowColor: "definitions.InputContainerVariantSuccess.shadowColor",
+    tip: "definitions.InputContainerVariantSuccess.tip",
+    placeholder: "definitions.InputContainerVariantSuccess.placeholder",
+    color: "definitions.InputContainerVariantSuccess.color",
   },
   [InputContainerVariant.DISABLED]: {
-    background: "definitions.InputContainerVariantDisabled.background" as Colors,
-    shadowColor: "definitions.InputContainerVariantDisabled.shadowColor" as Colors,
-    tip: "definitions.InputContainerVariantDisabled.tip" as Colors,
-    placeholder: "definitions.InputContainerVariantDisabled.placeholder" as Colors,
-    color: "definitions.InputContainerVariantDisabled.color" as Colors,
+    background: "definitions.InputContainerVariantDisabled.background",
+    shadowColor: "definitions.InputContainerVariantDisabled.shadowColor",
+    tip: "definitions.InputContainerVariantDisabled.tip",
+    placeholder: "definitions.InputContainerVariantDisabled.placeholder",
+    color: "definitions.InputContainerVariantDisabled.color",
   },
 };
 
