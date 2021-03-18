@@ -11,9 +11,17 @@ export interface CounterInterface extends Omit<BadgeInterface, "children"> {
   value: number;
   displayValueLimit?: number;
   textColor?: IncomeColorVariant<Colors>;
+  size?: number;
 }
 
-function Counter({ styles, textStyles, value, displayValueLimit = 99, color, textColor = "white" }: CounterInterface) {
+function Counter({
+  styles,
+  textStyles,
+  value,
+  displayValueLimit = 99,
+  textColor = "white",
+  ...badgeProps
+}: CounterInterface) {
   const resultValue = React.useMemo(() => {
     if (!displayValueLimit) return value;
 
@@ -21,7 +29,7 @@ function Counter({ styles, textStyles, value, displayValueLimit = 99, color, tex
   }, [value, displayValueLimit]);
 
   return (
-    <Badge styles={styles} color={color}>
+    <Badge styles={styles} {...badgeProps}>
       <Typography color={textColor} type="overline-medium" styles={textStyles}>
         {resultValue}
       </Typography>

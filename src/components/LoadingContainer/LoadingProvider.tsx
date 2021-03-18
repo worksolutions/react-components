@@ -5,20 +5,38 @@ import ReactDOM from "react-dom";
 import Wrapper from "../../primitives/Wrapper";
 import Spinner from "../../primitives/Spinner";
 
-import { ai, backgroundColor, bottom, createAlphaColor, flex, jc, left, position, right, top } from "../../styles";
+import {
+  ai,
+  backgroundColorWithoutMemoization,
+  bottom,
+  createAlphaColor,
+  flex,
+  jc,
+  left,
+  position,
+  right,
+  top,
+} from "../../styles";
 import { Colors } from "../../constants/colors";
 import { zIndex_loadingProvider } from "../../constants/zIndexes";
 
 import { LoadingProviderLogic, loadingProviderLogicStore } from "./LoadingProviderLogic";
 
 interface LoadingProviderInterface {
+  withBackground?: boolean;
   backplateStyles?: any;
   styles?: any;
   children: (loadingProviderRef: Ref<HTMLElement | undefined>) => JSX.Element;
   color?: Colors;
 }
 
-function LoadingProvider({ styles, backplateStyles, children, color }: LoadingProviderInterface) {
+function LoadingProvider({
+  styles,
+  backplateStyles,
+  children,
+  color,
+  withBackground = true,
+}: LoadingProviderInterface) {
   const id = React.useMemo(() => loadingProviderLogicStore.generateId(), []);
   const ref = React.useRef<HTMLElement>();
 
@@ -63,7 +81,10 @@ function LoadingProvider({ styles, backplateStyles, children, color }: LoadingPr
               right(0),
               top(0),
               bottom(0),
-              backgroundColor(createAlphaColor("definitions.LoadingProvider.Backplate.backgroundColor", 160)),
+              withBackground &&
+                backgroundColorWithoutMemoization(
+                  createAlphaColor("definitions.LoadingProvider.Backplate.backgroundColor", 160),
+                ),
               flex,
               ai("center"),
               jc("center"),

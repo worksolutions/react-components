@@ -51,8 +51,8 @@ export * from "./primitives/ImageWithDefault";
 export { default as Input } from "./primitives/Input/Input";
 export * from "./primitives/Input/Input";
 
-export { default as ClearInputWrapper } from "./primitives/Input/ClearInputWrapper";
-export * from "./primitives/Input/ClearInputWrapper";
+export { default as ClearInputWrapper } from "./primitives/ClearInputWrapper";
+export * from "./primitives/ClearInputWrapper";
 
 export { default as InputContainer } from "./primitives/InputContainer";
 export * from "./primitives/InputContainer";

@@ -138,7 +138,7 @@ function Calendar({ value, min: minProp, max: maxProp, mode, hasCurrentDayButton
           styles={marginRight(8)}
           type={ButtonType.ICON}
           size={ButtonSize.MEDIUM}
-          iconLeft="arrow-left-long"
+          iconLeft="arrow_long-left"
           onClick={() => setViewDateTime(viewDateTime.minus({ month: 1 }))}
         />
         <SwitchModeButton
@@ -159,7 +159,7 @@ function Calendar({ value, min: minProp, max: maxProp, mode, hasCurrentDayButton
           disabled={allControlButtonDisabled || rightControlButtonDisabled}
           type={ButtonType.ICON}
           size={ButtonSize.MEDIUM}
-          iconLeft="arrow-right-long"
+          iconLeft="arrow_long-right"
           onClick={() => setViewDateTime(viewDateTime.plus({ month: 1 }))}
         />
       </Wrapper>

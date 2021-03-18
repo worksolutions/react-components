@@ -4,12 +4,14 @@ import { useHover } from "react-use";
 
 import {
   absoluteCenter,
+  backgroundColor,
   bottom,
   child,
   cursor,
   flex,
   fullHeight,
   hover,
+  left,
   marginLeft,
   position,
   top,
@@ -17,10 +19,7 @@ import {
   transition,
   visibility,
   width,
-  backgroundColor,
-  left,
-  overflow,
-  maxWidth,
+  zIndex,
 } from "../../styles";
 
 import Wrapper from "../Wrapper";
@@ -134,7 +133,7 @@ const Resizer = React.forwardRef(function (
   return (
     <>
       <Wrapper ref={ref} styles={[position("relative"), flex, styles]}>
-        <Wrapper as={animated.div} style={childContentStyles}>
+        <Wrapper as={animated.div} style={childContentStyles} styles={zIndex(1)}>
           {children}
         </Wrapper>
         {hoverLine}
