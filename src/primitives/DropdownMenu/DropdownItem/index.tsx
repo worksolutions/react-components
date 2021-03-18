@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 
 import { InputIconProp, ListItemSize } from "../../../index";
 import ListItem from "../../List/ListItem";
@@ -29,9 +29,7 @@ export interface DropdownItemInterface {
 function DropdownItem(props: DropdownItemInterface) {
   const { hide } = React.useContext(VisibilityManagerContext);
 
-  const onAfterClick = useCallback(hide, [hide]);
-
-  return <ListItem {...props} onAfterClick={onAfterClick} />;
+  return <ListItem {...props} onAfterClick={hide} />;
 }
 
 export default React.memo(DropdownItem);

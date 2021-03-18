@@ -100,7 +100,7 @@ export interface Theme extends BaseTheme<Colors> {
     Popper: {
       boxShadowColor: Colors;
     };
-    DropdownDivider: {
+    ListItemsDivider: {
       backgroundColor: Colors;
     };
     Tooltip: {

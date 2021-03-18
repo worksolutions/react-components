@@ -41,11 +41,11 @@ export const defaultTheme: Theme = {
     ListItem: {
       Selected: { backgroundColor: "gray-blue/01" },
     },
+    ListItemsDivider: {
+      backgroundColor: "gray-blue/02",
+    },
     Popper: {
       boxShadowColor: "gray-blue/02",
-    },
-    DropdownDivider: {
-      backgroundColor: "gray-blue/02",
     },
     Avatar: {
       Empty: { color: "gray-blue/05" },
