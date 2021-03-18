@@ -1,10 +1,9 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { remove } from "ramda";
 
 import SelectedItemsManagerContextProvider from "../ListContext";
 import { ListInterface } from "../index";
 import ListWrapper from "../ListWrapper";
-
-import { removeItemByIndex } from "../../../utils/removeItemByIndex";
 
 function ListWithDefaultContext<CODE extends string | number>({
   selectedItems,
@@ -16,8 +15,9 @@ function ListWithDefaultContext<CODE extends string | number>({
   const multiselectOnChange = useCallback(
     (code: CODE) => {
       if (!setSelectedItems) return;
+
       const foundIndex = selectedItems.indexOf(code);
-      setSelectedItems(foundIndex === -1 ? selectedItems.concat(code) : removeItemByIndex(selectedItems, foundIndex));
+      setSelectedItems(foundIndex === -1 ? selectedItems.concat(code) : remove(foundIndex, 1, selectedItems));
     },
     [selectedItems, setSelectedItems],
   );
@@ -25,6 +25,7 @@ function ListWithDefaultContext<CODE extends string | number>({
   const singleOnChange = useCallback(
     (code: CODE) => {
       if (!setSelectedItems) return;
+
       setSelectedItems([code]);
     },
     [setSelectedItems],
@@ -37,6 +38,10 @@ function ListWithDefaultContext<CODE extends string | number>({
     }),
     [selectedItems, multiselect, multiselectOnChange, singleOnChange],
   );
+
+  useEffect(() => {
+    setSelectedItems && setSelectedItems([]);
+  }, [multiselect, setSelectedItems]);
 
   return (
     <SelectedItemsManagerContextProvider value={value}>

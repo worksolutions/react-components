@@ -17,12 +17,13 @@ export interface PopperManagerInterface {
   popperStyles?: any;
   primaryPlacement?: Placement;
   popupModifiers?: StrictModifiers[];
-  closeOnClickOutside?: boolean;
   offset?: number;
   arrowPadding?: number;
   hasArrow?: boolean;
   popupWidth?: number | string | "auto";
   popperElement: React.ReactNode;
+  closeAfterClick?: boolean;
+  closeOnClickOutside?: boolean;
   renderMainElement: ({ visibility, show, hide, toggle }: VisibilityManagerChildrenInterface) => React.ReactNode;
 }
 
@@ -53,13 +54,14 @@ function PopupManager({
   popperStyles,
   popupModifiers,
   primaryPlacement,
-  closeOnClickOutside = true,
+  closeOnClickOutside,
   offset,
   arrowPadding,
   hasArrow,
-  renderMainElement,
   popperElement,
   popupWidth,
+  closeAfterClick,
+  renderMainElement,
 }: PopperManagerInterface) {
   const [mainWrapperRef, setMainWrapperRef] = useState<HTMLElement | undefined>();
 
@@ -71,7 +73,7 @@ function PopupManager({
 
   return (
     <ReactPopperManager>
-      <VisibilityManager onClickOutside={closeOnClickOutside}>
+      <VisibilityManager onClickOutside={closeOnClickOutside} closeAfterClick={closeAfterClick}>
         {({ visibility, toggle, hide, show }) => (
           <>
             <MainElement>

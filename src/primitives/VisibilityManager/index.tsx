@@ -14,11 +14,12 @@ export interface VisibilityManagerChildrenInterface {
 }
 
 export interface VisibilityManagerInterface {
-  onClickOutside: boolean;
+  onClickOutside?: boolean;
+  closeAfterClick?: boolean;
   children: ({ visibility, show, hide, toggle }: VisibilityManagerChildrenInterface) => React.ReactNode;
 }
 
-function VisibilityManager({ children, onClickOutside }: VisibilityManagerInterface) {
+function VisibilityManager({ children, onClickOutside = true, closeAfterClick = true }: VisibilityManagerInterface) {
   const [visibility, show, hide] = useBoolean(false);
 
   const toggle = useCallback(() => (visibility ? hide() : show()), [hide, show, visibility]);
@@ -27,10 +28,10 @@ function VisibilityManager({ children, onClickOutside }: VisibilityManagerInterf
     () => ({
       toggle,
       show,
-      hide,
       visibility,
+      hide: () => closeAfterClick && hide(),
     }),
-    [toggle, show, hide, visibility],
+    [toggle, show, visibility, closeAfterClick, hide],
   );
 
   return (

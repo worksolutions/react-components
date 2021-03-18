@@ -19,10 +19,9 @@ import Icon from "../Icon";
 import { InputContainerSize } from "../InputContainer/enums";
 import InputContainer from "../InputContainer";
 import SelectedItemsManagerContextProvider from "../List/ListContext";
-import { TokenListInterface } from "../TokenList";
 
 export interface DropdownMenuInterface<CODE extends string | number> {
-  stylesPopper?: any;
+  popperStyles?: any;
   stylesMainButton?: any;
   stylesTextMainButton?: any;
   placeholder: string;
@@ -30,18 +29,19 @@ export interface DropdownMenuInterface<CODE extends string | number> {
   iconLeft?: InternalIcons;
   children: React.ReactNode;
   primaryPlacement: Placement;
-  closeOnOutsideClick?: boolean;
+  closeOnClickOutside?: boolean;
   offset?: number;
-  widthPopper?: number | string | "auto";
+  popupWidth?: number | string | "auto";
   iconReferenceRight?: InternalIcons;
   error?: boolean;
+  closeAfterClickItem?: boolean;
   selectedItem: React.ReactNode;
   selectedItems?: CODE[];
   onChange?: (code: CODE) => void;
 }
 
 function DropdownMenu<CODE extends string | number>({
-  stylesPopper,
+  popperStyles,
   stylesMainButton,
   stylesTextMainButton,
   children,
@@ -50,13 +50,13 @@ function DropdownMenu<CODE extends string | number>({
   size,
   placeholder,
   offset,
-  widthPopper,
   iconReferenceRight,
   error,
-  closeOnOutsideClick = true,
   selectedItem,
   selectedItems,
+  closeAfterClickItem,
   onChange,
+  ...props
 }: DropdownMenuInterface<CODE>) {
   const popupMainElement = useCallback(
     ({ toggle, visibility }) => {
@@ -97,11 +97,9 @@ function DropdownMenu<CODE extends string | number>({
 
   return (
     <PopupManager
-      primaryPlacement={primaryPlacement}
-      offset={offset}
-      closeOnClickOutside={closeOnOutsideClick}
-      popupWidth={widthPopper}
-      popperStyles={stylesPopper}
+      {...props}
+      closeAfterClick={closeAfterClickItem}
+      popperStyles={popperStyles}
       popperElement={popperElement}
       renderMainElement={popupMainElement}
     />

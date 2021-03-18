@@ -27,11 +27,11 @@ const heightForItemSize: Record<ListItemSize, number> = {
 interface ListItemStylesInterface {
   size: ListItemSize;
   enabled: boolean;
-  active?: boolean;
+  selected: boolean;
   hovered?: boolean;
 }
 
-export function getListItemStyles({ size, enabled, active, hovered }: ListItemStylesInterface) {
+export function getListItemStyles({ size, enabled, selected, hovered }: ListItemStylesInterface) {
   return [
     backgroundColor("transparent"),
     disableOutline,
@@ -50,6 +50,6 @@ export function getListItemStyles({ size, enabled, active, hovered }: ListItemSt
           focus(boxShadow([0, 0, 0, 2, "definitions.Button.focus.color"])),
         ]
       : [opacity(0.3)],
-    active && [backgroundColor("definitions.ListItem.Selected.backgroundColor")],
+    selected && [backgroundColor("definitions.ListItem.Selected.backgroundColor")],
   ];
 }

@@ -3,15 +3,15 @@ import { Story } from "@storybook/react/types-6-0";
 
 import { selectControl } from "../../../storybook/storyHelpers";
 
-import { left, ListItemSize, marginRight, position, top, transform, Wrapper } from "../../../index";
+import { left, ListItemInterface, ListItemSize, marginRight, position, top, transform, Wrapper } from "../../../index";
 
-import DropdownItem, { DropdownItemInterface } from "../DropdownItem";
 import { internalIcons } from "../../Icon/list";
-import SelectedItemsManagerContextProvider from "../../List/ListContext";
+import SelectedItemsManagerContextProvider from "../ListContext";
+import ListItem from "../ListItem";
 
 export default {
-  title: "DropdownMenu/DropdownItem",
-  component: DropdownItem.type,
+  title: "List/ListItem",
+  component: ListItem.type,
   argTypes: {
     leftContent: selectControl(Object.keys(internalIcons)),
     rightContent: selectControl(Object.keys(internalIcons)),
@@ -19,7 +19,7 @@ export default {
   },
 };
 
-const Template: Story<DropdownItemInterface> = (props: any) => {
+const Template: Story<ListItemInterface<string>> = (props: any) => {
   const [selectedItems, setSelect] = useState<any>([]);
   const value = useMemo(() => ({ onChange: setSelect, selectedItems }), [selectedItems, setSelect]);
 
@@ -28,7 +28,7 @@ const Template: Story<DropdownItemInterface> = (props: any) => {
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
       <SelectedItemsManagerContextProvider value={value}>
-        <DropdownItem {...props}>ValueByDefault</DropdownItem>
+        <ListItem {...props}>ValueByDefault</ListItem>
       </SelectedItemsManagerContextProvider>
     </Wrapper>
   );

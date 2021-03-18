@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 
 import { flex, flexColumn, flexValue, marginLeft, marginRight, overflow, textAlign } from "../../../styles";
 
@@ -10,13 +10,14 @@ import { getListItemStyles } from "./libs";
 
 import { ListItemSize } from "./enum";
 import { InputIconProp } from "../../InputContainer";
+import { useListContext } from "../ListContext";
+import { useSetRightIcon } from "../../DropdownMenu/DropdownItem/useSetRightIcon";
 
 export interface ListItemInterface<CODE extends string | number> {
   leftContentStyles?: any;
   leftContent?: InputIconProp;
   rightContentStyles?: any;
   rightContent?: InputIconProp;
-  active?: boolean;
   titleStyles?: any;
   styles?: any;
   heading?: string | number;
@@ -30,7 +31,9 @@ export interface ListItemInterface<CODE extends string | number> {
   children: string;
   code: CODE;
   hovered?: boolean;
-  onClick?: (code: CODE) => void;
+  canSelect?: boolean;
+  onBeforeClick?: () => void;
+  onAfterClick?: () => void;
 }
 
 function ListItem<CODE extends string | number>({
@@ -44,19 +47,36 @@ function ListItem<CODE extends string | number>({
   heading,
   subTitle,
   size = ListItemSize.MEDIUM,
-  active,
   titleDots,
   titleStyles,
   styles,
   showIconRightOnHover,
   showIconLeftOnHover,
-  showArrowOnSelection,
+  showArrowOnSelection = true,
   hovered = true,
-  onClick,
+  canSelect = true,
+  onBeforeClick,
+  onAfterClick,
 }: ListItemInterface<CODE>) {
   const enabled = !disabled;
-  const leftIcon = makeIcon(leftContent, [marginRight(8), leftContentStylesProp]);
-  const rightIcon = makeIcon(rightContent, [marginLeft(8), rightContentStylesProp]);
+  const { selectedItems, onChange } = useListContext();
+
+  const isSelected = () => {
+    if (!canSelect) return false;
+    if (disabled) return false;
+    return selectedItems.length !== 0 ? selectedItems.includes(code) : false;
+  };
+
+  const selected = useMemo(isSelected, [canSelect, disabled, selectedItems, code]);
+
+  const resultRightContent = useSetRightIcon({ selected, rightContent, showArrowOnSelection });
+
+  const listItemStyles = useMemo(() => getListItemStyles({ size, enabled, selected, hovered }), [
+    selected,
+    enabled,
+    hovered,
+    size,
+  ]);
 
   const leftContentStyles = useMemo(() => getHoveredStylesForLeftContent({ disabled, showIconLeftOnHover }), [
     disabled,
@@ -68,18 +88,19 @@ function ListItem<CODE extends string | number>({
     [disabled, showArrowOnSelection, showIconRightOnHover],
   );
 
-  const listItemStyles = useMemo(() => getListItemStyles({ size, enabled, active, hovered }), [
-    active,
-    enabled,
-    hovered,
-    size,
-  ]);
+  const leftIcon = makeIcon(leftContent, [marginRight(8), leftContentStylesProp]);
+  const rightIcon = makeIcon(resultRightContent, [marginLeft(8), rightContentStylesProp]);
+
+  const handleClick = useCallback(() => {
+    if (!canSelect || disabled) return;
+
+    onBeforeClick && onBeforeClick();
+    onChange(code);
+    onAfterClick && onAfterClick();
+  }, [canSelect, disabled, onAfterClick, onChange, code, onBeforeClick]);
 
   return (
-    <Wrapper
-      styles={[listItemStyles, rightContentStyles, leftContentStyles, styles]}
-      onClick={() => onClick && enabled && onClick(code)}
-    >
+    <Wrapper styles={[listItemStyles, rightContentStyles, leftContentStyles, styles]} onClick={handleClick}>
       {leftIcon && <Wrapper className="leftIcon">{leftIcon}</Wrapper>}
       <Wrapper styles={[flexValue(1), textAlign("left"), flex, flexColumn, overflow("hidden")]}>
         {heading && (

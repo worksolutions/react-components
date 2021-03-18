@@ -71,8 +71,8 @@ const Template: Story<DropdownMenuInterface<string> & StoryDropdownProps> = (pro
           {...props}
           selectedItem={selectedElement}
           stylesMainButton={[width(props.widthTargetElem)]}
-          widthPopper="140%"
-          selectedItems={selectedItems}
+          popupWidth="140%"
+          closeAfterClickItem={false}
         >
           <List multiselect selectedItems={selectedItems} setSelectedItems={setSelectedItems}>
             <DropdownItem
@@ -155,7 +155,7 @@ const Template: Story<DropdownMenuInterface<string> & StoryDropdownProps> = (pro
         placeholder="Без периода"
         stylesMainButton={[backgroundColor("blue/01"), emptyBoxShadow, disableOutline]}
         stylesTextMainButton={[fontWeight(600), color("gray-blue/08")]}
-        stylesPopper={[border(1, "red/04"), backgroundColor("blue/01")]}
+        popperStyles={[border(1, "red/04"), backgroundColor("blue/01")]}
         size={InputContainerSize.SMALL}
       >
         <List multiselect selectedItems={selectedItems} setSelectedItems={setSelectedItems}>
