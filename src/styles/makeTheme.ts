@@ -4,8 +4,7 @@ import { Theme as BaseTheme } from "@worksolutions/react-utils";
 
 import { Colors } from "../constants/colors";
 import { defaultTheme } from "./defaultTheme";
-import { colorsByVariant, InputContainerVariantType } from "../primitives/InputContainer/libs";
-import { InputContainerVariant } from "../primitives/InputContainer/enums";
+import { InputContainerVariantType } from "../primitives/InputContainer/libs";
 
 export interface Theme extends BaseTheme<Colors> {
   definitions: {
@@ -88,9 +87,6 @@ export interface Theme extends BaseTheme<Colors> {
         backgroundColor: Colors;
       };
     };
-    DropdownSource: {
-      textColor: Colors;
-    };
     ListItem: {
       Selected: { backgroundColor: Colors };
     };
@@ -114,14 +110,17 @@ export interface Theme extends BaseTheme<Colors> {
       leftIconColor: Colors;
       hoverBoxShadowColor: Colors;
       focusBoxShadowColor: Colors;
+      placeholderColor: Colors;
     };
     InputContainerVariantDefault: InputContainerVariantType;
     InputContainerVariantError: InputContainerVariantType;
     InputContainerVariantSuccess: InputContainerVariantType;
     InputContainerVariantDisabled: InputContainerVariantType;
+    InputContainerTitle: {
+      color: Colors;
+    };
   };
 }
-
 export function makeTheme(overrides: DeepPartial<Theme> = {}): Theme {
   return mergeDeepRight(defaultTheme, overrides);
 }

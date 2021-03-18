@@ -24,14 +24,15 @@ const heightForItemSize: Record<ListItemSize, number> = {
   [ListItemSize.MEDIUM]: 40,
   [ListItemSize.SMALL]: 32,
 };
+
 interface ListItemStylesInterface {
   size: ListItemSize;
   enabled: boolean;
   selected: boolean;
-  hovered?: boolean;
+  hoverable?: boolean;
 }
 
-export function getListItemStyles({ size, enabled, selected, hovered }: ListItemStylesInterface) {
+export function getListItemStyles({ size, enabled, selected, hoverable }: ListItemStylesInterface) {
   return [
     backgroundColor("transparent"),
     disableOutline,
@@ -46,7 +47,7 @@ export function getListItemStyles({ size, enabled, selected, hovered }: ListItem
     enabled
       ? [
           pointer,
-          hovered && hover([backgroundColor("definitions.ListItem.Selected.backgroundColor")]),
+          hoverable && hover([backgroundColor("definitions.ListItem.Selected.backgroundColor")]),
           focus(boxShadow([0, 0, 0, 2, "definitions.Button.focus.color"])),
         ]
       : [opacity(0.3)],

@@ -1,24 +1,18 @@
-import React, { Ref, useCallback, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
+
+import Typography from "primitives/Typography";
 
 import DropdownMainButton from "./DropdownMainButton";
 import PopupManager from "../PopupManager";
-
-import {
-  duration160,
-  InternalIcons,
-  lineHeight,
-  padding,
-  textDots,
-  transform,
-  transition,
-  Typography,
-} from "../../index";
-
-import Icon from "../Icon";
+import Icon, { InternalIcons } from "../Icon";
 import { InputContainerSize } from "../InputContainer/enums";
 import InputContainer from "../InputContainer";
 import SelectedItemsManagerContextProvider from "../List/ListContext";
+
+import { lineHeight, padding, transform, transition } from "../../styles";
+import { duration160 } from "../../constants/durations";
+import { VisibilityManagerChildrenInterface, VisibilityManagerInterface } from "../VisibilityManager";
 
 export interface DropdownMenuInterface<CODE extends string | number> {
   popperStyles?: any;
@@ -35,8 +29,8 @@ export interface DropdownMenuInterface<CODE extends string | number> {
   iconReferenceRight?: InternalIcons;
   error?: boolean;
   closeAfterClickItem?: boolean;
-  selectedItem: React.ReactNode;
-  selectedItems?: CODE[];
+  selectedElement: React.ReactNode;
+  selectedItemCodes?: CODE[];
   onChange?: (code: CODE) => void;
 }
 
@@ -49,48 +43,40 @@ function DropdownMenu<CODE extends string | number>({
   placeholder,
   iconReferenceRight,
   error,
-  selectedItem,
-  selectedItems,
+  selectedElement,
+  selectedItemCodes,
   closeAfterClickItem,
   onChange,
   ...props
 }: DropdownMenuInterface<CODE>) {
-  const popupMainElement = useCallback(
-    ({ toggle, visibility }) => {
-      return (
-        <InputContainer
-          size={size}
-          iconLeft={iconLeft}
-          iconRight={createDropdownRightIcon(visibility, iconReferenceRight)}
-          error={error}
-          renderComponent={(styles) => (
-            <DropdownMainButton styles={[styles, stylesMainButton, selectedItem && padding(0)]}>
-              {selectedItem || (
-                <Typography
-                  color="definitions.DropdownMainButton.colorText"
-                  styles={[textDots, lineHeight("143%"), stylesTextMainButton]}
-                >
-                  {placeholder}
-                </Typography>
-              )}
-            </DropdownMainButton>
+  const popupMainElement = ({ toggle, visibility }: VisibilityManagerChildrenInterface) => (
+    <InputContainer
+      size={size}
+      iconLeft={iconLeft}
+      iconRight={createDropdownRightIcon(visibility, iconReferenceRight)}
+      error={error}
+      renderComponent={(styles) => (
+        <DropdownMainButton styles={[styles, selectedElement && padding(0), stylesMainButton]}>
+          {selectedElement || (
+            <Typography dots color="definitions.DropdownMainButton.colorText" styles={[stylesTextMainButton]}>
+              {placeholder}
+            </Typography>
           )}
-          onClick={toggle}
-        />
-      );
-    },
-    [size, iconLeft, iconReferenceRight, error, stylesMainButton, stylesTextMainButton, selectedItem, placeholder],
+        </DropdownMainButton>
+      )}
+      onClick={toggle}
+    />
   );
 
   const popperElement = useMemo(() => {
-    if (!onChange || !selectedItems) return children;
+    if (!onChange || !selectedItemCodes) return children;
 
     return (
-      <SelectedItemsManagerContextProvider value={{ onChange, selectedItems }}>
+      <SelectedItemsManagerContextProvider value={{ selectedItemCodes, onChange }}>
         {children}
       </SelectedItemsManagerContextProvider>
     );
-  }, [children, onChange, selectedItems]);
+  }, [children, onChange, selectedItemCodes]);
 
   return (
     <PopupManager

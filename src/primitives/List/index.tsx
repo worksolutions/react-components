@@ -8,8 +8,8 @@ export interface ListInterface<CODE extends string | number> {
   outerStyles?: any;
   multiselect?: boolean;
   children?: React.ReactNode;
-  selectedItems: CODE[];
-  setSelectedItems?: (codes: CODE[]) => void;
+  selectedItemCodes: CODE[];
+  setSelectedItemCodes?: (codes: CODE[]) => void;
 }
 
 function List<CODE extends string | number>(props: ListInterface<CODE>) {

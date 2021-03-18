@@ -37,14 +37,14 @@ interface StoryDropdownProps {
 }
 
 const Template: Story<ListInterface<string> & StoryDropdownProps> = (props) => {
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItemCodes, setSelectedItemCodes] = useState<string[]>([]);
 
   return (
     <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
       <List
         {...props}
-        selectedItems={selectedItems}
-        setSelectedItems={setSelectedItems}
+        selectedItemCodes={selectedItemCodes}
+        setSelectedItemCodes={setSelectedItemCodes}
         outerStyles={[border(1, "gray-blue/02"), padding(0)]}
       >
         <ListItem size={props.itemSize} code="Невозможно выбрать" showArrowOnSelection={false} canSelect={false}>

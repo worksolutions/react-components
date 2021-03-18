@@ -2,12 +2,12 @@ import React, { useContext, useMemo } from "react";
 
 interface ListContextInterface<CODE extends string | number> {
   readonly alreadyInUse?: boolean;
-  selectedItems: CODE[];
+  selectedItemCodes: CODE[];
   onChange: (code: CODE) => void;
 }
 
 const defaultContextValue = {
-  selectedItems: [],
+  selectedItemCodes: [],
   alreadyInUse: false,
   onChange: () => {
     throw new Error("onChange не определен в контексте ListContext");

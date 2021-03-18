@@ -1,48 +1,50 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
+import { useEffectSkipFirst } from "@worksolutions/react-utils";
 import { remove } from "ramda";
 
 import SelectedItemsManagerContextProvider from "../ListContext";
 import { ListInterface } from "../index";
 import ListWrapper from "../ListWrapper";
-import { useEffectSkipFirst } from "@worksolutions/react-utils";
 
 function ListWithDefaultContext<CODE extends string | number>({
-  selectedItems,
+  selectedItemCodes,
   multiselect,
   children,
   outerStyles,
-  setSelectedItems,
+  setSelectedItemCodes,
 }: ListInterface<CODE>) {
   const multiselectOnChange = useCallback(
     (code: CODE) => {
-      if (!setSelectedItems) return;
+      if (!setSelectedItemCodes) return;
 
-      const foundIndex = selectedItems.indexOf(code);
-      setSelectedItems(foundIndex === -1 ? selectedItems.concat(code) : remove(foundIndex, 1, selectedItems));
+      const foundIndex = selectedItemCodes.indexOf(code);
+      setSelectedItemCodes(
+        foundIndex === -1 ? selectedItemCodes.concat(code) : remove(foundIndex, 1, selectedItemCodes),
+      );
     },
-    [selectedItems, setSelectedItems],
+    [selectedItemCodes, setSelectedItemCodes],
   );
 
   const singleOnChange = useCallback(
     (code: CODE) => {
-      if (!setSelectedItems) return;
+      if (!setSelectedItemCodes) return;
 
-      setSelectedItems([code]);
+      setSelectedItemCodes([code]);
     },
-    [setSelectedItems],
+    [setSelectedItemCodes],
   );
 
   const value = useMemo(
     () => ({
-      selectedItems,
+      selectedItemCodes,
       onChange: (code: CODE) => (multiselect ? multiselectOnChange(code) : singleOnChange(code)),
     }),
-    [selectedItems, multiselect, multiselectOnChange, singleOnChange],
+    [selectedItemCodes, multiselect, multiselectOnChange, singleOnChange],
   );
 
   useEffectSkipFirst(() => {
-    setSelectedItems && setSelectedItems([]);
-  }, [multiselect, setSelectedItems]);
+    if (setSelectedItemCodes) setSelectedItemCodes([]);
+  }, [multiselect, setSelectedItemCodes]);
 
   return (
     <SelectedItemsManagerContextProvider value={value}>

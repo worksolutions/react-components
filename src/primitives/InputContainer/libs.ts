@@ -110,7 +110,7 @@ const transitionStyle = transition(cssAnimateProperties.map((val) => `${val} ${d
 
 export const createDefaultInputStyles = memoizeWith(
   (placeholderColor) => placeholderColor || "",
-  (placeholderColor: Colors = "gray-blue/04") => [
+  (placeholderColor: Colors = "definitions.InputContainer.placeholderColor" as Colors) => [
     padding(0),
     TypographyTypes["body-regular"],
     transitionStyle,

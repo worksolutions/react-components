@@ -4,12 +4,12 @@ import Wrapper from "../../Wrapper";
 
 import { ai, flex, flexValue, pointer, textAlign } from "../../../styles";
 
-export interface DropdownMainButtonInterface {
+export interface DropdownMenuMainButtonInterface {
   styles?: any;
   children: React.ReactNode;
 }
 
-function DropdownMainButton({ styles, children }: DropdownMainButtonInterface) {
+function DropdownMenuMainButton({ styles, children }: DropdownMenuMainButtonInterface) {
   return (
     <Wrapper as="button" styles={[flexValue(1), textAlign("left"), flex, ai("center"), pointer, styles]}>
       {children}
@@ -17,4 +17,4 @@ function DropdownMainButton({ styles, children }: DropdownMainButtonInterface) {
   );
 }
 
-export default React.memo(DropdownMainButton);
+export default React.memo(DropdownMenuMainButton);

@@ -1,6 +1,5 @@
 import { Theme } from "./makeTheme";
 import { colors as darkColors } from "../constants/colorsMap/dark";
-import { InputContainerVariant } from "../primitives/InputContainer/enums";
 
 export const defaultTheme: Theme = {
   colors: darkColors,
@@ -34,9 +33,6 @@ export const defaultTheme: Theme = {
       BreadcrumbsLink: { color: "gray-blue/05" },
       BreadcrumbsText: { color: "gray-blue/05" },
       LevelDivider: { color: "gray-blue/05" },
-    },
-    DropdownSource: {
-      textColor: "gray-blue/05",
     },
     ListItem: {
       Selected: { backgroundColor: "gray-blue/01" },
@@ -94,6 +90,7 @@ export const defaultTheme: Theme = {
       leftIconColor: "gray-blue/05",
       hoverBoxShadowColor: "gray-blue/03",
       focusBoxShadowColor: "blue/05",
+      placeholderColor: "gray-blue/04",
     },
     InputContainerVariantDefault: {
       background: "gray-blue/01",
@@ -122,6 +119,9 @@ export const defaultTheme: Theme = {
       tip: "gray-blue/07",
       placeholder: "gray-blue/02",
       color: "gray-blue/03",
+    },
+    InputContainerTitle: {
+      color: "gray-blue/05",
     },
   },
 };

@@ -1,5 +1,5 @@
 import { nbspString } from "@worksolutions/utils";
-import React from "react";
+import React, { useMemo } from "react";
 
 import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
@@ -13,18 +13,15 @@ interface TipInterface {
   color: Colors;
 }
 
+function getTipVisibilitiesStylesStyles(hasTip: boolean) {
+  return hasTip ? [maxHeight("auto"), opacity(1)] : [maxHeight(0), opacity(0)];
+}
+
 function Tip({ tip, color }: TipInterface) {
-  const hasTip = !!tip;
+  const tipVisibilitiesStyles = useMemo(() => getTipVisibilitiesStylesStyles(Boolean(tip)), [tip]);
 
   return (
-    <Wrapper
-      styles={[
-        overflow("hidden"),
-        tip ? maxHeight("auto") : maxHeight(0),
-        transition(`opacity ${duration160}`),
-        hasTip ? opacity(1) : opacity(0),
-      ]}
-    >
+    <Wrapper styles={[overflow("hidden"), transition(`opacity ${duration160}`), tipVisibilitiesStyles]}>
       <Typography styles={marginTop(4)} type="caption-regular" color={color}>
         {tip || nbspString}
       </Typography>

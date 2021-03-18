@@ -15,6 +15,7 @@ export * from "./styles";
 
 export { default as ListItem } from "./primitives/List/ListItem";
 export * from "./primitives/List/ListItem";
+export { ListItemSize } from "./primitives/List/ListItem/enum";
 
 export { default as List } from "./primitives/List";
 export * from "./primitives/List";
@@ -116,4 +117,3 @@ export * from "./primitives/Avatar";
 
 export { default as Calendar } from "./primitives/Calendar";
 export * from "./primitives/Calendar";
-export { ListItemSize } from "./primitives/List/ListItem/enum";

@@ -10,7 +10,7 @@ interface TitleInterface {
 function Title({ title, styles }: TitleInterface) {
   if (!title) return null;
   return (
-    <Typography styles={styles} color="gray-blue/05" noWrap>
+    <Typography styles={styles} color="definitions.InputContainerTitle.color" noWrap>
       {title}
     </Typography>
   );

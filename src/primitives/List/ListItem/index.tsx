@@ -4,20 +4,22 @@ import { flex, flexColumn, flexValue, marginLeft, marginRight, overflow, textAli
 
 import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
+import { InternalIcons } from "../../Icon";
 
 import { getHoveredStylesForLeftContent, getHoveredStylesForRightContent, makeIcon } from "./additionalContent";
 import { getListItemStyles } from "./libs";
+import { useRightIcon } from "./useRightIcon";
+import { useListContext } from "../ListContext";
 
 import { ListItemSize } from "./enum";
-import { InputIconProp } from "../../InputContainer";
-import { useListContext } from "../ListContext";
-import { useSetRightIcon } from "../../DropdownMenu/DropdownItem/useSetRightIcon";
+
+export type SideIconType = InternalIcons | JSX.Element | undefined;
 
 export interface ListItemInterface<CODE extends string | number> {
   leftContentStyles?: any;
-  leftContent?: InputIconProp;
+  leftContent?: SideIconType;
   rightContentStyles?: any;
-  rightContent?: InputIconProp;
+  rightContent?: SideIconType;
   titleStyles?: any;
   styles?: any;
   heading?: string | number;
@@ -30,7 +32,7 @@ export interface ListItemInterface<CODE extends string | number> {
   showArrowOnSelection?: boolean;
   children: string;
   code: CODE;
-  hovered?: boolean;
+  hoverable?: boolean;
   canSelect?: boolean;
   onBeforeClick?: () => void;
   onAfterClick?: () => void;
@@ -53,28 +55,28 @@ function ListItem<CODE extends string | number>({
   showIconRightOnHover,
   showIconLeftOnHover,
   showArrowOnSelection = true,
-  hovered = true,
+  hoverable = true,
   canSelect = true,
   onBeforeClick,
   onAfterClick,
 }: ListItemInterface<CODE>) {
   const enabled = !disabled;
-  const { selectedItems, onChange } = useListContext();
+  const { selectedItemCodes, onChange } = useListContext();
 
   const isSelected = () => {
     if (!canSelect) return false;
     if (disabled) return false;
-    return selectedItems.length !== 0 ? selectedItems.includes(code) : false;
+    return selectedItemCodes.length !== 0 ? selectedItemCodes.includes(code) : false;
   };
 
-  const selected = useMemo(isSelected, [canSelect, disabled, selectedItems, code]);
+  const selected = useMemo(isSelected, [canSelect, disabled, selectedItemCodes, code]);
 
-  const resultRightContent = useSetRightIcon({ selected, rightContent, showArrowOnSelection });
+  const resultRightContent = useRightIcon({ selected, rightContent, showArrowOnSelection });
 
-  const listItemStyles = useMemo(() => getListItemStyles({ size, enabled, selected, hovered }), [
+  const listItemStyles = useMemo(() => getListItemStyles({ size, enabled, selected, hoverable }), [
     selected,
     enabled,
-    hovered,
+    hoverable,
     size,
   ]);
 

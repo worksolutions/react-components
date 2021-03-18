@@ -20,8 +20,8 @@ export default {
 };
 
 const Template: Story<ListItemInterface<string>> = (props: any) => {
-  const [selectedItems, setSelect] = useState<any>([]);
-  const value = useMemo(() => ({ onChange: setSelect, selectedItems }), [selectedItems, setSelect]);
+  const [selectedItemCodes, setSelect] = useState<any>([]);
+  const value = useMemo(() => ({ onChange: setSelect, selectedItemCodes }), [selectedItemCodes, setSelect]);
 
   return (
     <Wrapper

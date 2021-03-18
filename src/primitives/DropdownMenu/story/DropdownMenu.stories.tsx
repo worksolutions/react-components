@@ -55,13 +55,16 @@ interface StoryDropdownProps {
   multiselect: boolean;
 }
 
-const Template: Story<DropdownMenuInterface<string> & StoryDropdownProps> = (props) => {
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+const Template: Story<DropdownMenuInterface<string> & StoryDropdownProps> = ({
+  selectedItemCodes: selectedItemCodesNoop,
+  ...props
+}) => {
+  const [selectedItemCodes, setSelectedItemCodes] = useState<string[]>([]);
   const selectedElement = React.useMemo(
     () =>
-      selectedItems.length === 0 ? null : (
+      selectedItemCodes.length === 0 ? null : (
         <DropdownItem
-          code={selectedItems[0]}
+          code={selectedItemCodes[0]}
           size={props.itemSize}
           styles={[margin(0)]}
           showArrowOnSelection={false}
@@ -77,7 +80,7 @@ const Template: Story<DropdownMenuInterface<string> & StoryDropdownProps> = (pro
           DropdownItemElement1
         </DropdownItem>
       ),
-    [props.itemSize, selectedItems],
+    [props.itemSize, selectedItemCodes],
   );
 
   return (
@@ -85,11 +88,15 @@ const Template: Story<DropdownMenuInterface<string> & StoryDropdownProps> = (pro
       <Wrapper styles={[marginRight(50)]}>
         <DropdownMenu
           {...props}
-          selectedItem={selectedElement}
+          selectedElement={selectedElement}
           stylesMainButton={[width(props.widthTargetElem)]}
           popupWidth="140%"
         >
-          <List multiselect={props.multiselect} selectedItems={selectedItems} setSelectedItems={setSelectedItems}>
+          <List
+            multiselect={props.multiselect}
+            selectedItemCodes={selectedItemCodes}
+            setSelectedItemCodes={setSelectedItemCodes}
+          >
             <DropdownItem
               size={props.itemSize}
               code="Невозможно выбрать"
@@ -173,8 +180,8 @@ const Template: Story<DropdownMenuInterface<string> & StoryDropdownProps> = (pro
         popperStyles={[border(1, "red/04"), backgroundColor("blue/01")]}
         size={InputContainerSize.SMALL}
       >
-        <List multiselect selectedItems={selectedItems} setSelectedItems={setSelectedItems}>
-          <DropdownItem hovered={false} size={props.itemSize} code="ValueByDefault">
+        <List multiselect selectedItemCodes={selectedItemCodes} setSelectedItemCodes={setSelectedItemCodes}>
+          <DropdownItem hoverable={false} size={props.itemSize} code="ValueByDefault">
             ValueByDefault
           </DropdownItem>
           <DropdownDivider />
