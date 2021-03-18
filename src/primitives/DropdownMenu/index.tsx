@@ -41,15 +41,12 @@ export interface DropdownMenuInterface<CODE extends string | number> {
 }
 
 function DropdownMenu<CODE extends string | number>({
-  popperStyles,
   stylesMainButton,
   stylesTextMainButton,
   children,
-  primaryPlacement,
   iconLeft,
   size,
   placeholder,
-  offset,
   iconReferenceRight,
   error,
   selectedItem,
@@ -99,7 +96,6 @@ function DropdownMenu<CODE extends string | number>({
     <PopupManager
       {...props}
       closeAfterClick={closeAfterClickItem}
-      popperStyles={popperStyles}
       popperElement={popperElement}
       renderMainElement={popupMainElement}
     />
