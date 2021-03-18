@@ -13,6 +13,13 @@ export * from "./intl/ru";
 export * from "./intl";
 export * from "./styles";
 
+export { default as ListItem } from "./primitives/List/ListItem";
+export * from "./primitives/List/ListItem";
+export { ListItemSize } from "./primitives/List/ListItem/enum";
+
+export { default as List } from "./primitives/List";
+export * from "./primitives/List";
+
 export { default as AspectRatioWrapper } from "./primitives/AspectRatioWrapper";
 export * from "./primitives/AspectRatioWrapper";
 
@@ -22,25 +29,8 @@ export * from "./primitives/BackdropDisabler";
 export { default as Button } from "./primitives/Button";
 export * from "./primitives/Button";
 
-export { default as Card } from "./primitives/Card";
-export * from "./primitives/Card";
-
 export { default as Checkbox } from "./primitives/Checkbox";
 export * from "./primitives/Checkbox";
-
-export { default as Combobox } from "./primitives/Combobox";
-export * from "./primitives/Combobox";
-
-export { default as Dropdown } from "./primitives/Dropdown";
-export * from "./primitives/Dropdown";
-export type {
-  DropdownInterface,
-  DropdownItemInterface,
-  DropdownOptionalActionInterface,
-} from "./primitives/Dropdown/types";
-
-export { default as DropdownContainer } from "./primitives/Dropdown/DropdownContainer";
-export * from "./primitives/Dropdown/DropdownContainer";
 
 export { default as Editor } from "./primitives/Editor";
 export * from "./primitives/Editor";
@@ -64,8 +54,8 @@ export * from "./primitives/Input/Input";
 export { default as ClearInputWrapper } from "./primitives/ClearInputWrapper";
 export * from "./primitives/ClearInputWrapper";
 
-export { default as InputWrapper } from "./primitives/Input/InputWrapper";
-export * from "./primitives/Input/InputWrapper";
+export { default as InputContainer } from "./primitives/InputContainer";
+export * from "./primitives/InputContainer";
 
 export { default as MaskedInput } from "./primitives/Input/MaskedInput";
 export * from "./primitives/Input/MaskedInput";
@@ -76,20 +66,8 @@ export * from "./primitives/Input/Password";
 export { default as LayoutGrid } from "./primitives/LayoutGrid";
 export * from "./primitives/LayoutGrid";
 
-export { default as List } from "./primitives/List";
-export * from "./primitives/List";
-
-export { default as DroppedList } from "./primitives/List/DroppedList";
-export * from "./primitives/List/DroppedList";
-export * from "./primitives/List/ListItem";
-
 export { default as Modal } from "./primitives/Modal";
 export * from "./primitives/Modal/ModalContent";
-
-export { default as Popper } from "./primitives/Popper";
-export * from "./primitives/Popper";
-export * from "./primitives/Popper/usePopper";
-export * from "./primitives/Popper/useVisibilityAnimation";
 
 export { default as ProgressBar } from "./primitives/ProgressBar";
 

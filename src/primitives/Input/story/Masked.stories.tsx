@@ -3,10 +3,10 @@ import { Story } from "@storybook/react/types-6-0";
 
 import { selectControl } from "storybook/storyHelpers";
 
-import MaskedInput, { InputSize, makeMask, MaskedInputInterface } from "../MaskedInput";
+import MaskedInput, { makeMask, MaskedInputInterface } from "../MaskedInput";
 
 import { internalIcons } from "../../Icon/list";
-import { InputTitlePosition } from "../InputWrapper";
+import { InputContainerSize, InputContainerTitlePosition } from "../../InputContainer/enums";
 
 export default {
   title: "Masked",
@@ -14,8 +14,8 @@ export default {
   argTypes: {
     iconLeft: selectControl(Object.keys(internalIcons)),
     iconRight: selectControl(Object.keys(internalIcons)),
-    titlePosition: selectControl([InputTitlePosition.LEFT, InputTitlePosition.TOP]),
-    size: selectControl([InputSize.LARGE, InputSize.MEDIUM]),
+    titlePosition: selectControl([InputContainerTitlePosition.LEFT, InputContainerTitlePosition.TOP]),
+    size: selectControl([InputContainerSize.LARGE, InputContainerSize.MEDIUM]),
   },
 };
 

@@ -4,7 +4,7 @@ import { useDebouncedInput } from "@worksolutions/react-utils";
 
 import Wrapper from "../Wrapper";
 
-import InputWrapper, { BaseInputWrapperInterface } from "./InputWrapper";
+import InputContainer, { BaseInputWrapperInterface } from "../InputContainer";
 
 export interface InputInterface extends Omit<BaseInputWrapperInterface, "onClick"> {
   autofocus?: boolean;
@@ -26,14 +26,14 @@ const Input = React.forwardRef(function (
     debounce = 100,
     styles,
     type,
-    ...inputWrapperProps
+    ...inputContainerProps
   }: InputInterface & { type?: string },
   ref: Ref<HTMLInputElement>,
 ) {
   const { onInputChange, inputValue } = useDebouncedInput(value, debounce, onChange);
   return (
-    <InputWrapper
-      {...inputWrapperProps}
+    <InputContainer
+      {...inputContainerProps}
       renderComponent={(inputStyles) => (
         <>
           <Wrapper
@@ -41,7 +41,7 @@ const Input = React.forwardRef(function (
             {...(multiline ? { as: "textarea" } : { as: "input" })}
             type={type}
             autoFocus={autofocus}
-            disabled={inputWrapperProps.disabled}
+            disabled={inputContainerProps.disabled}
             styles={[inputStyles, styles]}
             value={inputValue}
             placeholder={placeholder}
@@ -54,5 +54,3 @@ const Input = React.forwardRef(function (
 });
 
 export default React.memo(Input);
-
-export { InputSize } from "./InputWrapper";

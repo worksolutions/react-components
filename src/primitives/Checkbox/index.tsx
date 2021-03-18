@@ -24,6 +24,7 @@ import {
   color,
   fontSize,
 } from "../../styles";
+
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import Icon from "../Icon";
