@@ -7,7 +7,7 @@ import Toast, { ToastPropsInterface } from "../index";
 import Wrapper from "../../Wrapper";
 
 export default {
-  title: "Toast/Toasts/Toast",
+  title: "Toast/Toast",
 };
 
 interface ToastStoriesInterface {

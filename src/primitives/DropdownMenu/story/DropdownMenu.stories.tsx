@@ -31,7 +31,7 @@ import DropdownItem from "../DropdownItem";
 import DropdownDivider from "../../List/ListItem/ListItemsDivider";
 
 import AvatarComponent from "../../Avatar";
-import { numbersControl, selectControl } from "../../../storybook/storyHelpers";
+import { booleanControl, numbersControl, selectControl } from "../../../storybook/storyHelpers";
 import TooltipContainer from "../../Tooltip/TooltipContainer";
 import { InputContainerSize } from "../../InputContainer/enums";
 
@@ -44,6 +44,7 @@ export default {
     itemSize: selectControl(Object.values(ListItemSize)),
     primaryPlacement: selectControl(placements),
     widthTargetElem: numbersControl(200, 700, 5),
+    multiselect: booleanControl(),
   },
 };
 
@@ -51,6 +52,7 @@ interface StoryDropdownProps {
   itemSize: ListItemSize;
   widthTargetElem: number;
   isHover: boolean;
+  multiselect: boolean;
 }
 
 const Template: Story<DropdownMenuInterface<string> & StoryDropdownProps> = (props) => {
@@ -86,9 +88,8 @@ const Template: Story<DropdownMenuInterface<string> & StoryDropdownProps> = (pro
           selectedItem={selectedElement}
           stylesMainButton={[width(props.widthTargetElem)]}
           popupWidth="140%"
-          closeAfterClickItem={false}
         >
-          <List multiselect selectedItems={selectedItems} setSelectedItems={setSelectedItems}>
+          <List multiselect={props.multiselect} selectedItems={selectedItems} setSelectedItems={setSelectedItems}>
             <DropdownItem
               size={props.itemSize}
               code="Невозможно выбрать"

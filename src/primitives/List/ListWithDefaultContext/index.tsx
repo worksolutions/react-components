@@ -4,6 +4,7 @@ import { remove } from "ramda";
 import SelectedItemsManagerContextProvider from "../ListContext";
 import { ListInterface } from "../index";
 import ListWrapper from "../ListWrapper";
+import { useEffectSkipFirst } from "@worksolutions/react-utils";
 
 function ListWithDefaultContext<CODE extends string | number>({
   selectedItems,
@@ -39,7 +40,7 @@ function ListWithDefaultContext<CODE extends string | number>({
     [selectedItems, multiselect, multiselectOnChange, singleOnChange],
   );
 
-  useEffect(() => {
+  useEffectSkipFirst(() => {
     setSelectedItems && setSelectedItems([]);
   }, [multiselect, setSelectedItems]);
 
