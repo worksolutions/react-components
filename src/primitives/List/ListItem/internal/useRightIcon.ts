@@ -5,7 +5,7 @@ import { InternalIcons } from "../../../Icon";
 export type SideIconType = InternalIcons | JSX.Element | undefined;
 
 interface HookShowedRightIconInterface {
-  selected: boolean;
+  selected?: boolean;
   rightContent: SideIconType;
   showArrowOnSelection?: boolean;
 }

@@ -1,17 +1,19 @@
 import React, { useMemo, useState } from "react";
-import { Manager as ReactPopperManager, Reference as MainElement } from "react-popper";
+import { Manager as ReactPopperManager, Reference as Trigger } from "react-popper";
 import { provideRef } from "@worksolutions/react-utils";
 import { isNumber, isString } from "@worksolutions/utils";
 import { PositioningStrategy, StrictModifiers } from "@popperjs/core";
 import { Placement } from "@popperjs/core/lib/enums";
 
-import Wrapper from "../Wrapper";
 import PopperElement from "./PopperElement";
 import VisibilityManager from "../VisibilityManager";
 
 import { width } from "../../styles";
 import { convertPercentageStringToNumber } from "../../utils/convertPercentageStringToNumber";
+
 import { VisibilityManagerContextInterface } from "../VisibilityManager/types";
+
+export type TriggerPopupElementType = (data: VisibilityManagerContextInterface & { ref: any }) => React.ReactNode;
 
 export interface PopupManagerInterface {
   popupStyles?: any;
@@ -25,7 +27,7 @@ export interface PopupManagerInterface {
   closeAfterClick?: boolean;
   closeOnClickOutside?: boolean;
   strategy?: PositioningStrategy;
-  renderMainElement: (data: VisibilityManagerContextInterface) => React.ReactNode;
+  renderTriggerElement: TriggerPopupElementType;
 }
 
 const defaultOffsets = {
@@ -41,12 +43,12 @@ function setOffset(offset?: number, haveArrow?: boolean) {
   return defaultOffsets.withoutArrow;
 }
 
-function getPopperStyles(mainWrapperWidth?: number, popperWidth?: number | string | "auto") {
-  if (!mainWrapperWidth || !popperWidth) return null;
+function getPopperStyles(triggerWrapperWidth?: number, popperWidth?: number | string | "auto") {
+  if (!triggerWrapperWidth || !popperWidth) return null;
   if (popperWidth === "auto") return null;
 
   if (isNumber(popperWidth)) return width(popperWidth);
-  if (isString(popperWidth)) return width(convertPercentageStringToNumber(popperWidth) * mainWrapperWidth);
+  if (isString(popperWidth)) return width(convertPercentageStringToNumber(popperWidth) * triggerWrapperWidth);
 
   return null;
 }
@@ -62,14 +64,14 @@ function PopupManager({
   popupElement,
   popupWidth,
   closeAfterClick,
-  strategy,
-  renderMainElement,
+  strategy = "absolute",
+  renderTriggerElement,
 }: PopupManagerInterface) {
-  const [mainWrapperRef, setMainWrapperRef] = useState<HTMLElement | undefined>();
+  const [triggerWrapperRef, setTriggerWrapperRef] = useState<HTMLElement | undefined>();
 
   const offsetValue = useMemo(() => setOffset(offset, hasArrow), [hasArrow, offset]);
-  const popperWidthStyles = useMemo(() => getPopperStyles(mainWrapperRef?.offsetWidth, popupWidth), [
-    mainWrapperRef?.offsetWidth,
+  const popperWidthStyles = useMemo(() => getPopperStyles(triggerWrapperRef?.offsetWidth, popupWidth), [
+    triggerWrapperRef?.offsetWidth,
     popupWidth,
   ]);
 
@@ -78,11 +80,11 @@ function PopupManager({
       <VisibilityManager closeOnClickOutside={closeOnClickOutside} closeAfterClick={closeAfterClick}>
         {({ visibility, toggle, hide, show }) => (
           <>
-            <MainElement>
+            <Trigger>
               {({ ref }) =>
-                renderMainElement({ toggle, visibility, hide, show, ref: provideRef(ref, setMainWrapperRef) })
+                renderTriggerElement({ toggle, visibility, hide, show, ref: provideRef(ref, setTriggerWrapperRef) })
               }
-            </MainElement>
+            </Trigger>
             {visibility && (
               <PopperElement
                 primaryPlacement={primaryPlacement}
@@ -91,7 +93,7 @@ function PopupManager({
                 offset={offsetValue}
                 arrowPadding={arrowPadding || defaultArrowPadding}
                 hasArrow={hasArrow}
-                mainWrapperElement={mainWrapperRef}
+                triggerWrapperElement={triggerWrapperRef}
                 strategy={strategy}
               >
                 {popupElement}

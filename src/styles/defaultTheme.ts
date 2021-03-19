@@ -82,7 +82,7 @@ export const defaultTheme: Theme = {
     Tooltip: {
       color: "gray-blue/09",
     },
-    DropdownMainButton: {
+    SelectTriggerElement: {
       colorText: "gray-blue/05",
     },
     InputContainer: {

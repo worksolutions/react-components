@@ -14,7 +14,7 @@ interface PopperChildrenProps {
   hasArrow?: boolean;
   arrowProps: PopperArrowProps;
   arrowPadding: number;
-  mainWrapperElement: HTMLElement | undefined;
+  triggerWrapperElement: HTMLElement | undefined;
   update: () => void;
 }
 
@@ -27,7 +27,7 @@ const PopperChildrenWrapper = forwardRef(function (
     hasArrow,
     arrowProps,
     arrowPadding,
-    mainWrapperElement,
+    triggerWrapperElement,
     update,
   }: PopperChildrenProps,
   ref: Ref<HTMLElement>,
@@ -35,13 +35,13 @@ const PopperChildrenWrapper = forwardRef(function (
   useEffectSkipFirst(update, [update, hasArrow]);
 
   useEffect(() => {
-    if (!mainWrapperElement) return () => {};
+    if (!triggerWrapperElement) return () => {};
 
     const resizeObserver = new ResizeObserver(update);
-    resizeObserver.observe(mainWrapperElement);
+    resizeObserver.observe(triggerWrapperElement);
 
     return () => resizeObserver.disconnect();
-  }, [mainWrapperElement, update]);
+  }, [triggerWrapperElement, update]);
 
   return (
     <Wrapper ref={ref} style={style} data-placement={placement} styles={styles}>

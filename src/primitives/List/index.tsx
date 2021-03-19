@@ -1,22 +1,19 @@
 import React from "react";
 
-import ListWithDefaultContext from "./internal/ListWithDefaultContext";
-import ListWrapper from "./internal/ListWrapper";
-import { useListContext } from "./ListContext/useListContext";
+import Wrapper from "../Wrapper";
+import { firstChild, flex, flexColumn, lastChild, marginBottom, marginTop, padding } from "../../styles";
 
-export interface ListInterface<CODE extends string | number> {
-  outerStyles?: any;
-  multiselect?: boolean;
+interface ListWrapperInterface {
   children?: React.ReactNode;
-  selectedItemCodes: CODE[];
-  setSelectedItemCodes?: (codes: CODE[]) => void;
+  outerStyles?: any;
 }
 
-function List<CODE extends string | number>(props: ListInterface<CODE>) {
-  const context = useListContext();
-
-  if (context.alreadyInUse) return <ListWrapper outerStyles={props.outerStyles}>{props.children}</ListWrapper>;
-  return <ListWithDefaultContext {...props} />;
+function List({ children, outerStyles }: ListWrapperInterface) {
+  return (
+    <Wrapper styles={[flex, flexColumn, padding(8), outerStyles, firstChild(marginTop(4)), lastChild(marginBottom(4))]}>
+      {children}
+    </Wrapper>
+  );
 }
 
-export default React.memo(List) as <CODE extends string | number>(props: ListInterface<CODE>) => JSX.Element;
+export default React.memo(List);
