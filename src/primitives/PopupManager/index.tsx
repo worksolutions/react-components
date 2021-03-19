@@ -1,16 +1,18 @@
 import React, { useMemo, useState } from "react";
-import { Manager as ReactPopperManager, Reference as ReactPopperReference } from "react-popper";
-import { provideRef } from "@worksolutions/react-utils";
 import { isNumber, isString } from "@worksolutions/utils";
 import { PositioningStrategy } from "@popperjs/core";
 import { Placement } from "@popperjs/core/lib/enums";
 
 import PopperElement from "./PopperElement";
-import VisibilityManager from "../VisibilityManager";
+import { VisibilityManagerContextInterface } from "../VisibilityManager";
 
 import { width } from "../../styles";
 import { convertPercentageStringToNumber } from "../../utils/convertPercentageStringToNumber";
-import { VisibilityManagerContextInterface } from "../VisibilityManager/types";
+import PopupManagerForHover, { PopperManagerForHoverInterface } from "./PopupManagers/PopupManagerForHover";
+import PopupManagerForClick, { PopupManagerForClickInterface } from "./PopupManagers/PopupManagerForClick";
+import PopupManagerForExternalControl, {
+  PopupManagerForExternalControlInterface,
+} from "./PopupManagers/PopupManagerForExternalControl";
 
 export enum PopupManagerMode {
   HOVER = "HOVER",
@@ -28,19 +30,15 @@ export type PopupManagerInterface = {
   popupElement?: React.ReactNode;
   strategy?: PositioningStrategy;
 } & (
-  | {
+  | ({
       mode: PopupManagerMode.CLICK;
-      closeOnClickOutside?: boolean;
-      renderTriggerElement: (data: { initRef: any }) => JSX.Element;
-    }
-  | {
+    } & Pick<PopupManagerForClickInterface, "renderTriggerElement" | "closeOnClickOutside">)
+  | ({
       mode: PopupManagerMode.HOVER;
-      renderTriggerElement: (data: { initRef: any }) => JSX.Element;
-    }
-  | {
+    } & Pick<PopperManagerForHoverInterface, "renderTriggerElement">)
+  | ({
       mode: PopupManagerMode.EXTERNAL_CONTROL;
-      renderTriggerElement: (data: VisibilityManagerContextInterface) => JSX.Element;
-    }
+    } & Pick<PopupManagerForExternalControlInterface, "renderTriggerElement">)
 );
 
 function getPopperStyles(triggerElementWidth?: number, popupWidth?: number | string | "auto") {
@@ -68,8 +66,6 @@ function PopupManager({
     context: VisibilityManagerContextInterface | undefined;
     triggerElement: HTMLElement | undefined;
   }>({ context: undefined, triggerElement: undefined });
-
-  const [popupElementNodeRef, setPopupElementNodeRef] = React.useState<HTMLElement | undefined>(undefined);
 
   const setVisibilityContextAndTriggerRef = React.useCallback(
     (context: VisibilityManagerContextInterface) => (triggerElement: HTMLElement | undefined) => {
@@ -107,7 +103,6 @@ function PopupManager({
 
   const popupElementNode = context?.visible && popupElement && (
     <PopperElement
-      ref={setPopupElementNodeRef}
       primaryPlacement={primaryPlacement}
       styles={[popupStyles, popperWidthStyles]}
       offset={offset}
@@ -121,100 +116,32 @@ function PopupManager({
   );
 
   if (props.mode === PopupManagerMode.HOVER) {
-    const TriggerElement = props.renderTriggerElement; // TODO: вынести в отдельные компоненты
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const Element = React.useCallback(
-      (context: VisibilityManagerContextInterface) => (
-        <>
-          <ReactPopperReference>
-            {({ ref: reactPopperReferenceRef }) => (
-              <TriggerElement
-                initRef={provideRef(
-                  context.initRef,
-                  reactPopperReferenceRef,
-                  setVisibilityContextAndTriggerRef(context),
-                )}
-              />
-            )}
-          </ReactPopperReference>
-        </>
-      ),
-      [TriggerElement, setVisibilityContextAndTriggerRef],
-    );
-
     return (
-      <>
-        <ReactPopperManager>
-          <VisibilityManager>{Element}</VisibilityManager>
-          {popupElementNode}
-        </ReactPopperManager>
-      </>
+      <PopupManagerForHover
+        popupElementNode={popupElementNode}
+        renderTriggerElement={props.renderTriggerElement}
+        setVisibilityContextAndTriggerRef={setVisibilityContextAndTriggerRef}
+      />
     );
   }
 
   if (props.mode === PopupManagerMode.CLICK) {
-    const TriggerElement = props.renderTriggerElement; // TODO: вынести в отдельные компоненты
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const Element = React.useCallback(
-      (context: VisibilityManagerContextInterface) => (
-        <>
-          <ReactPopperReference>
-            {({ ref: reactPopperReferenceRef }) => (
-              <TriggerElement
-                initRef={provideRef(
-                  context.initRef,
-                  reactPopperReferenceRef,
-                  setVisibilityContextAndTriggerRef(context),
-                )}
-              />
-            )}
-          </ReactPopperReference>
-        </>
-      ),
-      [TriggerElement, setVisibilityContextAndTriggerRef],
-    );
-
-    const ignoreElements = React.useMemo(() => [popupElementNodeRef], [popupElementNodeRef]);
-
     return (
-      <ReactPopperManager>
-        <VisibilityManager ignoreElements={ignoreElements}>{Element}</VisibilityManager>
-        {popupElementNode}
-      </ReactPopperManager>
+      <PopupManagerForClick
+        popupElementNode={popupElementNode}
+        renderTriggerElement={props.renderTriggerElement}
+        closeOnClickOutside={props.closeOnClickOutside}
+        setVisibilityContextAndTriggerRef={setVisibilityContextAndTriggerRef}
+      />
     );
   }
 
-  const TriggerElement = props.renderTriggerElement; // TODO: вынести в отдельные компоненты
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const Element = React.useCallback(
-    (context: VisibilityManagerContextInterface) => (
-      <>
-        <ReactPopperReference>
-          {({ ref: reactPopperReferenceRef }) => (
-            <TriggerElement
-              toggle={context.toggle}
-              visible={context.visible}
-              hide={context.hide}
-              show={context.show}
-              initRef={provideRef(context.initRef, reactPopperReferenceRef, setVisibilityContextAndTriggerRef(context))}
-            />
-          )}
-        </ReactPopperReference>
-      </>
-    ),
-    [TriggerElement, setVisibilityContextAndTriggerRef],
-  );
-
   return (
-    <>
-      <ReactPopperManager>
-        <VisibilityManager>{Element}</VisibilityManager>
-        {popupElementNode}
-      </ReactPopperManager>
-    </>
+    <PopupManagerForExternalControl
+      popupElementNode={popupElementNode}
+      renderTriggerElement={props.renderTriggerElement}
+      setVisibilityContextAndTriggerRef={setVisibilityContextAndTriggerRef}
+    />
   );
 }
 

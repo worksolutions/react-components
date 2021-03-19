@@ -1,10 +1,12 @@
 import React from "react";
 import { useClickAway } from "react-use";
 
+export type HandleClickOutsideIgnoreElements = (HTMLElement | undefined | null)[];
+
 export interface HandleClickOutsideInterface {
   onClickOutside?: () => void;
   enabled?: boolean;
-  ignoreElements?: (HTMLElement | undefined | null)[];
+  ignoreElements?: HandleClickOutsideIgnoreElements;
   children: (ref: { current: HTMLElement | null }) => React.ReactNode;
 }
 
