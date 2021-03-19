@@ -11,7 +11,6 @@ import { margin, padding, transform, transition } from "../../styles";
 import { duration160 } from "../../constants/durations";
 import SelectItemsContainer from "./internal/SelectItemsContainer";
 import { ListItem } from "../../index";
-import { isSelected } from "./internal/libs";
 
 import { TriggerPopupElementType } from "../PopupManager/internal/types";
 
@@ -72,7 +71,7 @@ function Select<CODE extends string | number>({
 
     children.forEach(
       ({ props }: any) =>
-        isSelected<CODE>(selectedItemCodes, props.code) &&
+        selectedItemCodes.includes(props.code) &&
         setSelectedElement(
           <ListItem {...props} selected={false} canSelect={false} hoverable={false} styles={[margin(0)]} />,
         ),

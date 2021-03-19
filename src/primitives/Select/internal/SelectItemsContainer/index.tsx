@@ -3,7 +3,6 @@ import React from "react";
 import { ListItemInterface } from "index";
 
 import List from "../../../List";
-import { isSelected } from "../libs";
 
 interface SelectItemsContainerInterface<CODE extends string | number> {
   items: React.ReactElement[];
@@ -19,10 +18,11 @@ function SelectItemsContainer<CODE extends string | number>({
   const cloneElement = (child: React.ReactElement<ListItemInterface<CODE>>, index: number) => {
     if (!React.isValidElement<React.ReactElement>(child)) return null;
 
+    const selected = selectedItemCodes.includes(child.props.code);
     return React.cloneElement(child, {
       onChange,
       key: child.props.code ? child.props.code : index,
-      selected: isSelected<CODE>(selectedItemCodes, child.props.code),
+      selected,
     });
   };
 
