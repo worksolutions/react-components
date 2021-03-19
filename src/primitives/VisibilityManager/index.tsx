@@ -4,6 +4,7 @@ import { useBoolean } from "@worksolutions/react-utils";
 import HandleClickOutside from "../HandleClickOutside";
 import { VisibilityManagerContext } from "./VisibilityManagerContext";
 import { VisibilityManagerContextInterface } from "./types";
+import Wrapper from "../Wrapper";
 
 export interface VisibilityManagerInterface {
   closeOnClickOutside?: boolean;
@@ -34,7 +35,7 @@ function VisibilityManager({
     <VisibilityManagerContext.Provider value={visibilityManagerContextValue}>
       {closeOnClickOutside ? (
         <HandleClickOutside onClickOutside={hide}>
-          {(ref) => children({ visibility, show, hide, toggle, ref })}
+          {(ref) => <Wrapper ref={ref}>{children({ visibility, show, hide, toggle })}</Wrapper>}
         </HandleClickOutside>
       ) : (
         children({ visibility, show, hide, toggle })

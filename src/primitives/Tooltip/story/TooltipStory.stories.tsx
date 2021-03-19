@@ -23,8 +23,8 @@ const Template: Story<TooltipInterface> = (props) => {
       styles={[position("absolute"), top("40%"), left("50%"), marginRight("-50%"), transform("translate(-50%, -50%)")]}
     >
       <Tooltip {...props}>
-        {({ toggle }) => (
-          <Wrapper onClick={toggle}>
+        {({ toggle, ref }) => (
+          <Wrapper onClick={toggle} ref={ref}>
             <Input value="baseValue" onChange={() => {}} />
           </Wrapper>
         )}

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
 import { PositioningStrategy, StrictModifiers } from "@popperjs/core";
-import { Popper as ReactPopper } from "react-popper";
+import { Popper } from "react-popper";
 
 import { backgroundColor, borderRadius, boxShadow } from "../../../styles";
 import { elevation16Raw } from "../../../constants/shadows";
@@ -41,7 +41,7 @@ interface PopperElementInterface {
   children?: React.ReactNode;
   modifiers?: StrictModifiers[];
   arrowPadding: number;
-  mainWrapperElement: HTMLElement | undefined;
+  triggerWrapperElement: HTMLElement | undefined;
   hasArrow?: boolean;
   strategy?: PositioningStrategy;
 }
@@ -54,14 +54,14 @@ function PopperElement({
   modifiers,
   arrowPadding,
   hasArrow,
-  mainWrapperElement,
+  triggerWrapperElement,
   strategy,
 }: PopperElementInterface) {
   const popperStyles = useCallback(getPopperStyles, []);
   const popperModifiers = useMemo(() => getModifiers(modifiers, offset), [modifiers, offset]);
 
   return (
-    <ReactPopper placement={primaryPlacement} modifiers={popperModifiers} strategy={strategy}>
+    <Popper placement={primaryPlacement} modifiers={popperModifiers} strategy={strategy}>
       {({ ref, style, placement, arrowProps, update }) => (
         <PopperChildrenWrapper
           ref={ref}
@@ -72,12 +72,12 @@ function PopperElement({
           hasArrow={hasArrow}
           arrowPadding={arrowPadding}
           update={update}
-          mainWrapperElement={mainWrapperElement}
+          triggerWrapperElement={triggerWrapperElement}
         >
           {children}
         </PopperChildrenWrapper>
       )}
-    </ReactPopper>
+    </Popper>
   );
 }
 

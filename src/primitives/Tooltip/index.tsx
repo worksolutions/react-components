@@ -1,16 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { isNotNil } from "@worksolutions/utils";
 
-import PopupManager, { PopupManagerInterface } from "../PopupManager";
+import PopupManager, { PopupManagerInterface, TriggerPopupElementType } from "../PopupManager";
 import TooltipTextContent from "./internal/TooltipTextContent";
 
-import { VisibilityManagerContextInterface } from "../VisibilityManager/types";
 import { popupArrowWidth } from "../PopupManager/PopperElement/Arrow";
 
-export interface TooltipInterface extends Omit<PopupManagerInterface, "renderMainElement" | "popupElement"> {
+export interface TooltipInterface extends Omit<PopupManagerInterface, "renderTriggerElement" | "popupElement"> {
   textStyles?: any;
   text?: React.ReactNode;
-  children: ({ visibility, show, hide, toggle }: VisibilityManagerContextInterface) => React.ReactNode;
+  children: TriggerPopupElementType;
 }
 
 function Tooltip({ textStyles, text, children, hasArrow = true, offset: offsetProp = 0, ...props }: TooltipInterface) {
@@ -23,13 +22,13 @@ function Tooltip({ textStyles, text, children, hasArrow = true, offset: offsetPr
 
   useEffect(() => {
     setOffset(hasArrow ? offsetProp + popupArrowWidth : offsetProp);
-  }, [hasArrow]);
+  }, [hasArrow, offsetProp]);
 
   return (
     <PopupManager
       {...props}
       hasArrow={hasArrow}
-      renderMainElement={children}
+      renderTriggerElement={children}
       popupElement={tooltipElement}
       offset={offset}
     />
