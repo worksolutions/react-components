@@ -1,6 +1,6 @@
 export interface VisibilityManagerContextInterface {
-  ref?: any;
-  visibility: boolean;
+  initRef?: any;
+  visible: boolean;
   show: () => void;
   hide: () => void;
   toggle: () => void;

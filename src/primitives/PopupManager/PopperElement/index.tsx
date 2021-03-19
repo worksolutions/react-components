@@ -1,12 +1,12 @@
-import React, { useCallback, useMemo } from "react";
+import React, { Ref, useCallback, useMemo } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
-import { PositioningStrategy, StrictModifiers } from "@popperjs/core";
+import { PositioningStrategy } from "@popperjs/core";
 import { Popper as ReactPopper } from "react-popper";
 
 import { backgroundColor, borderRadius, boxShadow } from "../../../styles";
 import { elevation16Raw } from "../../../constants/shadows";
 import { zIndex_popup } from "../../../constants/zIndexes";
-import PopperChildrenWrapper from "./PopperChildrenWrapper";
+import PopperElementChildrenWrapper from "./PopperElementChildrenWrapper";
 
 function getPopperStyles() {
   return [
@@ -18,7 +18,7 @@ function getPopperStyles() {
 }
 const modifierArrowPadding = 12;
 
-function getModifiers(modifiers: StrictModifiers[] = [], offset?: number) {
+function getModifiers(offset?: number) {
   return [
     {
       name: "arrow",
@@ -26,7 +26,6 @@ function getModifiers(modifiers: StrictModifiers[] = [], offset?: number) {
         padding: modifierArrowPadding,
       },
     },
-    ...modifiers,
     {
       name: "offset",
       options: { offset: () => [0, offset] },
@@ -39,31 +38,46 @@ interface PopperElementInterface {
   offset?: number;
   primaryPlacement?: Placement;
   children?: React.ReactNode;
-  modifiers?: StrictModifiers[];
-  arrowPadding: number;
-  mainWrapperElement: HTMLElement | undefined;
+  arrowPadding?: number;
+  triggerElement: HTMLElement | undefined;
   hasArrow?: boolean;
   strategy?: PositioningStrategy;
 }
 
-function PopperElement({
-  styles,
-  offset,
-  primaryPlacement,
-  children,
-  modifiers,
-  arrowPadding,
-  hasArrow,
-  mainWrapperElement,
-  strategy,
-}: PopperElementInterface) {
+const defaultOffsets = {
+  withArrow: 14,
+  withoutArrow: 4,
+};
+
+const defaultArrowPadding = 10;
+
+function getOffset(incomeOffset?: number, hasArrow?: boolean) {
+  if (incomeOffset) return incomeOffset;
+  if (hasArrow) return defaultOffsets.withArrow;
+  return defaultOffsets.withoutArrow;
+}
+
+function PopperElement(
+  {
+    styles,
+    offset: offsetProp,
+    primaryPlacement,
+    children,
+    arrowPadding = defaultArrowPadding,
+    hasArrow,
+    triggerElement,
+    strategy,
+  }: PopperElementInterface,
+  ref: Ref<HTMLElement | undefined>,
+) {
   const popperStyles = useCallback(getPopperStyles, []);
-  const popperModifiers = useMemo(() => getModifiers(modifiers, offset), [modifiers, offset]);
+  const offset = useMemo(() => getOffset(offsetProp, hasArrow), [hasArrow, offsetProp]);
+  const popperModifiers = useMemo(() => getModifiers(offset), [offset]);
 
   return (
-    <ReactPopper placement={primaryPlacement} modifiers={popperModifiers} strategy={strategy}>
+    <ReactPopper placement={primaryPlacement} modifiers={popperModifiers} strategy={strategy} innerRef={ref}>
       {({ ref, style, placement, arrowProps, update }) => (
-        <PopperChildrenWrapper
+        <PopperElementChildrenWrapper
           ref={ref}
           style={style}
           styles={[popperStyles, styles]}
@@ -72,13 +86,13 @@ function PopperElement({
           hasArrow={hasArrow}
           arrowPadding={arrowPadding}
           update={update}
-          mainWrapperElement={mainWrapperElement}
+          triggerElement={triggerElement}
         >
           {children}
-        </PopperChildrenWrapper>
+        </PopperElementChildrenWrapper>
       )}
     </ReactPopper>
   );
 }
 
-export default React.memo(PopperElement);
+export default React.memo(React.forwardRef(PopperElement));

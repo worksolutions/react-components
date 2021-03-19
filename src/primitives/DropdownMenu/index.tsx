@@ -13,7 +13,7 @@ import { duration160 } from "../../constants/durations";
 import { VisibilityManagerContextInterface } from "../VisibilityManager/types";
 
 export interface DropdownMenuInterface<CODE extends string | number>
-  extends Omit<PopupManagerInterface, "popupElement" | "renderMainElement"> {
+  extends Omit<PopupManagerInterface, "popupElement" | "renderTriggerElement"> {
   stylesMainButton?: any;
   stylesTextMainButton?: any;
   placeholder: string;
@@ -41,11 +41,11 @@ function DropdownMenu<CODE extends string | number>({
   onChange,
   ...props
 }: DropdownMenuInterface<CODE>) {
-  const popupMainElement = ({ toggle, visibility }: VisibilityManagerContextInterface) => (
+  const popupMainElement = ({ toggle, visible }: VisibilityManagerContextInterface) => (
     <InputContainer
       size={size}
       iconLeft={iconLeft}
-      iconRight={createDropdownRightIcon(visibility, iconReferenceRight)}
+      iconRight={createDropdownRightIcon(visible, iconReferenceRight)}
       error={error}
       renderComponent={(styles) => (
         <DropdownMainButton styles={[styles, selectedElement && padding(0), stylesMainButton]}>
@@ -60,7 +60,8 @@ function DropdownMenu<CODE extends string | number>({
     />
   );
 
-  const popperElement = useMemo(() => { // todo убрать memo
+  const popperElement = useMemo(() => {
+    // todo убрать memo
     if (!onChange || !selectedItemCodes) return children;
 
     return (
@@ -70,7 +71,7 @@ function DropdownMenu<CODE extends string | number>({
     );
   }, [children, onChange, selectedItemCodes]);
 
-  return <PopupManager {...props} popupElement={popperElement} renderMainElement={popupMainElement} />;
+  return <PopupManager {...props} popupElement={popperElement} renderTriggerElement={popupMainElement} />;
 }
 
 export default React.memo(DropdownMenu) as <CODE extends string | number>(

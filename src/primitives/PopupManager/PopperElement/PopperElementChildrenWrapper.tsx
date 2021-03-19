@@ -14,11 +14,11 @@ interface PopperChildrenProps {
   hasArrow?: boolean;
   arrowProps: PopperArrowProps;
   arrowPadding: number;
-  mainWrapperElement: HTMLElement | undefined;
+  triggerElement: HTMLElement | undefined;
   update: () => void;
 }
 
-const PopperChildrenWrapper = forwardRef(function (
+function PopperElementChildrenWrapper(
   {
     style,
     placement,
@@ -27,7 +27,7 @@ const PopperChildrenWrapper = forwardRef(function (
     hasArrow,
     arrowProps,
     arrowPadding,
-    mainWrapperElement,
+    triggerElement,
     update,
   }: PopperChildrenProps,
   ref: Ref<HTMLElement>,
@@ -35,13 +35,12 @@ const PopperChildrenWrapper = forwardRef(function (
   useEffectSkipFirst(update, [update, hasArrow]);
 
   useEffect(() => {
-    if (!mainWrapperElement) return () => {};
+    if (!triggerElement) return () => {};
 
     const resizeObserver = new ResizeObserver(update);
-    resizeObserver.observe(mainWrapperElement);
-
+    resizeObserver.observe(triggerElement);
     return () => resizeObserver.disconnect();
-  }, [mainWrapperElement, update]);
+  }, [triggerElement, update]);
 
   return (
     <Wrapper ref={ref} style={style} data-placement={placement} styles={styles}>
@@ -49,6 +48,6 @@ const PopperChildrenWrapper = forwardRef(function (
       {hasArrow && <Arrow arrowProps={arrowProps} placement={placement} arrowPadding={arrowPadding} />}
     </Wrapper>
   );
-});
+}
 
-export default React.memo(PopperChildrenWrapper);
+export default React.memo(React.forwardRef(PopperElementChildrenWrapper));

@@ -3,14 +3,12 @@ import React from "react";
 import { VisibilityManagerContextInterface } from "./types";
 
 export const VisibilityManagerContext = React.createContext<VisibilityManagerContextInterface>({
-  visibility: false,
-  show: () => {
-    throw new Error("Нет show() провайдера в VisibilityManagerContext");
-  },
-  hide: () => {
-    throw new Error("Нет hide() провайдера в VisibilityManagerContext");
-  },
-  toggle: () => {
-    throw new Error("Нет toggle() провайдера в VisibilityManagerContext");
-  },
+  visible: false,
+  show: () => throwMethodError("show"),
+  hide: () => throwMethodError("hide"),
+  toggle: () => throwMethodError("toggle"),
 });
+
+function throwMethodError(methodName: string) {
+  throw new Error(`Метод ${methodName}() не определен в контексте VisibilityManagerContext`);
+}
