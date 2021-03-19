@@ -16,10 +16,6 @@ export * from "./styles";
 export { default as List } from "./primitives/List";
 export * from "./primitives/List";
 
-export { default as ListContextProvider } from "./primitives/List/ListContext/ListContextProvider";
-export * from "./primitives/List/ListContext/ListContextProvider";
-export * from "./primitives/List/ListContext/useListContext";
-
 export { default as ListItemsDivider } from "./primitives/List/ListItemsDivider";
 export * from "./primitives/List/ListItemsDivider";
 
@@ -132,11 +128,11 @@ export * from "./primitives/PopupManager";
 export { default as Tooltip } from "./primitives/Tooltip";
 export * from "./primitives/Tooltip";
 
-export { default as DropdownMenu } from "./primitives/DropdownMenu";
-export * from "./primitives/DropdownMenu";
+export { default as DropdownMenu } from "./primitives/Select";
+export * from "./primitives/Select";
 
-export { default as DropdownItem } from "./primitives/DropdownMenu/DropdownItem";
-export * from "./primitives/DropdownMenu/DropdownItem";
+export { default as DropdownItem } from "./primitives/Select/SelectItem";
+export * from "./primitives/Select/SelectItem";
 
 export { default as Toast } from "./primitives/Toast";
 export * from "./primitives/Toast";

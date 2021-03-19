@@ -102,7 +102,7 @@ export interface Theme extends BaseTheme<Colors> {
     Tooltip: {
       color: Colors;
     };
-    DropdownMainButton: {
+    SelectTriggerElement: {
       colorText: Colors;
     };
     InputContainer: {

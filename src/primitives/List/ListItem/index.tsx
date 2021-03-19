@@ -14,7 +14,6 @@ import { getListItemStyles } from "./internal/libs";
 import { SideIconType, useRightIcon } from "./internal/useRightIcon";
 
 import { ListItemSize } from "./enum";
-import { useListContext } from "../ListContext/useListContext";
 
 export interface ListItemInterface<CODE extends string | number> {
   leftContentStyles?: any;
@@ -35,8 +34,10 @@ export interface ListItemInterface<CODE extends string | number> {
   code: CODE;
   hoverable?: boolean;
   canSelect?: boolean;
+  selected?: boolean;
   onBeforeClick?: () => void;
   onAfterClick?: () => void;
+  onChange?: (code: CODE) => void;
 }
 
 function ListItem<CODE extends string | number>({
@@ -58,19 +59,12 @@ function ListItem<CODE extends string | number>({
   showArrowOnSelection = true,
   hoverable = true,
   canSelect = true,
+  selected,
   onBeforeClick,
   onAfterClick,
+  onChange,
 }: ListItemInterface<CODE>) {
   const enabled = !disabled;
-  const { selectedItemCodes, onChange } = useListContext();
-
-  const isSelected = () => {
-    if (!canSelect) return false;
-    if (disabled) return false;
-    return selectedItemCodes.length !== 0 ? selectedItemCodes.includes(code) : false;
-  };
-
-  const selected = useMemo(isSelected, [canSelect, disabled, selectedItemCodes, code]);
 
   const resultRightContent = useRightIcon({ selected, rightContent, showArrowOnSelection });
 
@@ -95,7 +89,7 @@ function ListItem<CODE extends string | number>({
   const rightIcon = makeIcon(resultRightContent, [marginLeft(8), rightContentStylesProp]);
 
   const handleClick = useCallback(() => {
-    if (!canSelect || disabled) return;
+    if (disabled || !canSelect || !onChange) return;
 
     onBeforeClick && onBeforeClick();
     onChange(code);

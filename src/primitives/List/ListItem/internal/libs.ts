@@ -28,7 +28,7 @@ const heightForItemSize: Record<ListItemSize, number> = {
 interface ListItemStylesInterface {
   size: ListItemSize;
   enabled: boolean;
-  selected: boolean;
+  selected?: boolean;
   hoverable?: boolean;
 }
 

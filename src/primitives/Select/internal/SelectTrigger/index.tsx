@@ -4,12 +4,12 @@ import Wrapper from "../../../Wrapper";
 
 import { ai, flex, flexValue, pointer, textAlign } from "../../../../styles";
 
-export interface DropdownMenuMainButtonInterface {
+export interface SelectTriggerInterface {
   styles?: any;
   children: React.ReactNode;
 }
 
-function DropdownMenuMainButton({ styles, children }: DropdownMenuMainButtonInterface) {
+function SelectTrigger({ styles, children }: SelectTriggerInterface) {
   return (
     <Wrapper as="button" styles={[flexValue(1), textAlign("left"), flex, ai("center"), pointer, styles]}>
       {children}
@@ -17,4 +17,4 @@ function DropdownMenuMainButton({ styles, children }: DropdownMenuMainButtonInte
   );
 }
 
-export default React.memo(DropdownMenuMainButton);
+export default React.memo(SelectTrigger);
