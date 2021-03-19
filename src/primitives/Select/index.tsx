@@ -18,6 +18,7 @@ export interface SelectInterface<CODE extends string | number>
   extends Omit<PopupManagerInterface, "popupElement" | "renderTriggerElement"> {
   stylesTriggerElement?: any;
   stylesTextTriggerElement?: any;
+  stylesSelectedElement?: any;
   placeholder: string;
   size?: InputContainerSize;
   iconLeft?: InternalIcons;
@@ -31,6 +32,7 @@ export interface SelectInterface<CODE extends string | number>
 function Select<CODE extends string | number>({
   stylesTriggerElement,
   stylesTextTriggerElement,
+  stylesSelectedElement,
   children,
   iconLeft,
   size,
@@ -73,10 +75,16 @@ function Select<CODE extends string | number>({
       ({ props }: any) =>
         selectedItemCodes.includes(props.code) &&
         setSelectedElement(
-          <ListItem {...props} selected={false} canSelect={false} hoverable={false} styles={[margin(0)]} />,
+          <ListItem
+            {...props}
+            selected={false}
+            canSelect={false}
+            hoverable={false}
+            styles={[margin(0), stylesSelectedElement]}
+          />,
         ),
     );
-  }, [children, selectedItemCodes]);
+  }, [children, selectedItemCodes, stylesSelectedElement]);
 
   return (
     <PopupManager
