@@ -1,8 +1,9 @@
 import React from "react";
 
-import { isSelected, ListItemInterface } from "index";
+import { ListItemInterface } from "index";
 
 import List from "../../../List";
+import { isSelected } from "../libs";
 
 interface SelectItemsContainerInterface<CODE extends string | number> {
   items: React.ReactElement[];

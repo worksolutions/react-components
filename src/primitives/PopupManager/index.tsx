@@ -11,9 +11,7 @@ import VisibilityManager from "../VisibilityManager";
 import { width } from "../../styles";
 import { convertPercentageStringToNumber } from "../../utils/convertPercentageStringToNumber";
 
-import { VisibilityManagerContextInterface } from "../VisibilityManager/types";
-
-export type TriggerPopupElementType = (data: VisibilityManagerContextInterface & { ref: any }) => React.ReactNode;
+import { TriggerPopupElementType } from "./internal/types";
 
 export interface PopupManagerInterface {
   popupStyles?: any;

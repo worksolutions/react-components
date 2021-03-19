@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Typography from "../Typography";
 import SelectTrigger from "./internal/SelectTrigger";
-import PopupManager, { PopupManagerInterface, TriggerPopupElementType } from "../PopupManager";
+import PopupManager, { PopupManagerInterface } from "../PopupManager";
 import Icon, { InternalIcons } from "../Icon";
 import { InputContainerSize } from "../InputContainer/enums";
 import InputContainer from "../InputContainer";
@@ -11,6 +11,9 @@ import { margin, padding, transform, transition } from "../../styles";
 import { duration160 } from "../../constants/durations";
 import SelectItemsContainer from "./internal/SelectItemsContainer";
 import { ListItem } from "../../index";
+import { isSelected } from "./internal/libs";
+
+import { TriggerPopupElementType } from "../PopupManager/internal/types";
 
 export interface SelectInterface<CODE extends string | number>
   extends Omit<PopupManagerInterface, "popupElement" | "renderTriggerElement"> {
@@ -24,10 +27,6 @@ export interface SelectInterface<CODE extends string | number>
   error?: boolean;
   selectedItemCodes?: CODE[];
   onChange: (code: CODE) => void;
-}
-
-export function isSelected<CODE extends string | number>(value: CODE[], code: CODE) {
-  return value.includes(code);
 }
 
 function Select<CODE extends string | number>({

@@ -89,7 +89,7 @@ function ListItem<CODE extends string | number>({
   const rightIcon = makeIcon(resultRightContent, [marginLeft(8), rightContentStylesProp]);
 
   const handleClick = useCallback(() => {
-    if (!onChange || !canSelect || disabled) return; //TODO: рассмотреть это условие, упростить
+    if (disabled || !canSelect || !onChange) return;
 
     onBeforeClick && onBeforeClick();
     onChange(code);
