@@ -1,107 +1,155 @@
 import React, { useMemo, useState } from "react";
-import { Manager as ReactPopperManager, Reference as Trigger } from "react-popper";
-import { provideRef } from "@worksolutions/react-utils";
 import { isNumber, isString } from "@worksolutions/utils";
-import { PositioningStrategy, StrictModifiers } from "@popperjs/core";
+import { PositioningStrategy } from "@popperjs/core";
 import { Placement } from "@popperjs/core/lib/enums";
 
 import PopperElement from "./PopperElement";
-import VisibilityManager from "../VisibilityManager";
+import { VisibilityManagerContextInterface } from "../VisibilityManager";
 
 import { width } from "../../styles";
 import { convertPercentageStringToNumber } from "../../utils/convertPercentageStringToNumber";
+import PopupManagerForHover, { PopperManagerForHoverInterface } from "./PopupManagers/PopupManagerForHover";
+import PopupManagerForClick, { PopupManagerForClickInterface } from "./PopupManagers/PopupManagerForClick";
+import PopupManagerForExternalControl, {
+  PopupManagerForExternalControlInterface,
+} from "./PopupManagers/PopupManagerForExternalControl";
+import { provideRef } from "@worksolutions/react-utils";
 
-import { TriggerPopupElementType } from "./internal/types";
+export enum PopupManagerMode {
+  HOVER = "HOVER",
+  CLICK = "CLICK",
+  EXTERNAL_CONTROL = "EXTERNAL_CONTROL",
+}
 
-export interface PopupManagerInterface {
+export type PopupManagerInterface = {
   popupStyles?: any;
   primaryPlacement?: Placement;
-  popupModifiers?: StrictModifiers[];
   offset?: number;
   arrowPadding?: number;
   hasArrow?: boolean;
   popupWidth?: number | string | "auto";
-  popupElement: React.ReactNode;
-  closeAfterClick?: boolean;
-  closeOnClickOutside?: boolean;
+  popupElement?: React.ReactNode;
   strategy?: PositioningStrategy;
-  renderTriggerElement: TriggerPopupElementType;
-}
+} & (
+  | ({
+      mode: PopupManagerMode.CLICK;
+    } & Pick<PopupManagerForClickInterface, "renderTriggerElement" | "closeOnClickOutside">)
+  | ({
+      mode: PopupManagerMode.HOVER;
+    } & Pick<PopperManagerForHoverInterface, "renderTriggerElement">)
+  | ({
+      mode: PopupManagerMode.EXTERNAL_CONTROL;
+    } & Pick<PopupManagerForExternalControlInterface, "renderTriggerElement">)
+);
 
-const defaultOffsets = {
-  withArrow: 14,
-  withoutArrow: 4,
-};
+function getPopperStyles(triggerElementWidth?: number, popupWidth?: number | string | "auto") {
+  if (!triggerElementWidth || !popupWidth) return null;
+  if (popupWidth === "auto") return null;
 
-const defaultArrowPadding = 10;
-
-function setOffset(offset?: number, haveArrow?: boolean) {
-  if (offset) return offset;
-  if (haveArrow) return defaultOffsets.withArrow;
-  return defaultOffsets.withoutArrow;
-}
-
-function getPopperStyles(triggerWrapperWidth?: number, popperWidth?: number | string | "auto") {
-  if (!triggerWrapperWidth || !popperWidth) return null;
-  if (popperWidth === "auto") return null;
-
-  if (isNumber(popperWidth)) return width(popperWidth);
-  if (isString(popperWidth)) return width(convertPercentageStringToNumber(popperWidth) * triggerWrapperWidth);
+  if (isNumber(popupWidth)) return width(popupWidth);
+  if (isString(popupWidth)) return width(convertPercentageStringToNumber(popupWidth) * triggerElementWidth);
 
   return null;
 }
 
-function PopupManager({
-  popupStyles,
-  popupModifiers,
-  primaryPlacement,
-  closeOnClickOutside,
-  offset,
-  arrowPadding,
-  hasArrow,
-  popupElement,
-  popupWidth,
-  closeAfterClick,
-  strategy = "absolute",
-  renderTriggerElement,
-}: PopupManagerInterface) {
-  const [triggerWrapperRef, setTriggerWrapperRef] = useState<HTMLElement | undefined>();
+export type PopupManagerRef = Omit<VisibilityManagerContextInterface, "initRef">;
 
-  const offsetValue = useMemo(() => setOffset(offset, hasArrow), [hasArrow, offset]);
-  const popperWidthStyles = useMemo(() => getPopperStyles(triggerWrapperRef?.offsetWidth, popupWidth), [
-    triggerWrapperRef?.offsetWidth,
+function PopupManager(
+  {
+    popupStyles,
+    primaryPlacement,
+    offset,
+    arrowPadding,
+    hasArrow,
+    popupElement,
+    popupWidth,
+    strategy,
+    ...props
+  }: PopupManagerInterface,
+  ref: React.Ref<PopupManagerRef>,
+) {
+  const [{ context, triggerElement }, setContext] = useState<{
+    context: VisibilityManagerContextInterface | undefined;
+    triggerElement: HTMLElement | undefined;
+  }>({ context: undefined, triggerElement: undefined });
+
+  const setVisibilityContextAndTriggerRef = React.useCallback(
+    (context: VisibilityManagerContextInterface) => (triggerElement: HTMLElement | undefined) => {
+      provideRef(ref)(context);
+      setContext({ context, triggerElement });
+    },
+    [ref],
+  );
+
+  const popperWidthStyles = useMemo(() => getPopperStyles(triggerElement?.offsetWidth, popupWidth), [
+    triggerElement?.offsetWidth,
     popupWidth,
   ]);
 
+  React.useEffect(() => {
+    if (!triggerElement || !context) return () => null;
+
+    if (props.mode === PopupManagerMode.HOVER) {
+      triggerElement.addEventListener("mouseenter", context.show);
+      triggerElement.addEventListener("mouseleave", context.hide);
+      return () => {
+        triggerElement.removeEventListener("mouseenter", context.show);
+        triggerElement.removeEventListener("mouseleave", context.hide);
+      };
+    }
+
+    if (props.mode === PopupManagerMode.CLICK) {
+      triggerElement.addEventListener("click", context.toggle);
+      return () => {
+        triggerElement.removeEventListener("click", context.toggle);
+      };
+    }
+
+    return () => null;
+  }, [props.mode, context, triggerElement]);
+
+  const popupElementNode = context?.visible && popupElement && (
+    <PopperElement
+      primaryPlacement={primaryPlacement}
+      styles={[popupStyles, popperWidthStyles]}
+      offset={offset}
+      arrowPadding={arrowPadding}
+      hasArrow={hasArrow}
+      triggerElement={triggerElement}
+      strategy={strategy}
+    >
+      {popupElement}
+    </PopperElement>
+  );
+
+  if (props.mode === PopupManagerMode.HOVER) {
+    return (
+      <PopupManagerForHover
+        popupElementNode={popupElementNode}
+        renderTriggerElement={props.renderTriggerElement}
+        setVisibilityContextAndTriggerRef={setVisibilityContextAndTriggerRef}
+      />
+    );
+  }
+
+  if (props.mode === PopupManagerMode.CLICK) {
+    return (
+      <PopupManagerForClick
+        popupElementNode={popupElementNode}
+        renderTriggerElement={props.renderTriggerElement}
+        closeOnClickOutside={props.closeOnClickOutside}
+        setVisibilityContextAndTriggerRef={setVisibilityContextAndTriggerRef}
+      />
+    );
+  }
+
   return (
-    <ReactPopperManager>
-      <VisibilityManager closeOnClickOutside={closeOnClickOutside} closeAfterClick={closeAfterClick}>
-        {({ visibility, toggle, hide, show }) => (
-          <>
-            <Trigger>
-              {({ ref }) =>
-                renderTriggerElement({ toggle, visibility, hide, show, ref: provideRef(ref, setTriggerWrapperRef) })
-              }
-            </Trigger>
-            {visibility && (
-              <PopperElement
-                primaryPlacement={primaryPlacement}
-                modifiers={popupModifiers}
-                styles={[popupStyles, popperWidthStyles]}
-                offset={offsetValue}
-                arrowPadding={arrowPadding || defaultArrowPadding}
-                hasArrow={hasArrow}
-                triggerWrapperElement={triggerWrapperRef}
-                strategy={strategy}
-              >
-                {popupElement}
-              </PopperElement>
-            )}
-          </>
-        )}
-      </VisibilityManager>
-    </ReactPopperManager>
+    <PopupManagerForExternalControl
+      popupElementNode={popupElementNode}
+      renderTriggerElement={props.renderTriggerElement}
+      setVisibilityContextAndTriggerRef={setVisibilityContextAndTriggerRef}
+    />
   );
 }
 
-export default React.memo(PopupManager);
+export default React.memo(React.forwardRef(PopupManager));

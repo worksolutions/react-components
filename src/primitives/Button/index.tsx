@@ -27,7 +27,7 @@ const Button = React.forwardRef(function (
     tabIndex,
     ...buttonWrapperProps
   }: ButtonInterface,
-  ref: Ref<HTMLButtonElement>,
+  ref: Ref<HTMLElement>,
 ) {
   return (
     <ButtonWrapper {...buttonWrapperProps}>

@@ -2,18 +2,16 @@ import React from "react";
 
 import ListItem, { ListItemInterface } from "../../List/ListItem";
 
-import { VisibilityManagerContext } from "../../VisibilityManager/VisibilityManagerContext";
+export type SelectItemCode = string | number | null | undefined;
 
-export interface SelectItemInterface<CODE extends string | number>
-  extends Omit<ListItemInterface<CODE>, "selected" | "onChange"> {}
-
-function SelectItem<CODE extends string | number>(props: SelectItemInterface<CODE>) {
-  const { hide } = React.useContext(VisibilityManagerContext);
-
-  // @ts-ignore
-  return <ListItem {...props} onAfterClick={hide} onChange={props.onChange as any} />;
+export interface SelectItemInterface<CODE extends SelectItemCode> extends Omit<ListItemInterface, "onClick"> {
+  code: CODE;
+  onClick?: (code: CODE) => void;
 }
 
-export default React.memo(SelectItem) as <CODE extends string | number>(
-  props: SelectItemInterface<CODE>,
-) => JSX.Element;
+function SelectItem<CODE extends SelectItemCode>({ code, selected, onClick, ...props }: SelectItemInterface<CODE>) {
+  const handleClick = React.useCallback(() => onClick && onClick(code), [code, onClick]);
+  return <ListItem {...props} selected={selected} onClick={handleClick} />;
+}
+
+export default React.memo(SelectItem) as <CODE extends SelectItemCode>(props: SelectItemInterface<CODE>) => JSX.Element;

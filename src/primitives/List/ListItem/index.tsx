@@ -11,101 +11,87 @@ import {
   makeIcon,
 } from "./internal/additionalContent";
 import { getListItemStyles } from "./internal/libs";
-import { SideIconType, useRightIcon } from "./internal/useRightIcon";
+import { SideContentType, useRightContent } from "./internal/useRightContent";
 
 import { ListItemSize } from "./enum";
 
-export interface ListItemInterface<CODE extends string | number> {
+export interface ListItemInterface {
   leftContentStyles?: any;
-  leftContent?: SideIconType;
+  leftContent?: SideContentType;
+  showLeftContentOnHover?: boolean;
   rightContentStyles?: any;
-  rightContent?: SideIconType;
-  titleStyles?: any;
+  rightContent?: SideContentType;
+  showRightContentOnHover?: boolean;
+  mainTextStyles?: any;
   styles?: any;
   heading?: string | number;
   subTitle?: string | number;
   disabled?: boolean;
   size?: ListItemSize;
   titleDots?: boolean;
-  showIconRightOnHover?: boolean;
-  showIconLeftOnHover?: boolean;
-  showArrowOnSelection?: boolean;
-  children: string;
-  code: CODE;
+  showArrowWhenSelected?: boolean;
+  children: string | number;
   hoverable?: boolean;
-  canSelect?: boolean;
   selected?: boolean;
-  onBeforeClick?: () => void;
-  onAfterClick?: () => void;
-  onChange?: (code: CODE) => void;
+  onClick?: () => void;
 }
 
-function ListItem<CODE extends string | number>({
-  children,
+function ListItem({
   leftContent,
   leftContentStyles: leftContentStylesProp,
+  showLeftContentOnHover,
   rightContent,
   rightContentStyles: rightContentStylesProp,
-  code,
+  showRightContentOnHover,
+  children,
   disabled,
   heading,
   subTitle,
   size = ListItemSize.MEDIUM,
   titleDots,
-  titleStyles,
+  mainTextStyles,
   styles,
-  showIconRightOnHover,
-  showIconLeftOnHover,
-  showArrowOnSelection = true,
-  hoverable = true,
-  canSelect = true,
+  showArrowWhenSelected,
+  hoverable,
   selected,
-  onBeforeClick,
-  onAfterClick,
-  onChange,
-}: ListItemInterface<CODE>) {
-  const enabled = !disabled;
-
-  const resultRightContent = useRightIcon({ selected, rightContent, showArrowOnSelection });
-
-  const listItemStyles = useMemo(() => getListItemStyles({ size, enabled, selected, hoverable }), [
-    selected,
-    enabled,
-    hoverable,
+  onClick,
+}: ListItemInterface) {
+  const listItemStyles = useMemo(() => getListItemStyles({ size, disabled, selected, hoverable }), [
     size,
-  ]);
-
-  const leftContentStyles = useMemo(() => getHoveredStylesForLeftContent({ disabled, showIconLeftOnHover }), [
     disabled,
-    showIconLeftOnHover,
+    selected,
+    hoverable,
   ]);
 
-  const rightContentStyles = useMemo(
-    () => getHoveredStylesForRightContent({ disabled, showArrowOnSelection, showIconRightOnHover }),
-    [disabled, showArrowOnSelection, showIconRightOnHover],
-  );
+  const leftContentStyles = useMemo(() => getHoveredStylesForLeftContent(showLeftContentOnHover), [
+    showLeftContentOnHover,
+  ]);
 
-  const leftIcon = makeIcon(leftContent, [marginRight(8), leftContentStylesProp]);
-  const rightIcon = makeIcon(resultRightContent, [marginLeft(8), rightContentStylesProp]);
+  const rightContentStyles = useMemo(() => getHoveredStylesForRightContent(showRightContentOnHover), [
+    showRightContentOnHover,
+  ]);
+
+  const resultLeftContent = makeIcon(leftContent, [marginRight(8), leftContentStylesProp]);
+  const resultRightContent = makeIcon(useRightContent({ selected, rightContent, showArrowWhenSelected }), [
+    marginLeft(8),
+    rightContentStylesProp,
+  ]);
 
   const handleClick = useCallback(() => {
-    if (disabled || !canSelect || !onChange) return;
-
-    onBeforeClick && onBeforeClick();
-    onChange(code);
-    onAfterClick && onAfterClick();
-  }, [canSelect, disabled, onAfterClick, onChange, code, onBeforeClick]);
+    if (disabled || !onClick) return;
+    onClick();
+  }, [disabled, onClick]);
 
   return (
     <Wrapper styles={[listItemStyles, rightContentStyles, leftContentStyles, styles]} onClick={handleClick}>
-      {leftIcon && <Wrapper className="leftIcon">{leftIcon}</Wrapper>}
+      {resultLeftContent && <Wrapper className="list-item-left-content">{resultLeftContent}</Wrapper>}
       <Wrapper styles={[flexValue(1), textAlign("left"), flex, flexColumn, overflow("hidden")]}>
         {heading && (
           <Typography type="caption-regular" noWrap>
             {heading}
           </Typography>
         )}
-        <Typography dots={titleDots} noWrap styles={titleStyles}>
+        <Typography dots={titleDots} noWrap styles={mainTextStyles}>
           {children}
         </Typography>
         {subTitle && (
@@ -114,9 +100,9 @@ function ListItem<CODE extends string | number>({
           </Typography>
         )}
       </Wrapper>
-      {rightIcon && <Wrapper className="rightIcon">{rightIcon}</Wrapper>}
+      {resultRightContent && <Wrapper className="list-item-right-content">{resultRightContent}</Wrapper>}
     </Wrapper>
   );
 }
 
-export default React.memo(ListItem) as <CODE extends string | number>(props: ListItemInterface<CODE>) => JSX.Element;
+export default React.memo(ListItem);

@@ -1,36 +1,33 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { isNotNil } from "@worksolutions/utils";
+import React, { useMemo } from "react";
 
-import PopupManager, { PopupManagerInterface, TriggerPopupElementType } from "../PopupManager";
+import PopupManager, { PopupManagerInterface, PopupManagerMode } from "../PopupManager";
 import TooltipTextContent from "./internal/TooltipTextContent";
 
 import { popupArrowWidth } from "../PopupManager/PopperElement/Arrow";
 
-export interface TooltipInterface extends Omit<PopupManagerInterface, "renderTriggerElement" | "popupElement"> {
+export interface TooltipInterface
+  extends Omit<PopupManagerInterface, "renderTriggerElement" | "popupElement" | "closeOnClickOutside" | "mode"> {
   textStyles?: any;
-  text?: React.ReactNode;
-  children: TriggerPopupElementType;
+  text: string;
+  children: (data: { initRef: any }) => JSX.Element;
 }
 
 function Tooltip({ textStyles, text, children, hasArrow = true, offset: offsetProp = 0, ...props }: TooltipInterface) {
-  const [offset, setOffset] = useState<number | undefined>();
+  const offset = React.useMemo(() => (hasArrow ? offsetProp + popupArrowWidth : offsetProp), [hasArrow, offsetProp]);
 
   const tooltipElement = useMemo(
-    () => isNotNil(text) && <TooltipTextContent styles={textStyles}>{text!}</TooltipTextContent>,
+    () => text.length !== 0 && <TooltipTextContent styles={textStyles}>{text}</TooltipTextContent>,
     [textStyles, text],
   );
-
-  useEffect(() => {
-    setOffset(hasArrow ? offsetProp + popupArrowWidth : offsetProp);
-  }, [hasArrow, offsetProp]);
 
   return (
     <PopupManager
       {...props}
+      mode={PopupManagerMode.HOVER}
       hasArrow={hasArrow}
-      renderTriggerElement={children}
       popupElement={tooltipElement}
       offset={offset}
+      renderTriggerElement={children}
     />
   );
 }

@@ -3,14 +3,14 @@ import React from "react";
 import Wrapper from "../Wrapper";
 import { firstChild, flex, flexColumn, lastChild, marginBottom, marginTop, padding } from "../../styles";
 
-interface ListWrapperInterface {
+export interface ListInterface {
   children?: React.ReactNode;
-  outerStyles?: any;
+  styles?: any;
 }
 
-function List({ children, outerStyles }: ListWrapperInterface) {
+function List({ children, styles }: ListInterface) {
   return (
-    <Wrapper styles={[flex, flexColumn, padding(8), outerStyles, firstChild(marginTop(4)), lastChild(marginBottom(4))]}>
+    <Wrapper styles={[flex, flexColumn, padding(8), styles, firstChild(marginTop(4)), lastChild(marginBottom(4))]}>
       {children}
     </Wrapper>
   );

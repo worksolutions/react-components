@@ -76,7 +76,6 @@ interface PopupArrowInterface {
 
 function Arrow({ arrowProps, placement, arrowPadding }: PopupArrowInterface) {
   const arrowPopperStyles = useCallback(() => reactStylesToStylesComponent(arrowProps.style), [arrowProps.style]);
-
   const arrowStyles = useMemo(() => getArrowStyles(placement), [placement]);
   const arrowPositionStyles = useMemo(() => getArrowPositionStyles(placement, arrowPadding), [placement, arrowPadding]);
 

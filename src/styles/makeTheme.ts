@@ -26,7 +26,6 @@ export interface Theme extends BaseTheme<Colors> {
         color: Colors;
         backgroundColor: Colors;
       };
-      focus: { color: Colors };
     };
     Tabs: {
       BottomLine: {
@@ -88,10 +87,19 @@ export interface Theme extends BaseTheme<Colors> {
       };
     };
     ListItem: {
-      Selected: { backgroundColor: Colors };
+      Selected: {
+        backgroundColor: Colors;
+      };
+      UnSelected: {
+        focusColor: Colors;
+        backgroundColor: Colors;
+        hoverBackgroundColor: Colors;
+      };
     };
-    DropdownRightIcon: {
-      color: Colors;
+    Select: {
+      RightArrow: {
+        color: Colors;
+      };
     };
     Popper: {
       boxShadowColor: Colors;
