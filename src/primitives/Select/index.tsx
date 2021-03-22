@@ -33,7 +33,6 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
   triggerElementRightIconHeight?: number | string;
   triggerElementRightIconColor?: IncomeColorVariant<Colors>;
   error?: boolean;
-  multiple?: false;
   selectedItemCode: CODE;
   onChange: (newActiveCode: CODE, newSelected: boolean) => void;
 };
@@ -69,10 +68,11 @@ function Select<CODE extends SelectItemCode>({
     return React.cloneElement(foundElement, {
       hoverable: false,
       selected: false,
-      styles: [foundElement.props.styles, backgroundColor("transparent"), margin(0), padding(0)],
+      styles: [foundElement.props.styles, backgroundColor("transparent"), margin(0), padding(0)], //TODO: refactor
+      mainTextStyles: [foundElement.props.mainTextStyles, triggerTextStyles],
       onClick: undefined,
     });
-  }, [children, selectedItemCode]);
+  }, [children, selectedItemCode, triggerTextStyles]);
 
   return (
     <PopupManager

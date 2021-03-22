@@ -34,7 +34,6 @@ export default {
     itemSize: selectControl(Object.values(ListItemSize)),
     primaryPlacement: selectControl(placements),
     widthTargetElem: numbersControl(200, 700, 5),
-    multiselect: booleanControl(),
   },
 };
 
@@ -56,8 +55,6 @@ const Template: Story<
   SelectInterface<string> & {
     itemSize: ListItemSize;
     widthTargetElem: number;
-    isHover: boolean;
-    multiselect: boolean;
   }
 > = (props) => {
   const [selected, setSelected] = useState<SelectItemCode>(null);

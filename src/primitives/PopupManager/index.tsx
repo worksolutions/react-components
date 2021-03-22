@@ -57,7 +57,7 @@ export type PopupManagerRef = Omit<VisibilityManagerContextInterface, "initRef">
 function PopupManager(
   {
     popupStyles,
-    primaryPlacement,
+    primaryPlacement = "bottom-start",
     offset,
     arrowPadding,
     hasArrow,

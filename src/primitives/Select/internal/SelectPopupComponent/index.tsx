@@ -23,7 +23,7 @@ function SelectPopupComponent<CODE extends SelectItemCode>({
 
   return (
     <List>
-      {(React.Children.toArray(children) as SelectPopupAvailableChildren<CODE>).map((element, index: number) => {
+      {(React.Children.toArray(children) as SelectPopupAvailableChildren<CODE>).map((element) => {
         const selected = selectedItemCode === element.props.code;
         return React.cloneElement(element, {
           key: element.props.code,

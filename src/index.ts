@@ -128,10 +128,10 @@ export * from "./primitives/PopupManager";
 export { default as Tooltip } from "./primitives/Tooltip";
 export * from "./primitives/Tooltip";
 
-export { default as DropdownMenu } from "./primitives/Select";
+export { default as Select } from "./primitives/Select";
 export * from "./primitives/Select";
 
-export { default as DropdownItem } from "./primitives/Select/SelectItem";
+export { default as SelectItem } from "./primitives/Select/SelectItem";
 export * from "./primitives/Select/SelectItem";
 
 export { default as Toast } from "./primitives/Toast";
