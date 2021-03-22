@@ -17,13 +17,6 @@ export const ruIntlDictionary: IntlDictionaryInterface = {
   },
   textDictionary: {
     components: {
-      dropdown: {
-        notFound: "Ничего не найдено",
-        searchInputPlaceholder: "Найти",
-      },
-      combobox: {
-        allElementsAreSelected: "Выбраны все элементы",
-      },
       calendar: {
         todayButtonText: "Сегодня",
       },

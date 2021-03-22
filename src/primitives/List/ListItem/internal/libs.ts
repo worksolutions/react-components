@@ -4,6 +4,7 @@ import {
   borderNone,
   borderRadius,
   boxShadow,
+  child,
   disableOutline,
   flex,
   focus,
@@ -27,12 +28,12 @@ const heightForItemSize: Record<ListItemSize, number> = {
 
 interface ListItemStylesInterface {
   size: ListItemSize;
-  enabled: boolean;
+  disabled?: boolean;
   selected?: boolean;
   hoverable?: boolean;
 }
 
-export function getListItemStyles({ size, enabled, selected, hoverable }: ListItemStylesInterface) {
+export function getListItemStyles({ size, disabled, selected, hoverable }: ListItemStylesInterface) {
   return [
     backgroundColor("transparent"),
     disableOutline,
@@ -44,13 +45,18 @@ export function getListItemStyles({ size, enabled, selected, hoverable }: ListIt
     borderRadius(4),
     horizontalPadding(8),
     transition(`all ${duration160}`),
-    enabled
-      ? [
+    child(transition(`opacity ${duration160}`), ".list-item-left-content"),
+    child(transition(`opacity ${duration160}`), ".list-item-right-content"),
+    selected
+      ? backgroundColor("definitions.ListItem.Selected.backgroundColor")
+      : backgroundColor("definitions.ListItem.UnSelected.backgroundColor"),
+    disabled
+      ? opacity(0.3)
+      : hoverable &&
+        !selected && [
           pointer,
-          hoverable && hover([backgroundColor("definitions.ListItem.Selected.backgroundColor")]),
-          focus(boxShadow([0, 0, 0, 2, "definitions.Button.focus.color"])),
-        ]
-      : [opacity(0.3)],
-    selected && [backgroundColor("definitions.ListItem.Selected.backgroundColor")],
+          hover([backgroundColor("definitions.ListItem.UnSelected.hoverBackgroundColor")]),
+          focus(boxShadow([0, 0, 0, 2, "definitions.ListItem.UnSelected.focusColor"])),
+        ],
   ];
 }

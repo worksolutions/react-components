@@ -18,7 +18,6 @@ export const defaultTheme: Theme = {
         color: "white",
         backgroundColor: "blue/09",
       },
-      focus: { color: "blue/04" },
     },
     Tabs: {
       BottomLine: { color: "red/05" },
@@ -36,6 +35,7 @@ export const defaultTheme: Theme = {
     },
     ListItem: {
       Selected: { backgroundColor: "gray-blue/01" },
+      UnSelected: { backgroundColor: "white", hoverBackgroundColor: "gray-blue/01", focusColor: "blue/05" },
     },
     ListItemsDivider: {
       backgroundColor: "gray-blue/02",
@@ -76,8 +76,10 @@ export const defaultTheme: Theme = {
         backgroundColor: "gray-blue/01",
       },
     },
-    DropdownRightIcon: {
-      color: "gray-blue/07",
+    Select: {
+      RightArrow: {
+        color: "gray-blue/07",
+      },
     },
     Tooltip: {
       color: "gray-blue/09",

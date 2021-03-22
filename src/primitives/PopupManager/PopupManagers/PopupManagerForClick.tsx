@@ -9,7 +9,7 @@ export interface PopupManagerForClickInterface {
   popupElementNode: React.ReactNode;
   closeOnClickOutside?: boolean;
   setVisibilityContextAndTriggerRef: SetVisibilityContextAndTriggerRef;
-  renderTriggerElement: (data: { initRef: any }) => JSX.Element;
+  renderTriggerElement: (data: Required<VisibilityManagerContextInterface>) => JSX.Element;
 }
 
 function PopupManagerForClick({
@@ -26,6 +26,7 @@ function PopupManagerForClick({
         <ReactPopperReference>
           {({ ref: reactPopperReferenceRef }) => (
             <TriggerElement
+              {...context}
               initRef={provideRef(context.initRef, reactPopperReferenceRef, setVisibilityContextAndTriggerRef(context))}
             />
           )}

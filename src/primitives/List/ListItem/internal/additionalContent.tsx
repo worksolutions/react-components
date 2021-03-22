@@ -5,31 +5,19 @@ import { ai, child, flex, flexShrink, hover, jc, opacity } from "../../../../sty
 import Icon, { InternalIcons } from "../../../Icon";
 import Wrapper from "../../../Wrapper";
 
-interface HoveredStylesRightContentInterface {
-  disabled?: boolean;
-  showArrowOnSelection?: boolean;
-  showIconRightOnHover?: boolean;
-  showIconLeftOnHover?: boolean;
-}
-
-export function getHoveredStylesForRightContent({
-  disabled,
-  showArrowOnSelection,
-  showIconRightOnHover,
-}: HoveredStylesRightContentInterface) {
-  if (disabled || showArrowOnSelection) return null;
-  if (showIconRightOnHover) {
-    return [hover(child(opacity(1), ".rightIcon")), child(opacity(0), ".rightIcon")];
+export function getHoveredStylesForLeftContent(showOnHover?: boolean) {
+  if (showOnHover) {
+    return [child(opacity(0), ".list-item-left-content"), hover(child(opacity(1), ".list-item-left-content"))];
   }
+
   return null;
 }
 
-export function getHoveredStylesForLeftContent({ disabled, showIconLeftOnHover }: HoveredStylesRightContentInterface) {
-  if (disabled) return null;
-
-  if (showIconLeftOnHover) {
-    return [hover(child(opacity(1), ".leftIcon")), child(opacity(0), ".leftIcon")];
+export function getHoveredStylesForRightContent(showOnHover?: boolean) {
+  if (showOnHover) {
+    return [child(opacity(0), ".list-item-right-content"), hover(child(opacity(1), ".list-item-right-content"))];
   }
+
   return null;
 }
 

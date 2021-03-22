@@ -8,7 +8,7 @@ import { SetVisibilityContextAndTriggerRef } from "./types";
 export interface PopperManagerForHoverInterface {
   popupElementNode: React.ReactNode;
   setVisibilityContextAndTriggerRef: SetVisibilityContextAndTriggerRef;
-  renderTriggerElement: (data: { initRef: any }) => JSX.Element;
+  renderTriggerElement: (data: Pick<Required<VisibilityManagerContextInterface>, "initRef" | "visible">) => JSX.Element;
 }
 
 function PopupManagerForHover({
@@ -23,6 +23,7 @@ function PopupManagerForHover({
           {({ ref: reactPopperReferenceRef }) => (
             <TriggerElement
               initRef={provideRef(context.initRef, reactPopperReferenceRef, setVisibilityContextAndTriggerRef(context))}
+              visible={context.visible}
             />
           )}
         </ReactPopperReference>

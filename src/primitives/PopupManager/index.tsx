@@ -13,6 +13,7 @@ import PopupManagerForClick, { PopupManagerForClickInterface } from "./PopupMana
 import PopupManagerForExternalControl, {
   PopupManagerForExternalControlInterface,
 } from "./PopupManagers/PopupManagerForExternalControl";
+import { provideRef } from "@worksolutions/react-utils";
 
 export enum PopupManagerMode {
   HOVER = "HOVER",
@@ -51,17 +52,22 @@ function getPopperStyles(triggerElementWidth?: number, popupWidth?: number | str
   return null;
 }
 
-function PopupManager({
-  popupStyles,
-  primaryPlacement,
-  offset,
-  arrowPadding,
-  hasArrow,
-  popupElement,
-  popupWidth,
-  strategy,
-  ...props
-}: PopupManagerInterface) {
+export type PopupManagerRef = Omit<VisibilityManagerContextInterface, "initRef">;
+
+function PopupManager(
+  {
+    popupStyles,
+    primaryPlacement,
+    offset,
+    arrowPadding,
+    hasArrow,
+    popupElement,
+    popupWidth,
+    strategy,
+    ...props
+  }: PopupManagerInterface,
+  ref: React.Ref<PopupManagerRef>,
+) {
   const [{ context, triggerElement }, setContext] = useState<{
     context: VisibilityManagerContextInterface | undefined;
     triggerElement: HTMLElement | undefined;
@@ -69,9 +75,10 @@ function PopupManager({
 
   const setVisibilityContextAndTriggerRef = React.useCallback(
     (context: VisibilityManagerContextInterface) => (triggerElement: HTMLElement | undefined) => {
+      provideRef(ref)(context);
       setContext({ context, triggerElement });
     },
-    [],
+    [ref],
   );
 
   const popperWidthStyles = useMemo(() => getPopperStyles(triggerElement?.offsetWidth, popupWidth), [
@@ -145,4 +152,4 @@ function PopupManager({
   );
 }
 
-export default React.memo(PopupManager);
+export default React.memo(React.forwardRef(PopupManager));
