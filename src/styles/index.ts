@@ -28,6 +28,7 @@ export const mediaScreen = styles.mediaScreen;
 export const animation = styles.animation;
 export const animationDuration = styles.animationDuration;
 export const background = styles.background;
+export const backgroundWithoutMemoization = styles.backgroundWithoutMemoization;
 export const backgroundImage = styles.backgroundImage;
 export const backgroundRepeat = styles.backgroundRepeat;
 export const backgroundSize = styles.backgroundSize;
