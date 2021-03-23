@@ -9,7 +9,6 @@ import Button, { ButtonSize, ButtonType } from "../Button";
 import {
   ai,
   backgroundColor,
-  border,
   borderRadius,
   flex,
   flexColumn,
@@ -30,9 +29,9 @@ import { useMinMaxCalculation } from "./hooks/useMinMathCalculation";
 import { SwitchModeButton } from "./SwitchModeButton";
 import CalendarView from "./CalendarView";
 import ButtonsList from "./ButtonsList";
-import { currentDate } from "./info";
 
 export interface CalendarInterface {
+  styles?: any;
   mode: DateMode;
   min?: string;
   max?: string;
@@ -47,9 +46,17 @@ enum CalendarViewMode {
   DATE,
 }
 
-function Calendar({ value, min: minProp, max: maxProp, mode, hasCurrentDayButton, onChange }: CalendarInterface) {
+function Calendar({
+  styles,
+  value,
+  min: minProp,
+  max: maxProp,
+  mode,
+  hasCurrentDayButton,
+  onChange,
+}: CalendarInterface) {
   function getDateTimeFromProps() {
-    return value ? intl.getDateTime(value, mode) : currentDate;
+    return value ? intl.getDateTime(value, mode) : intl.currentDate;
   }
 
   const { min, max } = useMinMaxCalculation(mode, minProp, maxProp);
@@ -65,19 +72,19 @@ function Calendar({ value, min: minProp, max: maxProp, mode, hasCurrentDayButton
   const months = useMonthCalculation(year, min, max);
 
   const handleClickOnToday = React.useCallback(() => {
-    const formattedTodayDateTime = intl.formatDate(currentDate, mode);
+    const formattedTodayDateTime = intl.formatDate(intl.currentDate, mode);
 
     if (!currentSelectedDateTime) {
       onChange(formattedTodayDateTime);
       return;
     }
 
-    if (!isDateSame({ value: currentSelectedDateTime, comparisonWith: currentDate }, "days")) {
+    if (!isDateSame({ value: currentSelectedDateTime, comparisonWith: intl.currentDate }, "days")) {
       onChange(formattedTodayDateTime);
       return;
     }
 
-    setViewDateTime(currentDate.set({ day: 1 }));
+    setViewDateTime(intl.currentDate.set({ day: 1 }));
   }, [mode, currentSelectedDateTime, onChange]);
 
   const handleChangeYear = React.useCallback(
@@ -93,6 +100,8 @@ function Calendar({ value, min: minProp, max: maxProp, mode, hasCurrentDayButton
         setViewDateTime(max.set({ day: 1 }));
         return;
       }
+
+      setViewDateTime(newDateTime);
     },
     [viewDateTime, min, max],
   );
@@ -125,11 +134,11 @@ function Calendar({ value, min: minProp, max: maxProp, mode, hasCurrentDayButton
         width(306),
         verticalPadding(12),
         backgroundColor("white"),
-        border(1, "gray-blue/02"),
         elevation16,
         borderRadius(6),
         flex,
         flexColumn,
+        styles,
       ]}
     >
       <Wrapper styles={[flex, horizontalPadding(12), flexValue(1), ai("center"), marginBottom(12)]}>
@@ -167,6 +176,8 @@ function Calendar({ value, min: minProp, max: maxProp, mode, hasCurrentDayButton
         <CalendarView
           styles={horizontalPadding(12)}
           viewDateTime={viewDateTime}
+          min={min}
+          max={max}
           selectedDateTime={currentSelectedDateTime}
           onChange={(day) => onChange(intl.formatDate(viewDateTime.set({ day }), mode))}
         />
@@ -194,7 +205,7 @@ function Calendar({ value, min: minProp, max: maxProp, mode, hasCurrentDayButton
       {hasCurrentDayButton && (
         <Wrapper styles={[flex, jc("center")]}>
           <Button styles={marginTop(4)} size={ButtonSize.MEDIUM} type={ButtonType.GHOST} onClick={handleClickOnToday}>
-            {intl.text("components.calendar.todayButtonText")} {intl.formatDate(currentDate, DateMode.DATE)}
+            {intl.text("components.calendar.todayButtonText")} {intl.formatDate(intl.currentDate, DateMode.DATE)}
           </Button>
         </Wrapper>
       )}

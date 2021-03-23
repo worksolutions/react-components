@@ -47,7 +47,7 @@ function ListItem({
   disabled,
   heading,
   subTitle,
-  size = ListItemSize.MEDIUM,
+  size = ListItemSize.LARGE,
   titleDots,
   mainTextStyles,
   styles,

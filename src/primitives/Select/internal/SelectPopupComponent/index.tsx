@@ -17,8 +17,8 @@ function SelectPopupComponent<CODE extends SelectItemCode>({
   onChange,
 }: SelectPopupComponentInterface<CODE>) {
   const handleClickFabric = React.useCallback(
-    (code: CODE, currentSelected: boolean) => () => onChange(code, !currentSelected),
-    [onChange],
+    (code: CODE, currentSelected: boolean) => () => selectedItemCode !== code && onChange(code, !currentSelected),
+    [onChange, selectedItemCode],
   );
 
   return (

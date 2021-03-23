@@ -2,12 +2,11 @@ import React from "react";
 import { DateMode } from "@worksolutions/utils";
 
 import { intl } from "../../../intl";
-import { currentDate } from "../info";
 
 function getInitialMomentValueForRange(value: string | undefined, mode: DateMode, addYearsIfUndefined: number) {
   if (value) return intl.getDateTime(value, mode);
 
-  return currentDate.plus({ year: addYearsIfUndefined });
+  return intl.currentDate.plus({ year: addYearsIfUndefined });
 }
 
 export function useMinMaxCalculation(mode: DateMode, minValue?: string, maxValue?: string) {

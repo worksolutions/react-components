@@ -1,5 +1,6 @@
 import { Theme } from "./makeTheme";
 import { colors as darkColors } from "../constants/colorsMap/dark";
+import { Colors } from "../constants/colors";
 
 export const defaultTheme: Theme = {
   colors: darkColors,
@@ -124,6 +125,41 @@ export const defaultTheme: Theme = {
     },
     InputContainerTitle: {
       color: "gray-blue/05",
+    },
+    Calendar: {
+      ButtonsList: {
+        Selected: {
+          backgroundColor: "blue/09",
+        },
+        Unselected: {
+          borderColor: "gray-blue/02",
+          focusBorderColor: "blue/04",
+          hoverBackgroundColor: "gray-blue/01",
+          textColor: "gray-blue/07",
+        },
+      },
+      CalendarView: {
+        WeekDays: {
+          color: "gray-blue/03",
+        },
+        DaysButtons: {
+          Today: {
+            borderColor: "gray-blue/03",
+            hoverBackgroundColor: "gray-blue/01",
+          },
+          Holiday: {
+            textColor: "red/05",
+            hoverBackgroundColor: "gray-blue/01",
+          },
+        },
+      },
+      SwitchModeButton: {
+        backgroundColor: "gray-blue/01",
+        borderColor: "gray-blue/02",
+        hoverBorderColor: "gray-blue/03",
+        openedBorderColor: "blue/04",
+        textColor: "gray-blue/07",
+      },
     },
   },
 };

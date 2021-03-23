@@ -28,25 +28,39 @@ type ItemVariants = { isToday?: boolean; selected?: boolean; holiday?: boolean }
 
 function getItemData(data: ItemVariants) {
   if (data.selected) {
-    return { styles: [child([color("white"), backgroundColor("blue/05")])], canClick: false };
+    return {
+      styles: [child([color("white"), backgroundColor("definitions.Calendar.ButtonsList.Selected.backgroundColor")])],
+      canClick: false,
+    };
   }
 
   if (data.isToday) {
     return {
-      styles: [pointer, child(boxShadow([0, 0, 0, 1, "gray-blue/03"])), hover(child(backgroundColor("gray-blue/01")))],
+      styles: [
+        pointer,
+        child(boxShadow([0, 0, 0, 1, "definitions.Calendar.CalendarView.DaysButtons.Today.borderColor"])),
+        hover(child(backgroundColor("definitions.Calendar.CalendarView.DaysButtons.Today.hoverBackgroundColor"))),
+      ],
       canClick: true,
     };
   }
 
   if (data.holiday) {
     return {
-      styles: [pointer, hover(child(backgroundColor("gray-blue/01"))), child(color("red/05"))],
+      styles: [
+        pointer,
+        child(color("definitions.Calendar.CalendarView.DaysButtons.Holiday.textColor")),
+        hover(child(backgroundColor("definitions.Calendar.CalendarView.DaysButtons.Holiday.hoverBackgroundColor"))),
+      ],
       canClick: true,
     };
   }
 
   return {
-    styles: [pointer, hover(child(backgroundColor("gray-blue/01")))],
+    styles: [
+      pointer,
+      hover(child(backgroundColor("definitions.Calendar.ButtonsList.Unselected.hoverBackgroundColor"))),
+    ],
     canClick: true,
   };
 }

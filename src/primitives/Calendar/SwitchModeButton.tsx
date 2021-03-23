@@ -45,11 +45,11 @@ export function SwitchModeButton({ value, onClick, width: widthProp, opened, sty
         ai("center"),
         jc("space-between"),
         pointer,
-        backgroundColor("gray-blue/01"),
-        transition(`box-shadow ${duration160}, border-color ${duration160}`),
-        border(1, "gray-blue/02"),
-        hover(borderColor("gray-blue/03")),
-        opened && boxShadow([0, 0, 0, 2, "blue/04"]),
+        transition(`box-shadow ${duration160}`),
+        backgroundColor("definitions.Calendar.SwitchModeButton.backgroundColor"),
+        boxShadow([0, 0, 0, 1, "definitions.Calendar.SwitchModeButton.borderColor"]),
+        hover(boxShadow([0, 0, 0, 1, "definitions.Calendar.SwitchModeButton.hoverBorderColor"])),
+        opened && boxShadow([0, 0, 0, 2, "definitions.Calendar.SwitchModeButton.openedBorderColor"]),
         styles,
       ]}
       onClick={onClick}
@@ -58,7 +58,7 @@ export function SwitchModeButton({ value, onClick, width: widthProp, opened, sty
       <Icon
         icon="arrow-down"
         styles={[transition(`all ${duration160}`), transform(`rotateZ(${opened ? "180deg" : "0deg"})`)]}
-        color="gray-blue/07"
+        color="definitions.Calendar.SwitchModeButton.textColor"
       />
     </Wrapper>
   );

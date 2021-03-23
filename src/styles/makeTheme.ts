@@ -127,6 +127,41 @@ export interface Theme extends BaseTheme<Colors> {
     InputContainerTitle: {
       color: Colors;
     };
+    Calendar: {
+      ButtonsList: {
+        Selected: {
+          backgroundColor: Colors;
+        };
+        Unselected: {
+          borderColor: Colors;
+          focusBorderColor: Colors;
+          hoverBackgroundColor: Colors;
+          textColor: Colors;
+        };
+      };
+      CalendarView: {
+        WeekDays: {
+          color: Colors;
+        };
+        DaysButtons: {
+          Today: {
+            borderColor: Colors;
+            hoverBackgroundColor: Colors;
+          };
+          Holiday: {
+            textColor: Colors;
+            hoverBackgroundColor: Colors;
+          };
+        };
+      };
+      SwitchModeButton: {
+        backgroundColor: Colors;
+        borderColor: Colors;
+        hoverBorderColor: Colors;
+        openedBorderColor: Colors;
+        textColor: Colors;
+      };
+    };
   };
 }
 export function makeTheme(overrides: DeepPartial<Theme> = {}): Theme {

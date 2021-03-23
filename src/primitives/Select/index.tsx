@@ -1,6 +1,5 @@
 import React from "react";
 import { IncomeColorVariant, useEffectSkipFirst } from "@worksolutions/react-utils";
-import { isNil } from "ramda";
 
 import Typography from "../Typography";
 import SelectTrigger from "./internal/SelectTrigger";
@@ -32,8 +31,11 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
   triggerElementRightIconWidth?: number | string;
   triggerElementRightIconHeight?: number | string;
   triggerElementRightIconColor?: IncomeColorVariant<Colors>;
+  closePopupAfterChange?: boolean;
+  triggerElementChildrenModifier?: <C extends CODE>(currentText: string | number, code: C) => string | number;
   error?: boolean;
   selectedItemCode: CODE;
+  popupElementWrapper?: (child: JSX.Element) => JSX.Element;
   onChange: (newActiveCode: CODE, newSelected: boolean) => void;
 };
 
@@ -51,28 +53,42 @@ function Select<CODE extends SelectItemCode>({
   triggerElementRightIconWidth,
   triggerElementRightIconHeight,
   triggerElementRightIconColor = "definitions.Select.RightArrow.color",
+  triggerElementChildrenModifier,
+  closePopupAfterChange = true,
   error,
   selectedItemCode,
+  popupElementWrapper,
   onChange,
   ...props
 }: SelectInterface<CODE>) {
   const popupManagerRef = React.useRef<PopupManagerRef>(null!);
 
-  useEffectSkipFirst(() => popupManagerRef.current.hide(), [selectedItemCode]);
+  useEffectSkipFirst(() => {
+    if (!closePopupAfterChange) return;
+    popupManagerRef.current.hide();
+  }, [selectedItemCode]);
 
   const selectedElement = React.useMemo(() => {
-    if (isNil(selectedItemCode)) return null;
     const childrenElements = React.Children.toArray(children) as SelectPopupAvailableChildren<CODE>;
     const foundElement = childrenElements.find((element) => element.props.code === selectedItemCode);
     if (!foundElement) return null;
     return React.cloneElement(foundElement, {
+      children: triggerElementChildrenModifier
+        ? triggerElementChildrenModifier(foundElement.props.children, selectedItemCode)
+        : foundElement.props.children,
       hoverable: false,
       selected: false,
       styles: [foundElement.props.styles, backgroundColor("transparent"), margin(0), padding(0)], //TODO: refactor
       mainTextStyles: [foundElement.props.mainTextStyles, triggerTextStyles],
       onClick: undefined,
     });
-  }, [children, selectedItemCode, triggerTextStyles]);
+  }, [children, selectedItemCode, triggerElementChildrenModifier, triggerTextStyles]);
+
+  const popupElement = (
+    <SelectPopupComponent selectedItemCode={selectedItemCode} onChange={onChange}>
+      {children}
+    </SelectPopupComponent>
+  );
 
   return (
     <PopupManager
@@ -80,11 +96,7 @@ function Select<CODE extends SelectItemCode>({
       ref={popupManagerRef}
       mode={PopupManagerMode.CLICK}
       closeOnClickOutside
-      popupElement={
-        <SelectPopupComponent selectedItemCode={selectedItemCode} onChange={onChange}>
-          {children}
-        </SelectPopupComponent>
-      }
+      popupElement={popupElementWrapper ? popupElementWrapper(popupElement) : popupElement}
       renderTriggerElement={({ initRef, visible }) => (
         <InputContainer
           outerStyles={outerStyles}

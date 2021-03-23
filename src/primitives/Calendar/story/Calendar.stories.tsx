@@ -34,7 +34,7 @@ const CalendarTemplate: Story<CalendarInterface> = (props) => {
 export const Button = CalendarTemplate.bind({});
 
 Button.args = {
-  min: intl.formatDate(intl.currentDate.minus({ year: 5 }), DateMode.DATE_TIME),
+  min: intl.formatDate(intl.currentDate.minus({ day: 2 }), DateMode.DATE_TIME),
   max: intl.formatDate(intl.currentDate.plus({ year: 5 }), DateMode.DATE_TIME),
   mode: DateMode.DATE_TIME,
   hasCurrentDayButton: true,

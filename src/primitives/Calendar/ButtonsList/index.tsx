@@ -46,7 +46,14 @@ const SelectedItem = React.memo(
       <Wrapper
         ref={ref}
         as="button"
-        styles={[disableOutline, borderNone, width(80), height(44), borderRadius(6), backgroundColor("blue/05")]}
+        styles={[
+          disableOutline,
+          borderNone,
+          width(80),
+          height(44),
+          borderRadius(6),
+          backgroundColor("definitions.Calendar.ButtonsList.Selected.backgroundColor"),
+        ]}
       >
         <Typography color="white">{value}</Typography>
       </Wrapper>
@@ -64,22 +71,22 @@ const UnselectedItem = React.memo(function ({ value, onClick }: { value: string 
         width(80),
         height(44),
         borderRadius(6),
-        border(1, "gray-blue/02"),
         backgroundColor("white"),
         transition(`box-shadow ${duration160}, background-color ${duration160}`),
-        hover(backgroundColor("gray-blue/01")),
-        focus(boxShadow([0, 0, 0, 2, "blue/04"])),
+        border(1, "definitions.Calendar.ButtonsList.Unselected.borderColor"),
+        hover(backgroundColor("definitions.Calendar.ButtonsList.Unselected.hoverBackgroundColor")),
+        focus(boxShadow([0, 0, 0, 2, "definitions.Calendar.ButtonsList.Unselected.focusBorderColor"])),
       ]}
       onClick={onClick}
     >
-      <Typography color="gray-blue/07">{value}</Typography>
+      <Typography color="definitions.Calendar.ButtonsList.Unselected.textColor">{value}</Typography>
     </Wrapper>
   );
 }, makeExcludingDeepEqual(["onClick"]));
 
 function ButtonsList({ items, selectedItemIndex, onClick }: ButtonsListInterface) {
   const { run, scrollRef, scrollToElementRef } = useScrollToElement(true);
-  React.useEffect(run, []);
+  React.useEffect(run, [run]);
 
   return (
     <Wrapper

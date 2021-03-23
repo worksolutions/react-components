@@ -10,7 +10,7 @@ export interface ListInterface {
 
 function List({ children, styles }: ListInterface) {
   return (
-    <Wrapper styles={[flex, flexColumn, padding(8), styles, firstChild(marginTop(4)), lastChild(marginBottom(4))]}>
+    <Wrapper styles={[flex, flexColumn, padding(8), styles, firstChild(marginTop(0)), lastChild(marginBottom(0))]}>
       {children}
     </Wrapper>
   );
