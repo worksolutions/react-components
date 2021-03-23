@@ -8,6 +8,11 @@ import { InputContainerVariantType } from "../primitives/InputContainer/libs";
 
 export interface Theme extends BaseTheme<Colors> {
   definitions: {
+    Scrollbars: {
+      basePlaceBackgroundColor: Colors;
+      draggablePartColor: Colors;
+      draggablePartHoverColor: Colors;
+    };
     Text: { defaultColor: Colors };
     Icon: {
       default: {

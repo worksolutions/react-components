@@ -13,6 +13,8 @@ export * from "./intl/ru";
 export * from "./intl";
 export * from "./styles";
 
+export * from "./components/ScrollbarsStyles";
+
 export { default as List } from "./primitives/List";
 export * from "./primitives/List";
 

@@ -4,6 +4,11 @@ import { colors as darkColors } from "../constants/colorsMap/dark";
 export const defaultTheme: Theme = {
   colors: darkColors,
   definitions: {
+    Scrollbars: {
+      basePlaceBackgroundColor: "transparent",
+      draggablePartColor: "gray-blue/02",
+      draggablePartHoverColor: "gray-blue/06",
+    },
     Text: { defaultColor: "gray-blue/09" },
     Icon: {
       default: {
