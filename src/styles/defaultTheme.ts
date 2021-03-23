@@ -1,10 +1,10 @@
 import { Theme } from "./makeTheme";
 import { colors as darkColors } from "../constants/colorsMap/dark";
-import { Colors } from "../constants/colors";
 
 export const defaultTheme: Theme = {
   colors: darkColors,
   definitions: {
+    Text: { defaultColor: "gray-blue/09" },
     Icon: {
       default: {
         color: "gray-blue/05",

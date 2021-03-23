@@ -94,4 +94,4 @@ Typography.defaultProps = {
 
 export default React.memo(Typography);
 
-export const TypographyGlobalStyle = createGlobalStyle`*{color: ${getColor("gray-blue/09")}}`;
+export const TypographyGlobalStyle = createGlobalStyle`*{color: ${getColor("definitions.Text.defaultColor")}}`;

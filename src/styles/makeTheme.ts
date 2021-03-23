@@ -8,6 +8,7 @@ import { InputContainerVariantType } from "../primitives/InputContainer/libs";
 
 export interface Theme extends BaseTheme<Colors> {
   definitions: {
+    Text: { defaultColor: Colors };
     Icon: {
       default: {
         color: Colors;
