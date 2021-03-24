@@ -35,7 +35,6 @@ interface ListItemStylesInterface {
 
 export function getListItemStyles({ size, disabled, selected, hoverable }: ListItemStylesInterface) {
   return [
-    backgroundColor("transparent"),
     disableOutline,
     borderNone,
     minHeight(heightForItemSize[size]),
@@ -47,9 +46,7 @@ export function getListItemStyles({ size, disabled, selected, hoverable }: ListI
     transition(`all ${duration160}`),
     child(transition(`opacity ${duration160}`), ".list-item-left-content"),
     child(transition(`opacity ${duration160}`), ".list-item-right-content"),
-    selected
-      ? backgroundColor("definitions.ListItem.Selected.backgroundColor")
-      : backgroundColor("definitions.ListItem.UnSelected.backgroundColor"),
+    selected && backgroundColor("definitions.ListItem.Selected.backgroundColor"),
     disabled
       ? opacity(0.3)
       : hoverable &&

@@ -98,7 +98,6 @@ export interface Theme extends BaseTheme<Colors> {
       };
       UnSelected: {
         focusColor: Colors;
-        backgroundColor: Colors;
         hoverBackgroundColor: Colors;
       };
     };
@@ -107,14 +106,18 @@ export interface Theme extends BaseTheme<Colors> {
         color: Colors;
       };
     };
-    Popper: {
-      boxShadowColor: Colors;
-    };
     ListItemsDivider: {
       backgroundColor: Colors;
     };
     Tooltip: {
-      color: Colors;
+      textColor: Colors;
+      backgroundColor: Colors;
+      shadowColor: Colors;
+    };
+    Hint: {
+      textColor: Colors;
+      backgroundColor: Colors;
+      borderColor: Colors;
     };
     SelectTriggerElement: {
       colorText: Colors;
@@ -170,6 +173,7 @@ export interface Theme extends BaseTheme<Colors> {
     };
   };
 }
+
 export function makeTheme(overrides: DeepPartial<Theme> = {}): Theme {
   return mergeDeepRight(defaultTheme, overrides);
 }

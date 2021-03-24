@@ -2,9 +2,9 @@ import React, { useMemo } from "react";
 
 import PopupManager, { PopupManagerInterface, PopupManagerMode } from "../PopupManager";
 
-import { backgroundColor, borderRadius, boxShadow, padding } from "../../styles";
-import { elevation16Raw } from "../../constants/shadows";
+import { padding } from "../../styles";
 import Typography from "../Typography";
+import { hintPopupStyles, tooltipPopupStyles } from "./internal/popupStyles";
 
 export enum TooltipType {
   TOOLTIP = "TOOLTIP",
@@ -22,23 +22,19 @@ export interface TooltipInterface
   children: (data: { initRef: any }) => JSX.Element;
 }
 
-const tooltipStyles = [
-  backgroundColor("white"),
-  boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Popper.boxShadowColor"]),
-  borderRadius(4),
-];
-
-const hintStyles: any[] = [backgroundColor("blue/10"), boxShadow([0, 0, 0, 1, "gray-blue/03"]), borderRadius(4)];
-
 function Tooltip({ textStyles, text, children, type = TooltipType.TOOLTIP, popupStyles, ...props }: TooltipInterface) {
   const tooltipElement = useMemo(
     () =>
       text && type === TooltipType.TOOLTIP ? (
-        <Typography type="caption-regular" styles={[padding("8px 12px"), textStyles]}>
+        <Typography
+          type="caption-regular"
+          color="definitions.Tooltip.textColor"
+          styles={[padding("8px 12px"), textStyles]}
+        >
           {text}
         </Typography>
       ) : (
-        <Typography type="caption-regular" color="white" styles={[padding("2px 8px"), textStyles]}>
+        <Typography type="caption-regular" color="definitions.Hint.textColor" styles={[padding("2px 8px"), textStyles]}>
           {text}
         </Typography>
       ),
@@ -48,7 +44,7 @@ function Tooltip({ textStyles, text, children, type = TooltipType.TOOLTIP, popup
   return (
     <PopupManager
       {...props}
-      popupStyles={[popupStyles, type === TooltipType.TOOLTIP ? tooltipStyles : hintStyles]}
+      popupStyles={[popupStyles, type === TooltipType.TOOLTIP ? tooltipPopupStyles : hintPopupStyles]}
       mode={PopupManagerMode.HOVER}
       hasArrow={false}
       popupElement={tooltipElement}

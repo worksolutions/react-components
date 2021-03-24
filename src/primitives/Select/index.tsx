@@ -13,6 +13,7 @@ import { duration160 } from "../../constants/durations";
 import SelectPopupComponent, { SelectPopupAvailableChildren } from "./internal/SelectPopupComponent";
 import { SelectItemCode } from "./SelectItem";
 import { Colors } from "../../constants/colors";
+import { tooltipPopupStyles } from "../Tooltip/internal/popupStyles";
 
 export type SelectInterface<CODE extends SelectItemCode> = Omit<
   PopupManagerInterface,
@@ -78,7 +79,7 @@ function Select<CODE extends SelectItemCode>({
         : foundElement.props.children,
       hoverable: false,
       selected: false,
-      styles: [foundElement.props.styles, backgroundColor("transparent"), margin(0), padding(0)], //TODO: refactor
+      styles: [foundElement.props.styles, margin(0), padding(0)], //TODO: refactor
       mainTextStyles: [foundElement.props.mainTextStyles, triggerTextStyles],
       onClick: undefined,
     });
@@ -96,6 +97,7 @@ function Select<CODE extends SelectItemCode>({
       ref={popupManagerRef}
       mode={PopupManagerMode.CLICK}
       closeOnClickOutside
+      popupStyles={[tooltipPopupStyles, props.popupStyles]}
       popupElement={popupElementWrapper ? popupElementWrapper(popupElement) : popupElement}
       renderTriggerElement={({ initRef, visible }) => (
         <InputContainer

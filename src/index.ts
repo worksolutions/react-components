@@ -136,3 +136,5 @@ export * from "./primitives/Select/SelectItem";
 
 export { default as Toast } from "./primitives/Toast";
 export * from "./primitives/Toast";
+export { hintPopupStyles } from "./primitives/Tooltip/internal/popupStyles";
+export { tooltipPopupStyles } from "./primitives/Tooltip/internal/popupStyles";

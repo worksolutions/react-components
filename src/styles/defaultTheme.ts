@@ -41,13 +41,20 @@ export const defaultTheme: Theme = {
     },
     ListItem: {
       Selected: { backgroundColor: "gray-blue/01" },
-      UnSelected: { backgroundColor: "white", hoverBackgroundColor: "gray-blue/01", focusColor: "blue/05" },
+      UnSelected: { hoverBackgroundColor: "gray-blue/01", focusColor: "blue/05" },
     },
     ListItemsDivider: {
       backgroundColor: "gray-blue/02",
     },
-    Popper: {
-      boxShadowColor: "gray-blue/02",
+    Tooltip: {
+      shadowColor: "gray-blue/02",
+      backgroundColor: "white",
+      textColor: "gray-blue/09",
+    },
+    Hint: {
+      backgroundColor: "blue/10",
+      borderColor: "gray-blue/03",
+      textColor: "white",
     },
     Avatar: {
       Empty: { color: "gray-blue/05" },
@@ -86,9 +93,6 @@ export const defaultTheme: Theme = {
       RightArrow: {
         color: "gray-blue/07",
       },
-    },
-    Tooltip: {
-      color: "gray-blue/09",
     },
     SelectTriggerElement: {
       colorText: "gray-blue/05",
