@@ -171,6 +171,12 @@ export interface Theme extends BaseTheme<Colors> {
         textColor: Colors;
       };
     };
+    Toast: {
+      backgroundColor: Colors;
+      defaultBorderColor: Colors;
+      errorBorderColor: Colors;
+      textColor: Colors;
+    };
   };
 }
 

@@ -27,7 +27,7 @@ import { zIndex_toast } from "../../constants/zIndexes";
 
 import { calcToastBottom, toastAnimations, toastHeight, toastMarginTop } from "./libs";
 
-interface ToastInterface {
+export interface ToastInterface {
   text: string;
   error?: boolean;
   cancelButton?: {
@@ -37,11 +37,11 @@ interface ToastInterface {
 }
 
 export interface ToastComponentInterface extends ToastInterface {
-  index: number;
+  index?: number;
   removeToast: () => void;
 }
 
-function Toast({ index, text, error, cancelButton, removeToast }: ToastComponentInterface) {
+function Toast({ index = 0, text, error, cancelButton, removeToast }: ToastComponentInterface) {
   return (
     <Wrapper
       styles={[
@@ -52,7 +52,7 @@ function Toast({ index, text, error, cancelButton, removeToast }: ToastComponent
         position("fixed"),
         willChange("opacity"),
         transform("translateX(-50%)"),
-        animation([toastAnimations.showToast, toastAnimations.hideToast]),
+        animation([toastAnimations.showToast]),
         bottom(calcToastBottom(index)),
         marginTop(toastMarginTop),
         zIndex_toast,
@@ -60,15 +60,17 @@ function Toast({ index, text, error, cancelButton, removeToast }: ToastComponent
     >
       <Wrapper
         styles={[
-          backgroundColor("white"),
+          backgroundColor("definitions.Toast.backgroundColor"),
           borderRadius(6),
-          border(1, error ? "red/05" : "gray-blue/02"),
+          border(1, error ? "definitions.Toast.errorBorderColor" : "definitions.Toast.defaultBorderColor"),
           flex,
           ai("center"),
           horizontalPadding(16),
         ]}
       >
-        <Typography styles={marginRight(12)}>{text}</Typography>
+        <Typography styles={marginRight(12)} color="definitions.Toast.textColor">
+          {text}
+        </Typography>
         {cancelButton && (
           <Button
             styles={marginRight(8)}
@@ -85,4 +87,4 @@ function Toast({ index, text, error, cancelButton, removeToast }: ToastComponent
   );
 }
 
-export default React.memo(Toast, makeExcludingDeepEqual(["index", "removeToast"]));
+export default React.memo(Toast, makeExcludingDeepEqual(["removeToast"]));

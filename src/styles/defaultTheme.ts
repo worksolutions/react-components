@@ -170,5 +170,11 @@ export const defaultTheme: Theme = {
         textColor: "gray-blue/07",
       },
     },
+    Toast: {
+      backgroundColor: "white",
+      textColor: "gray-blue/09",
+      defaultBorderColor: "gray-blue/02",
+      errorBorderColor: "red/05",
+    },
   },
 };
