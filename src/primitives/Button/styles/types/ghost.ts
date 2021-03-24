@@ -13,18 +13,21 @@ import { makeSpinnerColorStyle } from "../../../Spinner";
 
 export const ghostStyle = [
   borderWidth(0),
-  color("gray-blue/07"),
+  color("definitions.ButtonGhost.textColor"),
   backgroundColor("transparent"),
   child(marginRight(8), ".icon-left"),
   child(marginLeft(8), ".icon-right"),
-  child(fillColor("gray-blue/07"), ".icon use"),
-  child(makeSpinnerColorStyle("gray-blue/07"), ".loader"),
+  child(fillColor("definitions.ButtonGhost.iconColor"), ".icon use"),
+  child(makeSpinnerColorStyle("definitions.ButtonGhost.iconColor"), ".loader"),
 ];
-export const ghostHover = [backgroundColor("gray-blue/01"), boxShadow([0, 0, 1, 0, createAlphaColor("black", 81)])];
-export const ghostFocus = [boxShadow([0, 0, 0, 2, "blue/04"])];
-export const ghostActive = [backgroundColor("gray-blue/02")];
+export const ghostHover = [
+  backgroundColor("definitions.ButtonGhost.hoverBackgroundColor"),
+  boxShadow([0, 0, 1, 0, createAlphaColor("black", 81)]),
+];
+export const ghostFocus = [boxShadow([0, 0, 0, 2, "definitions.ButtonGhost.focusBorderColor"])];
+export const ghostActive = [backgroundColor("definitions.ButtonGhost.activeBackgroundColor")];
 export const ghostDisabled = [
-  color("gray-blue/03"),
-  child(fillColor("gray-blue/03"), ".icon use"),
-  child(makeSpinnerColorStyle("gray-blue/03"), ".loader"),
+  color("definitions.ButtonGhost.disabledColor"),
+  child(fillColor("definitions.ButtonGhost.disabledColor"), ".icon use"),
+  child(makeSpinnerColorStyle("definitions.ButtonGhost.disabledColor"), ".loader"),
 ];

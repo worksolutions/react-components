@@ -1,5 +1,6 @@
 import { Theme } from "./makeTheme";
 import { colors as darkColors } from "../constants/colorsMap/dark";
+import { Colors } from "../constants/colors";
 
 export const defaultTheme: Theme = {
   colors: darkColors,
@@ -19,11 +20,40 @@ export const defaultTheme: Theme = {
       Spinner: { color: "gray-blue/09" },
       Backplate: { backgroundColor: "white" },
     },
-    Button: {
-      primary: {
-        color: "white",
-        backgroundColor: "blue/09",
-      },
+    ButtonPrimary: {
+      color: "white",
+      backgroundColor: "blue/09",
+      iconColor: "white",
+      hoverBackgroundColor: "blue/06",
+      focusBorderColor: "blue/04",
+      activeBackgroundColor: "blue/07",
+      disabledBackgroundColor: "blue/02",
+    },
+    ButtonIcon: {
+      iconColor: "gray-blue/07",
+      hoverBackgroundColor: "gray-blue/01",
+      hoverSmallBackgroundColor: "gray-blue/05",
+      focusBorderColor: "gray-blue/05",
+      activeBackgroundColor: "blue/04",
+      disabledIconColor: "gray-blue/02",
+    },
+    ButtonGhost: {
+      textColor: "gray-blue/07",
+      iconColor: "gray-blue/07",
+      hoverBackgroundColor: "gray-blue/01",
+      focusBorderColor: "blue/04",
+      activeBackgroundColor: "gray-blue/02",
+      disabledColor: "gray-blue/03",
+    },
+    ButtonSecondary: {
+      textColor: "gray-blue/07",
+      borderColor: "gray-blue/02",
+      iconColor: "gray-blue/07",
+      hoverBackgroundColor: "gray-blue/01",
+      focusBorderColor: "blue/04",
+      activeBackgroundColor: "gray-blue/02",
+      disabledTextAndIconColor: "gray-blue/03",
+      disabledBorderColor: "gray-blue/01",
     },
     Tabs: {
       BottomLine: { color: "red/05" },

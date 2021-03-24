@@ -27,11 +27,40 @@ export interface Theme extends BaseTheme<Colors> {
         backgroundColor: Colors;
       };
     };
-    Button: {
-      primary: {
-        color: Colors;
-        backgroundColor: Colors;
-      };
+    ButtonPrimary: {
+      color: Colors;
+      backgroundColor: Colors;
+      iconColor: Colors;
+      hoverBackgroundColor: Colors;
+      focusBorderColor: Colors;
+      activeBackgroundColor: Colors;
+      disabledBackgroundColor: Colors;
+    };
+    ButtonIcon: {
+      iconColor: Colors;
+      hoverBackgroundColor: Colors;
+      hoverSmallBackgroundColor: Colors;
+      focusBorderColor: Colors;
+      activeBackgroundColor: Colors;
+      disabledIconColor: Colors;
+    };
+    ButtonGhost: {
+      textColor: Colors;
+      iconColor: Colors;
+      hoverBackgroundColor: Colors;
+      focusBorderColor: Colors;
+      activeBackgroundColor: Colors;
+      disabledColor: Colors;
+    };
+    ButtonSecondary: {
+      textColor: Colors;
+      borderColor: Colors;
+      iconColor: Colors;
+      hoverBackgroundColor: Colors;
+      focusBorderColor: Colors;
+      activeBackgroundColor: Colors;
+      disabledTextAndIconColor: Colors;
+      disabledBorderColor: Colors;
     };
     Tabs: {
       BottomLine: {
@@ -181,5 +210,5 @@ export interface Theme extends BaseTheme<Colors> {
 }
 
 export function makeTheme(overrides: DeepPartial<Theme> = {}): Theme {
-  return mergeDeepRight(defaultTheme, overrides);
+  return mergeDeepRight(defaultTheme, overrides as any);
 }
