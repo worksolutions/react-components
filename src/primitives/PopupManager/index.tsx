@@ -25,7 +25,6 @@ export type PopupManagerInterface = {
   popupStyles?: any;
   primaryPlacement?: Placement;
   offset?: number;
-  arrowPadding?: number;
   hasArrow?: boolean;
   popupWidth?: number | string | "auto";
   popupElement?: React.ReactNode;
@@ -42,7 +41,7 @@ export type PopupManagerInterface = {
     } & Pick<PopupManagerForExternalControlInterface, "renderTriggerElement">)
 );
 
-function getPopperStyles(triggerElementWidth?: number, popupWidth?: number | string | "auto") {
+function getPopupStyles(triggerElementWidth?: number, popupWidth?: number | string | "auto") {
   if (!triggerElementWidth || !popupWidth) return null;
   if (popupWidth === "auto") return null;
 
@@ -59,7 +58,6 @@ function PopupManager(
     popupStyles,
     primaryPlacement = "bottom-start",
     offset,
-    arrowPadding,
     hasArrow,
     popupElement,
     popupWidth,
@@ -81,7 +79,7 @@ function PopupManager(
     [ref],
   );
 
-  const popperWidthStyles = useMemo(() => getPopperStyles(triggerElement?.offsetWidth, popupWidth), [
+  const popupWidthStyles = useMemo(() => getPopupStyles(triggerElement?.offsetWidth, popupWidth), [
     triggerElement?.offsetWidth,
     popupWidth,
   ]);
@@ -111,9 +109,8 @@ function PopupManager(
   const popupElementNode = context?.visible && popupElement && (
     <PopperElement
       primaryPlacement={primaryPlacement}
-      styles={[popupStyles, popperWidthStyles]}
+      styles={[popupStyles, popupWidthStyles]}
       offset={offset}
-      arrowPadding={arrowPadding}
       hasArrow={hasArrow}
       triggerElement={triggerElement}
       strategy={strategy}

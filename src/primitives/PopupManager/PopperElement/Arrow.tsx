@@ -4,27 +4,17 @@ import { Placement } from "@popperjs/core/lib/enums";
 
 import Wrapper from "../../Wrapper";
 
-import {
-  backgroundColor,
-  bottom,
-  boxShadow,
-  height,
-  left,
-  overflow,
-  position,
-  right,
-  top,
-  transform,
-  width,
-  zIndex,
-} from "../../../styles";
+import { bottom, boxShadow, child, left, right, top, transform, zIndex } from "../../../styles";
 import { reactStylesToStylesComponent } from "../../../styles/reactStylesToStylesComponent";
 import { elevation16Raw } from "../../../constants/shadows";
+import Icon from "../../Icon";
 
-function getArrowPositionStyles(placement: Placement, arrowPadding: number) {
+export const popupArrowSize = 8;
+
+function getArrowPositionStyles(placement: Placement) {
   if (!placement) return null;
 
-  const invertedArrowPadding = arrowPadding * -1;
+  const invertedArrowPadding = popupArrowSize * -1;
 
   if (placement.startsWith("left")) return right(invertedArrowPadding);
   if (placement.startsWith("bottom")) return top(invertedArrowPadding);
@@ -44,46 +34,30 @@ function getArrowStyles(placement: Placement) {
   return null;
 }
 
-export const popupArrowWidth = 14;
-
-const Triangle = React.memo(function () {
-  return (
-    <Wrapper
-      styles={[position("absolute"), width(30), height(17), overflow("hidden"), transform("translate(-50%, -6px)")]}
-    >
-      <Wrapper
-        styles={[
-          position("absolute"),
-          zIndex(2),
-          backgroundColor("white"),
-          transform("rotate(45deg)"),
-          boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Popper.boxShadowColor"]),
-          width(16),
-          height(16),
-          left(7),
-          top(11),
-        ]}
-      />
-    </Wrapper>
-  );
-});
-
 interface PopupArrowInterface {
   arrowProps: PopperArrowProps;
   placement: Placement;
-  arrowPadding: number;
 }
 
-function Arrow({ arrowProps, placement, arrowPadding }: PopupArrowInterface) {
+function Arrow({ arrowProps, placement }: PopupArrowInterface) {
+  return null;
+
   const arrowPopperStyles = useCallback(() => reactStylesToStylesComponent(arrowProps.style), [arrowProps.style]);
+  const arrowPositionStyles = useMemo(() => getArrowPositionStyles(placement), [placement]);
   const arrowStyles = useMemo(() => getArrowStyles(placement), [placement]);
-  const arrowPositionStyles = useMemo(() => getArrowPositionStyles(placement, arrowPadding), [placement, arrowPadding]);
 
   return (
-    <Wrapper ref={arrowProps.ref} data-popper-arrow styles={[arrowPopperStyles, arrowPositionStyles]}>
-      <Wrapper styles={arrowStyles}>
-        <Triangle />
-      </Wrapper>
+    <Wrapper ref={arrowProps.ref} data-popper-arrow styles={[arrowPopperStyles, arrowPositionStyles, arrowStyles]}>
+      <Icon
+        icon="tooltip-triangle"
+        width={16}
+        height={8}
+        color="white"
+        styles={[
+          zIndex(2),
+          child(boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Popper.boxShadowColor", true]), "use"),
+        ]}
+      />
     </Wrapper>
   );
 }

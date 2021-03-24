@@ -3,7 +3,7 @@ import { Story } from "@storybook/react/types-6-0";
 import { placements } from "@popperjs/core/lib/enums";
 
 import Wrapper from "../../Wrapper";
-import Tooltip, { TooltipInterface } from "../index";
+import Tooltip, { TooltipInterface, TooltipType } from "../index";
 
 import { selectControl } from "../../../storybook/storyHelpers";
 import { left, marginRight, position, top, transform } from "../../../styles";
@@ -15,6 +15,7 @@ export default {
   argTypes: {
     primaryPlacement: selectControl(placements),
     strategy: selectControl(["fixed", "absolute"]),
+    type: selectControl(Object.keys(TooltipType)),
   },
 };
 
@@ -32,6 +33,6 @@ const Template: Story<TooltipInterface> = (props) => {
 export const Default = Template.bind({});
 
 Default.args = {
-  hasArrow: true,
   text: "text",
+  type: TooltipType.TOOLTIP,
 };

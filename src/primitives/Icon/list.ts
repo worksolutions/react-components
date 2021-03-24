@@ -1,4 +1,5 @@
 export const internalIcons = {
+  "tooltip-triangle": require("./icons/tooltip-triangle.svg"),
   "account-multiple-outline": require("./icons/account-multiple-outline.svg"),
   "alert-alt": require("./icons/alert-alt.svg"),
   alert: require("./icons/alert.svg"),

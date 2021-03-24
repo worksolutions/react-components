@@ -9,6 +9,7 @@ import "./index.scss";
 import "./initializeStorybooks";
 
 import { TypographyGlobalStyle } from "../primitives/Typography";
+import { ScrollbarsGlobalStyles } from "../components/ScrollbarsStyles";
 import { makeTheme } from "../styles/makeTheme";
 
 export const history = createMemoryHistory();
@@ -23,6 +24,7 @@ export function storybookWrapper(Story: Story) {
     <ThemeProvider theme={defaultTheme}>
       <div className="ws-box" style={{ display: "flex" }}>
         <TypographyGlobalStyle />
+        <ScrollbarsGlobalStyles />
         <Router history={history}>{element}</Router>
       </div>
     </ThemeProvider>
