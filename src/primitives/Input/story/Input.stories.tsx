@@ -17,7 +17,7 @@ export default {
     iconLeft: selectControl(Object.keys(internalIcons)),
     iconRight: selectControl(Object.keys(internalIcons)),
     titlePosition: selectControl([InputContainerTitlePosition.LEFT, InputContainerTitlePosition.TOP]),
-    size: selectControl([InputContainerSize.LARGE, InputContainerSize.MEDIUM]),
+    size: selectControl([InputContainerSize.LARGE, InputContainerSize.MEDIUM, InputContainerSize.SMALL]),
   },
 };
 

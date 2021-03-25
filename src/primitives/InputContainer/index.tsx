@@ -19,7 +19,10 @@ import {
 } from "./libs";
 
 import {
+  backgroundColor,
   borderRadius,
+  boxShadow,
+  color,
   focus,
   fullWidth,
   hover,
@@ -28,10 +31,8 @@ import {
   right,
   top,
   transform,
-  backgroundColor,
-  boxShadow,
-  color,
 } from "../../styles";
+import { IncomeColorVariant } from "@worksolutions/react-utils";
 
 export type InputIconProp = InternalIcons | JSX.Element | undefined;
 
@@ -73,11 +74,11 @@ function InputContainer({
 }: InputContainerInterface & {
   renderComponent: (styles: any) => JSX.Element;
 }) {
-  const leftIconElement = makeIconElement(iconLeft, "definitions.InputContainer.leftIconColor" as Colors, [
+  const leftIconElement = makeIconElement(iconLeft, "definitions.InputContainer.leftIconColor", [
     left(8),
     iconLeftStyles,
   ]);
-  const rightIconElement = makeIconElement(iconRight, "definitions.InputContainer.rightIconColor" as Colors, [
+  const rightIconElement = makeIconElement(iconRight, "definitions.InputContainer.rightIconColor", [
     right(8),
     iconRightStyles,
   ]);
@@ -122,7 +123,7 @@ export default React.memo(InputContainer);
 
 const defaultIconStyles = [position("absolute"), top("50%"), transform("translateY(-50%)")];
 
-function makeIconElement(icon: InputIconProp, defaultColor: Colors, styles: any) {
+function makeIconElement(icon: InputIconProp, defaultColor: IncomeColorVariant<Colors>, styles: any) {
   return icon ? (
     <Wrapper styles={[defaultIconStyles, styles]}>
       {isString(icon) ? <Icon color={defaultColor} icon={icon} /> : icon}

@@ -20,12 +20,12 @@ const Input = React.forwardRef(function (
   {
     autofocus,
     value,
-    onChange,
     placeholder,
     multiline,
     debounce = 100,
     styles,
     type,
+    onChange,
     ...inputContainerProps
   }: InputInterface & { type?: string },
   ref: Ref<HTMLInputElement>,

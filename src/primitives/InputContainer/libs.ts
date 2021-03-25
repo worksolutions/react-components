@@ -27,7 +27,7 @@ export const stylesForSize = {
     withIconLeft: padding("14px 12px 14px 40px"),
     withIconRight: padding("14px 40px 14px 12px"),
     withIcons: padding("14px 40px 14px 40px"),
-    withoutIcons: padding("10px 12px"),
+    withoutIcons: padding("14px 12px"),
   },
   [InputContainerSize.MEDIUM]: {
     withIconLeft: padding("10px 12px 10px 40px"),
