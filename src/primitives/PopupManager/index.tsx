@@ -3,6 +3,7 @@ import { isNumber, isString } from "@worksolutions/utils";
 import { PositioningStrategy } from "@popperjs/core";
 import { Placement } from "@popperjs/core/lib/enums";
 import { provideRef } from "@worksolutions/react-utils";
+import { observer } from "mobx-react-lite";
 
 import PopperElement from "./PopperElement";
 import { VisibilityManagerContextInterface } from "../VisibilityManager";
@@ -113,11 +114,13 @@ function PopupManager(
     </PopperElement>
   );
 
+  const renderTriggerElement = React.useMemo(() => observer(props.renderTriggerElement), [props.renderTriggerElement]);
+
   if (props.mode === PopupManagerMode.HOVER) {
     return (
       <PopupManagerForHover
         popupElementNode={popupElementNode}
-        renderTriggerElement={props.renderTriggerElement}
+        renderTriggerElement={renderTriggerElement as any}
         setVisibilityContextAndTriggerRef={setVisibilityContextAndTriggerRef}
       />
     );
@@ -127,7 +130,7 @@ function PopupManager(
     return (
       <PopupManagerForClick
         popupElementNode={popupElementNode}
-        renderTriggerElement={props.renderTriggerElement}
+        renderTriggerElement={renderTriggerElement as any}
         closeOnClickOutside={props.closeOnClickOutside}
         setVisibilityContextAndTriggerRef={setVisibilityContextAndTriggerRef}
       />
@@ -137,10 +140,10 @@ function PopupManager(
   return (
     <PopupManagerForExternalControl
       popupElementNode={popupElementNode}
-      renderTriggerElement={props.renderTriggerElement}
+      renderTriggerElement={renderTriggerElement as any}
       setVisibilityContextAndTriggerRef={setVisibilityContextAndTriggerRef}
     />
   );
 }
 
-export default React.memo(React.forwardRef(PopupManager));
+export default observer(PopupManager, { forwardRef: true });

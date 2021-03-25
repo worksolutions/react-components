@@ -11,7 +11,7 @@ import Button from "../../Button";
 
 export default {
   title: "Tooltip",
-  component: Tooltip.type,
+  component: Tooltip,
   argTypes: {
     primaryPlacement: selectControl(placements),
     strategy: selectControl(["fixed", "absolute"]),

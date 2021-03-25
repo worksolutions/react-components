@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { observer } from "mobx-react-lite";
 
 import PopupManager, { PopupManagerInterface, PopupManagerMode } from "../PopupManager";
 
@@ -54,4 +55,4 @@ function Tooltip({ textStyles, text, children, type = TooltipType.TOOLTIP, popup
   );
 }
 
-export default React.memo(Tooltip);
+export default observer(Tooltip);

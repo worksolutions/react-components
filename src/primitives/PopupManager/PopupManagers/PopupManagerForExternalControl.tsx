@@ -1,6 +1,7 @@
 import React from "react";
 import { Manager as ReactPopperManager, Reference as ReactPopperReference } from "react-popper";
 import { provideRef } from "@worksolutions/react-utils";
+import { observer } from "mobx-react-lite";
 
 import VisibilityManager, { VisibilityManagerContextInterface } from "../../VisibilityManager";
 import { SetVisibilityContextAndTriggerRef } from "./types";
@@ -45,4 +46,4 @@ function PopupManagerForExternalControl({
   );
 }
 
-export default PopupManagerForExternalControl;
+export default observer(PopupManagerForExternalControl);
