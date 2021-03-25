@@ -25,7 +25,8 @@ export interface TooltipInterface
 function Tooltip({ textStyles, text, children, type = TooltipType.TOOLTIP, popupStyles, ...props }: TooltipInterface) {
   const tooltipElement = useMemo(
     () =>
-      text && type === TooltipType.TOOLTIP ? (
+      text &&
+      (type === TooltipType.TOOLTIP ? (
         <Typography
           type="caption-regular"
           color="definitions.Tooltip.textColor"
@@ -37,7 +38,7 @@ function Tooltip({ textStyles, text, children, type = TooltipType.TOOLTIP, popup
         <Typography type="caption-regular" color="definitions.Hint.textColor" styles={[padding("2px 8px"), textStyles]}>
           {text}
         </Typography>
-      ),
+      )),
     [text, textStyles, type],
   );
 
