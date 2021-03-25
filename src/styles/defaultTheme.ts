@@ -1,6 +1,5 @@
 import { Theme } from "./makeTheme";
 import { colors as darkColors } from "../constants/colorsMap/dark";
-import { Colors } from "../constants/colors";
 
 export const defaultTheme: Theme = {
   colors: darkColors,
@@ -33,9 +32,9 @@ export const defaultTheme: Theme = {
       iconColor: "gray-blue/07",
       hoverBackgroundColor: "gray-blue/01",
       hoverSmallBackgroundColor: "gray-blue/05",
-      focusBorderColor: "gray-blue/05",
-      activeBackgroundColor: "blue/04",
-      disabledIconColor: "gray-blue/02",
+      focusBorderColor: "blue/04",
+      activeBackgroundColor: "gray-blue/02",
+      disabledIconColor: "gray-blue/03",
     },
     ButtonGhost: {
       textColor: "gray-blue/07",
