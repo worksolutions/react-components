@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { isNumber, isString } from "@worksolutions/utils";
 import { PositioningStrategy } from "@popperjs/core";
 import { Placement } from "@popperjs/core/lib/enums";
+import { provideRef } from "@worksolutions/react-utils";
 
 import PopperElement from "./PopperElement";
 import { VisibilityManagerContextInterface } from "../VisibilityManager";
@@ -13,7 +14,7 @@ import PopupManagerForClick, { PopupManagerForClickInterface } from "./PopupMana
 import PopupManagerForExternalControl, {
   PopupManagerForExternalControlInterface,
 } from "./PopupManagers/PopupManagerForExternalControl";
-import { provideRef } from "@worksolutions/react-utils";
+import { handleTriggerElementEventsForClick, handleTriggerElementEventsForHover } from "./libs";
 
 export enum PopupManagerMode {
   HOVER = "HOVER",
@@ -35,7 +36,7 @@ export type PopupManagerInterface = {
     } & Pick<PopupManagerForClickInterface, "renderTriggerElement" | "closeOnClickOutside">)
   | ({
       mode: PopupManagerMode.HOVER;
-    } & Pick<PopperManagerForHoverInterface, "renderTriggerElement">)
+    } & Pick<PopperManagerForHoverInterface, "renderTriggerElement" | "showDelay">)
   | ({
       mode: PopupManagerMode.EXTERNAL_CONTROL;
     } & Pick<PopupManagerForExternalControlInterface, "renderTriggerElement">)
@@ -88,23 +89,16 @@ function PopupManager(
     if (!triggerElement || !context) return () => null;
 
     if (props.mode === PopupManagerMode.HOVER) {
-      triggerElement.addEventListener("mouseenter", context.show);
-      triggerElement.addEventListener("mouseleave", context.hide);
-      return () => {
-        triggerElement.removeEventListener("mouseenter", context.show);
-        triggerElement.removeEventListener("mouseleave", context.hide);
-      };
+      const { showDelay = 300 } = props;
+      return handleTriggerElementEventsForHover(triggerElement, showDelay, context);
     }
 
     if (props.mode === PopupManagerMode.CLICK) {
-      triggerElement.addEventListener("click", context.toggle);
-      return () => {
-        triggerElement.removeEventListener("click", context.toggle);
-      };
+      return handleTriggerElementEventsForClick(triggerElement, context);
     }
 
     return () => null;
-  }, [props.mode, context, triggerElement]);
+  }, [props.mode, context, triggerElement, props]);
 
   const popupElementNode = context?.visible && popupElement && (
     <PopperElement

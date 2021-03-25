@@ -7,6 +7,7 @@ import { SetVisibilityContextAndTriggerRef } from "./types";
 
 export interface PopperManagerForHoverInterface {
   popupElementNode: React.ReactNode;
+  showDelay?: number;
   setVisibilityContextAndTriggerRef: SetVisibilityContextAndTriggerRef;
   renderTriggerElement: (data: Pick<Required<VisibilityManagerContextInterface>, "initRef" | "visible">) => JSX.Element;
 }
