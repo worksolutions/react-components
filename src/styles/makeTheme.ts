@@ -206,6 +206,16 @@ export interface Theme extends BaseTheme<Colors> {
       errorBorderColor: Colors;
       textColor: Colors;
     };
+    Resizer: {
+      Border: {
+        color: Colors;
+        hoverColor: Colors;
+        activeColor: Colors;
+      };
+      ArrowButton: {
+        backgroundColor: Colors;
+      };
+    };
   };
 }
 

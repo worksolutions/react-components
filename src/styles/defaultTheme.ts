@@ -205,5 +205,11 @@ export const defaultTheme: Theme = {
       defaultBorderColor: "gray-blue/02",
       errorBorderColor: "red/05",
     },
+    Resizer: {
+      Border: { color: "gray-blue/02", hoverColor: "gray-blue/03", activeColor: "blue/05" },
+      ArrowButton: {
+        backgroundColor: "white",
+      },
+    },
   },
 };

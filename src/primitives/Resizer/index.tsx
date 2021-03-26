@@ -1,20 +1,19 @@
-import React, { Ref } from "react";
-import { animated, to } from "react-spring";
-import { useHover } from "react-use";
+import React from "react";
+import { Resizable } from "re-resizable";
+import throttle from "lodash/throttle";
+import { useBoolean, useEffectSkipFirst, useSyncToRef } from "@worksolutions/react-utils";
+import { preventDefaultAndStopPropagationHandler } from "@worksolutions/utils";
 
 import {
   absoluteCenter,
+  active,
   backgroundColor,
-  bottom,
   child,
   cursor,
-  flex,
   fullHeight,
+  horizontalPadding,
   hover,
-  left,
-  marginLeft,
-  position,
-  top,
+  opacity,
   transform,
   transition,
   visibility,
@@ -24,123 +23,164 @@ import {
 
 import Wrapper from "../Wrapper";
 import Button, { ButtonSize, ButtonType } from "../Button";
-
-import { ResizeMode, useResizer } from "./useResizer";
-import { duration160 } from "../../constants/durations";
-import { elevation8 } from "../../constants/shadows";
-import { InternalIcons } from "../Icon";
+import { duration160, duration60 } from "../../constants/durations";
+import { elevation16 } from "../../constants/shadows";
 
 export interface ResizerInterface {
+  resizerContainerStyles?: any;
+  childrenWrapperStyles?: any;
   initialWidth: number;
-  children: JSX.Element;
-  minWidthToAutoClose?: number;
-  styles?: any;
-  localStorageKey?: string;
-  mode?: ResizeMode;
+  minWidth?: number;
+  autoCloseWidth?: number;
+  children: React.ReactNode;
+  onSizeUpdate: (width: number) => void;
 }
 
-const minResizerWidth = 24;
+function Resizer({
+  resizerContainerStyles,
+  childrenWrapperStyles,
+  initialWidth,
+  minWidth = 24,
+  autoCloseWidth = 72,
+  children,
+  onSizeUpdate,
+}: ResizerInterface) {
+  const minWidthRef = useSyncToRef(minWidth);
+  const autoCloseWidthRef = useSyncToRef(autoCloseWidth);
+  const initialWidthRef = useSyncToRef(initialWidth);
 
-const Resizer = React.forwardRef(function (
-  {
-    initialWidth,
-    children,
-    styles,
-    minWidthToAutoClose = 72,
-    localStorageKey,
-    mode = ResizeMode.LEFT_TO_RIGHT,
-  }: ResizerInterface,
-  ref: Ref<HTMLElement>,
-) {
-  const {
-    down,
-    childContentStyles,
-    contentIsClosed,
-    showContent,
-    hideContent,
-    getResizingLineProps,
-    backdropDisabler,
-  } = useResizer({
-    initialWidth,
-    localStorageKey,
-    minResizerWidth,
-    minWidthToAutoClose,
-    mode,
-  });
+  const resizableRef = React.useRef<InstanceType<typeof Resizable>>(null);
+  const [childrenWrapperWidth, setChildrenWrapperWidth] = React.useState(initialWidth);
 
-  const [hoverLine] = useHover((hovered) => {
-    const isLeftToRight = mode === ResizeMode.LEFT_TO_RIGHT;
+  useEffectSkipFirst(() => onSizeUpdate(childrenWrapperWidth), [childrenWrapperWidth, onSizeUpdate]);
 
-    const positioning: { iconName: InternalIcons; styleName: string } = isLeftToRight
-      ? { iconName: "arrow-right", styleName: "left" }
-      : { iconName: "arrow-left", styleName: "right" };
+  const getResizeContainerWidth = () => resizableRef.current!.resizable!.getBoundingClientRect().width;
+  const updateWidth = (width: number) => {
+    setChildrenWrapperWidth(width);
+    resizableRef.current!.updateSize({ width, height: "auto" });
+  };
 
-    return (
+  const [dragging, startDragging, endDragging] = useBoolean(false);
+
+  const arrowButtonInit = React.useCallback(
+    (ref: HTMLElement | null) => {
+      if (!ref) return;
+      ref.addEventListener("mousedown", preventDefaultAndStopPropagationHandler);
+      ref.addEventListener("click", preventDefaultAndStopPropagationHandler);
+      ref.addEventListener("mouseup", async function (event) {
+        preventDefaultAndStopPropagationHandler(event);
+        const closed = getResizeContainerWidth() < autoCloseWidthRef.current;
+        if (closed) {
+          updateWidth(
+            initialWidthRef.current === minWidthRef.current ? autoCloseWidthRef.current : initialWidthRef.current,
+          );
+          return;
+        }
+
+        updateWidth(minWidthRef.current);
+      });
+    },
+    [autoCloseWidthRef, initialWidthRef, minWidthRef],
+  );
+
+  const handleResizeStart = React.useCallback(startDragging, [startDragging]);
+
+  const handleResizeEnd = React.useCallback(() => {
+    const width = getResizeContainerWidth();
+    if (width > autoCloseWidth) {
+      updateWidth(width);
+      endDragging();
+      return;
+    }
+
+    updateWidth(minWidth);
+  }, [autoCloseWidth, endDragging, minWidth]);
+
+  const closed = childrenWrapperWidth < autoCloseWidth;
+
+  const handleComponent = React.useMemo(() => {
+    const showArrowStyle = child([visibility("visible"), opacity(1)], ".resizer-arrow");
+
+    const right = (
       <Wrapper
         styles={[
-          down && child(backgroundColor("blue/05"), ".border-line"),
-          hover(child(backgroundColor("blue/05"), ".border-line")),
+          fullHeight,
+          width("100%"),
+          horizontalPadding(5),
+          cursor("col-resize"),
+          hover([
+            child([backgroundColor("definitions.Resizer.Border.hoverColor")], ".resizer-divider"),
+            showArrowStyle,
+          ]),
+          active([
+            child(backgroundColor("definitions.Resizer.Border.activeColor"), ".resizer-divider"),
+            showArrowStyle,
+          ]),
         ]}
       >
         <Wrapper
-          as={animated.div}
-          {...getResizingLineProps()}
-          styles={[position("absolute"), top(0), bottom(0), cursor("ew-resize"), width(16)]}
-          style={{
-            [positioning.styleName]: to([childContentStyles.width], (x) => `${x - 8}px`),
-          }}
-        >
-          <Wrapper
-            className="border-line"
-            as={animated.div}
-            styles={[
-              transition(`background-color ${duration160}`),
-              backgroundColor("gray-blue/02"),
-              width(1),
-              fullHeight,
-              marginLeft(8),
-            ]}
-          />
-        </Wrapper>
-
-        <Wrapper
-          as={animated.div}
-          style={{ [positioning.styleName]: childContentStyles.width }}
+          className="resizer-divider"
           styles={[
-            isLeftToRight ? absoluteCenter : [position("absolute"), top("50%"), transform("translate(50%, -50%)")],
-            visibility(contentIsClosed ? "visible" : hovered || down ? "visible" : "hidden"),
+            transition(`background-color ${duration160}`),
+            backgroundColor("definitions.Resizer.Border.color"),
+            fullHeight,
+            width(1),
           ]}
-        >
-          <Button
-            styles={[
-              elevation8,
-              backgroundColor("white"),
-              child(
-                [transition(`transform ${duration160}`), transform(`rotateZ(${contentIsClosed ? "0deg" : "180deg"})`)],
-                ".icon",
-              ),
-            ]}
-            type={ButtonType.ICON}
-            size={ButtonSize.MEDIUM}
-            iconLeft={positioning.iconName}
-            onClick={contentIsClosed ? showContent : hideContent}
-          />
-        </Wrapper>
+        />
+        <Button
+          ref={arrowButtonInit}
+          className="resizer-arrow"
+          styles={[
+            zIndex(999999),
+            backgroundColor("definitions.Resizer.ArrowButton.backgroundColor"),
+            elevation16,
+            opacity(0),
+            visibility("hidden"),
+            transition(`visibility ${duration160}, opacity ${duration160}, background-color ${duration160}`),
+            absoluteCenter,
+            child(
+              [
+                transition(`transform ${duration160}`),
+                closed ? transform("rotate(180deg)") : transform("rotate(0deg)"),
+              ],
+              "svg",
+            ),
+          ]}
+          size={ButtonSize.MEDIUM}
+          type={ButtonType.ICON}
+          iconLeft="arrow-left"
+        />
       </Wrapper>
     );
-  });
+
+    return { right };
+  }, [arrowButtonInit, closed]);
 
   return (
-    <>
-      <Wrapper ref={ref} styles={[position("relative"), flex, styles]}>
-        <Wrapper as={animated.div} style={childContentStyles} styles={zIndex(1)}>
-          {children}
-        </Wrapper>
-        {hoverLine}
+    <Resizable
+      ref={resizableRef}
+      defaultSize={{ width: initialWidth, height: "auto" }}
+      minWidth={minWidth}
+      as={Wrapper}
+      handleComponent={handleComponent}
+      enable={{ right: true }}
+      // @ts-ignore
+      styles={[resizerContainerStyles, transition(`width ${duration60}`)]}
+      onResizeStart={handleResizeStart}
+      onResizeStop={handleResizeEnd}
+    >
+      <Wrapper
+        styles={[
+          transition(`visibility ${duration160}, opacity ${duration160}, background-color ${duration160}`),
+          closed ? opacity(0) : opacity(1),
+          !dragging && width(childrenWrapperWidth),
+          childrenWrapperStyles,
+        ]}
+      >
+        {children}
       </Wrapper>
-      {backdropDisabler}
-    </>
+    </Resizable>
   );
-});
+}
 
 export default React.memo(Resizer);

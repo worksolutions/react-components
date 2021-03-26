@@ -16,7 +16,7 @@ export interface ButtonInterface extends BaseButtonWrapperInterface {
   onClick?: () => void;
 }
 
-const Button = React.forwardRef(function (
+function Button(
   {
     as = "button",
     nativeType = "button",
@@ -53,8 +53,8 @@ const Button = React.forwardRef(function (
       }}
     </ButtonWrapper>
   );
-});
+}
 
-export default React.memo(Button);
+export default React.memo(React.forwardRef(Button));
 
 export * from "./types";
