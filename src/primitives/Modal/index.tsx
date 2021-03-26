@@ -1,11 +1,14 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { isNil, without } from "ramda";
 import { observer } from "mobx-react-lite";
 import { useBoolean, useEffectSkipFirst } from "@worksolutions/react-utils";
+import { isFunction } from "@worksolutions/utils";
 
 import {
+  backgroundColor,
   bottom,
+  createAlphaColor,
   display,
   fullHeight,
   fullWidth,
@@ -16,46 +19,31 @@ import {
   textAlign,
   top,
   verticalAlign,
-  backgroundColor,
-  createAlphaColor,
 } from "../../styles";
 
 import Wrapper from "../Wrapper";
 
-import { activeModal, ModalContent, ModalInterface, ModalSize } from "./ModalContent";
+import ModalContent from "./ModalContent";
 import { zIndex_modal } from "../../constants/zIndexes";
+import { activeModal } from "./libs";
+import { ModalInterface } from "./types";
 
-function Modal({
-  actionBlock,
+export function ModalComponent({
   opened: openedProp,
-  size = ModalSize.SMALL,
   wrappedContent,
-  title,
-  onSecondaryAction,
-  onPrimaryAction,
-  secondaryActionText,
-  primaryActionText,
-  subTitle,
+  rootElement,
   onClose,
-  children,
-  secondaryActionLoading,
-  primaryActionLoading,
-  actionsInColumn,
-  closeOnBackdropClick,
-}: ModalInterface) {
-  const [root] = React.useState(() => document.getElementById("root")!);
-
+  children: Children,
+  ...props
+}: ModalInterface & { rootElement?: HTMLElement }) {
   const [opened, open, close] = useBoolean(() => (isNil(openedProp) ? false : openedProp));
-
   useEffectSkipFirst(() => {
-    if (openedProp) {
-      open();
-      return;
-    }
-    close();
+    openedProp ? open() : close();
   }, [openedProp]);
 
-  const modalId = React.useMemo(activeModal.getModalId, []);
+  const root = React.useMemo(() => (opened ? rootElement || ModalComponent._rootElement : null), [opened, rootElement]);
+
+  const modalId = React.useMemo(() => activeModal.getModalId(), []);
 
   React.useEffect(() => {
     if (opened) {
@@ -63,7 +51,7 @@ function Modal({
       return;
     }
     activeModal.activeModals = without([modalId], activeModal.activeModals);
-  }, [opened]);
+  }, [modalId, opened]);
 
   useEffectSkipFirst(() => {
     if (opened) return;
@@ -83,36 +71,27 @@ function Modal({
               top(0),
               bottom(0),
               right(0),
-              overflow("overlay" as CSSProperties["overflowY"]),
+              overflow("overlay"),
               backgroundColor(createAlphaColor("gray-blue/09", 122)),
             ]}
           >
             <Wrapper styles={[position("absolute"), left(0), top(0), fullWidth, fullHeight, textAlign("center")]}>
               <Wrapper styles={[display("inline-block"), fullHeight, verticalAlign("middle")]} />
-              <ModalContent
-                actionBlock={actionBlock}
-                closeOnBackdropClick={closeOnBackdropClick}
-                id={modalId}
-                size={size}
-                title={title}
-                close={close}
-                subTitle={subTitle}
-                onPrimaryAction={onPrimaryAction}
-                onSecondaryAction={onSecondaryAction}
-                primaryActionText={primaryActionText}
-                secondaryActionText={secondaryActionText}
-                primaryActionLoading={primaryActionLoading}
-                secondaryActionLoading={secondaryActionLoading}
-                actionsInColumn={actionsInColumn}
-              >
-                {children && children()}
+              <ModalContent {...props} id={modalId} close={close}>
+                {isFunction(Children) ? <Children close={close} /> : Children}
               </ModalContent>
             </Wrapper>
           </Wrapper>,
-          root,
+          root!,
         )}
     </>
   );
 }
 
-export default React.memo(observer(Modal));
+ModalComponent._rootElement = document.body;
+
+ModalComponent.setRootElement = function (element: HTMLElement) {
+  ModalComponent._rootElement = element;
+};
+
+export default observer(ModalComponent);

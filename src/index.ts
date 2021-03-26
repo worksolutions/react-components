@@ -71,7 +71,7 @@ export { default as LayoutGrid } from "./primitives/LayoutGrid";
 export * from "./primitives/LayoutGrid";
 
 export { default as Modal } from "./primitives/Modal";
-export * from "./primitives/Modal/ModalContent";
+export * from "./primitives/Modal/types";
 
 export { default as ProgressBar } from "./primitives/ProgressBar";
 
