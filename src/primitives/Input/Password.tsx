@@ -9,7 +9,7 @@ import Button, { ButtonSize, ButtonType } from "../Button";
 import InputContainer from "../InputContainer";
 import { InputInterface } from "./Input";
 
-export interface InputPasswordInterface extends Omit<InputInterface, "iconRight"> {}
+export interface InputPasswordInterface extends Omit<InputInterface, "rightIcon"> {}
 
 const Password = React.forwardRef(function (
   { value, onChange, placeholder, debounce = 100, styles, ...inputContainerProps }: InputPasswordInterface,
@@ -20,7 +20,7 @@ const Password = React.forwardRef(function (
   return (
     <InputContainer
       {...inputContainerProps}
-      iconRight={
+      rightIcon={
         <Button
           size={ButtonSize.SMALL}
           type={ButtonType.ICON}

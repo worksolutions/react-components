@@ -36,26 +36,29 @@ export interface ListItemInterface {
   onClick?: () => void;
 }
 
-function ListItem({
-  leftContent,
-  leftContentStyles: leftContentStylesProp,
-  showLeftContentOnHover,
-  rightContent,
-  rightContentStyles: rightContentStylesProp,
-  showRightContentOnHover,
-  children,
-  disabled,
-  heading,
-  subTitle,
-  size = ListItemSize.LARGE,
-  titleDots,
-  mainTextStyles,
-  styles,
-  showArrowWhenSelected,
-  hoverable,
-  selected,
-  onClick,
-}: ListItemInterface) {
+function ListItem(
+  {
+    leftContent,
+    leftContentStyles: leftContentStylesProp,
+    showLeftContentOnHover,
+    rightContent,
+    rightContentStyles: rightContentStylesProp,
+    showRightContentOnHover,
+    children,
+    disabled,
+    heading,
+    subTitle,
+    size = ListItemSize.LARGE,
+    titleDots,
+    mainTextStyles,
+    styles,
+    showArrowWhenSelected,
+    hoverable,
+    selected,
+    onClick,
+  }: ListItemInterface,
+  ref: React.Ref<HTMLElement>,
+) {
   const listItemStyles = useMemo(() => getListItemStyles({ size, disabled, selected, hoverable }), [
     size,
     disabled,
@@ -83,7 +86,7 @@ function ListItem({
   }, [disabled, onClick]);
 
   return (
-    <Wrapper styles={[listItemStyles, rightContentStyles, leftContentStyles, styles]} onClick={handleClick}>
+    <Wrapper ref={ref} styles={[listItemStyles, rightContentStyles, leftContentStyles, styles]} onClick={handleClick}>
       {resultLeftContent && <Wrapper className="list-item-left-content">{resultLeftContent}</Wrapper>}
       <Wrapper styles={[flexValue(1), textAlign("left"), flex, flexColumn, overflow("hidden")]}>
         {heading && (
@@ -105,4 +108,4 @@ function ListItem({
   );
 }
 
-export default React.memo(ListItem);
+export default React.memo(React.forwardRef(ListItem));

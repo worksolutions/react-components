@@ -33,7 +33,7 @@ CalendarInput.args = {
   guide: true,
   showMaskWhenEmpty: true,
   maskCharacter: maskCharacter,
-  iconRight: "calendar",
+  rightIcon: "calendar",
   value: "value",
   title: "title",
 };

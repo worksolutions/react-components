@@ -6,11 +6,16 @@ import { observer } from "mobx-react-lite";
 import VisibilityManager, { VisibilityManagerContextInterface } from "../../VisibilityManager";
 import { SetVisibilityContextAndTriggerRef } from "./types";
 
+export type PopupManagerForHoverTriggerElementContext = Pick<
+  Required<VisibilityManagerContextInterface>,
+  "initRef" | "visible"
+>;
+
 export interface PopperManagerForHoverInterface {
   popupElementNode: React.ReactNode;
   showDelay?: number;
   setVisibilityContextAndTriggerRef: SetVisibilityContextAndTriggerRef;
-  renderTriggerElement: (data: Pick<Required<VisibilityManagerContextInterface>, "initRef" | "visible">) => JSX.Element;
+  renderTriggerElement: (context: PopupManagerForHoverTriggerElementContext) => JSX.Element;
 }
 
 function PopupManagerForHover({

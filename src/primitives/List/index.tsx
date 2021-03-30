@@ -1,7 +1,17 @@
 import React from "react";
 
 import Wrapper from "../Wrapper";
-import { firstChild, flex, flexColumn, lastChild, marginBottom, marginTop, padding } from "../../styles";
+import {
+  child,
+  firstChild,
+  flex,
+  flexColumn,
+  lastChild,
+  marginBottom,
+  marginTop,
+  padding,
+  verticalMargin,
+} from "../../styles";
 
 export interface ListInterface {
   children?: React.ReactNode;
@@ -10,7 +20,17 @@ export interface ListInterface {
 
 function List({ children, styles }: ListInterface) {
   return (
-    <Wrapper styles={[flex, flexColumn, padding(8), styles, firstChild(marginTop(0)), lastChild(marginBottom(0))]}>
+    <Wrapper
+      styles={[
+        flex,
+        flexColumn,
+        padding(8),
+        styles,
+        child(verticalMargin(2)),
+        firstChild(marginTop(0)),
+        lastChild(marginBottom(0)),
+      ]}
+    >
       {children}
     </Wrapper>
   );

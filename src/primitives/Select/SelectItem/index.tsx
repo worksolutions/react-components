@@ -2,7 +2,7 @@ import React from "react";
 
 import ListItem, { ListItemInterface } from "../../List/ListItem";
 
-export type SelectItemCode = string | number | null | undefined;
+export type SelectItemCode = string | number | null;
 
 export interface SelectItemInterface<CODE extends SelectItemCode> extends Omit<ListItemInterface, "onClick"> {
   code: CODE;

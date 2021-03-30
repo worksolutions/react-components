@@ -40,7 +40,7 @@ BaseInput.args = {
 DisableInput.args = {
   ...BaseInput,
   disabled: true,
-  iconRight: "bullseye-arrow",
+  rightIcon: "bullseye-arrow",
   tip: "disable",
 };
 
@@ -62,7 +62,7 @@ ErrorInput.args = {
 BullseyeArrowInput.args = {
   ...BaseInput,
   title: "title",
-  iconRight: "bullseye-arrow",
+  rightIcon: "bullseye-arrow",
   tip: "tip",
 };
 
@@ -77,7 +77,7 @@ BullseyeArrowAndSettingsMultiline.args = {
   ...BaseInput,
   title: "title",
   multiline: true,
-  iconRight: "bullseye-arrow",
-  iconLeft: "settings",
+  rightIcon: "bullseye-arrow",
+  leftIcon: "settings",
   tip: "tip",
 };

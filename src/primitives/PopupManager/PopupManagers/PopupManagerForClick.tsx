@@ -6,11 +6,13 @@ import { observer } from "mobx-react-lite";
 import VisibilityManager, { VisibilityManagerContextInterface } from "../../VisibilityManager";
 import { SetVisibilityContextAndTriggerRef } from "./types";
 
+export type PopupManagerForClickTriggerElementContext = Required<VisibilityManagerContextInterface>;
+
 export interface PopupManagerForClickInterface {
   popupElementNode: React.ReactNode;
   closeOnClickOutside?: boolean;
   setVisibilityContextAndTriggerRef: SetVisibilityContextAndTriggerRef;
-  renderTriggerElement: (data: Required<VisibilityManagerContextInterface>) => JSX.Element;
+  renderTriggerElement: (context: PopupManagerForClickTriggerElementContext) => JSX.Element;
 }
 
 function PopupManagerForClick({

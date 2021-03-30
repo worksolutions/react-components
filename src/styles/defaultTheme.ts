@@ -119,12 +119,12 @@ export const defaultTheme: Theme = {
       },
     },
     Select: {
-      RightArrow: {
+      RightIcon: {
         color: "gray-blue/07",
       },
-    },
-    SelectTriggerElement: {
-      colorText: "gray-blue/05",
+      Placeholder: {
+        color: "gray-blue/05",
+      },
     },
     InputContainer: {
       rightIconColor: "gray-blue/07",

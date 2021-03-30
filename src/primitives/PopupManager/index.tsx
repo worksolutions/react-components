@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { isNumber, isString } from "@worksolutions/utils";
 import { PositioningStrategy } from "@popperjs/core";
 import { Placement } from "@popperjs/core/lib/enums";
-import { provideRef } from "@worksolutions/react-utils";
+import { provideRef, useEffectSkipFirst } from "@worksolutions/react-utils";
 import { observer } from "mobx-react-lite";
 
 import PopperElement from "./PopperElement";
@@ -16,6 +16,10 @@ import PopupManagerForExternalControl, {
   PopupManagerForExternalControlInterface,
 } from "./PopupManagers/PopupManagerForExternalControl";
 import { handleTriggerElementEventsForClick, handleTriggerElementEventsForHover } from "./libs";
+
+export type { PopupManagerForHoverTriggerElementContext } from "./PopupManagers/PopupManagerForHover";
+export type { PopupManagerForClickTriggerElementContext } from "./PopupManagers/PopupManagerForClick";
+export type { PopupManagerForExternalControlTriggerElementContext } from "./PopupManagers/PopupManagerForExternalControl";
 
 export enum PopupManagerMode {
   HOVER = "HOVER",
@@ -31,6 +35,7 @@ export type PopupManagerInterface = {
   popupWidth?: number | string | "auto";
   popupElement?: React.ReactNode;
   strategy?: PositioningStrategy;
+  onChangeOpened?: (opened: boolean) => void;
 } & (
   | ({
       mode: PopupManagerMode.CLICK;
@@ -64,6 +69,7 @@ function PopupManager(
     popupElement,
     popupWidth,
     strategy,
+    onChangeOpened,
     ...props
   }: PopupManagerInterface,
   ref: React.Ref<PopupManagerRef>,
@@ -100,6 +106,11 @@ function PopupManager(
 
     return () => null;
   }, [props.mode, context, triggerElement, props]);
+
+  useEffectSkipFirst(() => {
+    if (!context) return;
+    if (onChangeOpened) onChangeOpened(context.visible);
+  }, [context?.visible, onChangeOpened]);
 
   const popupElementNode = context?.visible && popupElement && (
     <PopperElement

@@ -38,10 +38,10 @@ export type InputIconProp = InternalIcons | JSX.Element | undefined;
 
 export interface InputContainerInterface {
   outerStyles?: any;
-  iconLeft?: InputIconProp;
-  iconRight?: InputIconProp;
-  iconLeftStyles?: any;
-  iconRightStyles?: any;
+  leftIcon?: InputIconProp;
+  rightIcon?: InputIconProp;
+  leftIconStyles?: any;
+  rightIconStyles?: any;
   disabled?: boolean;
   title?: string;
   titlePosition?: InputContainerTitlePosition;
@@ -61,10 +61,10 @@ function InputContainer({
   titlePosition = InputContainerTitlePosition.TOP,
   size = InputContainerSize.LARGE,
   tip,
-  iconLeft,
-  iconRight,
-  iconLeftStyles,
-  iconRightStyles,
+  leftIcon,
+  rightIcon,
+  leftIconStyles,
+  rightIconStyles,
   error,
   success,
   disabled,
@@ -74,21 +74,19 @@ function InputContainer({
 }: InputContainerInterface & {
   renderComponent: (styles: any) => JSX.Element;
 }) {
-  const leftIconElement = makeIconElement(iconLeft, "definitions.InputContainer.leftIconColor", [
+  const leftIconElement = makeIconElement(leftIcon, "definitions.InputContainer.leftIconColor", [
     left(8),
-    iconLeftStyles,
+    leftIconStyles,
   ]);
-  const rightIconElement = makeIconElement(iconRight, "definitions.InputContainer.rightIconColor", [
+
+  const rightIconElement = makeIconElement(rightIcon, "definitions.InputContainer.rightIconColor", [
     right(8),
-    iconRightStyles,
+    rightIconStyles,
   ]);
 
-  const styles = stylesForSize[size][getStylesNameOnIcons(!!iconLeft, !!iconRight)];
-
+  const styles = stylesForSize[size][getStylesNameOnIcons(!!leftIcon, !!rightIcon)];
   const variant = getInputVariant(error, success, disabled);
-
   const colors = colorsByVariant[variant];
-
   const positioningStyles = wrapperStylesByTitlePosition[titlePosition];
 
   return (
@@ -124,9 +122,8 @@ export default React.memo(InputContainer);
 const defaultIconStyles = [position("absolute"), top("50%"), transform("translateY(-50%)")];
 
 function makeIconElement(icon: InputIconProp, defaultColor: IncomeColorVariant<Colors>, styles: any) {
-  return icon ? (
-    <Wrapper styles={[defaultIconStyles, styles]}>
-      {isString(icon) ? <Icon color={defaultColor} icon={icon} /> : icon}
-    </Wrapper>
-  ) : undefined;
+  if (!icon) return undefined;
+  const resultStyles = [defaultIconStyles, styles];
+  if (isString(icon)) return <Icon color={defaultColor} icon={icon} styles={resultStyles} />;
+  return <Wrapper styles={resultStyles}>{icon}</Wrapper>;
 }

@@ -131,7 +131,10 @@ export interface Theme extends BaseTheme<Colors> {
       };
     };
     Select: {
-      RightArrow: {
+      RightIcon: {
+        color: Colors;
+      };
+      Placeholder: {
         color: Colors;
       };
     };
@@ -147,9 +150,6 @@ export interface Theme extends BaseTheme<Colors> {
       textColor: Colors;
       backgroundColor: Colors;
       borderColor: Colors;
-    };
-    SelectTriggerElement: {
-      colorText: Colors;
     };
     InputContainer: {
       rightIconColor: Colors;

@@ -7,6 +7,8 @@ import { padding } from "../../styles";
 import Typography from "../Typography";
 import { hintPopupStyles, tooltipPopupStyles } from "./internal/popupStyles";
 
+export { hintPopupStyles, tooltipPopupStyles } from "./internal/popupStyles";
+
 export enum TooltipType {
   TOOLTIP = "TOOLTIP",
   HINT = "HINT",

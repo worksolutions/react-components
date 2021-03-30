@@ -1,67 +1,72 @@
 import React from "react";
-import { IncomeColorVariant, useEffectSkipFirst } from "@worksolutions/react-utils";
+import { IncomeColorVariant, provideRef, useEffectSkipFirst } from "@worksolutions/react-utils";
 
 import Typography from "../Typography";
 import SelectTrigger from "./internal/SelectTrigger";
 import PopupManager, { PopupManagerInterface, PopupManagerMode, PopupManagerRef } from "../PopupManager";
 import Icon, { InternalIcons } from "../Icon";
-import { InputContainerSize } from "../InputContainer/enums";
-import InputContainer from "../InputContainer";
+import InputContainer, { InputContainerInterface } from "../InputContainer";
 
-import { backgroundColor, margin, padding, transform, transition, verticalPadding } from "../../styles";
+import { paddingLeft, transform, transition, verticalPadding } from "../../styles";
 import { duration160 } from "../../constants/durations";
-import SelectPopupComponent, { SelectPopupAvailableChildren } from "./internal/SelectPopupComponent";
+import SelectPopupComponent, { SelectPopupChildren } from "./internal/SelectPopupComponent";
 import { SelectItemCode } from "./SelectItem";
 import { Colors } from "../../constants/colors";
-import { tooltipPopupStyles } from "../Tooltip/internal/popupStyles";
+
+import { tooltipPopupStyles } from "../Tooltip";
 
 export type SelectInterface<CODE extends SelectItemCode> = Omit<
   PopupManagerInterface,
   "mode" | "closeOnClickOutside" | "popupElement" | "renderTriggerElement"
-> & {
-  outerStyles?: any;
-  triggerElementStyles?: any;
-  triggerTextStyles?: any;
-  selectedElementStyles?: any;
-  placeholder?: string;
-  size?: InputContainerSize;
-  iconLeft?: InternalIcons;
-  children: React.ReactElement[];
-  triggerElementRightIcon?: InternalIcons;
-  triggerElementRightIconStyles?: any;
-  triggerElementRightIconWidth?: number | string;
-  triggerElementRightIconHeight?: number | string;
-  triggerElementRightIconColor?: IncomeColorVariant<Colors>;
-  closePopupAfterChange?: boolean;
-  triggerElementChildrenModifier?: <C extends CODE>(currentText: string | number, code: C) => string | number;
-  error?: boolean;
-  selectedItemCode: CODE;
-  popupElementWrapper?: (child: JSX.Element) => JSX.Element;
-  onChange: (newActiveCode: CODE, newSelected: boolean) => void;
-};
+> &
+  Omit<InputContainerInterface, "onClick" | "outerRef" | "children" | "rightIcon" | "leftIcon" | "leftIconStyles"> & {
+    styles?: any;
+    placeholder?: string;
+    placeholderColor?: IncomeColorVariant<Colors>;
+    children: SelectPopupChildren<CODE>;
+    rightIcon?: InternalIcons;
+    selectedElementStyles?: any;
+    selectedElementTextStyles?: any;
+    rightIconStyles?: any;
+    rightIconWidth?: number | string;
+    rightIconHeight?: number | string;
+    rightIconColor?: IncomeColorVariant<Colors>;
+    closePopupAfterChange?: boolean;
+    selectedElementWrapper?: <C extends CODE>(currentText: string | number, code: C) => string | number;
+    selectedItemCode: CODE;
+    popupElementWrapper?: (child: JSX.Element) => JSX.Element;
+    onChange: (newActiveCode: CODE, newSelected: boolean) => void;
+  };
 
-function Select<CODE extends SelectItemCode>({
-  outerStyles,
-  triggerElementStyles,
-  triggerTextStyles,
-  selectedElementStyles,
-  children,
-  iconLeft,
-  size,
-  placeholder,
-  triggerElementRightIcon = "arrow-down",
-  triggerElementRightIconStyles,
-  triggerElementRightIconWidth,
-  triggerElementRightIconHeight,
-  triggerElementRightIconColor = "definitions.Select.RightArrow.color",
-  triggerElementChildrenModifier,
-  closePopupAfterChange = true,
-  error,
-  selectedItemCode,
-  popupElementWrapper,
-  onChange,
-  ...props
-}: SelectInterface<CODE>) {
+function Select<CODE extends SelectItemCode>(
+  {
+    rightIcon = "arrow-down",
+    rightIconColor = "definitions.Select.RightIcon.color",
+    rightIconHeight,
+    rightIconWidth,
+    rightIconStyles,
+    selectedItemCode,
+    selectedElementWrapper,
+    selectedElementStyles,
+    selectedElementTextStyles,
+    closePopupAfterChange = true,
+    children,
+    popupElementWrapper,
+    placeholder,
+    placeholderColor = "definitions.Select.Placeholder.color",
+    popupStyles,
+    primaryPlacement,
+    offset,
+    popupWidth,
+    strategy,
+    hasArrow,
+    styles,
+    onChange,
+    onChangeOpened,
+    ...inputContainerProps
+  }: SelectInterface<CODE>,
+  ref: React.Ref<PopupManagerRef>,
+) {
   const popupManagerRef = React.useRef<PopupManagerRef>(null!);
 
   useEffectSkipFirst(() => {
@@ -70,20 +75,21 @@ function Select<CODE extends SelectItemCode>({
   }, [selectedItemCode]);
 
   const selectedElement = React.useMemo(() => {
-    const childrenElements = React.Children.toArray(children) as SelectPopupAvailableChildren<CODE>;
+    const childrenElements = React.Children.toArray(children) as SelectPopupChildren<CODE>;
+
     const foundElement = childrenElements.find((element) => element.props.code === selectedItemCode);
     if (!foundElement) return null;
+
+    const { props } = foundElement;
     return React.cloneElement(foundElement, {
-      children: triggerElementChildrenModifier
-        ? triggerElementChildrenModifier(foundElement.props.children, selectedItemCode)
-        : foundElement.props.children,
+      children: selectedElementWrapper ? selectedElementWrapper(props.children, selectedItemCode) : props.children,
       hoverable: false,
       selected: false,
-      styles: [foundElement.props.styles, margin(0), padding(0)], //TODO: refactor
-      mainTextStyles: [foundElement.props.mainTextStyles, triggerTextStyles],
+      styles: [props.styles, selectedElementStyles],
+      mainTextStyles: [props.mainTextStyles, selectedElementTextStyles],
       onClick: undefined,
     });
-  }, [children, selectedItemCode, triggerElementChildrenModifier, triggerTextStyles]);
+  }, [children, selectedElementWrapper, selectedItemCode, selectedElementStyles, selectedElementTextStyles]);
 
   const popupElement = (
     <SelectPopupComponent selectedItemCode={selectedItemCode} onChange={onChange}>
@@ -93,36 +99,39 @@ function Select<CODE extends SelectItemCode>({
 
   return (
     <PopupManager
-      {...props}
-      ref={popupManagerRef}
+      ref={provideRef(popupManagerRef, ref)}
+      primaryPlacement={primaryPlacement}
       mode={PopupManagerMode.CLICK}
       closeOnClickOutside
-      popupStyles={[tooltipPopupStyles, props.popupStyles]}
+      offset={offset}
+      popupWidth={popupWidth}
+      strategy={strategy}
+      hasArrow={hasArrow}
+      popupStyles={[tooltipPopupStyles, popupStyles]}
       popupElement={popupElementWrapper ? popupElementWrapper(popupElement) : popupElement}
       renderTriggerElement={({ initRef, visible }) => (
         <InputContainer
-          outerStyles={outerStyles}
+          {...inputContainerProps}
           outerRef={initRef}
-          size={size}
-          iconLeft={iconLeft}
-          iconRight={
+          rightIcon={
             <Icon
-              icon={triggerElementRightIcon}
-              width={triggerElementRightIconWidth}
-              height={triggerElementRightIconHeight}
+              icon={rightIcon}
+              width={rightIconWidth}
+              height={rightIconHeight}
               styles={[
                 transition(`all ${duration160}`),
                 transform(`rotateZ(${visible ? "180deg" : "0deg"})`),
-                triggerElementRightIconStyles,
+                rightIconStyles,
               ]}
-              color={triggerElementRightIconColor}
+              color={rightIconColor}
             />
           }
-          error={error}
-          renderComponent={(styles) => (
-            <SelectTrigger styles={[styles, selectedElement && verticalPadding(0), triggerElementStyles]}>
+          renderComponent={(inputContainerStyles) => (
+            <SelectTrigger
+              styles={[inputContainerStyles, selectedElement && [verticalPadding(0), paddingLeft(4)], styles]}
+            >
               {selectedElement || (
-                <Typography dots color="definitions.SelectTriggerElement.colorText" styles={triggerTextStyles}>
+                <Typography dots color={placeholderColor}>
                   {placeholder}
                 </Typography>
               )}
@@ -130,8 +139,11 @@ function Select<CODE extends SelectItemCode>({
           )}
         />
       )}
+      onChangeOpened={onChangeOpened}
     />
   );
 }
 
-export default React.memo(Select) as <CODE extends SelectItemCode>(props: SelectInterface<CODE>) => JSX.Element;
+export default React.memo(React.forwardRef(Select)) as <CODE extends SelectItemCode>(
+  props: SelectInterface<CODE>,
+) => JSX.Element;
