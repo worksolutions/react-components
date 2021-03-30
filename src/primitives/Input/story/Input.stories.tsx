@@ -1,14 +1,14 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { selectControl } from "storyHelpers";
+import { selectControl } from "storybook/storyHelpers";
 
 import { marginBottom } from "styles";
 
-import Input, { InputInterface, InputSize } from "../Input";
+import Input, { InputInterface } from "../Input";
 
 import { internalIcons } from "../../Icon/list";
-import { InputTitlePosition } from "../InputWrapper";
+import { InputContainerSize, InputContainerTitlePosition } from "../../InputContainer/enums";
 
 export default {
   title: "Inputs",
@@ -16,8 +16,8 @@ export default {
   argTypes: {
     iconLeft: selectControl(Object.keys(internalIcons)),
     iconRight: selectControl(Object.keys(internalIcons)),
-    titlePosition: selectControl([InputTitlePosition.LEFT, InputTitlePosition.TOP]),
-    size: selectControl([InputSize.LARGE, InputSize.MEDIUM]),
+    titlePosition: selectControl([InputContainerTitlePosition.LEFT, InputContainerTitlePosition.TOP]),
+    size: selectControl([InputContainerSize.LARGE, InputContainerSize.MEDIUM, InputContainerSize.SMALL]),
   },
 };
 
@@ -40,14 +40,14 @@ BaseInput.args = {
 DisableInput.args = {
   ...BaseInput,
   disabled: true,
-  iconRight: "bullseye-arrow",
+  rightIcon: "bullseye-arrow",
   tip: "disable",
 };
 
 SuccessInput.args = {
   ...BaseInput,
   title: "title",
-  size: InputSize.LARGE,
+  size: InputContainerSize.LARGE,
   tip: "success",
   success: true,
 };
@@ -62,7 +62,7 @@ ErrorInput.args = {
 BullseyeArrowInput.args = {
   ...BaseInput,
   title: "title",
-  iconRight: "bullseye-arrow",
+  rightIcon: "bullseye-arrow",
   tip: "tip",
 };
 
@@ -77,7 +77,7 @@ BullseyeArrowAndSettingsMultiline.args = {
   ...BaseInput,
   title: "title",
   multiline: true,
-  iconRight: "bullseye-arrow",
-  iconLeft: "settings",
+  rightIcon: "bullseye-arrow",
+  leftIcon: "settings",
   tip: "tip",
 };

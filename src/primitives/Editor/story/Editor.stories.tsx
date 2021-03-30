@@ -1,59 +1,44 @@
-import React, { useState } from "react";
+import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import {
-  backgroundColor,
-  DatePickerInterface,
-  Editor,
-  EditorRefInterface,
-  flex,
-  fullWidth,
-  jc,
-  minHeight,
-  Wrapper,
-} from "index";
-import { editorStyles } from "../editorStyles";
+import { EditorInterface, EditorToolbarItems } from "../index";
+import Editor from "../../Editor";
+import { border } from "../../../styles";
 
 export default {
   title: "Editor",
-  component: Editor,
+  component: Editor.type,
 };
 
-export function insertDivElementBeforeEditorToolbarSeparator() {
-  const elements = document.getElementsByClassName("ck-toolbar__separator");
-  const lastElement = elements[elements.length - 1] as HTMLElement;
-  const div = document.createElement("div");
-  lastElement.parentNode!.insertBefore(div, lastElement);
-  return div;
-}
-
-const Template: Story<DatePickerInterface> = (props) => {
-  const [value, setValue] = useState("");
-  const editorRef = React.useRef<EditorRefInterface>(null!);
-  const [lastToolbarSeparator, setLastToolbarSeparator] = React.useState<HTMLElement>();
-
-  function onInit(ref: EditorRefInterface) {
-    setLastToolbarSeparator(insertDivElementBeforeEditorToolbarSeparator());
-    editorRef.current = ref;
-  }
-
-  return (
-    <Wrapper
-      styles={[fullWidth, minHeight("100%"), backgroundColor("gray-blue/01"), flex, jc("align-center"), editorStyles]}
-    >
-      <Editor
-        initialText={value}
-        onChange={setValue}
-        uploader={async (file) => {
-          console.log(file);
-          return "Что-то";
-        }}
-        onInit={onInit}
-      />
-    </Wrapper>
-  );
+const Template: Story<EditorInterface> = (props) => {
+  return <Editor {...props} wrapperStyles={[border(1, "gray-blue/02")]} />;
 };
 
 export const Default = Template.bind({});
 
-Default.args = {};
+Default.args = {
+  toolbarItems: [
+    EditorToolbarItems.HEADING,
+    EditorToolbarItems.DIVIDER,
+    EditorToolbarItems.TEXT_BOLD,
+    EditorToolbarItems.TEXT_ITALIC,
+    EditorToolbarItems.DIVIDER,
+    EditorToolbarItems.ALIGNMENT_LEFT,
+    EditorToolbarItems.ALIGNMENT_CENTER,
+    EditorToolbarItems.ALIGNMENT_RIGHT,
+    EditorToolbarItems.ALIGNMENT_JUSTIFY,
+    EditorToolbarItems.DIVIDER,
+    EditorToolbarItems.LIST_NUMBERS,
+    EditorToolbarItems.LIST_BULLETS,
+    EditorToolbarItems.DIVIDER,
+    EditorToolbarItems.LINK,
+    EditorToolbarItems.IMAGE,
+    EditorToolbarItems.MEDIA,
+    EditorToolbarItems.CODE,
+    EditorToolbarItems.HORIZONTAL_LINE,
+    EditorToolbarItems.TABLE,
+    EditorToolbarItems.DIVIDER,
+    EditorToolbarItems.UNDO,
+    EditorToolbarItems.REDO,
+  ],
+};

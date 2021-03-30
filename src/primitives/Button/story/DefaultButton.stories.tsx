@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { selectControl } from "storyHelpers";
+import { selectControl } from "storybook/storyHelpers";
 
 import { ButtonInterface, ButtonSize, ButtonType } from "../";
 import ButtonComponent from "../index";

@@ -28,7 +28,8 @@
     "experimentalDecorators": true,
     "declaration": true,
     "outDir": "dist",
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "noEmitOnError": true
   },
   "exclude": [
     "node_modules",

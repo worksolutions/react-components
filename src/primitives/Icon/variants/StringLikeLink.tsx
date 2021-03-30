@@ -12,7 +12,7 @@ import { IconVariantProps } from "./Type";
 import Wrapper from "../../Wrapper";
 
 export default React.forwardRef(function (
-  { className, icon, width: widthProp, height: heightProp, styles, color }: IconVariantProps<string>,
+  { className, icon, width: widthProp, height: heightProp, styles }: IconVariantProps<string>,
   ref: any,
 ) {
   return (

@@ -1,11 +1,14 @@
-import { observable } from "mobx";
+import { makeAutoObservable } from "mobx";
 
-export class ProviderLogic {
+export class LoadingProviderLogic {
+  constructor() {
+    makeAutoObservable(this);
+  }
+
   static attributeName = "system-loader-provider";
 
   private id = 1;
 
-  @observable
   providers: Record<number | string, { spinnerCount: number }> = {};
 
   generateId() {
@@ -13,4 +16,4 @@ export class ProviderLogic {
   }
 }
 
-export const providerLogicStore = new ProviderLogic();
+export const loadingProviderLogicStore = new LoadingProviderLogic();

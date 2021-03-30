@@ -3,14 +3,14 @@ import { Link, LinkProps } from "react-router-dom";
 import { isNil } from "ramda";
 import { linkIsNative } from "@worksolutions/utils";
 
-import { color, disableDecoration, hover, transition } from "styles";
-import { duration160 } from "constants/durations";
+import { color, disableDecoration, hover, transition } from "../../styles";
+import { duration160 } from "../../constants/durations";
 
 import Typography, { TypographyInterface, TypographyTypes } from "./index";
 
-type TypographyLinkInterface = TypographyInterface & Omit<LinkProps, "to" | "as" | "type">;
+type TypographyLinkInternalProps = TypographyInterface & Omit<LinkProps, "to" | "as" | "type">;
 
-export type TypographyLinkProps = TypographyLinkInterface & { to: string; native?: boolean; theme?: Theme };
+export type TypographyLinkInterface = TypographyLinkInternalProps & { to: string; native?: boolean; theme?: Theme };
 
 export const blueTypographyLinkStyles = [color("blue/06")];
 
@@ -38,7 +38,7 @@ function makeTypographyLink(
     ? blueTypographyLinkStyles
     : blackTypographyLinkStyles;
 
-  return React.forwardRef(({ styles, ...data }: TypographyLinkInterface, ref: Ref<HTMLAnchorElement>) => {
+  return React.forwardRef(({ styles, ...data }: TypographyLinkInternalProps, ref: Ref<HTMLAnchorElement>) => {
     if (nativeParams.native) {
       return (
         <Typography
@@ -58,7 +58,7 @@ function makeTypographyLink(
   });
 }
 
-const TypographyLink = React.memo(function ({ to, target, download, native, theme, ...props }: TypographyLinkProps) {
+function TypographyLink({ to, target, download, native, theme, ...props }: TypographyLinkInterface) {
   const Component = makeTypographyLink(to, theme, {
     native: isNil(native) ? linkIsNative(to) : native,
     download,
@@ -66,6 +66,6 @@ const TypographyLink = React.memo(function ({ to, target, download, native, them
   });
 
   return <Component {...props} />;
-});
+}
 
-export default TypographyLink;
+export default React.memo(TypographyLink);

@@ -1,14 +1,17 @@
 import React from "react";
 import { useClickAway } from "react-use";
 
+export type HandleClickOutsideIgnoreElements = (HTMLElement | undefined | null)[];
+
 export interface HandleClickOutsideInterface {
-  onClickOutside: () => void;
+  onClickOutside?: () => void;
   enabled?: boolean;
-  ignoreElements?: (HTMLElement | undefined | null)[];
-  children: (ref: { current: HTMLElement | null }) => JSX.Element;
+  ignoreElements?: HandleClickOutsideIgnoreElements;
+  children: (ref: { current: HTMLElement | null }) => React.ReactNode;
 }
 
 const emptyFunc = () => null;
+
 const HandleClickOutside = function ({
   children,
   ignoreElements,
@@ -19,12 +22,12 @@ const HandleClickOutside = function ({
   const handler = (event: Event) => {
     if (ignoreElements?.filter(Boolean).find((ignorableElement) => ignorableElement!.contains(event.target as any)))
       return;
-    onClickOutside();
+    onClickOutside && onClickOutside();
   };
 
   useClickAway(ref, enabled ? handler : emptyFunc);
 
-  return children(ref);
+  return <>{children(ref)}</>;
 };
 
 export default React.memo(HandleClickOutside);

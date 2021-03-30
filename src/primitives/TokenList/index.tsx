@@ -5,11 +5,13 @@ import { flex, flexValue, flexWrap, height, marginBottom, marginRight, minWidth,
 
 import Form from "../Form";
 import Wrapper from "../Wrapper";
-import InputWrapper, { BaseInputWrapperInterface, createDefaultInputStyles, InputSize } from "../Input/InputWrapper";
+import InputContainer, { InputContainerInterface } from "../InputContainer";
 
 import Token from "./Token";
+import { InputContainerSize } from "../InputContainer/enums";
+import { createDefaultInputStyles } from "../InputContainer/libs";
 
-export interface TokenListInterface<CODE extends string | number> extends Omit<BaseInputWrapperInterface, "size"> {
+export interface TokenListInterface<CODE extends string | number> extends Omit<InputContainerInterface, "size"> {
   placeholder?: string;
   styles?: any;
   items: SuggestInterface<CODE>[];
@@ -31,7 +33,7 @@ function TokenList(
     canRemove = true,
     onRemove,
     onCreate,
-    ...inputWrapperProps
+    ...inputContainerProps
   }: TokenListInterface<string>,
   ref: Ref<HTMLElement>,
 ) {
@@ -47,11 +49,11 @@ function TokenList(
   }
 
   return (
-    <InputWrapper
+    <InputContainer
       outerStyles={outerStyles}
       outerRef={ref}
-      size={InputSize.LARGE}
-      {...inputWrapperProps}
+      size={InputContainerSize.LARGE}
+      {...inputContainerProps}
       renderComponent={(styles) => (
         <Wrapper styles={[styles, flex, flexWrap, padding("8px 8px 4px 8px"), stylesProp]}>
           {items.map(({ code, title }) => (

@@ -6,43 +6,53 @@ import Wrapper from "../../primitives/Wrapper";
 import Spinner from "../../primitives/Spinner";
 
 import {
-  absoluteCenter,
-  backgroundColor,
+  ai,
+  backgroundColorWithoutMemoization,
   bottom,
   createAlphaColor,
+  flex,
+  jc,
   left,
   position,
   right,
   top,
-  zIndex,
 } from "../../styles";
 import { Colors } from "../../constants/colors";
+import { zIndex_loadingProvider } from "../../constants/zIndexes";
 
-import { ProviderLogic, providerLogicStore } from "./LoadingProviderLogic";
+import { LoadingProviderLogic, loadingProviderLogicStore } from "./LoadingProviderLogic";
 
-function LoadingProvider({
-  children,
-  color,
-}: {
+interface LoadingProviderInterface {
+  withBackground?: boolean;
+  backplateStyles?: any;
+  styles?: any;
   children: (loadingProviderRef: Ref<HTMLElement | undefined>) => JSX.Element;
   color?: Colors;
-}) {
-  const id = React.useMemo(() => providerLogicStore.generateId(), []);
+}
+
+function LoadingProvider({
+  styles,
+  backplateStyles,
+  children,
+  color,
+  withBackground = true,
+}: LoadingProviderInterface) {
+  const id = React.useMemo(() => loadingProviderLogicStore.generateId(), []);
   const ref = React.useRef<HTMLElement>();
 
   React.useEffect(() => {
     if (ref.current) {
       ref.current.style.position = "relative";
-      ref.current.setAttribute(ProviderLogic.attributeName, id.toString());
-      providerLogicStore.providers[id] = { spinnerCount: 0 };
+      ref.current.setAttribute(LoadingProviderLogic.attributeName, id.toString());
+      loadingProviderLogicStore.providers[id] = { spinnerCount: 0 };
     }
 
     return () => {
-      providerLogicStore.providers[id].spinnerCount = 0;
+      loadingProviderLogicStore.providers[id].spinnerCount = 0;
     };
   }, []);
 
-  const needShowSpinner = providerLogicStore.providers[id]?.spinnerCount !== 0 && !!ref.current;
+  const needShowSpinner = loadingProviderLogicStore.providers[id]?.spinnerCount !== 0 && !!ref.current;
   const [realShowSpinner, setRealShowSpinner] = React.useState(needShowSpinner);
   const timerRef = React.useRef<any>();
 
@@ -65,18 +75,23 @@ function LoadingProvider({
         ReactDOM.createPortal(
           <Wrapper
             styles={[
-              zIndex(1),
-              position("fixed"),
+              zIndex_loadingProvider,
+              position("absolute"),
               left(0),
               right(0),
               top(0),
               bottom(0),
-              backgroundColor(createAlphaColor("white", 160) as Colors),
+              withBackground &&
+                backgroundColorWithoutMemoization(
+                  createAlphaColor("definitions.LoadingProvider.Backplate.backgroundColor", 160),
+                ),
+              flex,
+              ai("center"),
+              jc("center"),
+              backplateStyles,
             ]}
           >
-            <Wrapper styles={absoluteCenter}>
-              <Spinner color={color} />
-            </Wrapper>
+            <Spinner styles={styles} color={color || "definitions.LoadingProvider.Spinner.color"} />
           </Wrapper>,
           ref.current!,
         )}

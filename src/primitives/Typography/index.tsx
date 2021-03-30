@@ -1,5 +1,6 @@
 import React, { ReactNode, Ref } from "react";
 import styled, { createGlobalStyle } from "styled-components";
+import { IncomeColorVariant } from "@worksolutions/react-utils";
 
 import {
   textDots,
@@ -13,13 +14,14 @@ import {
   getColor,
 } from "../../styles";
 import { Colors } from "../../constants/colors";
+import { StyledComponentsAs } from "../../types/StyledComponents";
 
 const TypographyWrapper = styled.span``;
 
 export const TypographyTypes = {
-  "h1-bold": [fontSize(28), lineHeight(32), fontWeight("bold")],
-  "h2-bold": [fontSize(20), lineHeight(24), fontWeight("bold"), letterSpacing(0.15)],
-  "h3-bold": [fontSize(16), lineHeight(20), fontWeight("bold"), letterSpacing(0.15)],
+  "h1-bold": [fontSize(32), lineHeight(36), fontWeight("bold")],
+  "h2-bold": [fontSize(24), lineHeight(28), fontWeight("bold"), letterSpacing(0.15)],
+  "h3-bold": [fontSize(18), lineHeight(20), fontWeight("bold"), letterSpacing(0.15)],
   "body-regular": [fontSize(14), lineHeight(20), letterSpacing(0.15), fontWeight(400)],
   "body-semi-bold": [] as any[],
   "caption-regular": [fontSize(12), lineHeight(16), letterSpacing(0.25), fontWeight(400)],
@@ -36,12 +38,13 @@ TypographyTypes["overline-bold"] = [...TypographyTypes["overline-medium"], fontW
 export interface TypographyInterface {
   noWrap?: boolean;
   className?: string;
-  as?: string;
+  as?: StyledComponentsAs;
   type?: keyof typeof TypographyTypes;
-  color?: Colors | null;
+  color?: IncomeColorVariant<Colors>;
   styles?: any;
   dots?: boolean;
   children: ReactNode;
+  asHTML?: boolean;
   onClick?: () => void;
 }
 
@@ -56,29 +59,33 @@ const Typography = React.forwardRef(
       type,
       color: colorProp,
       dots: dotsProp,
+      asHTML,
       onClick,
       ...props
     }: TypographyInterface,
     ref: Ref<HTMLSpanElement>,
-  ) => (
-    <TypographyWrapper
-      className={className}
-      ref={ref}
-      as={as as any}
-      css={[
-        display("inline-block"),
-        type ? TypographyTypes[type] : null,
-        colorProp && color(colorProp),
-        dotsProp && textDots,
-        noWrap && whiteSpace("nowrap"),
-        styles,
-      ]}
-      onClick={onClick}
-      {...props}
-    >
-      {children}
-    </TypographyWrapper>
-  ),
+  ) => {
+    const contentProps = asHTML ? { dangerouslySetInnerHTML: { __html: children } } : { children };
+
+    return (
+      <TypographyWrapper
+        className={className}
+        ref={ref}
+        as={as as any}
+        css={[
+          display("inline-block"),
+          type ? TypographyTypes[type] : null,
+          colorProp && color(colorProp),
+          dotsProp && textDots,
+          noWrap && whiteSpace("nowrap"),
+          styles,
+        ]}
+        onClick={onClick}
+        {...props}
+        {...contentProps}
+      />
+    );
+  },
 );
 
 Typography.defaultProps = {
@@ -87,4 +94,4 @@ Typography.defaultProps = {
 
 export default React.memo(Typography);
 
-export const TypographyGlobalStyle = createGlobalStyle`*{color: ${getColor("gray-blue/09")}}`;
+export const TypographyGlobalStyle = createGlobalStyle`*{color: ${getColor("definitions.Text.defaultColor")}}`;

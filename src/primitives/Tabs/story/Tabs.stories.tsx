@@ -5,6 +5,7 @@ import { child, flex, flexColumn, jc, marginBottom } from "styles";
 
 import Tabs, { TabsInterface } from "../index";
 import Wrapper from "../../Wrapper";
+import Tab from "../Tab";
 
 export default {
   title: "Tabs",
@@ -16,10 +17,18 @@ const Template: Story<TabsInterface> = (props) => {
   return (
     <Wrapper styles={[flex, flexColumn, child([flex, jc("align-center"), marginBottom(50)])]}>
       <Tabs
-        items={[
-          { render: () => <div>1</div>, title: "Атрибуты" },
-          { render: () => <div>Текст</div>, title: "Текст" },
-          { render: () => <div />, title: "Статьи по теме" },
+        tabs={[
+          { content: () => <div>1</div>, title: "Заголовок 1", tabItem: Tab },
+          {
+            content: () => <div>Контент второго таба</div>,
+            title: "Текст",
+            tabItem: (props) => (
+              <Wrapper className="test" key={props.title}>
+                <Tab {...props} />
+              </Wrapper>
+            ),
+          },
+          { content: () => <div />, title: "Статьи по теме" },
         ]}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}

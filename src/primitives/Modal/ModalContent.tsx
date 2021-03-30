@@ -1,10 +1,11 @@
-import { action, observable } from "mobx";
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { isNil, last } from "ramda";
 
 import {
   ai,
+  backgroundColor,
+  border,
   borderRadius,
   child,
   display,
@@ -18,12 +19,15 @@ import {
   marginTop,
   maxWidth,
   padding,
+  paddingBottom,
+  paddingTop,
+  position,
+  right,
   textAlign,
+  top,
   verticalAlign,
   verticalPadding,
   width,
-  backgroundColor,
-  border,
 } from "../../styles";
 
 import Typography from "../Typography";
@@ -32,11 +36,8 @@ import HandleClickOutside from "../HandleClickOutside";
 import Wrapper from "../Wrapper";
 import { elevation32 } from "../../constants/shadows";
 
-export enum ModalSize {
-  ADJUST_CONTENT = "ADJUST_CONTENT",
-  FULL_WIDTH = "FULL_WIDTH",
-  SMALL = "SMALL",
-}
+import { activeModal } from "./libs";
+import { ModalInterface, ModalSize } from "./types";
 
 const modalWidthBySize: Record<ModalSize, string | number> = {
   [ModalSize.FULL_WIDTH]: "100%",
@@ -44,86 +45,108 @@ const modalWidthBySize: Record<ModalSize, string | number> = {
   [ModalSize.SMALL]: 416,
 };
 
-export interface ModalInterface {
-  size?: ModalSize;
-  opened?: boolean;
-  wrappedContent?: (open: () => void) => React.ReactNode;
-  primaryActionText?: string;
-  secondaryActionText?: string;
-  primaryActionLoading?: boolean;
-  secondaryActionLoading?: boolean;
-  actionsInColumn?: boolean;
-  title: string;
-  subTitle?: string;
-  closeOnBackdropClick?: boolean;
-  actionBlock?: React.ReactNode;
-  children?: () => React.ReactNode;
-  onPrimaryAction?: (close: () => void) => void;
-  onSecondaryAction?: (close: () => void) => void;
-  onClose?: () => void;
-}
-
 export const modalHorizontalPadding = 24;
 
-class ActiveModal {
-  @observable
-  private _modalId = 0;
+type ModalContentInterface = Omit<ModalInterface, "children" | "opened" | "onClose" | "wrappedContent"> & {
+  id: number;
+  close: () => void;
+  children: React.ReactNode;
+};
 
-  @observable
-  activeModals: number[] = [];
-
-  @action.bound
-  getModalId() {
-    return ++this._modalId;
-  }
-}
-
-export const activeModal = new ActiveModal();
-export const ModalContent = observer(function ({
-  actionBlock,
-  size,
+function ModalContent({
+  actionsBlock,
+  size = ModalSize.SMALL,
   title,
   subTitle,
   close,
   children,
   primaryActionText,
   secondaryActionText,
-  onPrimaryAction,
-  onSecondaryAction,
   primaryActionLoading,
   secondaryActionLoading,
   actionsInColumn,
   id,
+  centerTitleAndSubtitle,
+  preTitleContent,
   closeOnBackdropClick,
-}: Required<Pick<ModalInterface, "size" | "title">> &
-  Pick<
-    ModalInterface,
-    | "actionBlock"
-    | "subTitle"
-    | "primaryActionText"
-    | "onPrimaryAction"
-    | "secondaryActionText"
-    | "onSecondaryAction"
-    | "primaryActionLoading"
-    | "secondaryActionLoading"
-    | "actionsInColumn"
-    | "closeOnBackdropClick"
-  > & {
-    id: number;
-    close: () => void;
-    children: React.ReactNode;
-  }) {
-  return (
-    <HandleClickOutside
-      onClickOutside={close}
-      enabled={
-        isNil(closeOnBackdropClick) ? true : closeOnBackdropClick ? last(activeModal.activeModals) === id : false
-      }
+  showCloseButton = true,
+  onPrimaryAction,
+  onSecondaryAction,
+}: ModalContentInterface) {
+  const primaryAction = primaryActionText && onPrimaryAction && (
+    <Button
+      size={ButtonSize.LARGE}
+      type={ButtonType.PRIMARY}
+      loadingRight={primaryActionLoading}
+      onClick={() => onPrimaryAction(close)}
     >
+      {primaryActionText}
+    </Button>
+  );
+
+  const secondaryAction = secondaryActionText && onSecondaryAction && (
+    <Button
+      size={ButtonSize.LARGE}
+      type={ButtonType.SECONDARY}
+      loadingRight={secondaryActionLoading}
+      onClick={() => onSecondaryAction(close)}
+    >
+      {secondaryActionText}
+    </Button>
+  );
+
+  const clickOutsideEnabled = isNil(closeOnBackdropClick)
+    ? true
+    : closeOnBackdropClick
+    ? last(activeModal.activeModals) === id
+    : false;
+
+  const titleElement = title && (
+    <Typography
+      type="h2-bold"
+      styles={[
+        fullWidth,
+        centerTitleAndSubtitle && textAlign("center"),
+        horizontalPadding(modalHorizontalPadding),
+        paddingTop(16),
+        !subTitle && paddingBottom(24),
+      ]}
+    >
+      {title}
+    </Typography>
+  );
+
+  const closeButtonElement = showCloseButton && (
+    <Button
+      styles={[position("absolute"), right(16), top(16)]}
+      size={ButtonSize.SMALL}
+      type={ButtonType.ICON}
+      iconLeft="cross-big"
+      onClick={close}
+    />
+  );
+
+  const subTitleElement = subTitle && (
+    <Typography
+      color="gray-blue/06"
+      styles={[
+        fullWidth,
+        centerTitleAndSubtitle && textAlign("center"),
+        horizontalPadding(modalHorizontalPadding),
+        paddingTop(8),
+        paddingBottom(24),
+      ]}
+    >
+      {subTitle}
+    </Typography>
+  );
+  return (
+    <HandleClickOutside enabled={clickOutsideEnabled} onClickOutside={close}>
       {(ref) => (
         <Wrapper
           ref={ref}
           styles={[
+            position("relative"),
             display("inline-block"),
             verticalAlign("middle"),
             maxWidth(`calc(100% - 80px)`),
@@ -135,60 +158,30 @@ export const ModalContent = observer(function ({
             textAlign("left"),
           ]}
         >
-          <Wrapper
-            styles={[
-              flex,
-              ai("center"),
-              jc("space-between"),
-              padding(`16px ${modalHorizontalPadding}px 0 ${modalHorizontalPadding}px`),
-            ]}
-          >
-            <Typography type="h2-bold">{title}</Typography>
-            <Button size={ButtonSize.SMALL} type={ButtonType.ICON} iconLeft="cross-big" onClick={close} />
-          </Wrapper>
-          {subTitle && (
-            <Typography
-              color="gray-blue/06"
-              styles={[padding(`8px ${modalHorizontalPadding}px 24px ${modalHorizontalPadding}px`)]}
-            >
-              {subTitle}
-            </Typography>
-          )}
-          <Wrapper styles={horizontalPadding(modalHorizontalPadding)}>{children}</Wrapper>
+          {preTitleContent}
+          {titleElement}
+          {closeButtonElement}
+          {subTitleElement}
+          {children && <Wrapper styles={horizontalPadding(modalHorizontalPadding)}>{children}</Wrapper>}
           <Wrapper
             styles={[
               flex,
               actionsInColumn
                 ? [flexColumn, child(marginTop(8)), firstChild(marginTop(0))]
                 : [ai("center"), jc("flex-end"), child(marginLeft(12)), firstChild(marginLeft(0))],
-              verticalPadding(24),
+              paddingTop(16),
+              paddingBottom(24),
               horizontalPadding(modalHorizontalPadding),
             ]}
           >
-            {primaryActionText && onPrimaryAction && (
-              <Button
-                size={ButtonSize.LARGE}
-                type={ButtonType.PRIMARY}
-                loadingRight={primaryActionLoading}
-                onClick={() => onPrimaryAction(close)}
-              >
-                {primaryActionText}
-              </Button>
-            )}
-            {secondaryActionText && onSecondaryAction && (
-              <Button
-                size={ButtonSize.LARGE}
-                type={ButtonType.SECONDARY}
-                loadingRight={secondaryActionLoading}
-                onClick={() => onSecondaryAction(close)}
-              >
-                {secondaryActionText}
-              </Button>
-            )}
-            {actionBlock}
+            {primaryAction}
+            {secondaryAction}
+            {actionsBlock}
           </Wrapper>
         </Wrapper>
       )}
     </HandleClickOutside>
   );
-});
+}
+
+export default observer(ModalContent);

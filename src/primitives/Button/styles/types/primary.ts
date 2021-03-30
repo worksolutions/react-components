@@ -12,14 +12,14 @@ import { makeSpinnerColorStyle } from "../../../Spinner";
 
 export const primaryStyle = [
   borderWidth(0),
-  color("white"),
-  backgroundColor("blue/05"),
+  color("definitions.ButtonPrimary.color"),
+  backgroundColor("definitions.ButtonPrimary.backgroundColor"),
   child(marginRight(8), ".icon-left"),
   child(marginLeft(8), ".icon-right"),
-  child(fillColor("white"), ".icon use"),
-  child(makeSpinnerColorStyle("white"), ".loader"),
+  child(fillColor("definitions.ButtonPrimary.iconColor"), ".icon use"),
+  child(makeSpinnerColorStyle("definitions.ButtonPrimary.iconColor"), ".loader"),
 ];
-export const primaryHover = [backgroundColor("blue/06")];
-export const primaryFocus = [boxShadow([0, 0, 0, 2, "blue/04"])];
-export const primaryActive = [backgroundColor("blue/07")];
-export const primaryDisabled = [backgroundColor("blue/02")];
+export const primaryHover = [backgroundColor("definitions.ButtonPrimary.hoverBackgroundColor")];
+export const primaryFocus = [boxShadow([0, 0, 0, 2, "definitions.ButtonPrimary.focusBorderColor"])];
+export const primaryActive = [backgroundColor("definitions.ButtonPrimary.activeBackgroundColor")];
+export const primaryDisabled = [backgroundColor("definitions.ButtonPrimary.disabledBackgroundColor")];

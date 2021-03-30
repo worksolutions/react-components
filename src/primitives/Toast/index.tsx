@@ -1,9 +1,9 @@
 import React from "react";
 import { makeExcludingDeepEqual } from "@worksolutions/utils";
 
-import Wrapper from "primitives/Wrapper";
-import Typography from "primitives/Typography";
-import Button, { ButtonSize, ButtonType } from "primitives/Button";
+import Wrapper from "../Wrapper";
+import Typography from "../Typography";
+import Button, { ButtonSize, ButtonType } from "../Button";
 
 import {
   ai,
@@ -22,12 +22,12 @@ import {
   position,
   transform,
   willChange,
-} from "styles";
-import { zIndex_toast } from "constants/zIndexes";
+} from "../../styles";
+import { zIndex_toast } from "../../constants/zIndexes";
 
 import { calcToastBottom, toastAnimations, toastHeight, toastMarginTop } from "./libs";
 
-interface BaseToastInterface {
+export interface ToastInterface {
   text: string;
   error?: boolean;
   cancelButton?: {
@@ -36,12 +36,12 @@ interface BaseToastInterface {
   };
 }
 
-export interface ToastPropsInterface extends BaseToastInterface {
-  index: number;
+export interface ToastComponentInterface extends ToastInterface {
+  index?: number;
   removeToast: () => void;
 }
 
-function Toast({ index, text, error, cancelButton, removeToast }: ToastPropsInterface) {
+function Toast({ index = 0, text, error, cancelButton, removeToast }: ToastComponentInterface) {
   return (
     <Wrapper
       styles={[
@@ -52,7 +52,7 @@ function Toast({ index, text, error, cancelButton, removeToast }: ToastPropsInte
         position("fixed"),
         willChange("opacity"),
         transform("translateX(-50%)"),
-        animation([toastAnimations.showToast, toastAnimations.hideToast]),
+        animation([toastAnimations.showToast]),
         bottom(calcToastBottom(index)),
         marginTop(toastMarginTop),
         zIndex_toast,
@@ -60,21 +60,23 @@ function Toast({ index, text, error, cancelButton, removeToast }: ToastPropsInte
     >
       <Wrapper
         styles={[
-          backgroundColor("white"),
+          backgroundColor("definitions.Toast.backgroundColor"),
           borderRadius(6),
-          border(1, error ? "red/05" : "gray-blue/02"),
+          border(1, error ? "definitions.Toast.errorBorderColor" : "definitions.Toast.defaultBorderColor"),
           flex,
           ai("center"),
           horizontalPadding(16),
         ]}
       >
-        <Typography styles={marginRight(12)}>{text}</Typography>
+        <Typography styles={marginRight(12)} color="definitions.Toast.textColor">
+          {text}
+        </Typography>
         {cancelButton && (
           <Button
             styles={marginRight(8)}
             type={ButtonType.GHOST}
             size={ButtonSize.MEDIUM}
-            onClick={cancelButton!.onClick}
+            onClick={cancelButton.onClick}
           >
             {cancelButton.text}
           </Button>
@@ -85,4 +87,4 @@ function Toast({ index, text, error, cancelButton, removeToast }: ToastPropsInte
   );
 }
 
-export default React.memo(Toast, makeExcludingDeepEqual(["index", "removeToast"]));
+export default React.memo(Toast, makeExcludingDeepEqual(["removeToast"]));

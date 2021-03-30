@@ -115,7 +115,7 @@ function ButtonWrapper({
       rightWidth: iconRightWidth,
       rightHeight: iconRightHeight,
     };
-  }, [iconLeft, iconRight]);
+  }, [iconLeft, iconLeftHeight, iconLeftWidth, iconRight, iconRightHeight, iconRightWidth, isIconButton]);
 
   const resultStyles = buttonStyles[getStylesNameOnIcons(!!icons.iconLeft, !!icons.iconRight)];
 
@@ -142,7 +142,7 @@ function ButtonWrapper({
       child(transitionStyle, ".icon"),
       child(transitionStyle, ".icon use"),
       TypographyTypes["button"],
-      borderRadius(6),
+      borderRadius(4),
       disableOutline,
       resultStyles.default,
       disabled

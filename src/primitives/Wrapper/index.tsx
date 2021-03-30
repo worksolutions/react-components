@@ -1,12 +1,14 @@
 import React, { forwardRef, ReactNode } from "react";
 import styled from "styled-components";
 
+import { StyledComponentsAs } from "../../types/StyledComponents";
+
 const StyledWrapper = styled.div``;
 
 export interface WrapperInterface {
   className?: string;
   styles?: any;
-  as?: any;
+  as?: StyledComponentsAs;
   children?: ReactNode;
   [name: string]: any;
 }

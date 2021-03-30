@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   flex,
   jc,
@@ -22,12 +23,12 @@ import {
   pointerEvents,
   color,
   fontSize,
-} from "styles";
+} from "../../styles";
 
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 import Icon from "../Icon";
-import { duration200 } from "constants/durations";
+import { duration200 } from "../../constants/durations";
 
 export enum CheckboxSize {
   medium = "medium",

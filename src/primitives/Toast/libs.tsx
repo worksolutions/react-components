@@ -1,42 +1,23 @@
+import { memoizeWith } from "ramda";
 import { keyframes } from "styled-components";
-import { identity, memoizeWith } from "ramda";
-import { duration300, duration300Number } from "constants/durations";
+import { string1 } from "@worksolutions/utils";
 
-const defaultAutoRemoveTime = 4000;
+import { duration200 } from "../../constants/durations";
+
 const firstToastBottom = 40;
 export const toastHeight = 48;
 export const toastMarginTop = 24;
 
-const opacityFade = {
-  show: keyframes`
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  `,
-  hide: keyframes`
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  `,
-};
+const opacityShowFade = keyframes`
+from {opacity: 0;}
+to {opacity: 1;}
+`;
 
 export const toastAnimations = {
-  showToast: { name: opacityFade.show, duration: duration300, timingFunction: "linear" },
-  hideToast: {
-    name: opacityFade.hide,
-    duration: duration300,
-    timingFunction: "linear",
-    delay: `${defaultAutoRemoveTime - duration300Number}ms`,
-  },
+  showToast: { name: opacityShowFade, duration: duration200, timingFunction: "linear" },
 };
 
 export const calcToastBottom = memoizeWith(
-  identity as any,
+  string1,
   (index: number) => index * (toastMarginTop + toastHeight) + firstToastBottom,
 );

@@ -16,7 +16,7 @@ const StyledSvg = styled.svg<{ width: any; height: any; fillColor: any }>`
   }
 `;
 
-export default React.forwardRef(function (
+function InternalSvg(
   {
     className,
     icon,
@@ -27,7 +27,6 @@ export default React.forwardRef(function (
   }: IconVariantProps<keyof typeof internalIcons>,
   ref: any,
 ) {
-  // @ts-ignore
   const rawIcon = React.useMemo(() => (icon in internalIcons ? internalIcons[icon] : icon), [icon]);
 
   return (
@@ -45,4 +44,6 @@ export default React.forwardRef(function (
       <use xlinkHref={rawIcon.symbol} />
     </StyledSvg>
   );
-});
+}
+
+export default React.forwardRef(InternalSvg);

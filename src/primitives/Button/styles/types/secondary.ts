@@ -12,20 +12,20 @@ import { makeSpinnerColorStyle } from "../../../Spinner";
 
 export const secondaryStyle = [
   borderWidth(0),
-  boxShadow([0, 0, 0, 1, "gray-blue/02"]),
-  color("gray-blue/07"),
+  color("definitions.ButtonSecondary.textColor"),
+  boxShadow([0, 0, 0, 1, "definitions.ButtonSecondary.borderColor"]),
   backgroundColor("transparent"),
   child(marginRight(8), ".icon-left"),
   child(marginLeft(8), ".icon-right"),
-  child(fillColor("gray-blue/07"), ".icon use"),
-  child(makeSpinnerColorStyle("gray-blue/07"), ".loader"),
+  child(fillColor("definitions.ButtonSecondary.iconColor"), ".icon use"),
+  child(makeSpinnerColorStyle("definitions.ButtonSecondary.iconColor"), ".loader"),
 ];
-export const secondaryHover = [backgroundColor("gray-blue/01")];
-export const secondaryFocus = [boxShadow([0, 0, 0, 2, "blue/04"])];
-export const secondaryActive = [backgroundColor("gray-blue/02")];
+export const secondaryHover = [backgroundColor("definitions.ButtonSecondary.hoverBackgroundColor")];
+export const secondaryFocus = [boxShadow([0, 0, 0, 2, "definitions.ButtonSecondary.focusBorderColor"])];
+export const secondaryActive = [backgroundColor("definitions.ButtonSecondary.activeBackgroundColor")];
 export const secondaryDisabled = [
-  color("gray-blue/03"),
-  boxShadow([0, 0, 0, 1, "gray-blue/01"]),
-  child(fillColor("gray-blue/03"), ".icon use"),
-  child(makeSpinnerColorStyle("gray-blue/03"), ".loader"),
+  color("definitions.ButtonSecondary.disabledTextAndIconColor"),
+  boxShadow([0, 0, 0, 1, "definitions.ButtonSecondary.disabledBorderColor"]),
+  child(fillColor("definitions.ButtonSecondary.disabledTextAndIconColor"), ".icon use"),
+  child(makeSpinnerColorStyle("definitions.ButtonSecondary.disabledTextAndIconColor"), ".loader"),
 ];

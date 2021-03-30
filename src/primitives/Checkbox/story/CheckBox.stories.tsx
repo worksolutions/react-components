@@ -2,7 +2,7 @@ import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
 import CheckBox, { CheckboxProps, CheckboxSize } from "../index";
-import { selectControl } from "../../../storyHelpers";
+import { selectControl } from "../../../storybook/storyHelpers";
 
 export default {
   title: "CheckBox",
