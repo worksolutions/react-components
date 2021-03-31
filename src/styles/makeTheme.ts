@@ -130,6 +130,12 @@ export interface Theme extends BaseTheme<Colors> {
         hoverBackgroundColor: Colors;
       };
     };
+    ListItemsDivider: {
+      backgroundColor: Colors;
+    };
+    ListItemSearch: {
+      backgroundColor: Colors;
+    };
     Select: {
       RightIcon: {
         color: Colors;
@@ -137,9 +143,6 @@ export interface Theme extends BaseTheme<Colors> {
       Placeholder: {
         color: Colors;
       };
-    };
-    ListItemsDivider: {
-      backgroundColor: Colors;
     };
     Tooltip: {
       textColor: Colors;

@@ -31,6 +31,7 @@ import Select from "../index";
 import { InputContainerSize } from "../../InputContainer/enums";
 import Typography from "../../Typography";
 import ListItemsDivider from "../../List/ListItemsDivider";
+import ListItemSearch from "../../List/ListItemSearch";
 
 export default {
   title: "Select",
@@ -71,13 +72,12 @@ function getItems() {
 
 const Template: Story<SelectInterface<string>> = (props) => {
   const [selected, setSelected] = useState<SelectItemCode>(null);
+  const [search, setSearch] = React.useState("");
 
   return (
     <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
       <Select {...props} selectedItemCode={selected} onChange={setSelected}>
-        <Wrapper>
-          <Typography>Заголовок</Typography>
-        </Wrapper>
+        <ListItemSearch placeholder="Найти!" value={search} onChange={setSearch} />
         <ListItemsDivider />
         {getItems()}
       </Select>
@@ -96,6 +96,8 @@ const Template: Story<SelectInterface<string>> = (props) => {
         popupWidth="100%"
         onChange={setSelected}
       >
+        <ListItemSearch placeholder="Найти!" value={search} onChange={setSearch} />
+        <ListItemsDivider />
         {getItems()}
       </Select>
     </Wrapper>

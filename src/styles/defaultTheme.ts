@@ -75,6 +75,17 @@ export const defaultTheme: Theme = {
     ListItemsDivider: {
       backgroundColor: "gray-blue/02",
     },
+    ListItemSearch: {
+      backgroundColor: "white",
+    },
+    Select: {
+      RightIcon: {
+        color: "gray-blue/07",
+      },
+      Placeholder: {
+        color: "gray-blue/05",
+      },
+    },
     Tooltip: {
       shadowColor: "gray-blue/02",
       backgroundColor: "white",
@@ -116,14 +127,6 @@ export const defaultTheme: Theme = {
       },
       ActiveArea: {
         backgroundColor: "gray-blue/01",
-      },
-    },
-    Select: {
-      RightIcon: {
-        color: "gray-blue/07",
-      },
-      Placeholder: {
-        color: "gray-blue/05",
       },
     },
     InputContainer: {
