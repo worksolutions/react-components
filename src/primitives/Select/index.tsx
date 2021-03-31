@@ -105,7 +105,14 @@ function Select<CODE extends SelectItemCode>(
       mainTextStyles: [props.mainTextStyles, selectedElementTextStyles],
       onClick: undefined,
     });
-  }, [childrenElements, selectedElementWrapper, selectedItemCode, selectedElementStyles, selectedElementTextStyles]);
+  }, [
+    childrenElements,
+    additionalSelectedElements,
+    selectedItemCode,
+    selectedElementWrapper,
+    selectedElementStyles,
+    selectedElementTextStyles,
+  ]);
 
   const popupElement = (
     <SelectPopupComponent selectedItemCode={selectedItemCode} loading={loading} onChange={onChange}>
@@ -118,7 +125,6 @@ function Select<CODE extends SelectItemCode>(
       ref={provideRef(popupManagerRef, ref)}
       primaryPlacement={primaryPlacement}
       mode={PopupManagerMode.CLICK}
-      closeOnClickOutside
       offset={offset}
       popupWidth={popupWidth}
       strategy={strategy}

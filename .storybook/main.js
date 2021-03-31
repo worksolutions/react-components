@@ -20,7 +20,20 @@ module.exports = {
     return options;
   },
   babel: async (options) => {
-    Object.assign(options, require("../babel.config.json"));
+    const babelConfig = require("../babel.config.json");
+    const styledComponentsIndex = babelConfig.plugins.indexOf("babel-plugin-styled-components");
+    if (styledComponentsIndex !== -1) {
+      babelConfig.plugins[styledComponentsIndex] = [
+        "babel-plugin-styled-components",
+        {
+          minify: false,
+          transpileTemplateLiterals: false,
+          displayName: true,
+          fileName: true,
+        },
+      ];
+    }
+    Object.assign(options, babelConfig);
     return options;
   },
 };

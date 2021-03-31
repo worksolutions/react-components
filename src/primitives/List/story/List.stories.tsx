@@ -6,6 +6,7 @@ import { border, ButtonSize, ButtonType, List, ListItem, ListItemSize, marginLef
 import ListItemsDivider from "../ListItemsDivider";
 import { selectControl } from "../../../storybook/storyHelpers";
 import Button from "../../Button";
+import Avatar from "../../Avatar";
 
 export default {
   title: "List",
@@ -33,6 +34,9 @@ const Template: Story<{
       <ListItemsDivider />
       <ListItem size={props.itemSize} hoverable>
         Можно навести
+      </ListItem>
+      <ListItem leftContent={<Avatar />} size={props.itemSize} hoverable>
+        Аватар
       </ListItem>
       <ListItem size={props.itemSize} rightContent="save-outline" hoverable showRightContentOnHover>
         Можно навести - появится иконка
