@@ -1,12 +1,10 @@
-import React from "react";
+import React, { ReactChildren } from "react";
 
 import List from "../../../List";
 import { SelectItemCode, SelectItemInterface } from "../../SelectItem";
 
-export type SelectPopupChildren<CODE extends SelectItemCode> = React.ReactElement<SelectItemInterface<CODE>>[];
-
 interface SelectPopupComponentInterface<CODE extends SelectItemCode> {
-  children: SelectPopupChildren<CODE>;
+  children: ReturnType<ReactChildren["toArray"]>;
   selectedItemCode: CODE;
   onChange: (newSelectedCode: CODE, newSelected: boolean) => void;
 }
@@ -23,7 +21,8 @@ function SelectPopupComponent<CODE extends SelectItemCode>({
 
   return (
     <List>
-      {(React.Children.toArray(children) as SelectPopupChildren<CODE>).map((element) => {
+      {(children as React.ReactElement<SelectItemInterface<CODE>>[]).map((element) => {
+        if (!checkIsSelectItem(element)) return element;
         const selected = selectedItemCode === element.props.code;
         return React.cloneElement(element, {
           key: element.props.code,
@@ -34,6 +33,13 @@ function SelectPopupComponent<CODE extends SelectItemCode>({
       })}
     </List>
   );
+}
+
+export function checkIsSelectItem(element: React.ReactElement<SelectItemInterface<any>>) {
+  if (!element.hasOwnProperty("props")) return false;
+  if (!element.props.hasOwnProperty("code")) return false;
+
+  return true;
 }
 
 export default React.memo(SelectPopupComponent) as <CODE extends SelectItemCode>(

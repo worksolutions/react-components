@@ -29,6 +29,8 @@ import {
 import SelectItem from "../SelectItem";
 import Select from "../index";
 import { InputContainerSize } from "../../InputContainer/enums";
+import Typography from "../../Typography";
+import ListItemsDivider from "../../List/ListItemsDivider";
 
 export default {
   title: "Select",
@@ -73,6 +75,10 @@ const Template: Story<SelectInterface<string>> = (props) => {
   return (
     <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
       <Select {...props} selectedItemCode={selected} onChange={setSelected}>
+        <Wrapper>
+          <Typography>Заголовок</Typography>
+        </Wrapper>
+        <ListItemsDivider />
         {getItems()}
       </Select>
       <Select
