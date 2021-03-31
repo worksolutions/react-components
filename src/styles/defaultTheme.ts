@@ -78,6 +78,9 @@ export const defaultTheme: Theme = {
     ListItemSearch: {
       backgroundColor: "white",
     },
+    ListItemEmpty: {
+      textColor: "gray-blue/05",
+    },
     Select: {
       RightIcon: {
         color: "gray-blue/07",

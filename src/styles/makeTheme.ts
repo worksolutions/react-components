@@ -136,6 +136,9 @@ export interface Theme extends BaseTheme<Colors> {
     ListItemSearch: {
       backgroundColor: Colors;
     };
+    ListItemEmpty: {
+      textColor: Colors;
+    };
     Select: {
       RightIcon: {
         color: Colors;

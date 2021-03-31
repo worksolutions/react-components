@@ -22,6 +22,9 @@ export * from "./primitives/List/ListItemsDivider";
 export { default as ListItemSearch } from "./primitives/List/ListItemSearch";
 export * from "./primitives/List/ListItemSearch";
 
+export { default as ListItemEmpty } from "./primitives/List/ListItemEmpty";
+export * from "./primitives/List/ListItemEmpty";
+
 export { default as ListItem } from "./primitives/List/ListItem";
 export * from "./primitives/List/ListItem";
 export * from "./primitives/List/ListItem/enum";
