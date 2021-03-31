@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 
 import { TypographyTypes } from "../../Typography";
-import { blueTypographyLinkStyles } from "../../Typography/TypographyLink";
+import { externalTypographyLinkStyles } from "../../Typography/TypographyLink";
 
 import { getColor } from "../../../styles";
 
@@ -31,7 +31,7 @@ export const htmlTextStyles = css`
 
   a {
     ${TypographyTypes["body-regular"]};
-    ${blueTypographyLinkStyles};
+    ${externalTypographyLinkStyles};
   }
 
   p {

@@ -12,31 +12,33 @@ type TypographyLinkInternalProps = TypographyInterface & Omit<LinkProps, "to" | 
 
 export type TypographyLinkInterface = TypographyLinkInternalProps & { to: string; native?: boolean; theme?: Theme };
 
-export const blueTypographyLinkStyles = [color("blue/06")];
+export const externalTypographyLinkStyles = [
+  transition(`color ${duration160}`),
+  color("definitions.TypographyLink.External.color"),
+  hover(color("definitions.TypographyLink.External.hoverColor")),
+];
 
-export const blackTypographyLinkStyles = [
+export const internalTypographyLinkStyles = [
   TypographyTypes["body-semi-bold"],
   transition(`color ${duration160}`),
-  hover(color("gray-blue/07")),
+  color("definitions.TypographyLink.Internal.color"),
+  hover(color("definitions.TypographyLink.Internal.hoverColor")),
   disableDecoration,
 ];
 
-type Theme = "black" | "blue";
+type Theme = "internal" | "external";
 
 const CustomRouterLink = ({ _css, ...props }: any) => <Link {...props} />;
 
-function makeTypographyLink(
+function MakeTypographyLinkComponent(
   link: string,
   theme: Theme | undefined,
   nativeParams: { native: boolean | undefined; download: boolean; target?: string },
 ) {
-  const themeStyles = theme
-    ? theme === "black"
-      ? blackTypographyLinkStyles
-      : blueTypographyLinkStyles
-    : nativeParams.native
-    ? blueTypographyLinkStyles
-    : blackTypographyLinkStyles;
+  const themeStyles = React.useMemo(() => {
+    if (theme) return theme === "internal" ? internalTypographyLinkStyles : externalTypographyLinkStyles;
+    return nativeParams.native ? externalTypographyLinkStyles : internalTypographyLinkStyles;
+  }, [nativeParams.native, theme]);
 
   return React.forwardRef(({ styles, ...data }: TypographyLinkInternalProps, ref: Ref<HTMLAnchorElement>) => {
     if (nativeParams.native) {
@@ -59,7 +61,7 @@ function makeTypographyLink(
 }
 
 function TypographyLink({ to, target, download, native, theme, ...props }: TypographyLinkInterface) {
-  const Component = makeTypographyLink(to, theme, {
+  const Component = MakeTypographyLinkComponent(to, theme, {
     native: isNil(native) ? linkIsNative(to) : native,
     download,
     target,

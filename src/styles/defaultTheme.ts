@@ -9,7 +9,11 @@ export const defaultTheme: Theme = {
       draggablePartColor: "gray-blue/02",
       draggablePartHoverColor: "gray-blue/06",
     },
-    Text: { defaultColor: "gray-blue/09" },
+    Typography: { defaultColor: "gray-blue/09" },
+    TypographyLink: {
+      Internal: { color: "gray-blue/09", hoverColor: "gray-blue/07" },
+      External: { color: "blue/06", hoverColor: "blue/06" },
+    },
     Icon: {
       default: {
         color: "gray-blue/05",

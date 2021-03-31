@@ -13,7 +13,11 @@ export interface Theme extends BaseTheme<Colors> {
       draggablePartColor: Colors;
       draggablePartHoverColor: Colors;
     };
-    Text: { defaultColor: Colors };
+    Typography: { defaultColor: Colors };
+    TypographyLink: {
+      Internal: { color: Colors; hoverColor: Colors };
+      External: { color: Colors; hoverColor: Colors };
+    };
     Icon: {
       default: {
         color: Colors;
