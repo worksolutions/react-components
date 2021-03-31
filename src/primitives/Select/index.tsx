@@ -28,6 +28,7 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
       | (React.ReactElement<SelectItemInterface<CODE>> | React.ReactNode)[]
       | React.ReactElement<SelectItemInterface<CODE>>
       | React.ReactNode;
+    additionalSelectedElements?: Record<string | number, React.ReactElement<SelectItemInterface<any>>>;
     rightIcon?: InternalIcons;
     selectedElementStyles?: any;
     selectedElementTextStyles?: any;
@@ -54,6 +55,7 @@ function Select<CODE extends SelectItemCode>(
     selectedElementWrapper,
     selectedElementStyles,
     selectedElementTextStyles,
+    additionalSelectedElements = {},
     closePopupAfterChange = true,
     children,
     popupElementWrapper,
@@ -88,7 +90,10 @@ function Select<CODE extends SelectItemCode>(
       checkIsSelectItem,
     );
 
-    const foundElement = importantElements.find((element) => element.props.code === selectedItemCode);
+    const foundElement =
+      additionalSelectedElements[selectedItemCode!] ||
+      importantElements.find((element) => element.props.code === selectedItemCode);
+
     if (!foundElement) return null;
 
     const { props } = foundElement;
