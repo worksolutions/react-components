@@ -34,7 +34,9 @@ function Loading() {
     };
   }, []);
 
-  return <span ref={ref as any} />;
+  return <span ref={ref as any} className={Loading.markClassName} />;
 }
+
+Loading.markClassName = "loading-provider-loader-mark";
 
 export default observer(Loading);

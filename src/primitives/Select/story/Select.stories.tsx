@@ -39,6 +39,7 @@ export default {
   title: "Select",
   component: Select,
   argTypes: {
+    loading: booleanControl(),
     rightIcon: iconsControl(),
     rightIconColor: colorControl(),
     rightIconHeight: numbersControl(1, 24, 1),

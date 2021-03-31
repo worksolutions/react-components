@@ -12,27 +12,36 @@ import {
   padding,
   verticalMargin,
 } from "../../styles";
+import LoadingProvider from "../../components/LoadingContainer/LoadingProvider";
+import Loading from "../../components/LoadingContainer/Loading";
 
 export interface ListInterface {
   children?: React.ReactNode;
+  loading?: boolean;
   styles?: any;
 }
 
-function List({ children, styles }: ListInterface) {
+function List({ children, loading, styles }: ListInterface) {
   return (
-    <Wrapper
-      styles={[
-        flex,
-        flexColumn,
-        padding(8),
-        styles,
-        child(verticalMargin(2)),
-        firstChild(marginTop(0)),
-        lastChild(marginBottom(0)),
-      ]}
-    >
-      {children}
-    </Wrapper>
+    <LoadingProvider>
+      {(ref) => (
+        <Wrapper ref={ref} styles={styles}>
+          <Wrapper
+            styles={[
+              flex,
+              flexColumn,
+              padding(8),
+              child(verticalMargin(2)),
+              firstChild(marginTop(0)),
+              lastChild(marginBottom(0)),
+            ]}
+          >
+            {children}
+          </Wrapper>
+          {loading && <Loading />}
+        </Wrapper>
+      )}
+    </LoadingProvider>
   );
 }
 

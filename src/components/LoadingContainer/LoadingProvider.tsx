@@ -74,6 +74,7 @@ function LoadingProvider({
       {realShowSpinner &&
         ReactDOM.createPortal(
           <Wrapper
+            className={LoadingProvider.wrapperClassName}
             styles={[
               zIndex_loadingProvider,
               position("absolute"),
@@ -98,5 +99,7 @@ function LoadingProvider({
     </>
   );
 }
+
+LoadingProvider.wrapperClassName = "loading-provider-wrapper-mark";
 
 export default observer(LoadingProvider);

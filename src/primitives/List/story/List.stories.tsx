@@ -19,7 +19,7 @@ const Template: Story<{
   itemSize: ListItemSize;
 }> = (props) => {
   return (
-    <List styles={[border(1, "gray-blue/02", "dashed")]}>
+    <List styles={[border(1, "gray-blue/02", "dashed")]} {...props}>
       <ListItem size={props.itemSize}>Прсто текст</ListItem>
       <ListItem size={props.itemSize} disabled>
         Выключено

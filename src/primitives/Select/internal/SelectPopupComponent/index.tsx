@@ -6,12 +6,14 @@ import { SelectItemCode, SelectItemInterface } from "../../SelectItem";
 interface SelectPopupComponentInterface<CODE extends SelectItemCode> {
   children: ReturnType<ReactChildren["toArray"]>;
   selectedItemCode: CODE;
+  loading?: boolean;
   onChange: (newSelectedCode: CODE, newSelected: boolean) => void;
 }
 
 function SelectPopupComponent<CODE extends SelectItemCode>({
   children,
   selectedItemCode,
+  loading,
   onChange,
 }: SelectPopupComponentInterface<CODE>) {
   const handleClickFabric = React.useCallback(
@@ -20,7 +22,7 @@ function SelectPopupComponent<CODE extends SelectItemCode>({
   );
 
   return (
-    <List>
+    <List loading={loading}>
       {(children as React.ReactElement<SelectItemInterface<CODE>>[]).map((element) => {
         if (!checkIsSelectItem(element)) return element;
         const selected = selectedItemCode === element.props.code;

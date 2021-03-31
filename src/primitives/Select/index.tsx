@@ -38,6 +38,7 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
     closePopupAfterChange?: boolean;
     selectedElementWrapper?: <C extends CODE>(currentText: string | number, code: C) => string | number;
     selectedItemCode: CODE;
+    loading?: boolean;
     popupElementWrapper?: (child: JSX.Element) => JSX.Element;
     onChange: (newActiveCode: CODE, newSelected: boolean) => void;
   };
@@ -65,6 +66,7 @@ function Select<CODE extends SelectItemCode>(
     popupWidth,
     strategy,
     hasArrow,
+    loading,
     styles,
     onChange,
     onChangeOpened,
@@ -101,7 +103,7 @@ function Select<CODE extends SelectItemCode>(
   }, [childrenElements, selectedElementWrapper, selectedItemCode, selectedElementStyles, selectedElementTextStyles]);
 
   const popupElement = (
-    <SelectPopupComponent selectedItemCode={selectedItemCode} onChange={onChange}>
+    <SelectPopupComponent selectedItemCode={selectedItemCode} loading={loading} onChange={onChange}>
       {childrenElements}
     </SelectPopupComponent>
   );
