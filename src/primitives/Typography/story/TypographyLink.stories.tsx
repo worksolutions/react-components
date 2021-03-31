@@ -1,18 +1,29 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { colorControl } from "storybook/storyHelpers";
+import { booleanControl, colorControl } from "storybook/storyHelpers";
 
-import TypographyLinkComponent, { TypographyLinkInterface } from "../TypographyLink";
+import {
+  borderBottom,
+  flex,
+  flexColumn,
+  fullWidth,
+  marginBottom,
+  paddingBottom,
+  whiteSpace,
+  width,
+} from "../../../styles";
+
+import TypographyLink, { TypographyLinkInterface } from "../TypographyLink";
 import Typography from "../index";
 import Wrapper from "../../Wrapper";
-import { borderBottom, flex, flexColumn, fullWidth, marginBottom, paddingBottom, whiteSpace, width } from "styles";
 
 export default {
   title: "TypographyLink",
-  component: TypographyLinkComponent.type,
+  component: TypographyLink,
   argTypes: {
     color: colorControl(),
+    native: booleanControl(),
   },
 };
 
@@ -22,7 +33,7 @@ const Template: Story<TypographyLinkInterface> = (args, { history }) => {
   React.useEffect(() => {
     setState(JSON.stringify(history.location, null, 4));
     return history.listen(() => setState(JSON.stringify(history.location, null, 4)));
-  }, []);
+  }, [history]);
 
   return (
     <Wrapper styles={[flex, flexColumn, width(500)]}>
@@ -31,7 +42,7 @@ const Template: Story<TypographyLinkInterface> = (args, { history }) => {
       >
         location = {state}
       </Typography>
-      <TypographyLinkComponent {...args} />
+      <TypographyLink {...args} />
     </Wrapper>
   );
 };

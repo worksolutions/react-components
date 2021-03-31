@@ -48,50 +48,46 @@ export interface TypographyInterface {
   onClick?: () => void;
 }
 
-const Typography = React.forwardRef(
-  (
-    {
-      as,
-      noWrap,
-      className,
-      styles,
-      children,
-      type,
-      color: colorProp,
-      dots: dotsProp,
-      asHTML,
-      onClick,
-      ...props
-    }: TypographyInterface,
-    ref: Ref<HTMLSpanElement>,
-  ) => {
-    const contentProps = asHTML ? { dangerouslySetInnerHTML: { __html: children } } : { children };
+function Typography(
+  {
+    as,
+    noWrap,
+    className,
+    styles,
+    children,
+    type = "body-regular",
+    color: colorProp,
+    dots: dotsProp,
+    asHTML,
+    onClick,
+    ...props
+  }: TypographyInterface,
+  ref: Ref<HTMLSpanElement>,
+) {
+  const contentProps = asHTML ? { dangerouslySetInnerHTML: { __html: children } } : { children };
 
-    return (
-      <TypographyWrapper
-        className={className}
-        ref={ref}
-        as={as as any}
-        css={[
-          display("inline-block"),
-          type ? TypographyTypes[type] : null,
-          colorProp && color(colorProp),
-          dotsProp && textDots,
-          noWrap && whiteSpace("nowrap"),
-          styles,
-        ]}
-        onClick={onClick}
-        {...props}
-        {...contentProps}
-      />
-    );
-  },
-);
+  return (
+    <TypographyWrapper
+      className={className}
+      ref={ref}
+      as={as}
+      css={[
+        display("inline-block"),
+        type && TypographyTypes[type],
+        styles,
+        dotsProp && textDots,
+        colorProp && color(colorProp),
+        noWrap && whiteSpace("nowrap"),
+      ]}
+      onClick={onClick}
+      {...props}
+      {...contentProps}
+    />
+  );
+}
 
-Typography.defaultProps = {
-  type: "body-regular",
-};
+export default React.memo(React.forwardRef(Typography));
 
-export default React.memo(Typography);
-
-export const TypographyGlobalStyle = createGlobalStyle`*{color: ${getColor("definitions.Typography.defaultColor")}}`;
+export const TypographyGlobalStyle = createGlobalStyle`* {
+  color: ${getColor("definitions.Typography.defaultColor")}
+}`;

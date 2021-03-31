@@ -1,4 +1,4 @@
-import React, { Ref } from "react";
+import React from "react";
 import { Link, LinkProps } from "react-router-dom";
 import { isNil } from "ramda";
 import { linkIsNative } from "@worksolutions/utils";
@@ -8,9 +8,8 @@ import { duration160 } from "../../constants/durations";
 
 import Typography, { TypographyInterface, TypographyTypes } from "./index";
 
-type TypographyLinkInternalProps = TypographyInterface & Omit<LinkProps, "to" | "as" | "type">;
-
-export type TypographyLinkInterface = TypographyLinkInternalProps & { to: string; native?: boolean; theme?: Theme };
+export type TypographyLinkInterface = TypographyInterface &
+  Omit<LinkProps, "to" | "type" | "color"> & { to: string; native?: boolean; theme?: Theme };
 
 export const externalTypographyLinkStyles = [
   transition(`color ${duration160}`),
@@ -30,44 +29,33 @@ type Theme = "internal" | "external";
 
 const CustomRouterLink = ({ _css, ...props }: any) => <Link {...props} />;
 
-function MakeTypographyLinkComponent(
-  link: string,
-  theme: Theme | undefined,
-  nativeParams: { native: boolean | undefined; download: boolean; target?: string },
+function TypographyLink(
+  { to, target, download, native: nativeProp, theme, styles, color, ...props }: TypographyLinkInterface,
+  ref: React.Ref<HTMLAnchorElement>,
 ) {
+  const native = React.useMemo(() => (isNil(nativeProp) ? linkIsNative(to) : nativeProp), [nativeProp, to]);
+
   const themeStyles = React.useMemo(() => {
     if (theme) return theme === "internal" ? internalTypographyLinkStyles : externalTypographyLinkStyles;
-    return nativeParams.native ? externalTypographyLinkStyles : internalTypographyLinkStyles;
-  }, [nativeParams.native, theme]);
+    return native ? externalTypographyLinkStyles : internalTypographyLinkStyles;
+  }, [native, theme]);
 
-  return React.forwardRef(({ styles, ...data }: TypographyLinkInternalProps, ref: Ref<HTMLAnchorElement>) => {
-    if (nativeParams.native) {
-      return (
-        <Typography
-          {...data}
-          styles={[themeStyles, styles]}
-          {...nativeParams}
-          // @ts-ignore
-          href={link}
-          as="a"
-          ref={ref}
-        />
-      );
-    }
+  if (native) {
+    return (
+      <Typography
+        ref={ref}
+        {...props}
+        styles={[themeStyles, styles]}
+        color={color}
+        // @ts-ignore
+        href={to}
+        as="a"
+      />
+    );
+  }
 
-    // @ts-ignore
-    return <Typography as={CustomRouterLink} {...data} styles={[themeStyles, styles]} to={link} ref={ref} />;
-  });
+  // @ts-ignore
+  return <Typography ref={ref} as={CustomRouterLink} {...props} styles={[themeStyles, styles]} color={color} to={to} />;
 }
 
-function TypographyLink({ to, target, download, native, theme, ...props }: TypographyLinkInterface) {
-  const Component = MakeTypographyLinkComponent(to, theme, {
-    native: isNil(native) ? linkIsNative(to) : native,
-    download,
-    target,
-  });
-
-  return <Component {...props} />;
-}
-
-export default React.memo(TypographyLink);
+export default React.memo(React.forwardRef(TypographyLink));
