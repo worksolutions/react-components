@@ -9,8 +9,8 @@ import InputContainer, { InputContainerInterface } from "../InputContainer";
 
 import { paddingLeft, transform, transition, verticalPadding } from "../../styles";
 import { duration160 } from "../../constants/durations";
-import SelectPopupComponent, { SelectPopupChildren } from "./internal/SelectPopupComponent";
-import { SelectItemCode } from "./SelectItem";
+import SelectPopupComponent, { checkIsSelectItem } from "./internal/SelectPopupComponent";
+import { SelectItemCode, SelectItemInterface } from "./SelectItem";
 import { Colors } from "../../constants/colors";
 
 import { tooltipPopupStyles } from "../Tooltip";
@@ -22,8 +22,12 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
   Omit<InputContainerInterface, "onClick" | "outerRef" | "children" | "rightIcon" | "leftIcon" | "leftIconStyles"> & {
     styles?: any;
     placeholder?: string;
+    placeholderStyles?: any;
     placeholderColor?: IncomeColorVariant<Colors>;
-    children: SelectPopupChildren<CODE>;
+    children:
+      | (React.ReactElement<SelectItemInterface<CODE>> | React.ReactNode)[]
+      | React.ReactElement<SelectItemInterface<CODE>>
+      | React.ReactNode;
     rightIcon?: InternalIcons;
     selectedElementStyles?: any;
     selectedElementTextStyles?: any;
@@ -53,6 +57,7 @@ function Select<CODE extends SelectItemCode>(
     children,
     popupElementWrapper,
     placeholder,
+    placeholderStyles,
     placeholderColor = "definitions.Select.Placeholder.color",
     popupStyles,
     primaryPlacement,
@@ -74,10 +79,14 @@ function Select<CODE extends SelectItemCode>(
     popupManagerRef.current.hide();
   }, [selectedItemCode]);
 
-  const selectedElement = React.useMemo(() => {
-    const childrenElements = React.Children.toArray(children) as SelectPopupChildren<CODE>;
+  const childrenElements = React.Children.toArray(children);
 
-    const foundElement = childrenElements.find((element) => element.props.code === selectedItemCode);
+  const selectedElement = React.useMemo(() => {
+    const importantElements = (childrenElements as React.ReactElement<SelectItemInterface<CODE>>[]).filter(
+      checkIsSelectItem,
+    );
+
+    const foundElement = importantElements.find((element) => element.props.code === selectedItemCode);
     if (!foundElement) return null;
 
     const { props } = foundElement;
@@ -89,11 +98,11 @@ function Select<CODE extends SelectItemCode>(
       mainTextStyles: [props.mainTextStyles, selectedElementTextStyles],
       onClick: undefined,
     });
-  }, [children, selectedElementWrapper, selectedItemCode, selectedElementStyles, selectedElementTextStyles]);
+  }, [childrenElements, selectedElementWrapper, selectedItemCode, selectedElementStyles, selectedElementTextStyles]);
 
   const popupElement = (
     <SelectPopupComponent selectedItemCode={selectedItemCode} onChange={onChange}>
-      {children}
+      {childrenElements}
     </SelectPopupComponent>
   );
 
@@ -131,7 +140,7 @@ function Select<CODE extends SelectItemCode>(
               styles={[inputContainerStyles, selectedElement && [verticalPadding(0), paddingLeft(4)], styles]}
             >
               {selectedElement || (
-                <Typography dots color={placeholderColor}>
+                <Typography dots color={placeholderColor} styles={placeholderStyles}>
                   {placeholder}
                 </Typography>
               )}
