@@ -18,7 +18,6 @@ export const externalTypographyLinkStyles = [
 ];
 
 export const internalTypographyLinkStyles = [
-  TypographyTypes["body-semi-bold"],
   transition(`color ${duration160}`),
   color("definitions.TypographyLink.Internal.color"),
   hover(color("definitions.TypographyLink.Internal.hoverColor")),
@@ -30,7 +29,17 @@ type Theme = "internal" | "external";
 const CustomRouterLink = ({ _css, ...props }: any) => <Link {...props} />;
 
 function TypographyLink(
-  { to, target, download, native: nativeProp, theme, styles, color, ...props }: TypographyLinkInterface,
+  {
+    to,
+    target,
+    download,
+    native: nativeProp,
+    theme,
+    styles,
+    color,
+    type = "body-semi-bold",
+    ...props
+  }: TypographyLinkInterface,
   ref: React.Ref<HTMLAnchorElement>,
 ) {
   const native = React.useMemo(() => (isNil(nativeProp) ? linkIsNative(to) : nativeProp), [nativeProp, to]);
@@ -40,12 +49,14 @@ function TypographyLink(
     return native ? externalTypographyLinkStyles : internalTypographyLinkStyles;
   }, [native, theme]);
 
+  const resultStyles = React.useMemo(() => [TypographyTypes[type], themeStyles, styles], [styles, themeStyles]);
+
   if (native) {
     return (
       <Typography
         ref={ref}
         {...props}
-        styles={[themeStyles, styles]}
+        styles={resultStyles}
         color={color}
         // @ts-ignore
         href={to}
@@ -55,7 +66,7 @@ function TypographyLink(
   }
 
   // @ts-ignore
-  return <Typography ref={ref} as={CustomRouterLink} {...props} styles={[themeStyles, styles]} color={color} to={to} />;
+  return <Typography ref={ref} as={CustomRouterLink} {...props} styles={resultStyles} color={color} to={to} />;
 }
 
 export default React.memo(React.forwardRef(TypographyLink));
