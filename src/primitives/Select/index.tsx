@@ -14,6 +14,7 @@ import { SelectItemCode, SelectItemInterface } from "./SelectItem";
 import { Colors } from "../../constants/colors";
 
 import { tooltipPopupStyles } from "../Tooltip";
+import { isNil } from "ramda";
 
 export type SelectInterface<CODE extends SelectItemCode> = Omit<
   PopupManagerInterface,
@@ -40,6 +41,8 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
     selectedElementWrapper?: <C extends CODE>(currentText: string | number, code: C) => string | number;
     selectedItemCode: CODE;
     loading?: boolean;
+    popupTopElement?: React.ReactNode;
+    popupBottomElement?: React.ReactNode;
     popupElementWrapper?: (child: JSX.Element) => JSX.Element;
     onChange: (newActiveCode: CODE, newSelected: boolean) => void;
   };
@@ -63,6 +66,8 @@ function Select<CODE extends SelectItemCode>(
     placeholderStyles,
     placeholderColor = "definitions.Select.Placeholder.color",
     popupStyles,
+    popupTopElement,
+    popupBottomElement,
     primaryPlacement,
     offset,
     popupWidth,
@@ -115,7 +120,13 @@ function Select<CODE extends SelectItemCode>(
   ]);
 
   const popupElement = (
-    <SelectPopupComponent selectedItemCode={selectedItemCode} loading={loading} onChange={onChange}>
+    <SelectPopupComponent
+      selectedItemCode={selectedItemCode}
+      loading={loading}
+      popupTopElement={popupTopElement}
+      popupBottomElement={popupBottomElement}
+      onChange={onChange}
+    >
       {childrenElements}
     </SelectPopupComponent>
   );

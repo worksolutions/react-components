@@ -1,8 +1,9 @@
 import React, { Ref, useMemo } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
 import { PositioningStrategy } from "@popperjs/core";
+import popperMaxSizeModifier from "popper-max-size-modifier";
 
-import { Popper as ReactPopper } from "react-popper";
+import { Modifier, Popper as ReactPopper } from "react-popper";
 import { zIndex_popup } from "../../../constants/zIndexes";
 import PopperElementChildrenWrapper from "./PopperElementChildrenWrapper";
 import { popupArrowSize } from "./Arrow";
@@ -11,7 +12,7 @@ const commonPopperStyles = [zIndex_popup];
 
 const modifierArrowPadding = 12;
 
-function getModifiers(offset?: number) {
+function getModifiers(offset?: number): Modifier<string>[] {
   return [
     {
       name: "arrow",
@@ -22,6 +23,17 @@ function getModifiers(offset?: number) {
     {
       name: "offset",
       options: { offset: () => [0, offset] },
+    },
+    popperMaxSizeModifier,
+    {
+      name: "applyMaxSize",
+      enabled: true,
+      phase: "beforeWrite",
+      requires: ["maxSize"],
+      fn({ state }) {
+        const { height } = state.modifiersData.maxSize;
+        state.styles.popper.maxHeight = `${height - 16}px`;
+      },
     },
   ];
 }

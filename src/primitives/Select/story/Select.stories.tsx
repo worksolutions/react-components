@@ -34,6 +34,7 @@ import ListItemsDivider from "../../List/ListItemsDivider";
 import ListItemSearch from "../../List/ListItemSearch";
 import ListItemEmpty from "../../List/ListItemEmpty";
 import Icon from "../../Icon";
+import { range } from "ramda";
 
 export default {
   title: "Select",
@@ -61,8 +62,8 @@ export default {
 
 function getItems() {
   return [
-    <SelectItem key={0} code={0} size={ListItemSize.MEDIUM}>
-      Элемент-заглушка
+    <SelectItem key={0} code={null} size={ListItemSize.MEDIUM}>
+      Элемент 0
     </SelectItem>,
     <SelectItem key={1} leftContent="clock-deadline" code={1} size={ListItemSize.MEDIUM}>
       Элемент 1
@@ -81,28 +82,26 @@ const Template: Story<SelectInterface<string>> = (props) => {
   const last = parseFloat(search);
   const newItems = isNaN(last) ? items : items.slice(0, last);
 
-  const children = (
-    <>
-      <ListItemSearch placeholder="Количество элементов" value={search} onChange={setSearch} />
-      <ListItemsDivider />
-      {newItems.length === 0 ? (
-        <ListItemEmpty
-          text="По вашему запросу ничего не найдено"
-          beforeText={<Icon icon="alert-alt" color="red/04" width={44} height={44} styles={marginBottom(16)} />}
-        />
-      ) : (
-        newItems
-      )}
-    </>
-  );
+  const popupTopElement = <ListItemSearch placeholder="Количество элементов" value={search} onChange={setSearch} />;
+
+  const children =
+    newItems.length === 0 ? (
+      <ListItemEmpty
+        text="По вашему запросу ничего не найдено"
+        beforeText={<Icon icon="alert-alt" color="red/04" width={44} height={44} styles={marginBottom(16)} />}
+      />
+    ) : (
+      newItems
+    );
 
   return (
     <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
-      <Select {...props} selectedItemCode={selected} onChange={setSelected}>
+      <Select {...props} popupTopElement={popupTopElement} selectedItemCode={selected} onChange={setSelected}>
         {children}
       </Select>
       <Select
         {...props}
+        popupTopElement={popupTopElement}
         selectedItemCode={selected}
         outerStyles={[marginLeft(12), width(320)]}
         styles={[backgroundColor("green/01"), emptyBoxShadow, hover(emptyBoxShadow)]}

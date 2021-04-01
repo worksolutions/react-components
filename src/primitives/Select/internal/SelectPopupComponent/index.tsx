@@ -2,11 +2,14 @@ import React, { ReactChildren } from "react";
 
 import List from "../../../List";
 import { SelectItemCode, SelectItemInterface } from "../../SelectItem";
+import { maxHeight, overflow } from "../../../../styles";
 
 interface SelectPopupComponentInterface<CODE extends SelectItemCode> {
   children: ReturnType<ReactChildren["toArray"]>;
   selectedItemCode: CODE;
   loading?: boolean;
+  popupTopElement?: React.ReactNode;
+  popupBottomElement?: React.ReactNode;
   onChange: (newSelectedCode: CODE, newSelected: boolean) => void;
 }
 
@@ -14,6 +17,8 @@ function SelectPopupComponent<CODE extends SelectItemCode>({
   children,
   selectedItemCode,
   loading,
+  popupTopElement,
+  popupBottomElement,
   onChange,
 }: SelectPopupComponentInterface<CODE>) {
   const handleClickFabric = React.useCallback(
@@ -22,7 +27,13 @@ function SelectPopupComponent<CODE extends SelectItemCode>({
   );
 
   return (
-    <List loading={loading}>
+    <List
+      loading={loading}
+      topElement={popupTopElement}
+      bottomElement={popupBottomElement}
+      outerStyles={maxHeight("inherit")}
+      styles={[maxHeight("inherit"), overflow("auto")]}
+    >
       {(children as React.ReactElement<SelectItemInterface<CODE>>[]).map((element) => {
         if (!checkIsSelectItem(element)) return element;
         const selected = selectedItemCode === element.props.code;

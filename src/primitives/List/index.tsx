@@ -17,16 +17,19 @@ import Loading from "../../components/LoadingContainer/Loading";
 
 export interface ListInterface {
   children?: React.ReactNode;
+  topElement?: React.ReactNode;
+  bottomElement?: React.ReactNode;
   loading?: boolean;
   outerStyles?: any;
   styles?: any;
 }
 
-function List({ children, loading, styles, outerStyles }: ListInterface) {
+function List({ children, loading, styles, outerStyles, topElement, bottomElement }: ListInterface) {
   return (
     <LoadingProvider>
       {(ref) => (
-        <Wrapper ref={ref} styles={outerStyles}>
+        <Wrapper ref={ref} styles={[outerStyles, flex, flexColumn]}>
+          {topElement}
           <Wrapper
             styles={[
               flex,
@@ -40,6 +43,7 @@ function List({ children, loading, styles, outerStyles }: ListInterface) {
           >
             {children}
           </Wrapper>
+          {bottomElement}
           {loading && <Loading />}
         </Wrapper>
       )}
