@@ -33,6 +33,7 @@
     "luxon": "^1.26.0",
     "mobx": "^6.*",
     "mobx-react-lite": "^3.*",
+    "popper-max-size-modifier": "^0.2.0",
     "ramda": "^0.27.*",
     "raw-loader": "^4.*",
     "re-resizable": "^6.9.0",

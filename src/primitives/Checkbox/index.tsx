@@ -120,7 +120,7 @@ function Checkbox({
           <Icon width={currentSize.width} height={currentSize.height} icon="check" color="white" />
         )}
         {checked && indeterminate && (
-          <Icon width={currentSize.width} height={currentSize.height} icon="minus" color="white" />
+          <Icon width={currentSize.width} height={currentSize.height} icon="minus-small" color="white" />
         )}
       </Wrapper>
       <Typography
