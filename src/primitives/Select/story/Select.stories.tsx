@@ -82,7 +82,12 @@ const Template: Story<SelectInterface<string>> = (props) => {
   const last = parseFloat(search);
   const newItems = isNaN(last) ? items : items.slice(0, last);
 
-  const popupTopElement = <ListItemSearch placeholder="Количество элементов" value={search} onChange={setSearch} />;
+  const popupTopElement = (
+    <>
+      <ListItemSearch placeholder="Количество элементов" value={search} onChange={setSearch} />
+      <ListItemsDivider />
+    </>
+  );
 
   const children =
     newItems.length === 0 ? (

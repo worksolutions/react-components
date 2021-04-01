@@ -2,8 +2,7 @@ import React from "react";
 
 import Input, { InputInterface } from "../../Input/Input";
 import { InputContainerSize } from "../../InputContainer/enums";
-import { backgroundColor, emptyBoxShadow, hover } from "../../../styles";
-import ListItemsDivider from "../ListItemsDivider";
+import { backgroundColor, emptyBoxShadow, hover, focus } from "../../../styles";
 
 export interface ListItemSearchInterface extends InputInterface {
   withDivider?: boolean;
@@ -13,7 +12,6 @@ function ListItemSearch({
   size = InputContainerSize.LARGE,
   rightIcon = "search-big",
   styles,
-  withDivider = true,
   ...props
 }: ListItemSearchInterface) {
   return (
@@ -26,10 +24,10 @@ function ListItemSearch({
           backgroundColor("definitions.ListItemSearch.backgroundColor"),
           emptyBoxShadow,
           hover(emptyBoxShadow),
+          focus(emptyBoxShadow),
           styles,
         ]}
       />
-      {withDivider && <ListItemsDivider horizontalPadding verticalPadding={false} />}
     </>
   );
 }

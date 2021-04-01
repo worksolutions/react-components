@@ -14,18 +14,22 @@ import {
 
 export interface ListItemsDividerInterface {
   styles?: any;
-  verticalPadding?: boolean;
-  horizontalPadding?: boolean;
+  verticalMargin?: number;
+  horizontalMargin?: number;
 }
 
-function ListItemsDivider({ styles, verticalPadding = true, horizontalPadding }: ListItemsDividerInterface) {
+function ListItemsDivider({
+  styles,
+  verticalMargin: verticalMarginProp = 0,
+  horizontalMargin: horizontalMarginProp = 8,
+}: ListItemsDividerInterface) {
   return (
     <Wrapper
       styles={[
         flexValue(1),
         flexShrink(0),
-        verticalPadding && verticalMargin(4),
-        horizontalPadding && horizontalMargin(8),
+        verticalMarginProp ? verticalMargin(verticalMarginProp) : null,
+        horizontalMarginProp ? horizontalMargin(horizontalMarginProp) : null,
         height(1),
         minHeight(1),
         backgroundColor("definitions.ListItemsDivider.backgroundColor"),
