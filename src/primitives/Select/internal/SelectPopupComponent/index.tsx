@@ -13,14 +13,17 @@ interface SelectPopupComponentInterface<CODE extends SelectItemCode> {
   onChange: (newSelectedCode: CODE, newSelected: boolean) => void;
 }
 
-function SelectPopupComponent<CODE extends SelectItemCode>({
-  children,
-  selectedItemCode,
-  loading,
-  popupTopElement,
-  popupBottomElement,
-  onChange,
-}: SelectPopupComponentInterface<CODE>) {
+function SelectPopupComponent<CODE extends SelectItemCode>(
+  {
+    children,
+    selectedItemCode,
+    loading,
+    popupTopElement,
+    popupBottomElement,
+    onChange,
+  }: SelectPopupComponentInterface<CODE>,
+  scrollableElementRef: React.Ref<HTMLElement>,
+) {
   const handleClickFabric = React.useCallback(
     (code: CODE, currentSelected: boolean) => () => selectedItemCode !== code && onChange(code, !currentSelected),
     [onChange, selectedItemCode],
@@ -28,11 +31,12 @@ function SelectPopupComponent<CODE extends SelectItemCode>({
 
   return (
     <List
+      ref={scrollableElementRef}
       loading={loading}
       topElement={popupTopElement}
       bottomElement={popupBottomElement}
       outerStyles={maxHeight("inherit")}
-      styles={[maxHeight("inherit"), overflow("auto")]}
+      listWrapperStyles={[maxHeight("inherit"), overflow("auto")]}
     >
       {(children as React.ReactElement<SelectItemInterface<CODE>>[]).map((element) => {
         if (!checkIsSelectItem(element)) return element;
@@ -48,13 +52,13 @@ function SelectPopupComponent<CODE extends SelectItemCode>({
   );
 }
 
+export default React.memo(React.forwardRef(SelectPopupComponent)) as <CODE extends SelectItemCode>(
+  props: SelectPopupComponentInterface<CODE> & { ref?: React.Ref<HTMLElement> },
+) => JSX.Element;
+
 export function checkIsSelectItem(element: React.ReactElement<SelectItemInterface<any>>) {
   if (!element.hasOwnProperty("props")) return false;
   if (!element.props.hasOwnProperty("code")) return false;
 
   return true;
 }
-
-export default React.memo(SelectPopupComponent) as <CODE extends SelectItemCode>(
-  props: SelectPopupComponentInterface<CODE>,
-) => JSX.Element;

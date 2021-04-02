@@ -46,6 +46,7 @@ const getSpinnerWidth = memoizeWith(string2, (size: SpinnerSize, width: number) 
 
 const StyledSpinner = styled.div.attrs({ className: "loader" })<Required<SpinnerInterface>>`
   width: ${(props) => getSpinnerWidth(props.size, props.width)}px;
+  overflow: hidden;
 
   .path {
     stroke: ${(props) => getColor(props.color)};

@@ -7,6 +7,7 @@ import {
   flex,
   flexColumn,
   lastChild,
+  margin,
   marginBottom,
   marginTop,
   padding,
@@ -21,34 +22,41 @@ export interface ListInterface {
   bottomElement?: React.ReactNode;
   loading?: boolean;
   outerStyles?: any;
-  styles?: any;
+  listWrapperStyles?: any;
+  listStyles?: any;
 }
 
-function List({ children, loading, styles, outerStyles, topElement, bottomElement }: ListInterface) {
+function List(
+  { children, loading, listWrapperStyles, outerStyles, topElement, listStyles, bottomElement }: ListInterface,
+  listElementRef: React.Ref<HTMLElement>,
+) {
   return (
-    <LoadingProvider>
-      {(ref) => (
-        <Wrapper ref={ref} styles={[outerStyles, flex, flexColumn]}>
-          {topElement}
-          <Wrapper
-            styles={[
-              flex,
-              flexColumn,
-              padding(8),
-              child(verticalMargin(2)),
-              firstChild(marginTop(0)),
-              lastChild(marginBottom(0)),
-              styles,
-            ]}
-          >
-            {children}
+    <Wrapper styles={[flex, flexColumn, outerStyles]}>
+      {topElement}
+      <LoadingProvider>
+        {(ref) => (
+          <Wrapper ref={ref} styles={[margin(4), listWrapperStyles]}>
+            <Wrapper
+              ref={listElementRef}
+              styles={[
+                flex,
+                flexColumn,
+                padding(4),
+                child(verticalMargin(2)),
+                firstChild(marginTop(0)),
+                lastChild(marginBottom(0)),
+                listStyles,
+              ]}
+            >
+              {children}
+            </Wrapper>
+            {loading && <Loading />}
           </Wrapper>
-          {bottomElement}
-          {loading && <Loading />}
-        </Wrapper>
-      )}
-    </LoadingProvider>
+        )}
+      </LoadingProvider>
+      {bottomElement}
+    </Wrapper>
   );
 }
 
-export default React.memo(List);
+export default React.memo(React.forwardRef(List));

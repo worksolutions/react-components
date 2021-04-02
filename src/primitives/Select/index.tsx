@@ -48,6 +48,7 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
     popupTopElement?: React.ReactNode;
     popupBottomElement?: React.ReactNode;
     size?: ListItemSize;
+    popupScrollableElementRef?: React.Ref<HTMLElement>;
     popupElementWrapper?: (child: JSX.Element) => JSX.Element;
     onChange: (newActiveCode: CODE, newSelected: boolean) => void;
   };
@@ -67,6 +68,7 @@ function Select<CODE extends SelectItemCode>(
     closePopupAfterChange = true,
     children,
     popupElementWrapper,
+    popupScrollableElementRef,
     placeholder,
     placeholderStyles,
     placeholderColor = "definitions.Select.Placeholder.color",
@@ -127,6 +129,7 @@ function Select<CODE extends SelectItemCode>(
 
   const popupElement = (
     <SelectPopupComponent
+      ref={popupScrollableElementRef}
       selectedItemCode={selectedItemCode}
       loading={loading}
       popupTopElement={popupTopElement}
