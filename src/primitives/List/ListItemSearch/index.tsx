@@ -1,15 +1,23 @@
 import React from "react";
 
 import Input, { InputInterface } from "../../Input/Input";
-import { InputContainerSize } from "../../InputContainer/enums";
 import { backgroundColor, emptyBoxShadow, hover, focus } from "../../../styles";
+import { ListItemSize } from "../ListItem/enum";
+import { InputContainerSize } from "../../InputContainer/enums";
 
-export interface ListItemSearchInterface extends InputInterface {
+export interface ListItemSearchInterface extends Omit<InputInterface, "size"> {
+  size?: ListItemSize;
   withDivider?: boolean;
 }
 
+const matchListItemSizesAndInputContainerSizes: Record<ListItemSize, InputContainerSize> = {
+  [ListItemSize.SMALL]: InputContainerSize.MEDIUM,
+  [ListItemSize.MEDIUM]: InputContainerSize.LARGE,
+  [ListItemSize.LARGE]: InputContainerSize.LARGE,
+};
+
 function ListItemSearch({
-  size = InputContainerSize.LARGE,
+  size = ListItemSize.MEDIUM,
   rightIcon = "search-big",
   styles,
   ...props
@@ -18,7 +26,7 @@ function ListItemSearch({
     <>
       <Input
         {...props}
-        size={size}
+        size={matchListItemSizesAndInputContainerSizes[size]}
         rightIcon={rightIcon}
         styles={[
           backgroundColor("definitions.ListItemSearch.backgroundColor"),

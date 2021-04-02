@@ -29,12 +29,10 @@ import {
 } from "../../../index";
 import SelectItem from "../SelectItem";
 import Select from "../index";
-import { InputContainerSize } from "../../InputContainer/enums";
 import ListItemsDivider from "../../List/ListItemsDivider";
 import ListItemSearch from "../../List/ListItemSearch";
 import ListItemEmpty from "../../List/ListItemEmpty";
 import Icon from "../../Icon";
-import { range } from "ramda";
 
 export default {
   title: "Select",
@@ -52,7 +50,7 @@ export default {
     offset: numbersControl(0, 50, 1),
     popupWidth: selectControl(["auto", 100, 200, "50%", "100%"]),
     title: textControl(),
-    size: selectControl(Object.values(InputContainerSize)),
+    size: selectControl(Object.values(ListItemSize)),
     tip: textControl(),
     error: booleanControl(),
     success: booleanControl(),
@@ -62,13 +60,13 @@ export default {
 
 function getItems() {
   return [
-    <SelectItem key={0} code={null} size={ListItemSize.MEDIUM}>
+    <SelectItem key={0} code={null}>
       Элемент 0
     </SelectItem>,
-    <SelectItem key={1} leftContent="clock-deadline" code={1} size={ListItemSize.MEDIUM}>
+    <SelectItem key={1} leftContent="clock-deadline" code={1}>
       Элемент 1
     </SelectItem>,
-    <SelectItem key={2} code={2} size={ListItemSize.MEDIUM}>
+    <SelectItem key={2} code={2}>
       Элемент 2
     </SelectItem>,
   ];
@@ -84,7 +82,7 @@ const Template: Story<SelectInterface<string>> = (props) => {
 
   const popupTopElement = (
     <>
-      <ListItemSearch placeholder="Количество элементов" value={search} onChange={setSearch} />
+      <ListItemSearch size={props.size} placeholder="Количество элементов" value={search} onChange={setSearch} />
       <ListItemsDivider />
     </>
   );
@@ -130,6 +128,6 @@ export const Default = Template.bind({});
 
 Default.args = {
   primaryPlacement: "bottom-start",
-  size: InputContainerSize.MEDIUM,
+  size: ListItemSize.MEDIUM,
   placeholder: "на этом месте будут выбранные элементы",
 };

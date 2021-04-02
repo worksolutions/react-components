@@ -14,13 +14,17 @@ import { SelectItemCode, SelectItemInterface } from "./SelectItem";
 import { Colors } from "../../constants/colors";
 
 import { tooltipPopupStyles } from "../Tooltip";
-import { isNil } from "ramda";
+import { ListItemSize } from "../List/ListItem/enum";
+import { matchListItemSizesAndInputContainerSizes } from "../List/internal/sizeMatches";
 
 export type SelectInterface<CODE extends SelectItemCode> = Omit<
   PopupManagerInterface,
   "mode" | "closeOnClickOutside" | "popupElement" | "renderTriggerElement"
 > &
-  Omit<InputContainerInterface, "onClick" | "outerRef" | "children" | "rightIcon" | "leftIcon" | "leftIconStyles"> & {
+  Omit<
+    InputContainerInterface,
+    "onClick" | "outerRef" | "children" | "rightIcon" | "leftIcon" | "leftIconStyles" | "size"
+  > & {
     styles?: any;
     placeholder?: string;
     placeholderStyles?: any;
@@ -43,6 +47,7 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
     loading?: boolean;
     popupTopElement?: React.ReactNode;
     popupBottomElement?: React.ReactNode;
+    size?: ListItemSize;
     popupElementWrapper?: (child: JSX.Element) => JSX.Element;
     onChange: (newActiveCode: CODE, newSelected: boolean) => void;
   };
@@ -75,6 +80,7 @@ function Select<CODE extends SelectItemCode>(
     hasArrow,
     loading,
     styles,
+    size = ListItemSize.MEDIUM,
     onChange,
     onChangeOpened,
     ...inputContainerProps
@@ -88,12 +94,10 @@ function Select<CODE extends SelectItemCode>(
     popupManagerRef.current.hide();
   }, [selectedItemCode]);
 
-  const childrenElements = React.Children.toArray(children);
+  const childrenElements = React.Children.toArray(children) as React.ReactElement<SelectItemInterface<CODE>>[];
 
   const selectedElement = React.useMemo(() => {
-    const importantElements = (childrenElements as React.ReactElement<SelectItemInterface<CODE>>[]).filter(
-      checkIsSelectItem,
-    );
+    const importantElements = childrenElements.filter(checkIsSelectItem);
 
     const foundElement =
       additionalSelectedElements[selectedItemCode!] ||
@@ -106,6 +110,7 @@ function Select<CODE extends SelectItemCode>(
       children: selectedElementWrapper ? selectedElementWrapper(props.children, selectedItemCode) : props.children,
       hoverable: false,
       selected: false,
+      size: props.size || size,
       styles: [props.styles, selectedElementStyles],
       mainTextStyles: [props.mainTextStyles, selectedElementTextStyles],
       onClick: undefined,
@@ -115,6 +120,7 @@ function Select<CODE extends SelectItemCode>(
     additionalSelectedElements,
     selectedItemCode,
     selectedElementWrapper,
+    size,
     selectedElementStyles,
     selectedElementTextStyles,
   ]);
@@ -127,7 +133,7 @@ function Select<CODE extends SelectItemCode>(
       popupBottomElement={popupBottomElement}
       onChange={onChange}
     >
-      {childrenElements}
+      {childrenElements.map((element) => React.cloneElement(element, { size: element.props.size || size }))}
     </SelectPopupComponent>
   );
 
@@ -145,6 +151,7 @@ function Select<CODE extends SelectItemCode>(
       renderTriggerElement={({ initRef, visible }) => (
         <InputContainer
           {...inputContainerProps}
+          size={matchListItemSizesAndInputContainerSizes[size]}
           outerRef={initRef}
           rightIcon={
             <Icon
