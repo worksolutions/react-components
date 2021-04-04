@@ -66,6 +66,7 @@ export const flexGrow = styles.flexGrow;
 export const flexBasis = styles.flexBasis;
 export const flexShrink = styles.flexShrink;
 export const flexColumn = styles.flexColumn;
+export const flexRow = styles.flexRow;
 export const jc = styles.jc;
 export const alignSelf = styles.alignSelf;
 export const alignContent = styles.alignContent;
