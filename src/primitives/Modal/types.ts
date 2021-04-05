@@ -25,5 +25,5 @@ export interface ModalInterface {
   onSecondaryAction?: (close: () => void) => void;
   children?: React.FC<{ close: () => void }> | React.ReactNode;
   actionsBlock?: ((close: () => void) => React.ReactNode) | React.ReactNode;
-  wrappedContent?: (close: () => void) => React.ReactNode;
+  wrappedContent?: React.FC<{ open: () => void }>;
 }

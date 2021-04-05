@@ -1,6 +1,5 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { isNil, last } from "ramda";
 
 import {
   ai,
@@ -18,7 +17,6 @@ import {
   marginLeft,
   marginTop,
   maxWidth,
-  padding,
   paddingBottom,
   paddingTop,
   position,
@@ -26,7 +24,6 @@ import {
   textAlign,
   top,
   verticalAlign,
-  verticalPadding,
   width,
 } from "../../styles";
 
@@ -36,8 +33,9 @@ import HandleClickOutside from "../HandleClickOutside";
 import Wrapper from "../Wrapper";
 import { elevation32 } from "../../constants/shadows";
 
-import { activeModal } from "./libs";
+import { getClickOutsideIsEnabled } from "./internal/libs";
 import { ModalInterface, ModalSize } from "./types";
+import { getActionButton } from "./internal/getActionButton";
 
 const modalWidthBySize: Record<ModalSize, string | number> = {
   [ModalSize.FULL_WIDTH]: "100%",
@@ -73,33 +71,23 @@ function ModalContent({
   onPrimaryAction,
   onSecondaryAction,
 }: ModalContentInterface) {
-  const primaryAction = primaryActionText && onPrimaryAction && (
-    <Button
-      size={ButtonSize.LARGE}
-      type={ButtonType.PRIMARY}
-      loadingRight={primaryActionLoading}
-      onClick={() => onPrimaryAction(close)}
-    >
-      {primaryActionText}
-    </Button>
-  );
+  const primaryAction = getActionButton({
+    text: primaryActionText,
+    type: ButtonType.PRIMARY,
+    loading: primaryActionLoading,
+    close,
+    handleClick: onPrimaryAction,
+  });
 
-  const secondaryAction = secondaryActionText && onSecondaryAction && (
-    <Button
-      size={ButtonSize.LARGE}
-      type={ButtonType.SECONDARY}
-      loadingRight={secondaryActionLoading}
-      onClick={() => onSecondaryAction(close)}
-    >
-      {secondaryActionText}
-    </Button>
-  );
+  const secondaryAction = getActionButton({
+    text: secondaryActionText,
+    type: ButtonType.SECONDARY,
+    loading: secondaryActionLoading,
+    close,
+    handleClick: onSecondaryAction,
+  });
 
-  const clickOutsideEnabled = isNil(closeOnBackdropClick)
-    ? true
-    : closeOnBackdropClick
-    ? last(activeModal.activeModals) === id
-    : false;
+  const clickOutsideEnabled = getClickOutsideIsEnabled(id, closeOnBackdropClick);
 
   const titleElement = title && (
     <Typography
@@ -140,6 +128,7 @@ function ModalContent({
       {subTitle}
     </Typography>
   );
+
   return (
     <HandleClickOutside enabled={clickOutsideEnabled} onClickOutside={close}>
       {(ref) => (

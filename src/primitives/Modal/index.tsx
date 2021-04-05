@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { isNil, without } from "ramda";
-import { observer } from "mobx-react-lite";
 import { useBoolean, useEffectSkipFirst } from "@worksolutions/react-utils";
 import { isFunction } from "@worksolutions/utils";
+import { observer } from "mobx-react-lite";
 
 import {
   backgroundColor,
@@ -25,12 +25,12 @@ import Wrapper from "../Wrapper";
 
 import ModalContent from "./ModalContent";
 import { zIndex_modal } from "../../constants/zIndexes";
-import { activeModal } from "./libs";
+import { activeModal } from "./internal/libs";
 import { ModalInterface } from "./types";
 
-export function ModalComponent({
+function Modal({
   opened: openedProp,
-  wrappedContent,
+  wrappedContent: WrapperComponent,
   rootElement,
   onClose,
   children: Children,
@@ -41,7 +41,7 @@ export function ModalComponent({
     openedProp ? open() : close();
   }, [openedProp]);
 
-  const root = React.useMemo(() => (opened ? rootElement || ModalComponent._rootElement : null), [opened, rootElement]);
+  const root = React.useMemo(() => (opened ? rootElement || Modal._rootElement : null), [opened, rootElement]);
 
   const modalId = React.useMemo(() => activeModal.getModalId(), []);
 
@@ -60,7 +60,7 @@ export function ModalComponent({
 
   return (
     <>
-      {wrappedContent && wrappedContent(open)}
+      {WrapperComponent && <WrapperComponent open={open} />}
       {opened &&
         ReactDOM.createPortal(
           <Wrapper
@@ -88,10 +88,15 @@ export function ModalComponent({
   );
 }
 
-ModalComponent._rootElement = document.body;
+Modal._rootElement = document.body;
 
-ModalComponent.setRootElement = function (element: HTMLElement) {
-  ModalComponent._rootElement = element;
+Modal.setRootElement = function (element: HTMLElement) {
+  Modal._rootElement = element;
 };
 
-export default observer(ModalComponent);
+const WrapperModal = observer(Modal);
+
+// @ts-ignore
+WrapperModal.original = Modal;
+
+export default WrapperModal;
