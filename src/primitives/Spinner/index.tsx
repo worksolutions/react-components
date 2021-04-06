@@ -65,7 +65,7 @@ const StyledSpinner = styled.div.attrs({ className: "spinner" })<Required<Spinne
 `;
 
 const Spinner = function ({
-  size = SpinnerSize.large,
+  size = SpinnerSize.medium,
   styles,
   withBackplate,
   color = "definitions.Spinner.color",
