@@ -19,10 +19,6 @@ export const defaultTheme: Theme = {
         color: "gray-blue/05",
       },
     },
-    LoadingProvider: {
-      Spinner: { color: "gray-blue/09" },
-      Backplate: { backgroundColor: "white" },
-    },
     ButtonPrimary: {
       color: "white",
       backgroundColor: "blue/09",
@@ -220,6 +216,10 @@ export const defaultTheme: Theme = {
       ArrowButton: {
         backgroundColor: "white",
       },
+    },
+    Spinner: {
+      color: "gray-blue/09",
+      backplateColor: "white",
     },
   },
 };

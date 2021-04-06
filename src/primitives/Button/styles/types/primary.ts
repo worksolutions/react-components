@@ -17,7 +17,7 @@ export const primaryStyle = [
   child(marginRight(8), ".icon-left"),
   child(marginLeft(8), ".icon-right"),
   child(fillColor("definitions.ButtonPrimary.iconColor"), ".icon use"),
-  child(makeSpinnerColorStyle("definitions.ButtonPrimary.iconColor"), ".loader"),
+  child(makeSpinnerColorStyle("definitions.ButtonPrimary.iconColor"), ".spinner"),
 ];
 export const primaryHover = [backgroundColor("definitions.ButtonPrimary.hoverBackgroundColor")];
 export const primaryFocus = [boxShadow([0, 0, 0, 2, "definitions.ButtonPrimary.focusBorderColor"])];

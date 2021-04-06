@@ -23,14 +23,6 @@ export interface Theme extends BaseTheme<Colors> {
         color: Colors;
       };
     };
-    LoadingProvider: {
-      Spinner: {
-        color: Colors;
-      };
-      Backplate: {
-        backgroundColor: Colors;
-      };
-    };
     ButtonPrimary: {
       color: Colors;
       backgroundColor: Colors;
@@ -225,6 +217,10 @@ export interface Theme extends BaseTheme<Colors> {
       ArrowButton: {
         backgroundColor: Colors;
       };
+    };
+    Spinner: {
+      color: Colors;
+      backplateColor: Colors;
     };
   };
 }

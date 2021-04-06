@@ -18,7 +18,7 @@ export const secondaryStyle = [
   child(marginRight(8), ".icon-left"),
   child(marginLeft(8), ".icon-right"),
   child(fillColor("definitions.ButtonSecondary.iconColor"), ".icon use"),
-  child(makeSpinnerColorStyle("definitions.ButtonSecondary.iconColor"), ".loader"),
+  child(makeSpinnerColorStyle("definitions.ButtonSecondary.iconColor"), ".spinner"),
 ];
 export const secondaryHover = [backgroundColor("definitions.ButtonSecondary.hoverBackgroundColor")];
 export const secondaryFocus = [boxShadow([0, 0, 0, 2, "definitions.ButtonSecondary.focusBorderColor"])];
@@ -27,5 +27,5 @@ export const secondaryDisabled = [
   color("definitions.ButtonSecondary.disabledTextAndIconColor"),
   boxShadow([0, 0, 0, 1, "definitions.ButtonSecondary.disabledBorderColor"]),
   child(fillColor("definitions.ButtonSecondary.disabledTextAndIconColor"), ".icon use"),
-  child(makeSpinnerColorStyle("definitions.ButtonSecondary.disabledTextAndIconColor"), ".loader"),
+  child(makeSpinnerColorStyle("definitions.ButtonSecondary.disabledTextAndIconColor"), ".spinner"),
 ];

@@ -15,7 +15,7 @@ import {
 
 import { TypographyTypes } from "../Typography";
 import Icon, { InternalIcons } from "../Icon";
-import Spinner from "../Spinner";
+import Spinner, { SpinnerSize } from "../Spinner";
 
 import { buttonStylesMap } from "./styles";
 import { ButtonSize, ButtonType } from "./types";
@@ -74,7 +74,7 @@ function makeIcon(
 ) {
   const resultClassName = `icon ${className}`;
 
-  if (loading) return <Spinner styles={styles} className={resultClassName} />;
+  if (loading) return <Spinner styles={styles} size={SpinnerSize.medium} className={resultClassName} />;
   if (!icon) return null;
 
   return <Icon className={resultClassName} styles={styles} icon={icon} width={width} height={height} />;

@@ -18,7 +18,7 @@ export const ghostStyle = [
   child(marginRight(8), ".icon-left"),
   child(marginLeft(8), ".icon-right"),
   child(fillColor("definitions.ButtonGhost.iconColor"), ".icon use"),
-  child(makeSpinnerColorStyle("definitions.ButtonGhost.iconColor"), ".loader"),
+  child(makeSpinnerColorStyle("definitions.ButtonGhost.iconColor"), ".spinner"),
 ];
 export const ghostHover = [
   backgroundColor("definitions.ButtonGhost.hoverBackgroundColor"),
@@ -29,5 +29,5 @@ export const ghostActive = [backgroundColor("definitions.ButtonGhost.activeBackg
 export const ghostDisabled = [
   color("definitions.ButtonGhost.disabledColor"),
   child(fillColor("definitions.ButtonGhost.disabledColor"), ".icon use"),
-  child(makeSpinnerColorStyle("definitions.ButtonGhost.disabledColor"), ".loader"),
+  child(makeSpinnerColorStyle("definitions.ButtonGhost.disabledColor"), ".spinner"),
 ];
