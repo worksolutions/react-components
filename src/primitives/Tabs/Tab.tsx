@@ -11,12 +11,12 @@ import {
   disableOutline,
   flex,
   flexColumn,
+  horizontalMargin,
   horizontalPadding,
   hover,
   padding,
   pointer,
   transition,
-  verticalPadding,
 } from "../../styles";
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
@@ -37,7 +37,7 @@ function Tab({ active, title, onClick }: TabItemInterface) {
       disabled={active}
       styles={[
         disableOutline,
-        verticalPadding(0),
+        padding(0),
         horizontalPadding(tabHorizontalPadding),
         backgroundColor("definitions.Tabs.Tab.backgroundColor"),
         flex,

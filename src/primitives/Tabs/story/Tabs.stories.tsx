@@ -9,7 +9,7 @@ import Tab from "../Tab";
 
 export default {
   title: "Tabs",
-  component: Tabs,
+  component: Tabs.type,
 };
 
 const Template: Story<TabsInterface> = (props) => {
@@ -22,11 +22,7 @@ const Template: Story<TabsInterface> = (props) => {
           {
             content: () => <div>Контент второго таба</div>,
             title: "Текст",
-            tabItem: (props) => (
-              <Wrapper className="test" key={props.title}>
-                <Tab {...props} />
-              </Wrapper>
-            ),
+            tabItem: (props) => <Tab {...props} />,
           },
           { content: () => <div />, title: "Статьи по теме" },
         ]}

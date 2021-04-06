@@ -50,7 +50,7 @@ const paddingBySize: Record<
 };
 
 function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onChange }: RadioGroupInterface<string>) {
-  const { ref, widths } = useChildrenWidthDetector();
+  const { initRef, widths } = useChildrenWidthDetector();
 
   const paddingValue = paddingBySize[size];
 
@@ -76,7 +76,7 @@ function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onCh
       ]}
     >
       <ActiveBackplate activeIndex={activeIndex} activeIndexInWidthsArray={activeIndexInWidthsArray} widths={widths} />
-      <Wrapper ref={ref} styles={[flex, zIndex(1)]}>
+      <Wrapper ref={initRef} styles={[flex, zIndex(1)]}>
         {items.map((item, index) => {
           const isActive = activeIndex === index;
           return (
