@@ -88,6 +88,7 @@ export { default as Resizer } from "./primitives/Resizer";
 export * from "./primitives/Resizer";
 
 export { default as Spinner } from "./primitives/Spinner";
+export * from "./primitives/Spinner";
 
 export { default as Tabs } from "./primitives/Tabs";
 export * from "./primitives/Tabs";

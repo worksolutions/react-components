@@ -4,7 +4,7 @@ import List from "../../../List";
 import { SelectItemCode, SelectItemInterface } from "../../SelectItem";
 import { maxHeight, overflow } from "../../../../styles";
 
-interface SelectPopupComponentInterface<CODE extends SelectItemCode> {
+interface SelectPopupListInterface<CODE extends SelectItemCode> {
   children: ReturnType<ReactChildren["toArray"]>;
   selectedItemCode: CODE;
   loading?: boolean;
@@ -13,7 +13,7 @@ interface SelectPopupComponentInterface<CODE extends SelectItemCode> {
   onChange: (newSelectedCode: CODE, newSelected: boolean) => void;
 }
 
-function SelectPopupComponent<CODE extends SelectItemCode>(
+function SelectPopupList<CODE extends SelectItemCode>(
   {
     children,
     selectedItemCode,
@@ -21,7 +21,7 @@ function SelectPopupComponent<CODE extends SelectItemCode>(
     popupTopElement,
     popupBottomElement,
     onChange,
-  }: SelectPopupComponentInterface<CODE>,
+  }: SelectPopupListInterface<CODE>,
   scrollableElementRef: React.Ref<HTMLElement>,
 ) {
   const handleClickFabric = React.useCallback(
@@ -39,7 +39,7 @@ function SelectPopupComponent<CODE extends SelectItemCode>(
       listWrapperStyles={[maxHeight("inherit"), overflow("auto")]}
     >
       {(children as React.ReactElement<SelectItemInterface<CODE>>[]).map((element) => {
-        if (!checkIsSelectItem(element)) return element;
+        if (!detectIsSelectItem(element)) return element;
         const selected = selectedItemCode === element.props.code;
         return React.cloneElement(element, {
           key: element.props.code,
@@ -52,11 +52,11 @@ function SelectPopupComponent<CODE extends SelectItemCode>(
   );
 }
 
-export default React.memo(React.forwardRef(SelectPopupComponent)) as <CODE extends SelectItemCode>(
-  props: SelectPopupComponentInterface<CODE> & { ref?: React.Ref<HTMLElement> },
+export default React.memo(React.forwardRef(SelectPopupList)) as <CODE extends SelectItemCode>(
+  props: SelectPopupListInterface<CODE> & { ref?: React.Ref<HTMLElement> },
 ) => JSX.Element;
 
-export function checkIsSelectItem(element: React.ReactElement<SelectItemInterface<any>>) {
+export function detectIsSelectItem(element: React.ReactElement<SelectItemInterface<any>>) {
   if (!element.hasOwnProperty("props")) return false;
   if (!element.props.hasOwnProperty("code")) return false;
 

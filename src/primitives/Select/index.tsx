@@ -9,7 +9,7 @@ import InputContainer, { InputContainerInterface } from "../InputContainer";
 
 import { paddingLeft, transform, transition, verticalPadding } from "../../styles";
 import { duration160 } from "../../constants/durations";
-import SelectPopupComponent, { checkIsSelectItem } from "./internal/SelectPopupComponent";
+import SelectPopupList, { detectIsSelectItem } from "./internal/SelectPopupList";
 import { SelectItemCode, SelectItemInterface } from "./SelectItem";
 import { Colors } from "../../constants/colors";
 
@@ -99,7 +99,7 @@ function Select<CODE extends SelectItemCode>(
   const childrenElements = React.Children.toArray(children) as React.ReactElement<SelectItemInterface<CODE>>[];
 
   const selectedElement = React.useMemo(() => {
-    const importantElements = childrenElements.filter(checkIsSelectItem);
+    const importantElements = childrenElements.filter(detectIsSelectItem);
 
     const foundElement =
       additionalSelectedElements[selectedItemCode!] ||
@@ -128,7 +128,7 @@ function Select<CODE extends SelectItemCode>(
   ]);
 
   const popupElement = (
-    <SelectPopupComponent
+    <SelectPopupList
       ref={popupScrollableElementRef}
       selectedItemCode={selectedItemCode}
       loading={loading}
@@ -137,7 +137,7 @@ function Select<CODE extends SelectItemCode>(
       onChange={onChange}
     >
       {childrenElements.map((element) => React.cloneElement(element, { size: element.props.size || size }))}
-    </SelectPopupComponent>
+    </SelectPopupList>
   );
 
   return (
