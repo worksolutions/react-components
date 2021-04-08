@@ -10,7 +10,8 @@ import Avatar from "../../Avatar";
 
 export default {
   title: "List",
-  component: List.type,
+  // @ts-ignore
+  component: List.type.render,
   argTypes: {
     itemSize: selectControl(Object.values(ListItemSize)),
   },

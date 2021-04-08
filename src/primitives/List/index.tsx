@@ -10,6 +10,8 @@ import {
   margin,
   marginBottom,
   marginTop,
+  maxHeight,
+  overflow,
   padding,
   verticalMargin,
 } from "../../styles";
@@ -35,7 +37,7 @@ function List(
       {topElement}
       <LoadingProvider>
         {(ref) => (
-          <Wrapper ref={ref} styles={[margin(4), listWrapperStyles]}>
+          <Wrapper ref={ref} styles={[margin(4), overflow("hidden"), flex, flexColumn, listWrapperStyles]}>
             <Wrapper
               ref={listElementRef}
               styles={[
@@ -45,6 +47,8 @@ function List(
                 child(verticalMargin(2)),
                 firstChild(marginTop(0)),
                 lastChild(marginBottom(0)),
+                maxHeight("inherit"),
+                overflow("auto"),
                 listStyles,
               ]}
             >

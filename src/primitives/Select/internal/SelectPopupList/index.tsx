@@ -2,7 +2,7 @@ import React, { ReactChildren } from "react";
 
 import List from "../../../List";
 import { SelectItemCode, SelectItemInterface } from "../../SelectItem";
-import { maxHeight, overflow } from "../../../../styles";
+import { maxHeight } from "../../../../styles";
 
 interface SelectPopupListInterface<CODE extends SelectItemCode> {
   children: ReturnType<ReactChildren["toArray"]>;
@@ -36,7 +36,6 @@ function SelectPopupList<CODE extends SelectItemCode>(
       topElement={popupTopElement}
       bottomElement={popupBottomElement}
       outerStyles={maxHeight("inherit")}
-      listWrapperStyles={[maxHeight("inherit"), overflow("auto")]}
     >
       {(children as React.ReactElement<SelectItemInterface<CODE>>[]).map((element) => {
         if (!detectIsSelectItem(element)) return element;
