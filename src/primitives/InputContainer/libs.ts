@@ -108,9 +108,7 @@ const cssAnimateProperties = [
 
 const transitionStyle = transition(cssAnimateProperties.map((val) => `${val} ${duration160}`).join(","));
 
-export const createDefaultInputStyles = (
-  placeholderColor: IncomeColorVariant<Colors> = "definitions.InputContainer.placeholderColor",
-) => [
+export const createDefaultInputStyles = (placeholderColor: IncomeColorVariant<Colors>) => [
   padding(0),
   TypographyTypes["body-regular"],
   transitionStyle,

@@ -3,19 +3,21 @@ import { stopPropagation } from "@worksolutions/react-utils";
 
 import {
   ai,
+  backgroundColor,
   borderNone,
   borderRadius,
   child,
   disableOutline,
+  fillColor,
   flex,
+  horizontalPadding,
   hover,
   maxWidth,
   padding,
+  paddingLeft,
   paddingRight,
   pointer,
   transition,
-  backgroundColor,
-  fillColor,
 } from "../../styles";
 
 import Typography from "../Typography";
@@ -27,27 +29,29 @@ export interface TokenInterface {
   title: string | number;
   styles?: any;
   canRemove?: boolean;
-  remove?: () => void;
+  onRemove?: () => void;
 }
 
-function Token({ title, styles, remove, canRemove }: TokenInterface) {
+function Token({ title, styles, onRemove, canRemove }: TokenInterface) {
   return (
     <Wrapper
       styles={[
         maxWidth("100%"),
         flex,
         ai("center"),
-        padding("0 2px 0 8px"),
+        padding(0),
         backgroundColor("gray-blue/02"),
         disableOutline,
         borderNone,
         borderRadius(4),
         child(transition(`fill ${duration160}`), ".icon use"),
-        canRemove ? [pointer, hover(fillColor("gray-blue/05"), ".icon use")] : [paddingRight(8)],
+        canRemove
+          ? [pointer, paddingLeft(8), paddingRight(2), hover(fillColor("gray-blue/05"), ".icon use")]
+          : [horizontalPadding(8)],
         styles,
       ]}
       as="button"
-      onClick={canRemove && stopPropagation(remove)}
+      onClick={canRemove && stopPropagation(onRemove)}
     >
       <Typography dots>{title}</Typography>
       {canRemove && <Icon className="icon" icon="cross-small" color="gray-blue/07" />}

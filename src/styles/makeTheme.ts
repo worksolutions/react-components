@@ -162,7 +162,6 @@ export interface Theme extends BaseTheme<Colors> {
       leftIconColor: Colors;
       hoverBoxShadowColor: Colors;
       focusBoxShadowColor: Colors;
-      placeholderColor: Colors;
     };
     InputContainerVariantDefault: InputContainerVariantType;
     InputContainerVariantError: InputContainerVariantType;
@@ -225,6 +224,11 @@ export interface Theme extends BaseTheme<Colors> {
     Spinner: {
       color: Colors;
       backplateColor: Colors;
+    };
+    TokenList: {
+      Input: {
+        placeholderColor: Colors;
+      };
     };
   };
 }

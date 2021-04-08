@@ -141,7 +141,6 @@ export const defaultTheme: Theme = {
       leftIconColor: "gray-blue/05",
       hoverBoxShadowColor: "gray-blue/03",
       focusBoxShadowColor: "blue/05",
-      placeholderColor: "gray-blue/04",
     },
     InputContainerVariantDefault: {
       background: "gray-blue/01",
@@ -224,6 +223,11 @@ export const defaultTheme: Theme = {
     Spinner: {
       color: "gray-blue/09",
       backplateColor: "white",
+    },
+    TokenList: {
+      Input: {
+        placeholderColor: "gray-blue/04",
+      },
     },
   },
 };

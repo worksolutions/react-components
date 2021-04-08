@@ -10,7 +10,7 @@ export default {
 
 const Template: Story<TokenInterface> = (props) => {
   const [removeToken, setRemoveToken] = useState(true);
-  return removeToken ? <Token {...props} remove={() => setRemoveToken(false)} /> : <div>Token remove</div>;
+  return removeToken ? <Token {...props} onRemove={() => setRemoveToken(false)} /> : <div>Token remove</div>;
 };
 
 export const Default = Template.bind({});

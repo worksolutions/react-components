@@ -62,7 +62,7 @@ function TokenList(
               styles={[marginRight(4), marginBottom(4)]}
               title={title}
               canRemove={canRemove}
-              remove={() => onRemoveToken(code)}
+              onRemove={() => onRemoveToken(code)}
             />
           ))}
           {canCreate && (
@@ -70,7 +70,7 @@ function TokenList(
               <Wrapper
                 as="input"
                 placeholder={items.length === 0 ? placeholder : ""}
-                styles={createDefaultInputStyles()}
+                styles={createDefaultInputStyles("definitions.TokenList.Input.placeholderColor")}
                 value={value}
                 onChange={eventValue(setValue)}
               />
