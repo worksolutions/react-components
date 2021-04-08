@@ -139,6 +139,10 @@ export * from "./primitives/Select/SelectItem";
 
 export { default as Toast } from "./primitives/Toast";
 export * from "./primitives/Toast";
+
 export { default as ToastReceiver } from "./components/ToastReceiver";
 export * from "./components/ToastReceiver";
 export { default as ToastsController } from "./components/ToastReceiver/ToastsController";
+
+export { default as TransitionSwapSlides } from "./components/TransitionSwapSlides";
+export * from "./components/TransitionSwapSlides";

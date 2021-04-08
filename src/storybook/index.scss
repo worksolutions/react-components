@@ -1,10 +1,7 @@
 .ws-box {
     @import "~normalize.css/normalize.css";
-
-    & {
-        @import "../css/common";
-        @import "../css/IBMPlexFont";
-    }
-
+    @import "../css/common";
+    @import "../css/IBMPlexFont";
     @import "../css/spinner";
+    @import "../css/slide";
 }

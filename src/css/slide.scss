@@ -1,0 +1,35 @@
+@keyframes slide-center-to-right-keyframes {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@keyframes slide-center-to-left-keyframes {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.slide-center-to-right {
+  animation-name: slide-center-to-right-keyframes;
+}
+
+.slide-center-to-right-with-rollback {
+  animation-fill-mode: forwards;
+  animation-name: slide-center-to-right-keyframes;
+}
+
+.slide-center-to-left {
+  animation-name: slide-center-to-left-keyframes;
+}
+
+.slide-center-to-left-with-rollback {
+  animation-fill-mode: forwards;
+  animation-name: slide-center-to-left-keyframes;
+}
