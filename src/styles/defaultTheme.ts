@@ -88,6 +88,10 @@ export const defaultTheme: Theme = {
       Placeholder: {
         color: "gray-blue/05",
       },
+      Popup: {
+        backgroundColor: "white",
+        borderColor: "gray-blue/02",
+      },
     },
     Tooltip: {
       shadowColor: "gray-blue/02",

@@ -7,15 +7,23 @@ import PopupManager, { PopupManagerInterface, PopupManagerMode, PopupManagerRef 
 import Icon, { InternalIcons } from "../Icon";
 import InputContainer, { InputContainerInterface } from "../InputContainer";
 
-import { paddingLeft, transform, transition, verticalPadding } from "../../styles";
+import {
+  backgroundColor,
+  borderRadius,
+  boxShadow,
+  paddingLeft,
+  transform,
+  transition,
+  verticalPadding,
+} from "../../styles";
 import { duration160 } from "../../constants/durations";
 import SelectPopupList, { detectIsSelectItem } from "./internal/SelectPopupList";
 import { SelectItemCode, SelectItemInterface } from "./SelectItem";
 import { Colors } from "../../constants/colors";
 
-import { tooltipPopupStyles } from "../Tooltip";
 import { ListItemSize } from "../List/ListItem/enum";
 import { matchListItemSizesAndInputContainerSizes } from "../List/internal/sizeMatches";
+import { elevation16Raw } from "../../constants/shadows";
 
 export type SelectInterface<CODE extends SelectItemCode> = Omit<
   PopupManagerInterface,
@@ -149,7 +157,12 @@ function Select<CODE extends SelectItemCode>(
       popupWidth={popupWidth}
       strategy={strategy}
       hasArrow={hasArrow}
-      popupStyles={[tooltipPopupStyles, popupStyles]}
+      popupStyles={[
+        backgroundColor("definitions.Select.Popup.backgroundColor"),
+        boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Select.Popup.borderColor"]),
+        borderRadius(4),
+        popupStyles,
+      ]}
       popupElement={popupElementWrapper ? popupElementWrapper(popupElement) : popupElement}
       renderTriggerElement={({ initRef, visible }) => (
         <InputContainer

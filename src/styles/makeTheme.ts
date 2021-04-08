@@ -142,6 +142,10 @@ export interface Theme extends BaseTheme<Colors> {
       Placeholder: {
         color: Colors;
       };
+      Popup: {
+        backgroundColor: Colors;
+        borderColor: Colors;
+      };
     };
     Tooltip: {
       textColor: Colors;

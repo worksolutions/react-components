@@ -142,6 +142,3 @@ export * from "./primitives/Toast";
 export { default as ToastReceiver } from "./components/ToastReceiver";
 export * from "./components/ToastReceiver";
 export { default as ToastsController } from "./components/ToastReceiver/ToastsController";
-
-export { hintPopupStyles } from "./primitives/Tooltip/internal/popupStyles";
-export { tooltipPopupStyles } from "./primitives/Tooltip/internal/popupStyles";
