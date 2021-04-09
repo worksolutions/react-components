@@ -33,7 +33,7 @@ const TransitionSlideTemplate: Story<TransitionSwapSlidesInterface> = (props) =>
     <Wrapper>
       <TransitionSlideComponent
         {...props}
-        animationTimeout={500}
+        animationTimeout={1500}
         styles={[border(1, "orange/04"), width(500), height(350)]}
         centerElement={
           <Wrapper styles={[fullWidth, fullHeight, backgroundColor("blue/04"), padding(8)]}>

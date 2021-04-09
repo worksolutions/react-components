@@ -10,7 +10,7 @@ import { animationDuration, child, flex, left, minHeight, minWidth, overflow, po
 export interface TransitionSwapSlidesControllerInterface {
   toRight: () => void;
   toLeft: () => void;
-  reset: () => void;
+  reset: (callback?: () => void) => void;
 }
 
 export interface TransitionSwapSlidesInterface {
@@ -31,20 +31,48 @@ function TransitionSwapSlides(
   ref: React.Ref<TransitionSwapSlidesControllerInterface>,
 ) {
   const [animationState, setAnimationState] = React.useState<AnimationState>(null);
+  const resetDataRef = React.useRef<{ callback?: () => void } | null>(null);
+  const enteredRef = React.useRef(true);
 
   React.useEffect(() => {
     if (!ref) return;
     const controller: TransitionSwapSlidesControllerInterface = {
-      toRight: () => setAnimationState("center-to-right"),
-      toLeft: () => setAnimationState("center-to-left"),
-      reset: () => setAnimationState(null),
+      toRight: () => {
+        setAnimationState("center-to-right");
+        resetDataRef.current = null;
+      },
+      toLeft: () => {
+        resetDataRef.current = null;
+        setAnimationState("center-to-left");
+      },
+      reset: (callback) => {
+        if (enteredRef.current) {
+          enteredRef.current = false;
+          setAnimationState(null);
+          if (callback) callback();
+          return;
+        }
+
+        resetDataRef.current = { callback };
+      },
     };
 
     provideRef(ref)(controller);
   }, [ref]);
 
+  const onEnter = React.useCallback(() => {
+    enteredRef.current = false;
+  }, []);
+
+  const onEntered = React.useCallback(() => {
+    enteredRef.current = true;
+    if (!resetDataRef.current) return;
+    setAnimationState(null);
+    if (resetDataRef.current.callback) resetDataRef.current.callback();
+  }, []);
+
   return (
-    <CSSTransition in={animationState !== null} timeout={animationTimeout}>
+    <CSSTransition in={animationState !== null} onEnter={onEnter} onEntered={onEntered} timeout={animationTimeout}>
       {(status) => {
         const classNameForTransitionGroup = getClassNameForTransitionGroup(animationState, status);
         const { leftElement, rightElement, wrapperLeft } = getOverflowElements(animationState, overflowElement);
