@@ -7,6 +7,7 @@ import TransitionSlideComponent, {
 } from "../index";
 import Wrapper from "../../../primitives/Wrapper";
 import Button from "../../../primitives/Button";
+import Typography from "../../../primitives/Typography";
 import {
   backgroundColor,
   border,
@@ -17,6 +18,7 @@ import {
   height,
   marginRight,
   marginTop,
+  padding,
   width,
 } from "../../../styles";
 
@@ -33,8 +35,20 @@ const TransitionSlideTemplate: Story<TransitionSwapSlidesInterface> = (props) =>
         {...props}
         animationTimeout={500}
         styles={[border(1, "orange/04"), width(500), height(350)]}
-        centerElement={<Wrapper styles={[fullWidth, fullHeight, backgroundColor("blue/04")]} />}
-        overflowElement={<Wrapper styles={[fullWidth, fullHeight, backgroundColor("green/04")]} />}
+        centerElement={
+          <Wrapper styles={[fullWidth, fullHeight, backgroundColor("blue/04"), padding(8)]}>
+            <Typography type="h2-bold" color="white">
+              Main
+            </Typography>
+          </Wrapper>
+        }
+        overflowElement={
+          <Wrapper styles={[fullWidth, fullHeight, backgroundColor("green/04"), padding(8)]}>
+            <Typography type="h2-bold" color="white">
+              Overflow
+            </Typography>
+          </Wrapper>
+        }
         ref={setRef}
       />
       {ref && (

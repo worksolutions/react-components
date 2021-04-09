@@ -5,7 +5,7 @@ import { CSSTransition } from "react-transition-group";
 import Wrapper from "../../primitives/Wrapper";
 
 import { AnimationState, getClassNameForTransitionGroup } from "./internal/libs";
-import { animationDuration, child, flex, left, minHeight, minWidth, nthChild, overflow, position } from "../../styles";
+import { animationDuration, child, flex, left, minHeight, minWidth, overflow, position } from "../../styles";
 
 export interface TransitionSwapSlidesControllerInterface {
   toRight: () => void;
@@ -18,6 +18,12 @@ export interface TransitionSwapSlidesInterface {
   centerElement: React.ReactNode;
   overflowElement: React.ReactNode;
   animationTimeout?: number;
+}
+
+function getOverflowElements(animationState: AnimationState, overflowElement: React.ReactNode) {
+  if (!overflowElement || !animationState) return { leftElement: null, rightElement: null, wrapperLeft: 0 };
+  if (animationState === "center-to-left") return { leftElement: null, rightElement: overflowElement, wrapperLeft: 0 };
+  return { leftElement: overflowElement, rightElement: null, wrapperLeft: "-100%" };
 }
 
 function TransitionSwapSlides(
@@ -41,6 +47,7 @@ function TransitionSwapSlides(
     <CSSTransition in={animationState !== null} timeout={animationTimeout}>
       {(status) => {
         const classNameForTransitionGroup = getClassNameForTransitionGroup(animationState, status);
+        const { leftElement, rightElement, wrapperLeft } = getOverflowElements(animationState, overflowElement);
         return (
           <Wrapper
             styles={[
@@ -52,14 +59,14 @@ function TransitionSwapSlides(
                 position("relative"),
                 minWidth("100%"),
                 minHeight("100%"),
-                left("-100%"),
+                left(wrapperLeft),
                 animationDuration(`${animationTimeout}ms`),
               ]),
             ]}
           >
-            <Wrapper className={classNameForTransitionGroup}>{overflowElement}</Wrapper>
+            {leftElement && <Wrapper className={classNameForTransitionGroup}>{leftElement}</Wrapper>}
             <Wrapper className={classNameForTransitionGroup}>{centerElement}</Wrapper>
-            <Wrapper className={classNameForTransitionGroup}>{overflowElement}</Wrapper>
+            {rightElement && <Wrapper className={classNameForTransitionGroup}>{rightElement}</Wrapper>}
           </Wrapper>
         );
       }}
