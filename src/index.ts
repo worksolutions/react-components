@@ -105,7 +105,6 @@ export { default as TypographyLink } from "./primitives/Typography/TypographyLin
 export * from "./primitives/Typography/TypographyLink";
 
 export { default as Wrapper } from "./primitives/Wrapper";
-export { expandedIcons } from "./primitives/Icon/list";
 
 export { default as Breadcrumbs } from "./primitives/Breadcrumbs";
 export * from "./primitives/Breadcrumbs";
