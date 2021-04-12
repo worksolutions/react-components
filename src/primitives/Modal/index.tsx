@@ -72,7 +72,7 @@ function Modal({
               bottom(0),
               right(0),
               overflow("overlay"),
-              backgroundColor(createAlphaColor("gray-blue/09", 122)),
+              backgroundColor(createAlphaColor("definitions.Modal.underModalBackgroundColor", 122)),
             ]}
           >
             <Wrapper styles={[position("absolute"), left(0), top(0), fullWidth, fullHeight, textAlign("center")]}>

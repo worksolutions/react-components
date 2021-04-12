@@ -1,5 +1,6 @@
-import Button, { ButtonSize, ButtonType } from "../../Button";
 import React from "react";
+
+import Button, { ButtonSize, ButtonType } from "../../Button";
 
 interface ActionButtonConfigInterface {
   text?: string;

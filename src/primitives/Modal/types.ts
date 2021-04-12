@@ -16,7 +16,9 @@ export interface ModalInterface {
   actionsInColumn?: boolean;
   preTitleContent?: React.ReactNode;
   title?: string;
+  titleStyles?: any;
   subTitle?: string;
+  subTitleStyles?: any;
   showCloseButton?: boolean;
   closeOnBackdropClick?: boolean;
   centerTitleAndSubtitle?: boolean;

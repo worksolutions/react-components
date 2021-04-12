@@ -230,6 +230,12 @@ export interface Theme extends BaseTheme<Colors> {
         placeholderColor: Colors;
       };
     };
+    Modal: {
+      underModalBackgroundColor: Colors;
+      subtitleTextColor: Colors;
+      borderColor: Colors;
+      backgroundColor: Colors;
+    };
   };
 }
 

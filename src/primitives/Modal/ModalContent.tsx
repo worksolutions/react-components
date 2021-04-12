@@ -55,7 +55,9 @@ function ModalContent({
   actionsBlock,
   size = ModalSize.SMALL,
   title,
+  titleStyles,
   subTitle,
+  subTitleStyles,
   close,
   children,
   primaryActionText,
@@ -98,6 +100,7 @@ function ModalContent({
         horizontalPadding(modalHorizontalPadding),
         paddingTop(16),
         !subTitle && paddingBottom(24),
+        titleStyles,
       ]}
     >
       {title}
@@ -106,7 +109,7 @@ function ModalContent({
 
   const closeButtonElement = showCloseButton && (
     <Button
-      styles={[position("absolute"), right(16), top(16)]}
+      styles={[position("absolute"), right(18), top(18)]}
       size={ButtonSize.SMALL}
       type={ButtonType.ICON}
       iconLeft="cross-big"
@@ -116,13 +119,14 @@ function ModalContent({
 
   const subTitleElement = subTitle && (
     <Typography
-      color="gray-blue/06"
+      color="definitions.Modal.subtitleTextColor"
       styles={[
         fullWidth,
         centerTitleAndSubtitle && textAlign("center"),
         horizontalPadding(modalHorizontalPadding),
         paddingTop(8),
         paddingBottom(24),
+        subTitleStyles,
       ]}
     >
       {subTitle}
@@ -136,12 +140,13 @@ function ModalContent({
           ref={ref}
           styles={[
             position("relative"),
-            display("inline-block"),
+            display("inline-flex"),
+            flexColumn,
             verticalAlign("middle"),
             maxWidth(`calc(100% - 80px)`),
             width(modalWidthBySize[size]),
-            border(1, "gray-blue/02"),
-            backgroundColor("white"),
+            border(1, "definitions.Modal.borderColor"),
+            backgroundColor("definitions.Modal.backgroundColor"),
             elevation32,
             borderRadius(8),
             textAlign("left"),

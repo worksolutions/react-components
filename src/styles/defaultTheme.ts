@@ -229,5 +229,11 @@ export const defaultTheme: Theme = {
         placeholderColor: "gray-blue/04",
       },
     },
+    Modal: {
+      underModalBackgroundColor: "gray-blue/09",
+      subtitleTextColor: "gray-blue/06",
+      borderColor: "gray-blue/02",
+      backgroundColor: "white",
+    },
   },
 };
