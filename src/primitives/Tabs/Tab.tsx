@@ -13,6 +13,7 @@ import {
   flexColumn,
   horizontalPadding,
   hover,
+  opacity,
   padding,
   pointer,
   transition,
@@ -25,12 +26,13 @@ export interface TabItemInterface {
   title: string;
   active: boolean;
   styles?: any;
-  onClick: () => void;
+  disabled?: boolean;
+  onClick?: () => void;
 }
 
-export const tabHorizontalPadding = 8;
+export const tabHorizontalPadding = 6;
 
-function Tab({ styles, active, title, onClick }: TabItemInterface) {
+function Tab({ styles, active, title, disabled, onClick }: TabItemInterface) {
   return (
     <Wrapper
       as="button"
@@ -46,10 +48,11 @@ function Tab({ styles, active, title, onClick }: TabItemInterface) {
         borderNone,
         borderRadius(4),
         transition(`box-shadow ${duration160}`),
-        !active && [pointer, hover(child(color("definitions.Tabs.Tab.hoverColor")))],
+        !active && !disabled && [pointer, hover(child(color("definitions.Tabs.Tab.hoverColor")))],
+        disabled && opacity(0.7),
         styles,
       ]}
-      onClick={onClick}
+      onClick={!disabled && onClick}
     >
       <Typography
         type="body-semi-bold"
