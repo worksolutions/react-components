@@ -22,10 +22,13 @@ function isInternalIcon(icon: string): icon is InternalIcons {
   return isPureObject(internalIcons[icon]);
 }
 
-const Icon = React.forwardRef(function ({ color, icon, ...props }: IconInterface, ref: any) {
+const Icon = React.forwardRef(function ({ color, icon, className, ...props }: IconInterface, ref: any) {
   if (!icon) return null;
-  if (isInternalIcon(icon)) return <InternalSvg ref={ref} color={color} icon={icon} {...props} />;
-  return <StringLikeLink ref={ref} icon={internalIcons[icon] || icon} {...props} />;
+  const resultClassName = className ? `icon ${className}` : "icon";
+  if (isInternalIcon(icon))
+    return <InternalSvg ref={ref} color={color} icon={icon} className={resultClassName} {...props} />;
+
+  return <StringLikeLink ref={ref} icon={internalIcons[icon] || icon} className={resultClassName} {...props} />;
 });
 
 Icon.defaultProps = {

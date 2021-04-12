@@ -31,7 +31,6 @@ function InternalSvg(
 
   return (
     <StyledSvg
-      name="internal-svg"
       ref={ref}
       css={styles}
       as="svg"

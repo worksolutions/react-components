@@ -1,22 +1,10 @@
-import {
-  borderWidth,
-  child,
-  marginLeft,
-  marginRight,
-  boxShadow,
-  color,
-  createAlphaColor,
-  fillColor,
-  backgroundColor,
-} from "../../../../styles";
+import { backgroundColor, borderWidth, boxShadow, child, color, createAlphaColor, fillColor } from "../../../../styles";
 import { makeSpinnerColorStyle } from "../../../Spinner";
 
 export const ghostStyle = [
   borderWidth(0),
   color("definitions.ButtonGhost.textColor"),
   backgroundColor("transparent"),
-  child(marginRight(8), ".icon-left"),
-  child(marginLeft(8), ".icon-right"),
   child(fillColor("definitions.ButtonGhost.iconColor"), ".icon use"),
   child(makeSpinnerColorStyle("definitions.ButtonGhost.iconColor"), ".spinner"),
 ];

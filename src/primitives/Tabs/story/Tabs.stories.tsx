@@ -1,11 +1,12 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { child, flex, flexColumn, jc, marginBottom } from "styles";
+import { ai, child, flex, flexColumn, horizontalPadding, jc, marginBottom } from "styles";
 
 import Tabs, { TabsInterface } from "../index";
 import Wrapper from "../../Wrapper";
-import Tab from "../Tab";
+import Tab, { tabHorizontalPadding } from "../Tab";
+import Counter from "../../Counter";
 
 export default {
   title: "Tabs",
@@ -25,6 +26,16 @@ const Template: Story<TabsInterface> = (props) => {
             tabItem: (props) => <Tab {...props} />,
           },
           { content: () => <div />, title: "Статьи по теме" },
+          {
+            content: () => <div>Контент таба с баджем</div>,
+            title: "Текст с баджем",
+            tabItem: (props) => (
+              <Wrapper styles={[horizontalPadding(tabHorizontalPadding), flex, ai("center")]}>
+                <Tab {...props} styles={horizontalPadding(0)} />
+                <Counter value={4} color="blue/05" />
+              </Wrapper>
+            ),
+          },
         ]}
         activeIndex={activeIndex}
         setActiveIndex={setActiveIndex}

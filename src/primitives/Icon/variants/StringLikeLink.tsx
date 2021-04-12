@@ -17,7 +17,6 @@ export default React.forwardRef(function (
 ) {
   return (
     <Wrapper
-      name="string-like-link"
       as="span"
       styles={[
         width(widthProp!),

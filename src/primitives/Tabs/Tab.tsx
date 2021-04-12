@@ -11,7 +11,6 @@ import {
   disableOutline,
   flex,
   flexColumn,
-  horizontalMargin,
   horizontalPadding,
   hover,
   padding,
@@ -25,12 +24,13 @@ import { duration160 } from "../../constants/durations";
 export interface TabItemInterface {
   title: string;
   active: boolean;
+  styles?: any;
   onClick: () => void;
 }
 
 export const tabHorizontalPadding = 8;
 
-function Tab({ active, title, onClick }: TabItemInterface) {
+function Tab({ styles, active, title, onClick }: TabItemInterface) {
   return (
     <Wrapper
       as="button"
@@ -47,6 +47,7 @@ function Tab({ active, title, onClick }: TabItemInterface) {
         borderRadius(4),
         transition(`box-shadow ${duration160}`),
         !active && [pointer, hover(child(color("definitions.Tabs.Tab.hoverColor")))],
+        styles,
       ]}
       onClick={onClick}
     >

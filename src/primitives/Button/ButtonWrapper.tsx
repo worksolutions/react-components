@@ -72,12 +72,10 @@ function makeIcon(
   icon: InternalIcons | undefined,
   { height, width, className, styles }: { className: string; width?: number; height?: number; styles?: any },
 ) {
-  const resultClassName = `icon ${className}`;
-
-  if (loading) return <Spinner styles={styles} size={SpinnerSize.medium} className={resultClassName} />;
+  if (loading) return <Spinner styles={styles} size={SpinnerSize.medium} className={className} />;
   if (!icon) return null;
 
-  return <Icon className={resultClassName} styles={styles} icon={icon} width={width} height={height} />;
+  return <Icon className={className} styles={styles} icon={icon} width={width} height={height} />;
 }
 
 function ButtonWrapper({

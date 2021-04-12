@@ -92,6 +92,8 @@ export * from "./primitives/Spinner";
 
 export { default as Tabs } from "./primitives/Tabs";
 export * from "./primitives/Tabs";
+
+export { default as Tab } from "./primitives/Tabs/Tab";
 export * from "./primitives/Tabs/Tab";
 
 export { default as Toggle } from "./primitives/Toggle";
