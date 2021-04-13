@@ -23,7 +23,7 @@ function InternalSvg(
     width: widthProp,
     height: heightProp,
     styles,
-    color = "gray-blue/05",
+    color = "definitions.Icon.defaultColor",
   }: IconVariantProps<keyof typeof internalIcons>,
   ref: any,
 ) {

@@ -19,9 +19,7 @@ export interface Theme extends BaseTheme<Colors> {
       External: { color: Colors; hoverColor: Colors };
     };
     Icon: {
-      default: {
-        color: Colors;
-      };
+      defaultColor: Colors;
     };
     ButtonPrimary: {
       color: Colors;
@@ -125,6 +123,9 @@ export interface Theme extends BaseTheme<Colors> {
         focusColor: Colors;
         hoverBackgroundColor: Colors;
       };
+      BorderIcons: {
+        color: Colors;
+      };
     };
     ListItemsDivider: {
       backgroundColor: Colors;
@@ -142,10 +143,10 @@ export interface Theme extends BaseTheme<Colors> {
       Placeholder: {
         color: Colors;
       };
-      Popup: {
-        backgroundColor: Colors;
-        borderColor: Colors;
-      };
+    };
+    Popup: {
+      backgroundColor: Colors;
+      borderColor: Colors;
     };
     Tooltip: {
       textColor: Colors;

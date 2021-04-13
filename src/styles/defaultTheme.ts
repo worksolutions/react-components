@@ -15,9 +15,7 @@ export const defaultTheme: Theme = {
       External: { color: "blue/06", hoverColor: "blue/06" },
     },
     Icon: {
-      default: {
-        color: "gray-blue/05",
-      },
+      defaultColor: "gray-blue/05",
     },
     ButtonPrimary: {
       color: "white",
@@ -71,6 +69,9 @@ export const defaultTheme: Theme = {
     ListItem: {
       Selected: { backgroundColor: "gray-blue/01" },
       UnSelected: { hoverBackgroundColor: "gray-blue/01", focusColor: "blue/05" },
+      BorderIcons: {
+        color: "gray-blue/09",
+      },
     },
     ListItemsDivider: {
       backgroundColor: "gray-blue/02",
@@ -88,10 +89,10 @@ export const defaultTheme: Theme = {
       Placeholder: {
         color: "gray-blue/05",
       },
-      Popup: {
-        backgroundColor: "white",
-        borderColor: "gray-blue/02",
-      },
+    },
+    Popup: {
+      backgroundColor: "white",
+      borderColor: "gray-blue/02",
     },
     Tooltip: {
       shadowColor: "gray-blue/02",

@@ -42,7 +42,7 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
       | React.ReactElement<SelectItemInterface<CODE>>
       | React.ReactNode;
     additionalSelectedElements?: Record<string | number, React.ReactElement<SelectItemInterface<any>>>;
-    rightIcon?: InternalIcons;
+    rightIcon?: InternalIcons | null;
     selectedElementStyles?: any;
     selectedElementTextStyles?: any;
     rightIconStyles?: any;
@@ -158,8 +158,8 @@ function Select<CODE extends SelectItemCode>(
       strategy={strategy}
       hasArrow={hasArrow}
       popupStyles={[
-        backgroundColor("definitions.Select.Popup.backgroundColor"),
-        boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Select.Popup.borderColor"]),
+        backgroundColor("definitions.Popup.backgroundColor"),
+        boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Popup.borderColor"]),
         borderRadius(4),
         popupStyles,
       ]}
@@ -170,17 +170,19 @@ function Select<CODE extends SelectItemCode>(
           size={matchListItemSizesAndInputContainerSizes[size]}
           outerRef={initRef}
           rightIcon={
-            <Icon
-              icon={rightIcon}
-              width={rightIconWidth}
-              height={rightIconHeight}
-              styles={[
-                transition(`all ${duration160}`),
-                transform(`rotateZ(${visible ? "180deg" : "0deg"})`),
-                rightIconStyles,
-              ]}
-              color={rightIconColor}
-            />
+            rightIcon === null ? undefined : (
+              <Icon
+                icon={rightIcon}
+                width={rightIconWidth}
+                height={rightIconHeight}
+                styles={[
+                  transition(`all ${duration160}`),
+                  transform(`rotateZ(${visible ? "180deg" : "0deg"})`),
+                  rightIconStyles,
+                ]}
+                color={rightIconColor}
+              />
+            )
           }
           renderComponent={(inputContainerStyles) => (
             <SelectTrigger

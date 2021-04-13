@@ -5,11 +5,7 @@ import { flex, flexColumn, flexValue, marginLeft, marginRight, overflow, textAli
 import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
 
-import {
-  getHoveredStylesForLeftContent,
-  getHoveredStylesForRightContent,
-  makeIcon,
-} from "./internal/additionalContent";
+import { getHoveredStylesForBorderContent, makeIcon } from "./internal/additionalContent";
 import { getListItemStyles } from "./internal/libs";
 import { SideContentType, useRightContent } from "./internal/useRightContent";
 
@@ -66,13 +62,15 @@ function ListItem(
     hoverable,
   ]);
 
-  const leftContentStyles = useMemo(() => getHoveredStylesForLeftContent(showLeftContentOnHover), [
-    showLeftContentOnHover,
-  ]);
+  const leftContentStyles = useMemo(
+    () => getHoveredStylesForBorderContent(".list-item-left-content", showLeftContentOnHover),
+    [showLeftContentOnHover],
+  );
 
-  const rightContentStyles = useMemo(() => getHoveredStylesForRightContent(showRightContentOnHover), [
-    showRightContentOnHover,
-  ]);
+  const rightContentStyles = useMemo(
+    () => getHoveredStylesForBorderContent(".list-item-right-content", showRightContentOnHover),
+    [showRightContentOnHover],
+  );
 
   const resultLeftContent = makeIcon(leftContent, [marginRight(8), leftContentStylesProp]);
   const resultRightContent = makeIcon(useRightContent({ selected, rightContent, showArrowWhenSelected }), [

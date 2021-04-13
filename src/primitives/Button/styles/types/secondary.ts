@@ -1,10 +1,12 @@
 import { backgroundColor, borderWidth, boxShadow, child, color, fillColor } from "../../../../styles";
 import { makeSpinnerColorStyle } from "../../../Spinner";
 
+export const secondaryStyleBoxShadow = boxShadow([0, 0, 0, 1, "definitions.ButtonSecondary.borderColor"]);
+
 export const secondaryStyle = [
   borderWidth(0),
   color("definitions.ButtonSecondary.textColor"),
-  boxShadow([0, 0, 0, 1, "definitions.ButtonSecondary.borderColor"]),
+  secondaryStyleBoxShadow,
   backgroundColor("transparent"),
 
   child(fillColor("definitions.ButtonSecondary.iconColor"), ".icon use"),
