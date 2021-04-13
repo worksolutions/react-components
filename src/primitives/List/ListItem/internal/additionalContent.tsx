@@ -15,6 +15,6 @@ export function getHoveredStylesForBorderContent(borderContentSelector: string, 
 
 export function makeIcon(icon?: React.ReactNode | InternalIcons, styles?: any) {
   if (!icon) return null;
-  const content = isString(icon) ? <Icon icon={icon} color="definitions.ListItem.BOrderIcon.color" /> : icon;
+  const content = isString(icon) ? <Icon icon={icon} color="definitions.ListItem.BorderIcon.color" /> : icon;
   return <Wrapper styles={[flex, ai("center"), jc("center"), flexShrink(0), styles]}>{content}</Wrapper>;
 }
