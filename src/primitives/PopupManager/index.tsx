@@ -39,7 +39,10 @@ export type PopupManagerInterface = {
 } & (
   | ({
       mode: PopupManagerMode.CLICK;
-    } & Pick<PopupManagerForClickInterface, "renderTriggerElement" | "closeOnClickOutside">)
+    } & Pick<
+      PopupManagerForClickInterface,
+      "renderTriggerElement" | "closeOnClickOutside" | "excludeElementsForClickEvent"
+    >)
   | ({
       mode: PopupManagerMode.HOVER;
     } & Pick<PopperManagerForHoverInterface, "renderTriggerElement" | "showDelay">)
@@ -101,7 +104,7 @@ function PopupManager(
     }
 
     if (props.mode === PopupManagerMode.CLICK) {
-      return handleTriggerElementEventsForClick(triggerElement, context);
+      return handleTriggerElementEventsForClick(triggerElement, context, props.excludeElementsForClickEvent);
     }
 
     return () => null;
