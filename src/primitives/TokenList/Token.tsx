@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Ref, SyntheticEvent } from "react";
 import { stopPropagation } from "@worksolutions/react-utils";
 
 import {
@@ -24,15 +24,23 @@ import Typography from "../Typography";
 import Icon from "../Icon";
 import Wrapper from "../Wrapper";
 import { duration160 } from "../../constants/durations";
+import { elevation8 } from "../../constants/shadows";
 
-export interface TokenInterface {
-  title: string | number;
+export interface TokenInterface<CODE extends string | number> {
   styles?: any;
+  leftContent?: React.ReactNode;
+  title: string | number;
+  code: CODE;
   canRemove?: boolean;
-  onRemove?: () => void;
+  onRemove?: (code: CODE) => void;
 }
 
-function Token({ title, styles, onRemove, canRemove }: TokenInterface) {
+function Token({ title, styles, leftContent, code, onRemove, canRemove }: TokenInterface<string>) {
+  const handleRemove = React.useCallback(
+    (ev: SyntheticEvent) => canRemove && onRemove && stopPropagation(() => onRemove(code))(ev),
+    [canRemove, code, onRemove],
+  );
+
   return (
     <Wrapper
       styles={[
@@ -40,23 +48,32 @@ function Token({ title, styles, onRemove, canRemove }: TokenInterface) {
         flex,
         ai("center"),
         padding(0),
-        backgroundColor("gray-blue/02"),
+        backgroundColor("definitions.Token.backgroundColor"),
+        elevation8,
         disableOutline,
         borderNone,
         borderRadius(4),
-        child(transition(`fill ${duration160}`), ".icon use"),
+        child(transition(`fill ${duration160}`), ".remove-icon use"),
         canRemove
-          ? [pointer, paddingLeft(8), paddingRight(2), hover(fillColor("gray-blue/05"), ".icon use")]
+          ? [
+              pointer,
+              paddingLeft(8),
+              paddingRight(2),
+              hover(fillColor("definitions.Token.removeIconHoverColor"), ".icon use"),
+            ]
           : [horizontalPadding(8)],
         styles,
       ]}
       as="button"
-      onClick={canRemove && stopPropagation(onRemove)}
+      onClick={handleRemove}
     >
+      {leftContent}
       <Typography dots>{title}</Typography>
-      {canRemove && <Icon className="icon" icon="cross-small" color="gray-blue/07" />}
+      {canRemove && <Icon className="remove-icon" icon="cross-small" color="definitions.Token.removeIconColor" />}
     </Wrapper>
   );
 }
 
-export default React.memo(Token);
+export default React.memo(Token) as <CODE extends string | number>(
+  props: TokenInterface<CODE> & { ref?: Ref<HTMLElement> },
+) => JSX.Element;

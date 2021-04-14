@@ -225,10 +225,10 @@ export const defaultTheme: Theme = {
       color: "gray-blue/09",
       backplateColor: "white",
     },
-    TokenList: {
-      Input: {
-        placeholderColor: "gray-blue/04",
-      },
+    Token: {
+      backgroundColor: "white",
+      removeIconColor: "gray-blue/07",
+      removeIconHoverColor: "gray-blue/05",
     },
     Modal: {
       underModalBackgroundColor: "gray-blue/09",

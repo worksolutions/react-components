@@ -99,6 +99,10 @@ export * from "./primitives/Tabs/Tab";
 export { default as Toggle } from "./primitives/Toggle";
 
 export { default as TokenList } from "./primitives/TokenList";
+export * from "./primitives/TokenList";
+
+export { default as Token } from "./primitives/TokenList/Token";
+export * from "./primitives/TokenList/Token";
 
 export { default as Typography } from "./primitives/Typography";
 export * from "./primitives/Typography";

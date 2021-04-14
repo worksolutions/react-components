@@ -4,19 +4,10 @@ import { IncomeColorVariant, provideRef, useEffectSkipFirst } from "@worksolutio
 import Typography from "../Typography";
 import SelectTrigger from "./internal/SelectTrigger";
 import PopupManager, { PopupManagerInterface, PopupManagerMode, PopupManagerRef } from "../PopupManager";
-import Icon, { InternalIcons } from "../Icon";
+import { InternalIcons } from "../Icon";
 import InputContainer, { InputContainerInterface } from "../InputContainer";
 
-import {
-  backgroundColor,
-  borderRadius,
-  boxShadow,
-  paddingLeft,
-  transform,
-  transition,
-  verticalPadding,
-} from "../../styles";
-import { duration160 } from "../../constants/durations";
+import { backgroundColor, borderRadius, boxShadow, paddingLeft, verticalPadding } from "../../styles";
 import SelectPopupList, { detectIsSelectItem } from "./internal/SelectPopupList";
 import { SelectItemCode, SelectItemInterface } from "./SelectItem";
 import { Colors } from "../../constants/colors";
@@ -24,6 +15,7 @@ import { Colors } from "../../constants/colors";
 import { ListItemSize } from "../List/ListItem/enum";
 import { matchListItemSizesAndInputContainerSizes } from "../List/internal/sizeMatches";
 import { elevation16Raw } from "../../constants/shadows";
+import SelectRightIcon from "./internal/SelectRightIcon";
 
 export type SelectInterface<CODE extends SelectItemCode> = Omit<
   PopupManagerInterface,
@@ -170,19 +162,13 @@ function Select<CODE extends SelectItemCode>(
           size={matchListItemSizesAndInputContainerSizes[size]}
           outerRef={initRef}
           rightIcon={
-            rightIcon === null ? undefined : (
-              <Icon
-                icon={rightIcon}
-                width={rightIconWidth}
-                height={rightIconHeight}
-                styles={[
-                  transition(`all ${duration160}`),
-                  transform(`rotateZ(${visible ? "180deg" : "0deg"})`),
-                  rightIconStyles,
-                ]}
-                color={rightIconColor}
-              />
-            )
+            <SelectRightIcon
+              styles={rightIconStyles}
+              icon={rightIcon}
+              popupVisible={visible}
+              width={rightIconWidth}
+              height={rightIconHeight}
+            />
           }
           renderComponent={(inputContainerStyles) => (
             <SelectTrigger

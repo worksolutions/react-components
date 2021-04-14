@@ -226,10 +226,10 @@ export interface Theme extends BaseTheme<Colors> {
       color: Colors;
       backplateColor: Colors;
     };
-    TokenList: {
-      Input: {
-        placeholderColor: Colors;
-      };
+    Token: {
+      backgroundColor: Colors;
+      removeIconColor: Colors;
+      removeIconHoverColor: Colors;
     };
     Modal: {
       underModalBackgroundColor: Colors;

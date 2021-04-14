@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { propEq } from "ramda";
-import { SuggestInterface } from "@worksolutions/utils";
 import { useChildrenWidthDetector } from "@worksolutions/react-utils";
 
 import {
@@ -33,12 +32,17 @@ export enum RadioGroupSize {
   SMALL,
 }
 
-export interface RadioGroupInterface<ITEM extends string | number> {
+export interface RadioGroupItemInterface<CODE extends string | number> {
+  title: string;
+  code: CODE;
+}
+
+export interface RadioGroupInterface<CODE extends string | number> {
   styles?: any;
-  active: ITEM;
-  items: SuggestInterface<ITEM>[];
+  active: CODE;
+  items: RadioGroupItemInterface<CODE>[];
   size?: RadioGroupSize;
-  onChange: (active: ITEM) => void;
+  onChange: (active: CODE) => void;
 }
 
 const paddingBySize: Record<

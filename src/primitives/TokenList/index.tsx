@@ -1,24 +1,30 @@
 import React, { Ref } from "react";
-import { eventValue, SuggestInterface } from "@worksolutions/utils";
+import { eventValue } from "@worksolutions/utils";
 
-import { flex, flexValue, flexWrap, height, marginBottom, marginRight, minWidth, padding } from "../../styles";
+import {
+  flex,
+  flexValue,
+  flexWrap,
+  height,
+  lastChild,
+  marginBottom,
+  marginRight,
+  minWidth,
+  padding,
+} from "../../styles";
 
 import Form from "../Form";
 import Wrapper from "../Wrapper";
 import InputContainer, { InputContainerInterface } from "../InputContainer";
 
-import Token from "./Token";
 import { InputContainerSize } from "../InputContainer/enums";
 import { createDefaultInputStyles } from "../InputContainer/libs";
 
-export interface TokenListInterface<CODE extends string | number> extends Omit<InputContainerInterface, "size"> {
-  placeholder?: string;
+export interface TokenListInterface extends Omit<InputContainerInterface, "size"> {
   styles?: any;
-  items: SuggestInterface<CODE>[];
-  children?: React.ReactNode;
-  canRemove?: boolean;
+  placeholder?: string;
+  children: React.ReactNode;
   canCreate?: boolean;
-  onRemove?: (code: CODE) => void;
   onCreate?: (title: string) => void;
 }
 
@@ -27,26 +33,20 @@ function TokenList(
     outerStyles,
     styles: stylesProp,
     placeholder,
-    items,
     children,
     canCreate = true,
-    canRemove = true,
-    onRemove,
     onCreate,
     ...inputContainerProps
-  }: TokenListInterface<string>,
+  }: TokenListInterface,
   ref: Ref<HTMLElement>,
 ) {
   const [value, setValue] = React.useState("");
 
-  function onCreateToken() {
-    onCreate && onCreate(value);
+  const handleCreateToken = React.useCallback(() => {
+    if (!onCreate || value === "") return;
     setValue("");
-  }
-
-  function onRemoveToken(code: string) {
-    onRemove && onRemove(code);
-  }
+    onCreate(value);
+  }, [onCreate, value]);
 
   return (
     <InputContainer
@@ -54,35 +54,31 @@ function TokenList(
       outerRef={ref}
       size={InputContainerSize.LARGE}
       {...inputContainerProps}
-      renderComponent={(styles) => (
-        <Wrapper styles={[styles, flex, flexWrap, padding("8px 8px 4px 8px"), stylesProp]}>
-          {items.map(({ code, title }) => (
-            <Token
-              key={code}
-              styles={[marginRight(4), marginBottom(4)]}
-              title={title}
-              canRemove={canRemove}
-              onRemove={() => onRemoveToken(code)}
-            />
-          ))}
-          {canCreate && (
-            <Form styles={[height(24), flexValue(1), minWidth(140), marginBottom(4)]} onSubmit={onCreateToken}>
-              <Wrapper
-                as="input"
-                placeholder={items.length === 0 ? placeholder : ""}
-                styles={createDefaultInputStyles("definitions.TokenList.Input.placeholderColor")}
-                value={value}
-                onChange={eventValue(setValue)}
-              />
-            </Form>
-          )}
-          {children}
-        </Wrapper>
-      )}
+      renderComponent={(styles) => {
+        const childComponents = React.Children.toArray(children) as React.ReactElement<{ styles?: any }>[];
+        return (
+          <Wrapper styles={[styles, flex, flexWrap, padding("8px 8px 4px 8px"), stylesProp]}>
+            {childComponents.map((child) =>
+              React.cloneElement(child, {
+                styles: [marginRight(4), lastChild(marginRight(0), "&"), marginBottom(4), child.props.styles],
+              }),
+            )}
+            {canCreate && (
+              <Form styles={[height(24), flexValue(1), minWidth(140), marginBottom(4)]} onSubmit={handleCreateToken}>
+                <Wrapper
+                  as="input"
+                  placeholder={placeholder}
+                  styles={createDefaultInputStyles("definitions.InputContainerVariantDefault.placeholder")}
+                  value={value}
+                  onChange={eventValue(setValue)}
+                />
+              </Form>
+            )}
+          </Wrapper>
+        );
+      }}
     />
   );
 }
 
-export default React.memo(React.forwardRef(TokenList)) as <CODE extends string | number>(
-  props: TokenListInterface<CODE> & { ref?: Ref<HTMLElement> },
-) => JSX.Element;
+export default React.memo(React.forwardRef(TokenList));
