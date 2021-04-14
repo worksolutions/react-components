@@ -20,7 +20,7 @@ import InputContainer, { InputContainerInterface } from "../InputContainer";
 import { InputContainerSize } from "../InputContainer/enums";
 import { createDefaultInputStyles } from "../InputContainer/libs";
 
-export interface TokenListInterface extends Omit<InputContainerInterface, "size"> {
+export interface TokenListInterface extends Omit<InputContainerInterface, "size" | "outerRef"> {
   styles?: any;
   placeholder?: string;
   children: React.ReactNode;
@@ -57,7 +57,7 @@ function TokenList(
       renderComponent={(styles) => {
         const childComponents = React.Children.toArray(children) as React.ReactElement<{ styles?: any }>[];
         return (
-          <Wrapper styles={[styles, flex, flexWrap, padding("8px 8px 4px 8px"), stylesProp]}>
+          <Wrapper styles={[styles, flex, flexWrap, padding("6px 6px 2px 6px"), stylesProp]}>
             {childComponents.map((child) =>
               React.cloneElement(child, {
                 styles: [marginRight(4), lastChild(marginRight(0), "&"), marginBottom(4), child.props.styles],

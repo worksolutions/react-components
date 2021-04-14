@@ -35,14 +35,18 @@ export interface TokenInterface<CODE extends string | number> {
   onRemove?: (code: CODE) => void;
 }
 
-function Token({ title, styles, leftContent, code, onRemove, canRemove }: TokenInterface<string>) {
+function Token(
+  { title, styles, leftContent, code, onRemove, canRemove }: TokenInterface<string>,
+  ref: Ref<HTMLElement>,
+) {
   const handleRemove = React.useCallback(
-    (ev: SyntheticEvent) => canRemove && onRemove && stopPropagation(() => onRemove(code))(ev),
+    (ev: SyntheticEvent) => stopPropagation(() => canRemove && onRemove && onRemove(code))(ev),
     [canRemove, code, onRemove],
   );
 
   return (
     <Wrapper
+      ref={ref}
       styles={[
         maxWidth("100%"),
         flex,
@@ -74,6 +78,6 @@ function Token({ title, styles, leftContent, code, onRemove, canRemove }: TokenI
   );
 }
 
-export default React.memo(Token) as <CODE extends string | number>(
+export default React.memo(React.forwardRef(Token)) as <CODE extends string | number>(
   props: TokenInterface<CODE> & { ref?: Ref<HTMLElement> },
 ) => JSX.Element;
