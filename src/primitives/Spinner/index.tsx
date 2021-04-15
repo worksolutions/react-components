@@ -49,7 +49,7 @@ const getSpinnerWidth = memoizeWith(string2, (size: SpinnerSize, width: number) 
 const StyledSpinner = styled.div.attrs({ className: "spinner" })<Required<SpinnerInterface>>`
   ${(props) => {
     const size = getSpinnerWidth(props.size, props.width);
-    return `width: ${size}px; height: ${size}px;`;
+    return `width: ${size}px;min-width: ${size}px; min-height:${size}px; height: ${size}px;`;
   }};
   overflow: hidden;
 
