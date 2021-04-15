@@ -1,8 +1,8 @@
-import { ListItemSize } from "../ListItem/enum";
+import { ListItemSize } from "../../List/ListItem/enum";
 import { InputContainerSize } from "../../InputContainer/enums";
 
 export const matchListItemSizesAndInputContainerSizes: Record<ListItemSize, InputContainerSize> = {
-  [ListItemSize.SMALL]: InputContainerSize.SMALL,
-  [ListItemSize.MEDIUM]: InputContainerSize.MEDIUM,
+  [ListItemSize.SMALL]: InputContainerSize.MEDIUM,
+  [ListItemSize.MEDIUM]: InputContainerSize.LARGE,
   [ListItemSize.LARGE]: InputContainerSize.LARGE,
 };

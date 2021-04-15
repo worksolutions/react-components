@@ -52,12 +52,11 @@ function TokenList(
     <InputContainer
       outerStyles={outerStyles}
       outerRef={ref}
-      size={InputContainerSize.LARGE}
       {...inputContainerProps}
       renderComponent={(styles) => {
         const childComponents = React.Children.toArray(children) as React.ReactElement<{ styles?: any }>[];
         return (
-          <Wrapper styles={[styles, flex, flexWrap, padding("6px 6px 2px 6px"), stylesProp]}>
+          <Wrapper styles={[styles, flex, flexWrap, padding("4px 4px 0 4px"), stylesProp]}>
             {childComponents.map((child) =>
               React.cloneElement(child, {
                 styles: [marginRight(4), lastChild(marginRight(0), "&"), marginBottom(4), child.props.styles],

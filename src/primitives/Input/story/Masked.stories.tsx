@@ -14,8 +14,8 @@ export default {
   argTypes: {
     iconLeft: selectControl(Object.keys(internalIcons)),
     iconRight: selectControl(Object.keys(internalIcons)),
-    titlePosition: selectControl([InputContainerTitlePosition.LEFT, InputContainerTitlePosition.TOP]),
-    size: selectControl([InputContainerSize.LARGE, InputContainerSize.MEDIUM]),
+    titlePosition: selectControl(Object.keys(InputContainerTitlePosition)),
+    size: selectControl(Object.keys(InputContainerSize)),
   },
 };
 

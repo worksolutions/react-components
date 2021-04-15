@@ -15,7 +15,7 @@ export const defaultTheme: Theme = {
       External: { color: "blue/06", hoverColor: "blue/06" },
     },
     Icon: {
-      defaultColor: "gray-blue/05",
+      defaultColor: "gray-blue/07",
     },
     ButtonPrimary: {
       color: "white",

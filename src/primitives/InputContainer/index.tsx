@@ -1,5 +1,6 @@
 import React from "react";
 import { isString } from "@worksolutions/utils";
+import { IncomeColorVariant } from "@worksolutions/react-utils";
 
 import Wrapper from "../Wrapper";
 import Title from "./Title";
@@ -32,7 +33,6 @@ import {
   top,
   transform,
 } from "../../styles";
-import { IncomeColorVariant } from "@worksolutions/react-utils";
 
 export type InputIconProp = InternalIcons | JSX.Element | undefined;
 

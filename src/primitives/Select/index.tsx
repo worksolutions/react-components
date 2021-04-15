@@ -13,7 +13,7 @@ import { SelectItemCode, SelectItemInterface } from "./SelectItem";
 import { Colors } from "../../constants/colors";
 
 import { ListItemSize } from "../List/ListItem/enum";
-import { matchListItemSizesAndInputContainerSizes } from "../List/internal/sizeMatches";
+import { matchListItemSizesAndInputContainerSizes } from "./internal/sizeMatches";
 import { elevation16Raw } from "../../constants/shadows";
 import SelectRightIcon from "./internal/SelectRightIcon";
 

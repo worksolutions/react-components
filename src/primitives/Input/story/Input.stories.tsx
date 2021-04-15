@@ -1,23 +1,22 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { selectControl } from "storybook/storyHelpers";
+import { iconsControl, selectControl } from "storybook/storyHelpers";
 
 import { marginBottom } from "styles";
 
 import Input, { InputInterface } from "../Input";
 
-import { internalIcons } from "../../Icon/list";
 import { InputContainerSize, InputContainerTitlePosition } from "../../InputContainer/enums";
 
 export default {
   title: "Inputs",
   component: Input,
   argTypes: {
-    iconLeft: selectControl(Object.keys(internalIcons)),
-    iconRight: selectControl(Object.keys(internalIcons)),
-    titlePosition: selectControl([InputContainerTitlePosition.LEFT, InputContainerTitlePosition.TOP]),
-    size: selectControl([InputContainerSize.LARGE, InputContainerSize.MEDIUM, InputContainerSize.SMALL]),
+    leftIcon: iconsControl(),
+    rightIcon: iconsControl(),
+    titlePosition: selectControl(Object.keys(InputContainerTitlePosition)),
+    size: selectControl(Object.keys(InputContainerSize)),
   },
 };
 

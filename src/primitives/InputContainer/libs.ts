@@ -24,18 +24,12 @@ import { InputContainerSize, InputContainerTitlePosition, InputContainerVariant 
 
 export const stylesForSize = {
   [InputContainerSize.LARGE]: {
-    withIconLeft: padding("14px 12px 14px 40px"),
-    withIconRight: padding("14px 40px 14px 12px"),
-    withIcons: padding("14px 40px 14px 40px"),
-    withoutIcons: padding("14px 12px"),
-  },
-  [InputContainerSize.MEDIUM]: {
     withIconLeft: padding("10px 12px 10px 40px"),
     withIconRight: padding("10px 40px 10px 12px"),
     withIcons: padding("10px 40px 10px 40px"),
     withoutIcons: padding("10px 12px"),
   },
-  [InputContainerSize.SMALL]: {
+  [InputContainerSize.MEDIUM]: {
     withIconLeft: padding("6px 12px 6px 40px"),
     withIconRight: padding("6px 40px 6px 12px"),
     withIcons: padding("6px 40px 6px 40px"),
@@ -82,7 +76,10 @@ export const colorsByVariant: Record<InputContainerVariant, InputContainerVarian
   },
 };
 
-export function getStylesNameOnIcons(hasLeftIcon: boolean, hasRightIcon: boolean): keyof typeof stylesForSize["large"] {
+export function getStylesNameOnIcons(
+  hasLeftIcon: boolean,
+  hasRightIcon: boolean,
+): keyof typeof stylesForSize["MEDIUM"] {
   if (hasLeftIcon && hasRightIcon) return "withIcons";
   if (hasLeftIcon) return "withIconLeft";
   if (hasRightIcon) return "withIconRight";

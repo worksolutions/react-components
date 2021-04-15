@@ -11,7 +11,7 @@ export interface ListItemSearchInterface extends Omit<InputInterface, "size"> {
 }
 
 const matchListItemSizesAndInputContainerSizes: Record<ListItemSize, InputContainerSize> = {
-  [ListItemSize.SMALL]: InputContainerSize.MEDIUM,
+  [ListItemSize.SMALL]: InputContainerSize.LARGE,
   [ListItemSize.MEDIUM]: InputContainerSize.LARGE,
   [ListItemSize.LARGE]: InputContainerSize.LARGE,
 };
