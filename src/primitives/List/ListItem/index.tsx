@@ -5,18 +5,19 @@ import { flex, flexColumn, flexValue, marginLeft, marginRight, overflow, textAli
 import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
 
-import { getHoveredStylesForBorderContent, makeIcon } from "./internal/additionalContent";
+import { getHoveredStylesForBorderContent } from "./internal/additionalContent";
 import { getListItemStyles } from "./internal/libs";
-import { SideContentType, useRightContent } from "./internal/useRightContent";
+import { useRightContent } from "./internal/useRightContent";
+import { makeUniversalIconContent, UniversalSideContentType } from "../../../utils/makeUniversalIconContent";
 
 import { ListItemSize } from "./enum";
 
 export interface ListItemInterface {
   leftContentStyles?: any;
-  leftContent?: SideContentType;
+  leftContent?: UniversalSideContentType;
   showLeftContentOnHover?: boolean;
   rightContentStyles?: any;
-  rightContent?: SideContentType;
+  rightContent?: UniversalSideContentType;
   showRightContentOnHover?: boolean;
   mainTextStyles?: any;
   styles?: any;
@@ -72,11 +73,11 @@ function ListItem(
     [showRightContentOnHover],
   );
 
-  const resultLeftContent = makeIcon(leftContent, [marginRight(8), leftContentStylesProp]);
-  const resultRightContent = makeIcon(useRightContent({ selected, rightContent, showArrowWhenSelected }), [
-    marginLeft(8),
-    rightContentStylesProp,
-  ]);
+  const resultLeftContent = makeUniversalIconContent(leftContent, [marginRight(8), leftContentStylesProp]);
+  const resultRightContent = makeUniversalIconContent(
+    useRightContent({ selected, rightContent, showArrowWhenSelected }),
+    [marginLeft(8), rightContentStylesProp],
+  );
 
   const handleClick = useCallback(() => {
     if (disabled || !onClick) return;

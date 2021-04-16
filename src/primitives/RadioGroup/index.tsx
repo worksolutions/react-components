@@ -26,13 +26,12 @@ import {
 } from "../../styles";
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
-import { makeIcon } from "../List/ListItem/internal/additionalContent";
-import { SideContentType } from "../List/ListItem/internal/useRightContent";
 
 import ActiveBackplate from "./ActiveBackplate";
 import Divider from "./Divider";
 
 import { duration200 } from "../../constants/durations";
+import { makeUniversalIconContent, UniversalSideContentType } from "../../utils/makeUniversalIconContent";
 
 export enum RadioGroupSize {
   MEDIUM,
@@ -42,7 +41,7 @@ export enum RadioGroupSize {
 export interface RadioGroupItemInterface<CODE extends string | number> {
   title: string;
   code: CODE;
-  leftContent?: SideContentType;
+  leftContent?: UniversalSideContentType;
   leftContentStyles?: any;
   styles?: any;
 }
@@ -63,13 +62,7 @@ const paddingBySize: Record<
   [RadioGroupSize.SMALL]: { vertical: 0, horizontal: 16, dividerVerticalPadding: 5 },
 };
 
-function RadioGroups({
-  active,
-  size = RadioGroupSize.MEDIUM,
-  items,
-  styles,
-  onChange,
-}: RadioGroupInterface<string>) {
+function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onChange }: RadioGroupInterface<string>) {
   const { initRef, widths } = useChildrenWidthDetector();
 
   const paddingValue = paddingBySize[size];
@@ -83,73 +76,69 @@ function RadioGroups({
   const lastItemsIndex = React.useMemo(() => items.length - 1, [items]);
 
   return (
-      <Wrapper
-        styles={[
-          position("relative"),
-          flex,
-          borderRadius(50),
-          border(1, "definitions.RadioGroup.borderColor"),
-          backgroundColor("definitions.RadioGroup.backgroundColor"),
-          overflow("hidden"),
-          padding(1),
-          styles,
-        ]}
-      >
-        <ActiveBackplate
-          activeIndex={activeIndex}
-          activeIndexInWidthsArray={activeIndexInWidthsArray}
-          widths={widths}
-        />
-        <Wrapper ref={initRef} styles={[flex, zIndex(1)]}>
-          {items.map(
-            ({ code, title, leftContent, leftContentStyles: leftContentStylesProp, styles: itemStyles }, index) => {
-              const isActive = activeIndex === index;
-              const resultLeftContent = makeIcon(leftContent, [marginRight(8), leftContentStylesProp]);
+    <Wrapper
+      styles={[
+        position("relative"),
+        flex,
+        borderRadius(50),
+        border(1, "definitions.RadioGroup.borderColor"),
+        backgroundColor("definitions.RadioGroup.backgroundColor"),
+        overflow("hidden"),
+        padding(1),
+        styles,
+      ]}
+    >
+      <ActiveBackplate activeIndex={activeIndex} activeIndexInWidthsArray={activeIndexInWidthsArray} widths={widths} />
+      <Wrapper ref={initRef} styles={[flex, zIndex(1)]}>
+        {items.map(
+          ({ code, title, leftContent, leftContentStyles: leftContentStylesProp, styles: itemStyles }, index) => {
+            const isActive = activeIndex === index;
+            const resultLeftContent = makeUniversalIconContent(leftContent, [marginRight(8), leftContentStylesProp]);
 
-              return (
-                <Fragment key={code}>
-                  <Wrapper
-                    as="button"
-                    disabled={isActive}
-                    styles={[
-                      flex,
-                      ai("center"),
-                      transition(`box-shadow ${duration200}`),
-                      borderRadius(50),
-                      disableOutline,
-                      borderNone,
-                      backgroundColor("transparent"),
-                      verticalPadding(paddingValue.vertical),
-                      horizontalPadding(paddingValue.horizontal),
-                      focus(boxShadow([0, 0, 0, 2, "definitions.RadioGroup.focusBorderColor", true])),
-                      leftContent && paddingLeft(4),
-                      !isActive && pointer,
-                      itemStyles,
-                    ]}
-                    onClick={() => !isActive && onChange(code)}
+            return (
+              <Fragment key={code}>
+                <Wrapper
+                  as="button"
+                  disabled={isActive}
+                  styles={[
+                    flex,
+                    ai("center"),
+                    transition(`box-shadow ${duration200}`),
+                    borderRadius(50),
+                    disableOutline,
+                    borderNone,
+                    backgroundColor("transparent"),
+                    verticalPadding(paddingValue.vertical),
+                    horizontalPadding(paddingValue.horizontal),
+                    focus(boxShadow([0, 0, 0, 2, "definitions.RadioGroup.focusBorderColor", true])),
+                    leftContent && paddingLeft(4),
+                    !isActive && pointer,
+                    itemStyles,
+                  ]}
+                  onClick={() => !isActive && onChange(code)}
+                >
+                  {resultLeftContent && <Wrapper className="list-item-left-content">{resultLeftContent}</Wrapper>}
+                  <Typography
+                    styles={transition(`color ${duration200}`)}
+                    color={isActive ? "definitions.RadioGroup.activeTextColor" : "definitions.RadioGroup.textColor"}
                   >
-                    {resultLeftContent && <Wrapper className="list-item-left-content">{resultLeftContent}</Wrapper>}
-                    <Typography
-                      styles={transition(`color ${duration200}`)}
-                      color={isActive ? "definitions.RadioGroup.activeTextColor" : "definitions.RadioGroup.textColor"}
-                    >
-                      {title}
-                    </Typography>
-                  </Wrapper>
-                  {index !== lastItemsIndex && (
-                    <Divider
-                      styles={[
-                        verticalPadding(paddingValue.dividerVerticalPadding),
-                        opacity(isActive || activeIndex === index + 1 ? 0 : 1),
-                      ]}
-                    />
-                  )}
-                </Fragment>
-              );
-            },
-          )}
-        </Wrapper>
+                    {title}
+                  </Typography>
+                </Wrapper>
+                {index !== lastItemsIndex && (
+                  <Divider
+                    styles={[
+                      verticalPadding(paddingValue.dividerVerticalPadding),
+                      opacity(isActive || activeIndex === index + 1 ? 0 : 1),
+                    ]}
+                  />
+                )}
+              </Fragment>
+            );
+          },
+        )}
       </Wrapper>
+    </Wrapper>
   );
 }
 
