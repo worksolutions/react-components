@@ -2,8 +2,6 @@ import React, { Fragment } from "react";
 import { propEq } from "ramda";
 import { useChildrenWidthDetector } from "@worksolutions/react-utils";
 
-import { duration200 } from "constants/durations";
-
 import {
   borderNone,
   borderRadius,
@@ -33,6 +31,8 @@ import { SideContentType } from "../List/ListItem/internal/useRightContent";
 
 import ActiveBackplate from "./ActiveBackplate";
 import Divider from "./Divider";
+
+import { duration200 } from "../../constants/durations";
 
 export enum RadioGroupSize {
   MEDIUM,
