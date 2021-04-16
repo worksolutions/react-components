@@ -93,7 +93,10 @@ function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onCh
         {items.map(
           ({ code, title, leftContent, leftContentStyles: leftContentStylesProp, styles: itemStyles }, index) => {
             const isActive = activeIndex === index;
-            const resultLeftContent = makeUniversalIconContent(leftContent, [marginRight(8), leftContentStylesProp]);
+            const resultLeftContent = makeUniversalIconContent({
+              icon: leftContent,
+              styles: [marginRight(8), leftContentStylesProp],
+            });
 
             return (
               <Fragment key={code}>
