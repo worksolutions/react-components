@@ -42,7 +42,11 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
     rightIconHeight?: number | string;
     rightIconColor?: IncomeColorVariant<Colors>;
     closePopupAfterChange?: boolean;
-    selectedElementWrapper?: <C extends CODE>(currentText: string | number, code: C) => string | number;
+    selectedElementWrapper?: <C extends CODE>(
+      element: React.ReactElement<SelectItemInterface<any>>,
+      code: C,
+    ) => React.ReactElement;
+    selectedElementTextWrapper?: <C extends CODE>(currentText: string | number, code: C) => string | number;
     selectedItemCode: CODE;
     loading?: boolean;
     popupTopElement?: React.ReactNode;
@@ -62,6 +66,7 @@ function Select<CODE extends SelectItemCode>(
     rightIconStyles,
     selectedItemCode,
     selectedElementWrapper,
+    selectedElementTextWrapper,
     selectedElementStyles,
     selectedElementTextStyles,
     additionalSelectedElements = {},
@@ -108,8 +113,10 @@ function Select<CODE extends SelectItemCode>(
     if (!foundElement) return null;
 
     const { props } = foundElement;
-    return React.cloneElement(foundElement, {
-      children: selectedElementWrapper ? selectedElementWrapper(props.children, selectedItemCode) : props.children,
+    const element = React.cloneElement(foundElement, {
+      children: selectedElementTextWrapper
+        ? selectedElementTextWrapper(props.children, selectedItemCode)
+        : props.children,
       hoverable: false,
       selected: false,
       size: props.size || size,
@@ -117,14 +124,16 @@ function Select<CODE extends SelectItemCode>(
       mainTextStyles: [props.mainTextStyles, selectedElementTextStyles],
       onClick: undefined,
     });
+    return selectedElementWrapper ? selectedElementWrapper(element, selectedItemCode) : element;
   }, [
     childrenElements,
     additionalSelectedElements,
     selectedItemCode,
-    selectedElementWrapper,
+    selectedElementTextWrapper,
     size,
     selectedElementStyles,
     selectedElementTextStyles,
+    selectedElementWrapper,
   ]);
 
   const popupElement = (
