@@ -56,7 +56,11 @@ function Toggle({ className, styles, enabled, text, textOnRight, textStyles, onC
       ]}
       onClick={() => onChange(!enabled)}
     >
-      {!textOnRight && text && <Typography styles={marginRight(8)}>{text}</Typography>}
+      {!textOnRight && text && (
+        <Typography styles={[marginRight(8), textStyles]} color="definitions.Toggle.textColor">
+          {text}
+        </Typography>
+      )}
       <Wrapper
         className="switch"
         styles={[
@@ -86,7 +90,11 @@ function Toggle({ className, styles, enabled, text, textOnRight, textStyles, onC
           ]}
         />
       </Wrapper>
-      {textOnRight && text && <Typography styles={[marginLeft(8), textStyles]}>{text}</Typography>}
+      {textOnRight && text && (
+        <Typography styles={[marginLeft(8), textStyles]} color="definitions.Toggle.textColor">
+          {text}
+        </Typography>
+      )}
     </Wrapper>
   );
 }

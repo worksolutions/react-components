@@ -246,6 +246,7 @@ export interface Theme extends BaseTheme<Colors> {
     };
     Toggle: {
       switchBackgroundColor: Colors;
+      textColor: Colors;
       Enabled: {
         backgroundColor: Colors;
         hoverBackgroundColor: Colors;

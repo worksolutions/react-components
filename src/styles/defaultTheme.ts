@@ -245,6 +245,7 @@ export const defaultTheme: Theme = {
     },
     Toggle: {
       switchBackgroundColor: "white",
+      textColor: "gray-blue/08",
       Enabled: {
         backgroundColor: "blue/09",
         hoverBackgroundColor: "blue/08",
