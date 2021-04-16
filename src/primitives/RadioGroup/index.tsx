@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 import { propEq } from "ramda";
 import { useChildrenWidthDetector } from "@worksolutions/react-utils";
 
+import { duration200 } from "constants/durations";
+
 import {
   borderNone,
   borderRadius,
@@ -26,14 +28,11 @@ import {
 } from "../../styles";
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
+import { makeIcon } from "../List/ListItem/internal/additionalContent";
 import { SideContentType } from "../List/ListItem/internal/useRightContent";
 
 import ActiveBackplate from "./ActiveBackplate";
 import Divider from "./Divider";
-import { makeIcon } from "../List/ListItem/internal/additionalContent";
-import Title from "../InputContainer/Title";
-import { wrapperStylesByTitlePosition } from "../InputContainer/libs";
-import { InputContainerTitlePosition } from "../..";
 
 export enum RadioGroupSize {
   MEDIUM,
@@ -50,12 +49,9 @@ export interface RadioGroupItemInterface<CODE extends string | number> {
 
 export interface RadioGroupInterface<CODE extends string | number> {
   styles?: any;
-  wrapperStyles?: any;
   active: CODE;
   items: RadioGroupItemInterface<CODE>[];
   size?: RadioGroupSize;
-  title?: string;
-  titlePosition?: InputContainerTitlePosition;
   onChange: (active: CODE) => void;
 }
 
@@ -70,11 +66,8 @@ const paddingBySize: Record<
 function RadioGroups({
   active,
   size = RadioGroupSize.MEDIUM,
-  title,
-  titlePosition = InputContainerTitlePosition.TOP,
   items,
   styles,
-  wrapperStyles,
   onChange,
 }: RadioGroupInterface<string>) {
   const { initRef, widths } = useChildrenWidthDetector();
@@ -88,18 +81,15 @@ function RadioGroups({
   }, [active, items]);
 
   const lastItemsIndex = React.useMemo(() => items.length - 1, [items]);
-  const positioningStyles = wrapperStylesByTitlePosition[titlePosition];
 
   return (
-    <Wrapper styles={[positioningStyles.wrapper, wrapperStyles]}>
-      <Title styles={positioningStyles.title} title={title} />
       <Wrapper
         styles={[
           position("relative"),
           flex,
           borderRadius(50),
-          border(1, "gray-blue/02"),
-          backgroundColor("gray-blue/01"),
+          border(1, "definitions.RadioGroup.borderColor"),
+          backgroundColor("definitions.RadioGroup.backgroundColor"),
           overflow("hidden"),
           padding(1),
           styles,
@@ -124,14 +114,14 @@ function RadioGroups({
                     styles={[
                       flex,
                       ai("center"),
-                      transition("box-shadow 0.2s"),
+                      transition(`box-shadow ${duration200}`),
                       borderRadius(50),
                       disableOutline,
                       borderNone,
                       backgroundColor("transparent"),
                       verticalPadding(paddingValue.vertical),
                       horizontalPadding(paddingValue.horizontal),
-                      focus(boxShadow([0, 0, 0, 2, "blue/04", true])),
+                      focus(boxShadow([0, 0, 0, 2, "definitions.RadioGroup.focusBorderColor", true])),
                       leftContent && paddingLeft(4),
                       !isActive && pointer,
                       itemStyles,
@@ -139,7 +129,10 @@ function RadioGroups({
                     onClick={() => !isActive && onChange(code)}
                   >
                     {resultLeftContent && <Wrapper className="list-item-left-content">{resultLeftContent}</Wrapper>}
-                    <Typography styles={transition("color 0.2s")} color={isActive ? "gray-blue/09" : "gray-blue/07"}>
+                    <Typography
+                      styles={transition(`color ${duration200}`)}
+                      color={isActive ? "definitions.RadioGroup.activeTextColor" : "definitions.RadioGroup.textColor"}
+                    >
                       {title}
                     </Typography>
                   </Wrapper>
@@ -157,7 +150,6 @@ function RadioGroups({
           )}
         </Wrapper>
       </Wrapper>
-    </Wrapper>
   );
 }
 
