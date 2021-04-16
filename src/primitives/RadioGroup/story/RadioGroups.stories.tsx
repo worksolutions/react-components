@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { selectControl } from "storybook/storyHelpers";
+import { selectControl, textControl } from "storybook/storyHelpers";
 
 import RadioGroups, { RadioGroupInterface, RadioGroupSize } from "../index";
 
@@ -18,6 +18,7 @@ export default {
   component: RadioGroups,
   argTypes: {
     size: selectControl([RadioGroupSize.MEDIUM, RadioGroupSize.SMALL]),
+    title: textControl(),
   },
 };
 
