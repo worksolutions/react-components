@@ -243,7 +243,18 @@ export interface Theme extends BaseTheme<Colors> {
       backgroundColor: Colors;
       textColor: Colors;
       activeTextColor: Colors;
-    }
+    };
+    Toggle: {
+      switchBackgroundColor: Colors;
+      Enabled: {
+        backgroundColor: Colors;
+        hoverBackgroundColor: Colors;
+      };
+      Disabled: {
+        backgroundColor: Colors;
+        hoverBackgroundColor: Colors;
+      };
+    };
   };
 }
 

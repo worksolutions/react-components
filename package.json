@@ -1,6 +1,6 @@
 {
   "name": "@worksolutions/components",
-  "version": "1.2.66",
+  "version": "1.2.67",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -116,7 +116,7 @@
       "complexity": [
         "error",
         {
-          "max": 7
+          "max": 10
         }
       ]
     }

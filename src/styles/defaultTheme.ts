@@ -243,5 +243,16 @@ export const defaultTheme: Theme = {
       activeTextColor: "gray-blue/09",
       textColor: "gray-blue/07",
     },
+    Toggle: {
+      switchBackgroundColor: "white",
+      Enabled: {
+        backgroundColor: "blue/09",
+        hoverBackgroundColor: "blue/08",
+      },
+      Disabled: {
+        backgroundColor: "gray-blue/02",
+        hoverBackgroundColor: "gray-blue/03",
+      },
+    },
   },
 };

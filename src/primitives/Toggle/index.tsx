@@ -2,9 +2,12 @@ import React from "react";
 
 import {
   ai,
+  backgroundColor,
   borderRadius,
   bottom,
+  boxShadow,
   child,
+  createAlphaColor,
   flex,
   height,
   hover,
@@ -17,10 +20,6 @@ import {
   top,
   transition,
   width,
-  backgroundColor,
-  boxShadow,
-  createAlphaColor,
-  mediaScreen,
 } from "../../styles";
 import { duration160 } from "../../constants/durations";
 
@@ -37,8 +36,6 @@ export interface ToggleInterface {
   onChange: (enabled: boolean) => void;
 }
 
-const tabletDownMedia = "(max-width: 768px)";
-
 function Toggle({ className, styles, enabled, text, textOnRight, textStyles, onChange }: ToggleInterface) {
   return (
     <Wrapper
@@ -47,7 +44,14 @@ function Toggle({ className, styles, enabled, text, textOnRight, textStyles, onC
         flex,
         ai("center"),
         pointer,
-        hover(child(enabled ? backgroundColor("blue/06") : backgroundColor("gray-blue/03"), ".switch")),
+        hover(
+          child(
+            enabled
+              ? backgroundColor("definitions.Toggle.Enabled.hoverBackgroundColor")
+              : backgroundColor("definitions.Toggle.Disabled.hoverBackgroundColor"),
+            ".switch",
+          ),
+        ),
         styles,
       ]}
       onClick={() => onChange(!enabled)}
@@ -62,8 +66,9 @@ function Toggle({ className, styles, enabled, text, textOnRight, textStyles, onC
           height(16),
           position("relative"),
           borderRadius(100),
-          enabled ? backgroundColor("blue/05") : backgroundColor("gray-blue/02"),
-          mediaScreen(tabletDownMedia, [width(42), minWidth(42), height(24)]),
+          enabled
+            ? backgroundColor("definitions.Toggle.Enabled.backgroundColor")
+            : backgroundColor("definitions.Toggle.Disabled.backgroundColor"),
         ]}
       >
         <Wrapper
@@ -74,12 +79,10 @@ function Toggle({ className, styles, enabled, text, textOnRight, textStyles, onC
             width(14),
             height(14),
             borderRadius(100),
-            backgroundColor("white"),
+            backgroundColor("definitions.Toggle.switchBackgroundColor"),
             top(1),
             bottom(1),
             enabled ? left(`calc(100% - 15px)`) : left(1),
-            mediaScreen(tabletDownMedia, enabled ? left(`calc(100% - 23px)`) : left(1)),
-            mediaScreen(tabletDownMedia, [width(22), height(22)]),
           ]}
         />
       </Wrapper>
