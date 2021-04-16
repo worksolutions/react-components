@@ -20,12 +20,18 @@ import {
   backgroundColor,
   border,
   boxShadow,
+  marginRight,
+  ai,
+  paddingLeft,
 } from "../../styles";
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
 
 import ActiveBackplate from "./ActiveBackplate";
 import Divider from "./Divider";
+
+import { duration200 } from "../../constants/durations";
+import { makeUniversalIconContent, UniversalSideContentType } from "../../utils/makeUniversalIconContent";
 
 export enum RadioGroupSize {
   MEDIUM,
@@ -35,6 +41,9 @@ export enum RadioGroupSize {
 export interface RadioGroupItemInterface<CODE extends string | number> {
   title: string;
   code: CODE;
+  leftContent?: UniversalSideContentType;
+  leftContentStyles?: any;
+  styles?: any;
 }
 
 export interface RadioGroupInterface<CODE extends string | number> {
@@ -72,50 +81,65 @@ function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onCh
         position("relative"),
         flex,
         borderRadius(50),
-        border(1, "gray-blue/02"),
-        backgroundColor("gray-blue/01"),
+        border(1, "definitions.RadioGroup.borderColor"),
+        backgroundColor("definitions.RadioGroup.backgroundColor"),
         overflow("hidden"),
-        styles,
         padding(1),
+        styles,
       ]}
     >
       <ActiveBackplate activeIndex={activeIndex} activeIndexInWidthsArray={activeIndexInWidthsArray} widths={widths} />
       <Wrapper ref={initRef} styles={[flex, zIndex(1)]}>
-        {items.map((item, index) => {
-          const isActive = activeIndex === index;
-          return (
-            <Fragment key={item.code}>
-              <Wrapper
-                as="button"
-                disabled={isActive}
-                styles={[
-                  transition("box-shadow 0.2s"),
-                  borderRadius(50),
-                  disableOutline,
-                  borderNone,
-                  backgroundColor("transparent"),
-                  verticalPadding(paddingValue.vertical),
-                  horizontalPadding(paddingValue.horizontal),
-                  !isActive && pointer,
-                  focus(boxShadow([0, 0, 0, 2, "blue/04", true])),
-                ]}
-                onClick={() => !isActive && onChange(item.code)}
-              >
-                <Typography styles={transition("color 0.2s")} color={isActive ? "gray-blue/09" : "gray-blue/07"}>
-                  {item.title}
-                </Typography>
-              </Wrapper>
-              {index !== lastItemsIndex && (
-                <Divider
+        {items.map(
+          ({ code, title, leftContent, leftContentStyles: leftContentStylesProp, styles: itemStyles }, index) => {
+            const isActive = activeIndex === index;
+            const resultLeftContent = makeUniversalIconContent({
+              icon: leftContent,
+              styles: [marginRight(8), leftContentStylesProp],
+            });
+
+            return (
+              <Fragment key={code}>
+                <Wrapper
+                  as="button"
+                  disabled={isActive}
                   styles={[
-                    verticalPadding(paddingValue.dividerVerticalPadding),
-                    opacity(isActive || activeIndex === index + 1 ? 0 : 1),
+                    flex,
+                    ai("center"),
+                    transition(`box-shadow ${duration200}`),
+                    borderRadius(50),
+                    disableOutline,
+                    borderNone,
+                    backgroundColor("transparent"),
+                    verticalPadding(paddingValue.vertical),
+                    horizontalPadding(paddingValue.horizontal),
+                    focus(boxShadow([0, 0, 0, 2, "definitions.RadioGroup.focusBorderColor", true])),
+                    leftContent && paddingLeft(4),
+                    !isActive && pointer,
+                    itemStyles,
                   ]}
-                />
-              )}
-            </Fragment>
-          );
-        })}
+                  onClick={() => !isActive && onChange(code)}
+                >
+                  {resultLeftContent && <Wrapper className="list-item-left-content">{resultLeftContent}</Wrapper>}
+                  <Typography
+                    styles={transition(`color ${duration200}`)}
+                    color={isActive ? "definitions.RadioGroup.activeTextColor" : "definitions.RadioGroup.textColor"}
+                  >
+                    {title}
+                  </Typography>
+                </Wrapper>
+                {index !== lastItemsIndex && (
+                  <Divider
+                    styles={[
+                      verticalPadding(paddingValue.dividerVerticalPadding),
+                      opacity(isActive || activeIndex === index + 1 ? 0 : 1),
+                    ]}
+                  />
+                )}
+              </Fragment>
+            );
+          },
+        )}
       </Wrapper>
     </Wrapper>
   );

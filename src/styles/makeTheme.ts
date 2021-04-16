@@ -237,6 +237,13 @@ export interface Theme extends BaseTheme<Colors> {
       borderColor: Colors;
       backgroundColor: Colors;
     };
+    RadioGroup: {
+      borderColor: Colors;
+      focusBorderColor: Colors;
+      backgroundColor: Colors;
+      textColor: Colors;
+      activeTextColor: Colors;
+    }
   };
 }
 

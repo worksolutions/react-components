@@ -236,5 +236,12 @@ export const defaultTheme: Theme = {
       borderColor: "gray-blue/02",
       backgroundColor: "white",
     },
+    RadioGroup: {
+      borderColor: "gray-blue/02",
+      focusBorderColor: "blue/04",
+      backgroundColor: "gray-blue/01",
+      activeTextColor: "gray-blue/09",
+      textColor: "gray-blue/07",
+    },
   },
 };
