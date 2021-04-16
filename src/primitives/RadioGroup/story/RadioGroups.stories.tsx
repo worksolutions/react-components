@@ -3,12 +3,13 @@ import { Story } from "@storybook/react/types-6-0";
 
 import { selectControl } from "storybook/storyHelpers";
 
-import RadioGroups, { RadioGroupInterface, RadioGroupSize } from "../index";
+import RadioGroups, { RadioGroupInterface, RadioGroupItemInterface, RadioGroupSize } from "../index";
+import Badge from "../../Badge";
 
-const items = [
+const items: RadioGroupItemInterface<string>[] = [
   { code: "1", title: "Любое значение" },
   { code: "2", title: "Вариант 1" },
-  { code: "3", title: "Вариант 2" },
+  { code: "3", title: "Вариант 2", leftContent: <Badge color="red/05" size={8} /> },
   { code: "4", title: "Вариант 3" },
   { code: "5", title: "Вариант 4" },
 ];

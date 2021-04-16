@@ -3,26 +3,29 @@ import { propEq } from "ramda";
 import { useChildrenWidthDetector } from "@worksolutions/react-utils";
 
 import {
+  ai,
+  backgroundColor,
   borderNone,
   borderRadius,
+  boxShadow,
   disableOutline,
   flex,
+  flexShrink,
+  flexValue,
   focus,
+  height,
   horizontalPadding,
+  jc,
+  marginRight,
   opacity,
   overflow,
   padding,
+  paddingLeft,
   pointer,
   position,
   transition,
   verticalPadding,
   zIndex,
-  backgroundColor,
-  border,
-  boxShadow,
-  marginRight,
-  ai,
-  paddingLeft,
 } from "../../styles";
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
@@ -34,8 +37,8 @@ import { duration200 } from "../../constants/durations";
 import { makeUniversalIconContent, UniversalSideContentType } from "../../utils/makeUniversalIconContent";
 
 export enum RadioGroupSize {
-  MEDIUM,
-  SMALL,
+  MEDIUM = "MEDIUM",
+  SMALL = "SMALL",
 }
 
 export interface RadioGroupItemInterface<CODE extends string | number> {
@@ -54,18 +57,15 @@ export interface RadioGroupInterface<CODE extends string | number> {
   onChange: (active: CODE) => void;
 }
 
-const paddingBySize: Record<
-  RadioGroupSize,
-  { vertical: number; horizontal: number; dividerVerticalPadding: number }
-> = {
-  [RadioGroupSize.MEDIUM]: { vertical: 4, horizontal: 20, dividerVerticalPadding: 9 },
-  [RadioGroupSize.SMALL]: { vertical: 0, horizontal: 16, dividerVerticalPadding: 5 },
+const sizesByEnum: Record<RadioGroupSize, { height: number; horizontal: number; dividerVerticalPadding: number }> = {
+  [RadioGroupSize.MEDIUM]: { height: 30, horizontal: 12, dividerVerticalPadding: 9 },
+  [RadioGroupSize.SMALL]: { height: 22, horizontal: 8, dividerVerticalPadding: 5 },
 };
 
 function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onChange }: RadioGroupInterface<string>) {
   const { initRef, widths } = useChildrenWidthDetector();
 
-  const paddingValue = paddingBySize[size];
+  const sizes = sizesByEnum[size];
 
   const { activeIndex, activeIndexInWidthsArray } = React.useMemo(() => {
     const activeIndex = items.findIndex(propEq("code", active));
@@ -80,8 +80,9 @@ function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onCh
       styles={[
         position("relative"),
         flex,
+        flexShrink(0),
         borderRadius(50),
-        border(1, "definitions.RadioGroup.borderColor"),
+        boxShadow([0, 0, 0, 1, "definitions.RadioGroup.borderColor"]),
         backgroundColor("definitions.RadioGroup.backgroundColor"),
         overflow("hidden"),
         padding(1),
@@ -89,7 +90,7 @@ function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onCh
       ]}
     >
       <ActiveBackplate activeIndex={activeIndex} activeIndexInWidthsArray={activeIndexInWidthsArray} widths={widths} />
-      <Wrapper ref={initRef} styles={[flex, zIndex(1)]}>
+      <Wrapper ref={initRef} styles={[flex, zIndex(1), flexValue(1)]}>
         {items.map(
           ({ code, title, leftContent, leftContentStyles: leftContentStylesProp, styles: itemStyles }, index) => {
             const isActive = activeIndex === index;
@@ -105,16 +106,19 @@ function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onCh
                   disabled={isActive}
                   styles={[
                     flex,
+                    flexValue(1),
                     ai("center"),
+                    jc("center"),
                     transition(`box-shadow ${duration200}`),
                     borderRadius(50),
                     disableOutline,
                     borderNone,
                     backgroundColor("transparent"),
-                    verticalPadding(paddingValue.vertical),
-                    horizontalPadding(paddingValue.horizontal),
+                    verticalPadding(0),
+                    height(sizes.height),
+                    horizontalPadding(sizes.horizontal),
                     focus(boxShadow([0, 0, 0, 2, "definitions.RadioGroup.focusBorderColor", true])),
-                    leftContent && paddingLeft(4),
+                    leftContent && paddingLeft(8),
                     !isActive && pointer,
                     itemStyles,
                   ]}
@@ -124,6 +128,7 @@ function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onCh
                   <Typography
                     styles={transition(`color ${duration200}`)}
                     color={isActive ? "definitions.RadioGroup.activeTextColor" : "definitions.RadioGroup.textColor"}
+                    noWrap
                   >
                     {title}
                   </Typography>
@@ -131,7 +136,7 @@ function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onCh
                 {index !== lastItemsIndex && (
                   <Divider
                     styles={[
-                      verticalPadding(paddingValue.dividerVerticalPadding),
+                      verticalPadding(sizes.dividerVerticalPadding),
                       opacity(isActive || activeIndex === index + 1 ? 0 : 1),
                     ]}
                   />
