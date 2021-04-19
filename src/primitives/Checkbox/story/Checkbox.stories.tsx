@@ -19,5 +19,5 @@ export const Default = CheckboxTemplate.bind({});
 Default.args = {
   size: CheckboxSize.medium,
   checked: true,
-  text: "Checkbox test text",
+  content: "Checkbox test text",
 };
