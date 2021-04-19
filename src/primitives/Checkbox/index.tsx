@@ -60,7 +60,7 @@ const sizes: SizeStyles = {
 };
 
 export interface CheckboxProps {
-  text: string;
+  content?: React.ReactNode | string;
   checked: boolean;
   onChange: (value: boolean) => void;
   error?: boolean;
@@ -68,6 +68,7 @@ export interface CheckboxProps {
   required?: boolean;
   size?: CheckboxSize;
   indeterminate?: boolean;
+  styles?: any;
 }
 
 function getCheckboxStyles({ checked, error, disabled }: Pick<CheckboxProps, "checked" | "error" | "disabled">) {
@@ -84,7 +85,7 @@ function getCheckboxStyles({ checked, error, disabled }: Pick<CheckboxProps, "ch
 }
 
 function Checkbox({
-  text,
+  content,
   checked,
   error,
   onChange,
@@ -92,6 +93,7 @@ function Checkbox({
   required,
   indeterminate,
   size = CheckboxSize.medium,
+  styles: propStyles,
 }: CheckboxProps) {
   const styles = React.useMemo(() => getCheckboxStyles({ checked, error, disabled }), [checked, error, disabled]);
 
@@ -99,7 +101,7 @@ function Checkbox({
   const currentSize = sizes[size];
 
   return (
-    <Wrapper styles={[fullWidth, height(24), padding(4), flex, jc("flex-start"), ai("center")]}>
+    <Wrapper styles={[fullWidth, height(24), padding(4), flex, jc("flex-start"), ai("center"), propStyles]}>
       <Wrapper
         as="label"
         styles={[
@@ -133,8 +135,8 @@ function Checkbox({
         ]}
         onClick={onChangeHandler}
       >
-        {text}
-        {required && !!text && <Typography styles={color("red/05")}>*</Typography>}
+        {content!}
+        {required && !!content && <Typography styles={color("red/05")}>*</Typography>}
       </Typography>
     </Wrapper>
   );
