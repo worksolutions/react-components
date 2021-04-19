@@ -68,7 +68,7 @@ export interface CheckboxProps {
   required?: boolean;
   size?: CheckboxSize;
   indeterminate?: boolean;
-  styles?: any;
+  outerStyles?: any;
 }
 
 function getCheckboxStyles({ checked, error, disabled }: Pick<CheckboxProps, "checked" | "error" | "disabled">) {
@@ -93,7 +93,7 @@ function Checkbox({
   required,
   indeterminate,
   size = CheckboxSize.medium,
-  styles: propStyles,
+  outerStyles,
 }: CheckboxProps) {
   const styles = React.useMemo(() => getCheckboxStyles({ checked, error, disabled }), [checked, error, disabled]);
 
@@ -101,7 +101,7 @@ function Checkbox({
   const currentSize = sizes[size];
 
   return (
-    <Wrapper styles={[fullWidth, height(24), padding(4), flex, jc("flex-start"), ai("center"), propStyles]}>
+    <Wrapper styles={[fullWidth, height(24), padding(4), flex, jc("flex-start"), ai("center"), outerStyles]}>
       <Wrapper
         as="label"
         styles={[
