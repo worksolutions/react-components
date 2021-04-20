@@ -23,6 +23,8 @@ import {
   pointerEvents,
   color,
   fontSize,
+  minWidth,
+  minHeight,
 } from "../../styles";
 
 import Wrapper from "../Wrapper";
@@ -69,6 +71,7 @@ export interface CheckboxProps {
   size?: CheckboxSize;
   indeterminate?: boolean;
   outerStyles?: any;
+  checkboxStyles?: any;
 }
 
 function getCheckboxStyles({ checked, error, disabled }: Pick<CheckboxProps, "checked" | "error" | "disabled">) {
@@ -94,6 +97,7 @@ function Checkbox({
   indeterminate,
   size = CheckboxSize.medium,
   outerStyles,
+  checkboxStyles,
 }: CheckboxProps) {
   const styles = React.useMemo(() => getCheckboxStyles({ checked, error, disabled }), [checked, error, disabled]);
 
@@ -111,10 +115,13 @@ function Checkbox({
           borderNone,
           width(currentSize.width),
           height(currentSize.height),
+          minWidth(currentSize.width),
+          minHeight(currentSize.height),
           borderRadius(currentSize.borderRadius),
           pointer,
           pointerEvents(disabled ? "none" : "auto"),
           styles,
+          checkboxStyles,
         ]}
         tabIndex={0}
       >
