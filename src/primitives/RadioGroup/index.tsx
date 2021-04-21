@@ -51,6 +51,7 @@ export interface RadioGroupItemInterface<CODE extends string | number> {
 
 export interface RadioGroupInterface<CODE extends string | number> {
   styles?: any;
+  itemStyles?: any;
   active: CODE;
   items: RadioGroupItemInterface<CODE>[];
   size?: RadioGroupSize;
@@ -62,7 +63,14 @@ const sizesByEnum: Record<RadioGroupSize, { height: number; horizontal: number; 
   [RadioGroupSize.SMALL]: { height: 22, horizontal: 8, dividerVerticalPadding: 5 },
 };
 
-function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onChange }: RadioGroupInterface<string>) {
+function RadioGroups({
+  active,
+  size = RadioGroupSize.MEDIUM,
+  items,
+  styles,
+  itemStyles: itemStylesProp,
+  onChange,
+}: RadioGroupInterface<string>) {
   const { initRef, widths } = useChildrenWidthDetector();
 
   const sizes = sizesByEnum[size];
@@ -121,6 +129,7 @@ function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onCh
                     leftContent && paddingLeft(8),
                     !isActive && pointer,
                     itemStyles,
+                    itemStylesProp,
                   ]}
                   onClick={() => !isActive && onChange(code)}
                 >

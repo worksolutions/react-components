@@ -242,6 +242,11 @@ export const defaultTheme: Theme = {
       backgroundColor: "gray-blue/01",
       activeTextColor: "gray-blue/09",
       textColor: "gray-blue/07",
+      dividerColor: "gray-blue/02",
+      Active: {
+        backgroundColor: "white",
+        borderColor: "gray-blue/03",
+      },
     },
     Toggle: {
       switchBackgroundColor: "white",

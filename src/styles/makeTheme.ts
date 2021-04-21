@@ -243,6 +243,11 @@ export interface Theme extends BaseTheme<Colors> {
       backgroundColor: Colors;
       textColor: Colors;
       activeTextColor: Colors;
+      dividerColor: Colors;
+      Active: {
+        backgroundColor: Colors;
+        borderColor: Colors;
+      };
     };
     Toggle: {
       switchBackgroundColor: Colors;
