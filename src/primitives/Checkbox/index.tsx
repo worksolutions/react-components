@@ -101,7 +101,7 @@ function Checkbox({
   const onChangeHandler = React.useCallback(() => onChange(!checked), [checked, onChange]);
 
   return (
-    <Wrapper styles={[padding(4), flex, jc("flex-start"), ai("center"), outerStyles]}>
+    <Wrapper styles={[padding(4), flex, jc("flex-start"), ai("center"), outerStyles]} onClick={onChangeHandler}>
       <Wrapper
         as="label"
         styles={[
@@ -136,7 +136,6 @@ function Checkbox({
             : [pointerEvents("auto"), cursor("pointer"), color("definitions.Checkbox.Text.Enabled.color")],
           contentWrapperStyles,
         ]}
-        onClick={onChangeHandler}
       >
         {content!}
         {required && !!content && <Typography styles={color("definitions.Checkbox.RequiredStar.color")}>*</Typography>}
