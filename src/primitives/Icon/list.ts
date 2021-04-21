@@ -79,6 +79,7 @@ export const internalIcons: Record<string, any> = {
   sync: require("./icons/sync.svg"),
   team: require("./icons/team.svg"),
   user: require("./icons/user.svg"),
+  "text-fields": require("./icons/text-fields.svg"),
   "16-alert-alt": require("./icons/16/alert-alt.svg"),
   "16-deadline": require("./icons/16/deadline.svg"),
   "16-delete": require("./icons/16/delete.svg"),
