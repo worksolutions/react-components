@@ -255,5 +255,35 @@ export const defaultTheme: Theme = {
         hoverBackgroundColor: "gray-blue/03",
       },
     },
+    Checkbox: {
+      RequiredStar: { color: "red/05" },
+      Text: {
+        Enabled: { color: "gray-blue/09" },
+        Disabled: { color: "gray-blue/02" },
+      },
+      Box: {
+        Icon: { color: "white" },
+        CheckedEnabled: {
+          backgroundColor: "blue/09",
+          hoverBackgroundColor: "blue/08",
+          activeBackgroundColor: "blue/10",
+        },
+        UncheckedEnabled: {
+          borderColor: "gray-blue/03",
+          backgroundColor: "transparent",
+          hoverBackgroundColor: "gray-blue/01",
+          activeBackgroundColor: "gray-blue/02",
+        },
+        Disabled: {
+          backgroundColor: "gray-blue/01",
+        },
+        Focus: {
+          borderColor: "blue/04",
+        },
+        Error: {
+          borderColor: "red/05",
+        },
+      },
+    },
   },
 };

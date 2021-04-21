@@ -256,6 +256,36 @@ export interface Theme extends BaseTheme<Colors> {
         hoverBackgroundColor: Colors;
       };
     };
+    Checkbox: {
+      Box: {
+        Icon: { color: Colors };
+        CheckedEnabled: {
+          backgroundColor: Colors;
+          hoverBackgroundColor: Colors;
+          activeBackgroundColor: Colors;
+        };
+        UncheckedEnabled: {
+          borderColor: Colors;
+          backgroundColor: Colors;
+          hoverBackgroundColor: Colors;
+          activeBackgroundColor: Colors;
+        };
+        Disabled: {
+          backgroundColor: Colors;
+        };
+        Focus: {
+          borderColor: Colors;
+        };
+        Error: {
+          borderColor: Colors;
+        };
+      };
+      Text: {
+        Enabled: { color: Colors };
+        Disabled: { color: Colors };
+      };
+      RequiredStar: { color: Colors };
+    };
   };
 }
 

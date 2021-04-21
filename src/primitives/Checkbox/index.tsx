@@ -1,30 +1,28 @@
 import React from "react";
 
 import {
-  flex,
-  jc,
-  ai,
-  padding,
-  height,
-  width,
-  fullWidth,
-  borderRadius,
-  pointer,
-  hover,
-  borderNone,
-  disableOutline,
-  transition,
-  focus,
   active,
-  cursor,
-  marginLeft,
+  ai,
   backgroundColor,
+  borderNone,
+  borderRadius,
   boxShadow,
-  pointerEvents,
   color,
-  fontSize,
-  minWidth,
+  cursor,
+  disableOutline,
+  flex,
+  focus,
+  height,
+  hover,
+  jc,
+  marginLeft,
   minHeight,
+  minWidth,
+  padding,
+  pointer,
+  pointerEvents,
+  transition,
+  width,
 } from "../../styles";
 
 import Wrapper from "../Wrapper";
@@ -32,92 +30,90 @@ import Typography from "../Typography";
 import Icon from "../Icon";
 import { duration200 } from "../../constants/durations";
 
-export enum CheckboxSize {
-  medium = "medium",
-  large = "large",
-}
-
-type SizeStyles = {
-  [key in CheckboxSize]: {
-    width: number;
-    height: number;
-    borderRadius: number;
-    fontSize: number;
-  };
-};
-
-const sizes: SizeStyles = {
-  medium: {
-    width: 16,
-    height: 16,
-    borderRadius: 2,
-    fontSize: 14,
-  },
-  large: {
-    width: 20,
-    height: 20,
-    borderRadius: 2,
-    fontSize: 16,
-  },
-};
-
 export interface CheckboxProps {
+  outerStyles?: any;
+  checkboxStyles?: any;
+  contentWrapperStyles?: any;
   content?: React.ReactNode | string;
   checked: boolean;
-  onChange: (value: boolean) => void;
   error?: boolean;
   disabled?: boolean;
   required?: boolean;
-  size?: CheckboxSize;
   indeterminate?: boolean;
-  outerStyles?: any;
-  checkboxStyles?: any;
+  onChange: (value: boolean) => void;
 }
 
-function getCheckboxStyles({ checked, error, disabled }: Pick<CheckboxProps, "checked" | "error" | "disabled">) {
-  const enabled = !disabled;
-
+function getCheckboxStyles({
+  checked,
+  error,
+  enabled,
+}: Pick<CheckboxProps, "checked" | "error"> & { enabled: boolean }) {
   return [
-    !checked && enabled && boxShadow([0, 0, 0, 1, "gray-blue/03", true]),
-    backgroundColor(disabled ? "gray-blue/02" : checked ? "blue/05" : "transparent"),
-    hover(backgroundColor(checked ? "blue/06" : "gray-blue/01")),
-    focus(!error ? boxShadow([0, 0, 0, 2, "blue/04"]) : boxShadow([0, 0, 0, 2, "red/05"])),
-    active(backgroundColor(checked ? "blue/07" : "gray-blue/02")),
-    error && enabled && boxShadow([0, 0, 0, 2, "red/05"]),
+    !checked && enabled && boxShadow([0, 0, 0, 1, "definitions.Checkbox.Box.UncheckedEnabled.borderColor", true]),
+    backgroundColor(
+      enabled
+        ? checked
+          ? "definitions.Checkbox.Box.CheckedEnabled.backgroundColor"
+          : "definitions.Checkbox.Box.UncheckedEnabled.backgroundColor"
+        : "definitions.Checkbox.Box.Disabled.backgroundColor",
+    ),
+    focus(
+      error
+        ? boxShadow([0, 0, 0, 2, "definitions.Checkbox.Box.Error.BorderColor"])
+        : boxShadow([0, 0, 0, 2, "definitions.Checkbox.Box.Focus.borderColor"]),
+    ),
+    hover(
+      backgroundColor(
+        checked
+          ? "definitions.Checkbox.Box.CheckedEnabled.hoverBackgroundColor"
+          : "definitions.Checkbox.Box.UncheckedEnabled.hoverBackgroundColor",
+      ),
+    ),
+    active(
+      backgroundColor(
+        checked
+          ? "definitions.Checkbox.Box.CheckedEnabled.activeBackgroundColor"
+          : "definitions.Checkbox.Box.UncheckedEnabled.activeBackgroundColor",
+      ),
+    ),
+    error && boxShadow([0, 0, 0, 2, "definitions.Checkbox.Box.Error.borderColor"]),
   ];
 }
 
 function Checkbox({
+  outerStyles,
+  contentWrapperStyles,
+  checkboxStyles,
   content,
   checked,
   error,
-  onChange,
   disabled,
   required,
   indeterminate,
-  size = CheckboxSize.medium,
-  outerStyles,
-  checkboxStyles,
+  onChange,
 }: CheckboxProps) {
-  const styles = React.useMemo(() => getCheckboxStyles({ checked, error, disabled }), [checked, error, disabled]);
+  const styles = React.useMemo(() => getCheckboxStyles({ checked, error, enabled: !disabled }), [
+    checked,
+    error,
+    disabled,
+  ]);
 
-  const onChangeHandler = React.useCallback(() => onChange(!checked), [onChange]);
-  const currentSize = sizes[size];
+  const onChangeHandler = React.useCallback(() => onChange(!checked), [checked, onChange]);
 
   return (
-    <Wrapper styles={[fullWidth, height(24), padding(4), flex, jc("flex-start"), ai("center"), outerStyles]}>
+    <Wrapper styles={[padding(4), flex, jc("flex-start"), ai("center"), outerStyles]}>
       <Wrapper
         as="label"
         styles={[
-          transition(`box-shadow ${duration200}`),
+          transition(`box-shadow ${duration200}, background-color ${duration200}`),
           padding(0),
           disableOutline,
           borderNone,
-          width(currentSize.width),
-          height(currentSize.height),
-          minWidth(currentSize.width),
-          minHeight(currentSize.height),
-          borderRadius(currentSize.borderRadius),
+          width(16),
+          height(16),
+          minWidth(16),
+          minHeight(16),
+          borderRadius(2),
           pointer,
           pointerEvents(disabled ? "none" : "auto"),
           styles,
@@ -126,24 +122,24 @@ function Checkbox({
         tabIndex={0}
       >
         {checked && !indeterminate && (
-          <Icon width={currentSize.width} height={currentSize.height} icon="check" color="white" />
+          <Icon width={16} height={16} icon="check" color="definitions.Checkbox.Box.Icon.color" />
         )}
         {checked && indeterminate && (
-          <Icon width={currentSize.width} height={currentSize.height} icon="minus-small" color="white" />
+          <Icon width={16} height={16} icon="minus-small" color="definitions.Checkbox.Box.Icon.color" />
         )}
       </Wrapper>
       <Typography
         styles={[
           marginLeft(12),
           disabled
-            ? [pointerEvents("none"), cursor("default"), color("gray-blue/02")]
-            : [pointerEvents("auto"), cursor("pointer"), color("gray-blue/09")],
-          fontSize(currentSize.fontSize),
+            ? [pointerEvents("none"), cursor("default"), color("definitions.Checkbox.Text.Disabled.color")]
+            : [pointerEvents("auto"), cursor("pointer"), color("definitions.Checkbox.Text.Enabled.color")],
+          contentWrapperStyles,
         ]}
         onClick={onChangeHandler}
       >
         {content!}
-        {required && !!content && <Typography styles={color("red/05")}>*</Typography>}
+        {required && !!content && <Typography styles={color("definitions.Checkbox.RequiredStar.color")}>*</Typography>}
       </Typography>
     </Wrapper>
   );
