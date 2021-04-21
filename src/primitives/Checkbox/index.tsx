@@ -49,7 +49,7 @@ function getCheckboxStyles({
   enabled,
 }: Pick<CheckboxProps, "checked" | "error"> & { enabled: boolean }) {
   return [
-    !checked && enabled && boxShadow([0, 0, 0, 1, "definitions.Checkbox.Box.UncheckedEnabled.borderColor", true]),
+    !checked && enabled && boxShadow([0, 0, 0, 1, "definitions.Checkbox.Box.UncheckedEnabled.borderColor"]),
     backgroundColor(
       enabled
         ? checked
@@ -59,7 +59,7 @@ function getCheckboxStyles({
     ),
     focus(
       error
-        ? boxShadow([0, 0, 0, 2, "definitions.Checkbox.Box.Error.BorderColor"])
+        ? boxShadow([0, 0, 0, 2, "definitions.Checkbox.Box.Error.borderColor"])
         : boxShadow([0, 0, 0, 2, "definitions.Checkbox.Box.Focus.borderColor"]),
     ),
     hover(
