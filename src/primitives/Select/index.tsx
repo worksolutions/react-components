@@ -88,6 +88,7 @@ function Select<CODE extends SelectItemCode>(
     loading,
     styles,
     size = ListItemSize.MEDIUM,
+    disabled,
     onChange,
     onChangeOpened,
     ...inputContainerProps
@@ -119,6 +120,7 @@ function Select<CODE extends SelectItemCode>(
         : props.children,
       hoverable: false,
       selected: false,
+      disabled,
       size: props.size || size,
       styles: [props.styles, selectedElementStyles],
       mainTextStyles: [props.mainTextStyles, selectedElementTextStyles],
@@ -130,6 +132,7 @@ function Select<CODE extends SelectItemCode>(
     additionalSelectedElements,
     selectedItemCode,
     selectedElementTextWrapper,
+    disabled,
     size,
     selectedElementStyles,
     selectedElementTextStyles,
@@ -152,6 +155,7 @@ function Select<CODE extends SelectItemCode>(
   return (
     <PopupManager
       ref={provideRef(popupManagerRef, ref)}
+      disabled={disabled}
       primaryPlacement={primaryPlacement}
       mode={PopupManagerMode.CLICK}
       offset={offset}
@@ -168,6 +172,7 @@ function Select<CODE extends SelectItemCode>(
       renderTriggerElement={({ initRef, visible }) => (
         <InputContainer
           {...inputContainerProps}
+          disabled={disabled}
           size={matchListItemSizesAndInputContainerSizes[size]}
           outerRef={initRef}
           rightIcon={

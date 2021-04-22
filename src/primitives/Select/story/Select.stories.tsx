@@ -60,7 +60,7 @@ export default {
 
 function getItems() {
   return [
-    <SelectItem key={0} code={null}>
+    <SelectItem key={0} code={0}>
       Элемент 0
     </SelectItem>,
     <SelectItem key={1} leftContent="clock-deadline" code={1}>
