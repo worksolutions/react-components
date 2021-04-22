@@ -2,19 +2,36 @@ import React from "react";
 
 import Wrapper from "../../Wrapper";
 
-import { backgroundColor, fullWidth, height, verticalMargin } from "../../../styles";
+import {
+  backgroundColor,
+  flexShrink,
+  flexValue,
+  height,
+  horizontalMargin,
+  minHeight,
+  verticalMargin,
+} from "../../../styles";
 
 export interface ListItemsDividerInterface {
   styles?: any;
+  verticalMargin?: number;
+  horizontalMargin?: number;
 }
 
-function ListItemsDivider({ styles }: ListItemsDividerInterface) {
+function ListItemsDivider({
+  styles,
+  verticalMargin: verticalMarginProp = 0,
+  horizontalMargin: horizontalMarginProp = 8,
+}: ListItemsDividerInterface) {
   return (
     <Wrapper
       styles={[
-        fullWidth,
-        verticalMargin(4),
+        flexValue(1),
+        flexShrink(0),
+        verticalMarginProp ? verticalMargin(verticalMarginProp) : null,
+        horizontalMarginProp ? horizontalMargin(horizontalMarginProp) : null,
         height(1),
+        minHeight(1),
         backgroundColor("definitions.ListItemsDivider.backgroundColor"),
         styles,
       ]}

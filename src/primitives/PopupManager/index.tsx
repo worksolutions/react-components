@@ -32,6 +32,7 @@ export type PopupManagerInterface = {
   primaryPlacement?: Placement;
   offset?: number;
   hasArrow?: boolean;
+  disabled?: boolean;
   popupWidth?: number | string | "auto";
   popupElement?: React.ReactNode;
   strategy?: PositioningStrategy;
@@ -39,7 +40,10 @@ export type PopupManagerInterface = {
 } & (
   | ({
       mode: PopupManagerMode.CLICK;
-    } & Pick<PopupManagerForClickInterface, "renderTriggerElement" | "closeOnClickOutside">)
+    } & Pick<
+      PopupManagerForClickInterface,
+      "renderTriggerElement" | "closeOnClickOutside" | "excludeElementsForClickEvent"
+    >)
   | ({
       mode: PopupManagerMode.HOVER;
     } & Pick<PopperManagerForHoverInterface, "renderTriggerElement" | "showDelay">)
@@ -66,6 +70,7 @@ function PopupManager(
     primaryPlacement = "bottom-start",
     offset,
     hasArrow,
+    disabled,
     popupElement,
     popupWidth,
     strategy,
@@ -93,7 +98,7 @@ function PopupManager(
   ]);
 
   React.useEffect(() => {
-    if (!triggerElement || !context) return () => null;
+    if (!triggerElement || !context || disabled) return () => null;
 
     if (props.mode === PopupManagerMode.HOVER) {
       const { showDelay = 300 } = props;
@@ -101,11 +106,11 @@ function PopupManager(
     }
 
     if (props.mode === PopupManagerMode.CLICK) {
-      return handleTriggerElementEventsForClick(triggerElement, context);
+      return handleTriggerElementEventsForClick(triggerElement, context, props.excludeElementsForClickEvent);
     }
 
     return () => null;
-  }, [props.mode, context, triggerElement, props]);
+  }, [props.mode, context, triggerElement, props, disabled]);
 
   useEffectSkipFirst(() => {
     if (!context) return;

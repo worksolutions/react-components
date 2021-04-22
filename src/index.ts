@@ -19,6 +19,12 @@ export * from "./primitives/List";
 export { default as ListItemsDivider } from "./primitives/List/ListItemsDivider";
 export * from "./primitives/List/ListItemsDivider";
 
+export { default as ListItemSearch } from "./primitives/List/ListItemSearch";
+export * from "./primitives/List/ListItemSearch";
+
+export { default as ListItemEmpty } from "./primitives/List/ListItemEmpty";
+export * from "./primitives/List/ListItemEmpty";
+
 export { default as ListItem } from "./primitives/List/ListItem";
 export * from "./primitives/List/ListItem";
 export * from "./primitives/List/ListItem/enum";
@@ -82,14 +88,21 @@ export { default as Resizer } from "./primitives/Resizer";
 export * from "./primitives/Resizer";
 
 export { default as Spinner } from "./primitives/Spinner";
+export * from "./primitives/Spinner";
 
 export { default as Tabs } from "./primitives/Tabs";
 export * from "./primitives/Tabs";
+
+export { default as Tab } from "./primitives/Tabs/Tab";
 export * from "./primitives/Tabs/Tab";
 
 export { default as Toggle } from "./primitives/Toggle";
 
 export { default as TokenList } from "./primitives/TokenList";
+export * from "./primitives/TokenList";
+
+export { default as Token } from "./primitives/TokenList/Token";
+export * from "./primitives/TokenList/Token";
 
 export { default as Typography } from "./primitives/Typography";
 export * from "./primitives/Typography";
@@ -98,7 +111,6 @@ export { default as TypographyLink } from "./primitives/Typography/TypographyLin
 export * from "./primitives/Typography/TypographyLink";
 
 export { default as Wrapper } from "./primitives/Wrapper";
-export { expandedIcons } from "./primitives/Icon/list";
 
 export { default as Breadcrumbs } from "./primitives/Breadcrumbs";
 export * from "./primitives/Breadcrumbs";
@@ -132,9 +144,14 @@ export * from "./primitives/Select/SelectItem";
 
 export { default as Toast } from "./primitives/Toast";
 export * from "./primitives/Toast";
+
 export { default as ToastReceiver } from "./components/ToastReceiver";
 export * from "./components/ToastReceiver";
 export { default as ToastsController } from "./components/ToastReceiver/ToastsController";
 
-export { hintPopupStyles } from "./primitives/Tooltip/internal/popupStyles";
-export { tooltipPopupStyles } from "./primitives/Tooltip/internal/popupStyles";
+export { default as TransitionSwapSlides } from "./components/TransitionSwapSlides";
+export * from "./components/TransitionSwapSlides";
+
+export { default as Sorting } from "./components/Sorting";
+export * from "./components/Sorting";
+export * from "./components/Sorting/types";

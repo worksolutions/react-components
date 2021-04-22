@@ -11,6 +11,7 @@ export type PopupManagerForClickTriggerElementContext = Required<VisibilityManag
 export interface PopupManagerForClickInterface {
   popupElementNode: React.ReactNode;
   closeOnClickOutside?: boolean;
+  excludeElementsForClickEvent?: HTMLElement[] | (() => HTMLElement[]);
   setVisibilityContextAndTriggerRef: SetVisibilityContextAndTriggerRef;
   renderTriggerElement: (context: PopupManagerForClickTriggerElementContext) => JSX.Element;
 }

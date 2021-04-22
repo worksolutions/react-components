@@ -16,7 +16,9 @@ export interface ModalInterface {
   actionsInColumn?: boolean;
   preTitleContent?: React.ReactNode;
   title?: string;
+  titleStyles?: any;
   subTitle?: string;
+  subTitleStyles?: any;
   showCloseButton?: boolean;
   closeOnBackdropClick?: boolean;
   centerTitleAndSubtitle?: boolean;
@@ -25,5 +27,5 @@ export interface ModalInterface {
   onSecondaryAction?: (close: () => void) => void;
   children?: React.FC<{ close: () => void }> | React.ReactNode;
   actionsBlock?: ((close: () => void) => React.ReactNode) | React.ReactNode;
-  wrappedContent?: (close: () => void) => React.ReactNode;
+  wrappedContent?: React.FC<{ open: () => void }>;
 }

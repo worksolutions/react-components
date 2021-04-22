@@ -13,10 +13,10 @@ import {
   flexColumn,
   horizontalPadding,
   hover,
+  opacity,
   padding,
   pointer,
   transition,
-  verticalPadding,
 } from "../../styles";
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
@@ -25,19 +25,21 @@ import { duration160 } from "../../constants/durations";
 export interface TabItemInterface {
   title: string;
   active: boolean;
-  onClick: () => void;
+  styles?: any;
+  disabled?: boolean;
+  onClick?: () => void;
 }
 
-export const tabHorizontalPadding = 8;
+export const tabHorizontalPadding = 6;
 
-function Tab({ active, title, onClick }: TabItemInterface) {
+function Tab({ styles, active, title, disabled, onClick }: TabItemInterface) {
   return (
     <Wrapper
       as="button"
       disabled={active}
       styles={[
         disableOutline,
-        verticalPadding(0),
+        padding(0),
         horizontalPadding(tabHorizontalPadding),
         backgroundColor("definitions.Tabs.Tab.backgroundColor"),
         flex,
@@ -46,9 +48,11 @@ function Tab({ active, title, onClick }: TabItemInterface) {
         borderNone,
         borderRadius(4),
         transition(`box-shadow ${duration160}`),
-        !active && [pointer, hover(child(color("definitions.Tabs.Tab.hoverColor")))],
+        !active && !disabled && [pointer, hover(child(color("definitions.Tabs.Tab.hoverColor")))],
+        disabled && opacity(0.7),
+        styles,
       ]}
-      onClick={onClick}
+      onClick={!disabled && onClick}
     >
       <Typography
         type="body-semi-bold"

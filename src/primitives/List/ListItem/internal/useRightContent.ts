@@ -1,12 +1,10 @@
 import { useMemo } from "react";
 
-import { InternalIcons } from "../../../Icon";
-
-export type SideContentType = InternalIcons | JSX.Element | undefined;
+import { UniversalSideContentType } from "../../../../utils/makeUniversalIconContent";
 
 interface UseRightContentInterface {
   selected?: boolean;
-  rightContent: SideContentType;
+  rightContent: UniversalSideContentType;
   showArrowWhenSelected?: boolean;
 }
 

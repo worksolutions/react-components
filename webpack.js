@@ -7,7 +7,17 @@ module.exports = {
       loader: SvgStorePlugin.loader,
       test: /\.svg$/,
     },
-    //TODO: add raw-loader
   ],
-  babelPlugin: "babel-plugin-styled-components",
+  getStyledComponentsBabelPlugin: (env) =>
+    env === "development"
+      ? [
+          "babel-plugin-styled-components",
+          {
+            minify: false,
+            transpileTemplateLiterals: false,
+            displayName: true,
+            fileName: true,
+          },
+        ]
+      : "babel-plugin-styled-components",
 };

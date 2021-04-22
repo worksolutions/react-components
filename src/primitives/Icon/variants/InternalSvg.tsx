@@ -19,29 +19,28 @@ const StyledSvg = styled.svg<{ width: any; height: any; fillColor: any }>`
 function InternalSvg(
   {
     className,
-    icon,
+    icon: rawIcon,
     width: widthProp,
     height: heightProp,
     styles,
-    color = "gray-blue/05",
+    color = "definitions.Icon.defaultColor",
   }: IconVariantProps<keyof typeof internalIcons>,
   ref: any,
 ) {
-  const rawIcon = React.useMemo(() => (icon in internalIcons ? internalIcons[icon] : icon), [icon]);
+  const icon = React.useMemo(() => internalIcons[rawIcon], [rawIcon]);
 
   return (
     <StyledSvg
-      name="internal-svg"
       ref={ref}
       css={styles}
       as="svg"
       className={className}
       width={widthProp}
       height={heightProp}
-      viewBox={rawIcon.viewBox}
+      viewBox={icon.viewBox}
       fillColor={getColor(color)}
     >
-      <use xlinkHref={rawIcon.symbol} />
+      <use xlinkHref={icon.symbol} />
     </StyledSvg>
   );
 }

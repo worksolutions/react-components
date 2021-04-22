@@ -19,6 +19,7 @@ import {
   flex,
   hover,
   ListItemSize,
+  marginBottom,
   marginLeft,
   SelectInterface,
   SelectItemCode,
@@ -28,14 +29,16 @@ import {
 } from "../../../index";
 import SelectItem from "../SelectItem";
 import Select from "../index";
-import { InputContainerSize } from "../../InputContainer/enums";
-import Typography from "../../Typography";
 import ListItemsDivider from "../../List/ListItemsDivider";
+import ListItemSearch from "../../List/ListItemSearch";
+import ListItemEmpty from "../../List/ListItemEmpty";
+import Icon from "../../Icon";
 
 export default {
   title: "Select",
   component: Select,
   argTypes: {
+    loading: booleanControl(),
     rightIcon: iconsControl(),
     rightIconColor: colorControl(),
     rightIconHeight: numbersControl(1, 24, 1),
@@ -47,7 +50,7 @@ export default {
     offset: numbersControl(0, 50, 1),
     popupWidth: selectControl(["auto", 100, 200, "50%", "100%"]),
     title: textControl(),
-    size: selectControl(Object.values(InputContainerSize)),
+    size: selectControl(Object.values(ListItemSize)),
     tip: textControl(),
     error: booleanControl(),
     success: booleanControl(),
@@ -57,13 +60,13 @@ export default {
 
 function getItems() {
   return [
-    <SelectItem key={0} code={0} size={ListItemSize.MEDIUM}>
-      Элемент-заглушка
+    <SelectItem key={0} code={0}>
+      Элемент 0
     </SelectItem>,
-    <SelectItem key={1} leftContent="clock-deadline" code={1} size={ListItemSize.MEDIUM}>
+    <SelectItem key={1} leftContent="clock-deadline" code={1}>
       Элемент 1
     </SelectItem>,
-    <SelectItem key={2} code={2} size={ListItemSize.MEDIUM}>
+    <SelectItem key={2} code={2}>
       Элемент 2
     </SelectItem>,
   ];
@@ -71,18 +74,37 @@ function getItems() {
 
 const Template: Story<SelectInterface<string>> = (props) => {
   const [selected, setSelected] = useState<SelectItemCode>(null);
+  const items = getItems();
+  const [search, setSearch] = React.useState("");
+
+  const last = parseFloat(search);
+  const newItems = isNaN(last) ? items : items.slice(0, last);
+
+  const popupTopElement = (
+    <>
+      <ListItemSearch size={props.size} placeholder="Количество элементов" value={search} onChange={setSearch} />
+      <ListItemsDivider />
+    </>
+  );
+
+  const children =
+    newItems.length === 0 ? (
+      <ListItemEmpty
+        text="По вашему запросу ничего не найдено"
+        beforeText={<Icon icon="alert-alt" color="red/04" width={44} height={44} styles={marginBottom(16)} />}
+      />
+    ) : (
+      newItems
+    );
 
   return (
     <Wrapper styles={[absoluteCenter, top("40%"), flex]}>
-      <Select {...props} selectedItemCode={selected} onChange={setSelected}>
-        <Wrapper>
-          <Typography>Заголовок</Typography>
-        </Wrapper>
-        <ListItemsDivider />
-        {getItems()}
+      <Select {...props} popupTopElement={popupTopElement} selectedItemCode={selected} onChange={setSelected}>
+        {children}
       </Select>
       <Select
         {...props}
+        popupTopElement={popupTopElement}
         selectedItemCode={selected}
         outerStyles={[marginLeft(12), width(320)]}
         styles={[backgroundColor("green/01"), emptyBoxShadow, hover(emptyBoxShadow)]}
@@ -96,7 +118,7 @@ const Template: Story<SelectInterface<string>> = (props) => {
         popupWidth="100%"
         onChange={setSelected}
       >
-        {getItems()}
+        {children}
       </Select>
     </Wrapper>
   );
@@ -106,6 +128,6 @@ export const Default = Template.bind({});
 
 Default.args = {
   primaryPlacement: "bottom-start",
-  size: InputContainerSize.MEDIUM,
+  size: ListItemSize.MEDIUM,
   placeholder: "на этом месте будут выбранные элементы",
 };

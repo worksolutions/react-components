@@ -16,7 +16,7 @@ import {
 } from "../../styles";
 
 const buttonWidthBySize: Record<ButtonSize, number> = {
-  [ButtonSize.LARGE]: 32,
+  [ButtonSize.LARGE]: 40,
   [ButtonSize.MEDIUM]: 32,
   [ButtonSize.SMALL]: 24,
 };

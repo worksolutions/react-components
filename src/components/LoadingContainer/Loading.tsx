@@ -1,40 +1,44 @@
 import React from "react";
+import { asyncTimeout, findElementInDOMParentTree } from "@worksolutions/utils";
 import { observer } from "mobx-react-lite";
 
-import { LoadingProviderLogic, loadingProviderLogicStore } from "./LoadingProviderLogic";
-
-function getElementWithAttributeInParentsPath(element: HTMLElement, attribute: string): HTMLElement | null {
-  if (!element.parentElement) return null;
-  if (element.getAttribute(attribute)) return element;
-  return getElementWithAttributeInParentsPath(element.parentElement, attribute);
-}
+import { LoadingProviderLogic, loadingProviderLogicStore } from "./internal/LoadingProviderLogic";
 
 function findProviderContainerId(element: HTMLElement) {
-  const providerElement = getElementWithAttributeInParentsPath(element, LoadingProviderLogic.attributeName);
-  if (!providerElement) return;
+  const providerElement = findElementInDOMParentTree(element, (element) =>
+    element.hasAttribute(LoadingProviderLogic.attributeName),
+  );
+  if (!providerElement) return null;
   return providerElement.getAttribute(LoadingProviderLogic.attributeName);
 }
 
-function Loading() {
-  const ref = React.useRef<HTMLElement>();
-  React.useEffect(() => {
-    let foundElementId: string | null | undefined;
-    setTimeout(() => {
-      if (!ref.current) return;
-      foundElementId = findProviderContainerId(ref.current);
-      if (!foundElementId) return;
-      loadingProviderLogicStore.providers[foundElementId].spinnerCount++;
-    }, 16);
+async function runMountProviderLogic(spanRef: React.RefObject<HTMLElement>) {
+  await asyncTimeout(16);
+  const foundElementId = findProviderContainerId(spanRef.current!);
+  if (!foundElementId) return null;
+  loadingProviderLogicStore.providers[foundElementId].spinnerCount++;
+  return foundElementId;
+}
 
+async function runUnmountProviderLogic(elementId: string | null) {
+  if (!elementId) return;
+  await asyncTimeout(16);
+  loadingProviderLogicStore.providers[elementId!].spinnerCount--;
+}
+
+function Loading() {
+  const spanRef = React.useRef<HTMLElement>(null!);
+  React.useEffect(() => {
+    let foundElementId: string | null = null;
+    runMountProviderLogic(spanRef).then((id) => (foundElementId = id));
     return () => {
-      if (!foundElementId) return;
-      setTimeout(() => {
-        loadingProviderLogicStore.providers[foundElementId!].spinnerCount--;
-      }, 16);
+      runUnmountProviderLogic(foundElementId);
     };
   }, []);
 
-  return <span ref={ref as any} />;
+  return <span ref={spanRef} className={Loading.markClassName} />;
 }
+
+Loading.markClassName = "loading-provider-loader-mark";
 
 export default observer(Loading);

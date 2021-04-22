@@ -1,26 +1,31 @@
 import React, { Fragment } from "react";
 import { propEq } from "ramda";
-import { SuggestInterface } from "@worksolutions/utils";
 import { useChildrenWidthDetector } from "@worksolutions/react-utils";
 
 import {
+  ai,
+  backgroundColor,
   borderNone,
   borderRadius,
+  boxShadow,
   disableOutline,
   flex,
+  flexShrink,
+  flexValue,
   focus,
+  height,
   horizontalPadding,
+  jc,
+  marginRight,
   opacity,
   overflow,
   padding,
+  paddingLeft,
   pointer,
   position,
   transition,
   verticalPadding,
   zIndex,
-  backgroundColor,
-  border,
-  boxShadow,
 } from "../../styles";
 import Wrapper from "../Wrapper";
 import Typography from "../Typography";
@@ -28,31 +33,47 @@ import Typography from "../Typography";
 import ActiveBackplate from "./ActiveBackplate";
 import Divider from "./Divider";
 
+import { duration200 } from "../../constants/durations";
+import { makeUniversalIconContent, UniversalSideContentType } from "../../utils/makeUniversalIconContent";
+
 export enum RadioGroupSize {
-  MEDIUM,
-  SMALL,
+  MEDIUM = "MEDIUM",
+  SMALL = "SMALL",
 }
 
-export interface RadioGroupInterface<ITEM extends string | number> {
+export interface RadioGroupItemInterface<CODE extends string | number> {
+  title: string;
+  code: CODE;
+  leftContent?: UniversalSideContentType;
+  leftContentStyles?: any;
   styles?: any;
-  active: ITEM;
-  items: SuggestInterface<ITEM>[];
-  size?: RadioGroupSize;
-  onChange: (active: ITEM) => void;
 }
 
-const paddingBySize: Record<
-  RadioGroupSize,
-  { vertical: number; horizontal: number; dividerVerticalPadding: number }
-> = {
-  [RadioGroupSize.MEDIUM]: { vertical: 4, horizontal: 20, dividerVerticalPadding: 9 },
-  [RadioGroupSize.SMALL]: { vertical: 0, horizontal: 16, dividerVerticalPadding: 5 },
+export interface RadioGroupInterface<CODE extends string | number> {
+  styles?: any;
+  itemStyles?: any;
+  active: CODE;
+  items: RadioGroupItemInterface<CODE>[];
+  size?: RadioGroupSize;
+  onChange: (active: CODE) => void;
+}
+
+const sizesByEnum: Record<RadioGroupSize, { height: number; horizontal: number; dividerVerticalPadding: number }> = {
+  [RadioGroupSize.MEDIUM]: { height: 30, horizontal: 12, dividerVerticalPadding: 9 },
+  [RadioGroupSize.SMALL]: { height: 22, horizontal: 8, dividerVerticalPadding: 5 },
 };
 
-function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onChange }: RadioGroupInterface<string>) {
-  const { ref, widths } = useChildrenWidthDetector();
+function RadioGroups({
+  active,
+  size = RadioGroupSize.MEDIUM,
+  items,
+  styles,
+  itemStyles: itemStylesProp,
+  onChange,
+}: RadioGroupInterface<string>) {
+  const { initRef, widths } = useChildrenWidthDetector();
 
-  const paddingValue = paddingBySize[size];
+  const sizes = sizesByEnum[size];
 
   const { activeIndex, activeIndexInWidthsArray } = React.useMemo(() => {
     const activeIndex = items.findIndex(propEq("code", active));
@@ -67,51 +88,72 @@ function RadioGroups({ active, size = RadioGroupSize.MEDIUM, items, styles, onCh
       styles={[
         position("relative"),
         flex,
+        flexShrink(0),
         borderRadius(50),
-        border(1, "gray-blue/02"),
-        backgroundColor("gray-blue/01"),
+        boxShadow([0, 0, 0, 1, "definitions.RadioGroup.borderColor"]),
+        backgroundColor("definitions.RadioGroup.backgroundColor"),
         overflow("hidden"),
-        styles,
         padding(1),
+        styles,
       ]}
     >
       <ActiveBackplate activeIndex={activeIndex} activeIndexInWidthsArray={activeIndexInWidthsArray} widths={widths} />
-      <Wrapper ref={ref} styles={[flex, zIndex(1)]}>
-        {items.map((item, index) => {
-          const isActive = activeIndex === index;
-          return (
-            <Fragment key={item.code}>
-              <Wrapper
-                as="button"
-                disabled={isActive}
-                styles={[
-                  transition("box-shadow 0.2s"),
-                  borderRadius(50),
-                  disableOutline,
-                  borderNone,
-                  backgroundColor("transparent"),
-                  verticalPadding(paddingValue.vertical),
-                  horizontalPadding(paddingValue.horizontal),
-                  !isActive && pointer,
-                  focus(boxShadow([0, 0, 0, 2, "blue/04", true])),
-                ]}
-                onClick={() => !isActive && onChange(item.code)}
-              >
-                <Typography styles={transition("color 0.2s")} color={isActive ? "gray-blue/09" : "gray-blue/07"}>
-                  {item.title}
-                </Typography>
-              </Wrapper>
-              {index !== lastItemsIndex && (
-                <Divider
+      <Wrapper ref={initRef} styles={[flex, zIndex(1), flexValue(1)]}>
+        {items.map(
+          ({ code, title, leftContent, leftContentStyles: leftContentStylesProp, styles: itemStyles }, index) => {
+            const isActive = activeIndex === index;
+            const resultLeftContent = makeUniversalIconContent({
+              icon: leftContent,
+              styles: [marginRight(8), leftContentStylesProp],
+            });
+
+            return (
+              <Fragment key={code}>
+                <Wrapper
+                  as="button"
+                  disabled={isActive}
                   styles={[
-                    verticalPadding(paddingValue.dividerVerticalPadding),
-                    opacity(isActive || activeIndex === index + 1 ? 0 : 1),
+                    flex,
+                    flexValue(1),
+                    ai("center"),
+                    jc("center"),
+                    transition(`box-shadow ${duration200}`),
+                    borderRadius(50),
+                    disableOutline,
+                    borderNone,
+                    backgroundColor("transparent"),
+                    verticalPadding(0),
+                    height(sizes.height),
+                    horizontalPadding(sizes.horizontal),
+                    focus(boxShadow([0, 0, 0, 2, "definitions.RadioGroup.focusBorderColor", true])),
+                    leftContent && paddingLeft(8),
+                    !isActive && pointer,
+                    itemStyles,
+                    itemStylesProp,
                   ]}
-                />
-              )}
-            </Fragment>
-          );
-        })}
+                  onClick={() => !isActive && onChange(code)}
+                >
+                  {resultLeftContent && <Wrapper className="list-item-left-content">{resultLeftContent}</Wrapper>}
+                  <Typography
+                    styles={transition(`color ${duration200}`)}
+                    color={isActive ? "definitions.RadioGroup.activeTextColor" : "definitions.RadioGroup.textColor"}
+                    noWrap
+                  >
+                    {title}
+                  </Typography>
+                </Wrapper>
+                {index !== lastItemsIndex && (
+                  <Divider
+                    styles={[
+                      verticalPadding(sizes.dividerVerticalPadding),
+                      opacity(isActive || activeIndex === index + 1 ? 0 : 1),
+                    ]}
+                  />
+                )}
+              </Fragment>
+            );
+          },
+        )}
       </Wrapper>
     </Wrapper>
   );

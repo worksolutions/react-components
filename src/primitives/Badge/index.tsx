@@ -9,11 +9,10 @@ import {
   borderRadius,
   boxShadow,
   flex,
-  height,
+  horizontalPadding,
   jc,
   minHeight,
   minWidth,
-  width,
 } from "../../styles";
 
 import { BoxShadow, elevation16Raw } from "../../constants/shadows";
@@ -28,7 +27,7 @@ export interface BadgeInterface {
   borderWidth?: number;
 }
 
-function Badge({ styles, color, withShadow = true, children, size = 20, borderWidth = 2 }: BadgeInterface) {
+function Badge({ styles, color, withShadow = true, children, size = 16, borderWidth = 2 }: BadgeInterface) {
   const shadow = [0, 0, 0, borderWidth, "white"] as BoxShadow;
   return (
     <Wrapper
@@ -36,12 +35,11 @@ function Badge({ styles, color, withShadow = true, children, size = 20, borderWi
         flex,
         ai("center"),
         jc("center"),
-        borderRadius("100%"),
+        borderRadius(size / 2),
         backgroundColor(color),
         minWidth(size),
         minHeight(size),
-        width(size),
-        height(size),
+        horizontalPadding(4),
         withShadow ? boxShadow(...elevation16Raw, shadow) : boxShadow(shadow),
         styles,
       ]}

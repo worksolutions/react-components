@@ -1,43 +1,34 @@
 import React from "react";
-import { isDeepEqual } from "@worksolutions/utils";
+import { isDeepEqual, isPureObject } from "@worksolutions/utils";
 import { IncomeColorVariant } from "@worksolutions/react-utils";
 
-import { expandedIcons, internalIcons } from "./list";
+import { internalIcons } from "./list";
 import { Colors } from "../../constants/colors";
 import InternalSvg from "./variants/InternalSvg";
-import StringLikeSvg from "./variants/StringLikeSvg";
 import StringLikeLink from "./variants/StringLikeLink";
 
 export type InternalIcons = keyof typeof internalIcons;
 
-interface StyledSVGInterface {
+export interface IconInterface {
+  icon?: InternalIcons | string;
+  className?: string;
+  color?: IncomeColorVariant<Colors>;
   width?: number | string;
   height?: number | string;
   styles?: any;
 }
 
-export interface IconInterface extends StyledSVGInterface {
-  icon?: InternalIcons | string;
-  className?: string;
-  color?: IncomeColorVariant<Colors>;
-}
-
 function isInternalIcon(icon: string): icon is InternalIcons {
-  return icon in internalIcons;
+  return isPureObject(internalIcons[icon]);
 }
 
-const Icon = React.forwardRef(function ({ color, icon, ...props }: IconInterface, ref: any) {
+const Icon = React.forwardRef(function ({ color, icon, className, ...props }: IconInterface, ref: any) {
   if (!icon) return null;
-  if (isInternalIcon(icon)) {
-    return <InternalSvg ref={ref} color={color} icon={icon} {...props} />;
-  }
+  const resultClassName = className ? `icon ${className}` : "icon";
+  if (isInternalIcon(icon))
+    return <InternalSvg ref={ref} color={color} icon={icon} className={resultClassName} {...props} />;
 
-  if (icon.startsWith("<svg")) return <StringLikeSvg ref={ref} color={color} icon={icon} {...props} />;
-
-  if (expandedIcons[icon] && expandedIcons[icon].startsWith("<svg"))
-    return <StringLikeSvg ref={ref} color={color} icon={expandedIcons[icon]} {...props} />;
-
-  return <StringLikeLink ref={ref} icon={expandedIcons[icon] || icon} {...props} />;
+  return <StringLikeLink ref={ref} icon={internalIcons[icon] || icon} className={resultClassName} {...props} />;
 });
 
 Icon.defaultProps = {
@@ -48,5 +39,5 @@ Icon.defaultProps = {
 export default React.memo(Icon, isDeepEqual);
 
 export const expandIcons = <T extends string>(icons: Record<T, any>) => {
-  return Object.assign(expandedIcons, internalIcons, icons);
+  Object.assign(internalIcons, icons);
 };

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { observer } from "mobx-react-lite";
 
-import PopupManager, { PopupManagerInterface, PopupManagerMode } from "../PopupManager";
+import PopupManager, { PopupManagerInterface, PopupManagerMode, PopupManagerRef } from "../PopupManager";
 
 import { padding } from "../../styles";
 import Typography from "../Typography";
@@ -20,12 +20,24 @@ export interface TooltipInterface
     "renderTriggerElement" | "popupElement" | "closeOnClickOutside" | "mode" | "hasArrow"
   > {
   textStyles?: any;
+  mode?: PopupManagerMode;
   text: string | null | undefined;
   type?: TooltipType;
   children: (data: { initRef: any }) => JSX.Element;
 }
 
-function Tooltip({ textStyles, text, children, type = TooltipType.TOOLTIP, popupStyles, ...props }: TooltipInterface) {
+function Tooltip(
+  {
+    textStyles,
+    text,
+    children,
+    type = TooltipType.TOOLTIP,
+    popupStyles,
+    mode = PopupManagerMode.HOVER,
+    ...props
+  }: TooltipInterface,
+  ref: React.Ref<PopupManagerRef>,
+) {
   const tooltipElement = useMemo(
     () =>
       text &&
@@ -48,8 +60,9 @@ function Tooltip({ textStyles, text, children, type = TooltipType.TOOLTIP, popup
   return (
     <PopupManager
       {...props}
+      ref={ref}
       popupStyles={[popupStyles, type === TooltipType.TOOLTIP ? tooltipPopupStyles : hintPopupStyles]}
-      mode={PopupManagerMode.HOVER}
+      mode={mode}
       hasArrow={false}
       popupElement={tooltipElement}
       renderTriggerElement={children}
@@ -57,4 +70,4 @@ function Tooltip({ textStyles, text, children, type = TooltipType.TOOLTIP, popup
   );
 }
 
-export default observer(Tooltip);
+export default observer(Tooltip, { forwardRef: true });

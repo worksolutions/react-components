@@ -13,19 +13,13 @@ export interface Theme extends BaseTheme<Colors> {
       draggablePartColor: Colors;
       draggablePartHoverColor: Colors;
     };
-    Text: { defaultColor: Colors };
-    Icon: {
-      default: {
-        color: Colors;
-      };
+    Typography: { defaultColor: Colors };
+    TypographyLink: {
+      Internal: { color: Colors; hoverColor: Colors };
+      External: { color: Colors; hoverColor: Colors };
     };
-    LoadingProvider: {
-      Spinner: {
-        color: Colors;
-      };
-      Backplate: {
-        backgroundColor: Colors;
-      };
+    Icon: {
+      defaultColor: Colors;
     };
     ButtonPrimary: {
       color: Colors;
@@ -129,6 +123,18 @@ export interface Theme extends BaseTheme<Colors> {
         focusColor: Colors;
         hoverBackgroundColor: Colors;
       };
+      BorderIcons: {
+        color: Colors;
+      };
+    };
+    ListItemsDivider: {
+      backgroundColor: Colors;
+    };
+    ListItemSearch: {
+      backgroundColor: Colors;
+    };
+    ListItemEmpty: {
+      textColor: Colors;
     };
     Select: {
       RightIcon: {
@@ -136,10 +142,12 @@ export interface Theme extends BaseTheme<Colors> {
       };
       Placeholder: {
         color: Colors;
+        disabledColor: Colors;
       };
     };
-    ListItemsDivider: {
+    Popup: {
       backgroundColor: Colors;
+      borderColor: Colors;
     };
     Tooltip: {
       textColor: Colors;
@@ -156,7 +164,6 @@ export interface Theme extends BaseTheme<Colors> {
       leftIconColor: Colors;
       hoverBoxShadowColor: Colors;
       focusBoxShadowColor: Colors;
-      placeholderColor: Colors;
     };
     InputContainerVariantDefault: InputContainerVariantType;
     InputContainerVariantError: InputContainerVariantType;
@@ -215,6 +222,75 @@ export interface Theme extends BaseTheme<Colors> {
       ArrowButton: {
         backgroundColor: Colors;
       };
+    };
+    Spinner: {
+      color: Colors;
+      backplateColor: Colors;
+    };
+    Token: {
+      backgroundColor: Colors;
+      removeIconColor: Colors;
+      removeIconHoverColor: Colors;
+    };
+    Modal: {
+      underModalBackgroundColor: Colors;
+      subtitleTextColor: Colors;
+      borderColor: Colors;
+      backgroundColor: Colors;
+    };
+    RadioGroup: {
+      borderColor: Colors;
+      focusBorderColor: Colors;
+      backgroundColor: Colors;
+      textColor: Colors;
+      activeTextColor: Colors;
+      dividerColor: Colors;
+      Active: {
+        backgroundColor: Colors;
+        borderColor: Colors;
+      };
+    };
+    Toggle: {
+      switchBackgroundColor: Colors;
+      textColor: Colors;
+      Enabled: {
+        backgroundColor: Colors;
+        hoverBackgroundColor: Colors;
+      };
+      Disabled: {
+        backgroundColor: Colors;
+        hoverBackgroundColor: Colors;
+      };
+    };
+    Checkbox: {
+      Box: {
+        Icon: { color: Colors };
+        CheckedEnabled: {
+          backgroundColor: Colors;
+          hoverBackgroundColor: Colors;
+          activeBackgroundColor: Colors;
+        };
+        UncheckedEnabled: {
+          borderColor: Colors;
+          backgroundColor: Colors;
+          hoverBackgroundColor: Colors;
+          activeBackgroundColor: Colors;
+        };
+        Disabled: {
+          backgroundColor: Colors;
+        };
+        Focus: {
+          borderColor: Colors;
+        };
+        Error: {
+          borderColor: Colors;
+        };
+      };
+      Text: {
+        Enabled: { color: Colors };
+        Disabled: { color: Colors };
+      };
+      RequiredStar: { color: Colors };
     };
   };
 }

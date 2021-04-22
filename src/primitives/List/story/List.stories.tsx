@@ -6,10 +6,12 @@ import { border, ButtonSize, ButtonType, List, ListItem, ListItemSize, marginLef
 import ListItemsDivider from "../ListItemsDivider";
 import { selectControl } from "../../../storybook/storyHelpers";
 import Button from "../../Button";
+import Avatar from "../../Avatar";
 
 export default {
   title: "List",
-  component: List.type,
+  // @ts-ignore
+  component: List.type.render,
   argTypes: {
     itemSize: selectControl(Object.values(ListItemSize)),
   },
@@ -19,7 +21,7 @@ const Template: Story<{
   itemSize: ListItemSize;
 }> = (props) => {
   return (
-    <List styles={[border(1, "gray-blue/02", "dashed")]}>
+    <List outerStyles={[border(1, "gray-blue/02", "dashed")]} {...props}>
       <ListItem size={props.itemSize}>Прсто текст</ListItem>
       <ListItem size={props.itemSize} disabled>
         Выключено
@@ -33,6 +35,9 @@ const Template: Story<{
       <ListItemsDivider />
       <ListItem size={props.itemSize} hoverable>
         Можно навести
+      </ListItem>
+      <ListItem leftContent={<Avatar />} size={props.itemSize} hoverable>
+        Аватар
       </ListItem>
       <ListItem size={props.itemSize} rightContent="save-outline" hoverable showRightContentOnHover>
         Можно навести - появится иконка

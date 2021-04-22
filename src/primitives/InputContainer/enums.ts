@@ -1,17 +1,16 @@
 export enum InputContainerSize {
-  MEDIUM = "medium",
-  LARGE = "large",
-  SMALL = "small",
+  LARGE = "LARGE",
+  MEDIUM = "MEDIUM",
 }
 
 export enum InputContainerTitlePosition {
-  TOP,
-  LEFT,
+  TOP = "TOP",
+  LEFT = "LEFT",
 }
 
 export enum InputContainerVariant {
-  DEFAULT,
-  ERROR,
-  SUCCESS,
-  DISABLED,
+  DEFAULT = "DEFAULT",
+  ERROR = "ERROR",
+  SUCCESS = "SUCCESS",
+  DISABLED = "DISABLED",
 }

@@ -1,4 +1,4 @@
-export const internalIcons = {
+export const internalIcons: Record<string, any> = {
   "list-numbered": require("./icons/list-numbered.svg"),
   "list-ul": require("./icons/list-ul.svg"),
   "tooltip-triangle": require("./icons/tooltip-triangle.svg"),
@@ -102,5 +102,3 @@ export const internalIcons = {
   "16-triangle-up-down": require("./icons/16/triangle-up-down.svg"),
   "16-triangle-up": require("./icons/16/triangle-up.svg"),
 };
-
-export const expandedIcons: Record<string, string> = {};

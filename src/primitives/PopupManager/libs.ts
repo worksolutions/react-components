@@ -1,3 +1,5 @@
+import { findElementInDOMParentTree, isFunction } from "@worksolutions/utils";
+
 export function handleTriggerElementEventsForHover(
   triggerElement: HTMLElement,
   showDelay: number,
@@ -22,9 +24,28 @@ export function handleTriggerElementEventsForHover(
   };
 }
 
-export function handleTriggerElementEventsForClick(triggerElement: HTMLElement, context: { toggle: () => void }) {
-  triggerElement.addEventListener("click", context.toggle);
+export function handleTriggerElementEventsForClick(
+  triggerElement: HTMLElement,
+  context: { toggle: () => void },
+  excludeElementsForClickEvent: HTMLElement[] | (() => HTMLElement[]) | undefined,
+) {
+  function clickListener(event: MouseEvent) {
+    if (!excludeElementsForClickEvent) {
+      context.toggle();
+      return;
+    }
+
+    const excludeElements = isFunction(excludeElementsForClickEvent)
+      ? excludeElementsForClickEvent()
+      : excludeElementsForClickEvent;
+
+    if (findElementInDOMParentTree(event.target as any, (element) => excludeElements.includes(element))) return;
+
+    context.toggle();
+  }
+
+  triggerElement.addEventListener("click", clickListener);
   return () => {
-    triggerElement.removeEventListener("click", context.toggle);
+    triggerElement.removeEventListener("click", clickListener);
   };
 }

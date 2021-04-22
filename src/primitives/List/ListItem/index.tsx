@@ -1,26 +1,27 @@
 import React, { useCallback, useMemo } from "react";
+import { IncomeColorVariant } from "@worksolutions/react-utils";
 
 import { flex, flexColumn, flexValue, marginLeft, marginRight, overflow, textAlign } from "../../../styles";
 
 import Wrapper from "../../Wrapper";
 import Typography from "../../Typography";
 
-import {
-  getHoveredStylesForLeftContent,
-  getHoveredStylesForRightContent,
-  makeIcon,
-} from "./internal/additionalContent";
+import { getHoveredStylesForBorderContent } from "./internal/additionalContent";
 import { getListItemStyles } from "./internal/libs";
-import { SideContentType, useRightContent } from "./internal/useRightContent";
+import { useRightContent } from "./internal/useRightContent";
+import { makeUniversalIconContent, UniversalSideContentType } from "../../../utils/makeUniversalIconContent";
 
 import { ListItemSize } from "./enum";
+import { Colors } from "../../../constants/colors";
 
 export interface ListItemInterface {
   leftContentStyles?: any;
-  leftContent?: SideContentType;
+  leftContent?: UniversalSideContentType;
+  leftContentColor?: IncomeColorVariant<Colors>;
   showLeftContentOnHover?: boolean;
   rightContentStyles?: any;
-  rightContent?: SideContentType;
+  rightContent?: UniversalSideContentType;
+  rightContentColor?: IncomeColorVariant<Colors>;
   showRightContentOnHover?: boolean;
   mainTextStyles?: any;
   styles?: any;
@@ -40,15 +41,17 @@ function ListItem(
   {
     leftContent,
     leftContentStyles: leftContentStylesProp,
+    leftContentColor = "definitions.ListItem.BorderIcons.color",
     showLeftContentOnHover,
     rightContent,
     rightContentStyles: rightContentStylesProp,
+    rightContentColor = "definitions.ListItem.BorderIcons.color",
     showRightContentOnHover,
     children,
     disabled,
     heading,
     subTitle,
-    size = ListItemSize.LARGE,
+    size = ListItemSize.MEDIUM,
     titleDots,
     mainTextStyles,
     styles,
@@ -66,19 +69,26 @@ function ListItem(
     hoverable,
   ]);
 
-  const leftContentStyles = useMemo(() => getHoveredStylesForLeftContent(showLeftContentOnHover), [
-    showLeftContentOnHover,
-  ]);
+  const leftContentStyles = useMemo(
+    () => getHoveredStylesForBorderContent(".list-item-left-content", showLeftContentOnHover),
+    [showLeftContentOnHover],
+  );
 
-  const rightContentStyles = useMemo(() => getHoveredStylesForRightContent(showRightContentOnHover), [
-    showRightContentOnHover,
-  ]);
+  const rightContentStyles = useMemo(
+    () => getHoveredStylesForBorderContent(".list-item-right-content", showRightContentOnHover),
+    [showRightContentOnHover],
+  );
 
-  const resultLeftContent = makeIcon(leftContent, [marginRight(8), leftContentStylesProp]);
-  const resultRightContent = makeIcon(useRightContent({ selected, rightContent, showArrowWhenSelected }), [
-    marginLeft(8),
-    rightContentStylesProp,
-  ]);
+  const resultLeftContent = makeUniversalIconContent({
+    icon: leftContent,
+    styles: [marginRight(8), leftContentStylesProp],
+    color: leftContentColor,
+  });
+  const resultRightContent = makeUniversalIconContent({
+    icon: useRightContent({ selected, rightContent, showArrowWhenSelected }),
+    styles: [marginLeft(8), rightContentStylesProp],
+    color: rightContentColor,
+  });
 
   const handleClick = useCallback(() => {
     if (disabled || !onClick) return;

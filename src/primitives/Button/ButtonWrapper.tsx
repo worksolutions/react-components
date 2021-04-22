@@ -15,7 +15,7 @@ import {
 
 import { TypographyTypes } from "../Typography";
 import Icon, { InternalIcons } from "../Icon";
-import Spinner from "../Spinner";
+import Spinner, { SpinnerSize } from "../Spinner";
 
 import { buttonStylesMap } from "./styles";
 import { ButtonSize, ButtonType } from "./types";
@@ -40,6 +40,8 @@ export interface BaseButtonWrapperInterface {
   iconLeftHeight?: number;
   iconRightWidth?: number;
   iconRightHeight?: number;
+  iconLeftStyles?: any;
+  iconRightStyles?: any;
   disabled?: boolean;
   size?: ButtonSize;
   type?: ButtonType;
@@ -68,14 +70,12 @@ const transitionStyle = transition(cssAnimateProperties.map((val) => `${val} ${d
 function makeIcon(
   loading: boolean | undefined,
   icon: InternalIcons | undefined,
-  { height, width, className }: { className: string; width?: number; height?: number },
+  { height, width, className, styles }: { className: string; width?: number; height?: number; styles?: any },
 ) {
-  const resultClassName = `icon ${className}`;
-
-  if (loading) return <Spinner className={resultClassName} />;
+  if (loading) return <Spinner styles={styles} size={SpinnerSize.medium} className={className} />;
   if (!icon) return null;
 
-  return <Icon className={resultClassName} icon={icon} width={width} height={height} />;
+  return <Icon className={className} styles={styles} icon={icon} width={width} height={height} />;
 }
 
 function ButtonWrapper({
@@ -91,6 +91,8 @@ function ButtonWrapper({
   iconLeftHeight,
   iconRightWidth,
   iconRightHeight,
+  iconLeftStyles,
+  iconRightStyles,
   disabled,
 }: ButtonWrapperInterface) {
   const isIconButton = type === ButtonType.ICON;
@@ -123,12 +125,14 @@ function ButtonWrapper({
     className: "icon-left",
     width: icons.leftWidth,
     height: icons.leftHeight,
+    styles: iconLeftStyles,
   });
 
   const rightIconElement = makeIcon(loadingRight, icons.iconRight, {
     className: "icon-right",
     width: icons.rightWidth,
     height: icons.rightHeight,
+    styles: iconRightStyles,
   });
 
   const isNotLoading = !(loadingLeft || loadingRight);

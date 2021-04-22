@@ -1,41 +1,41 @@
 import React, { Ref } from "react";
 import { observer } from "mobx-react-lite";
 import ReactDOM from "react-dom";
+import { CSSTransition } from "react-transition-group";
+import { IncomeColorVariant, useBoolean } from "@worksolutions/react-utils";
 
 import Wrapper from "../../primitives/Wrapper";
-import Spinner from "../../primitives/Spinner";
+import Spinner, { SpinnerSize } from "../../primitives/Spinner";
 
-import {
-  ai,
-  backgroundColorWithoutMemoization,
-  bottom,
-  createAlphaColor,
-  flex,
-  jc,
-  left,
-  position,
-  right,
-  top,
-} from "../../styles";
+import { ai, flex, fullHeight, fullWidth, jc, left, opacity, position, top, transition } from "../../styles";
 import { Colors } from "../../constants/colors";
 import { zIndex_loadingProvider } from "../../constants/zIndexes";
+import { duration120, duration120Number } from "../../constants/durations";
 
-import { LoadingProviderLogic, loadingProviderLogicStore } from "./LoadingProviderLogic";
+import { LoadingProviderLogic, loadingProviderLogicStore } from "./internal/LoadingProviderLogic";
 
-interface LoadingProviderInterface {
-  withBackground?: boolean;
+export interface LoadingProviderInterface {
+  centered?: boolean;
   backplateStyles?: any;
-  styles?: any;
+  spinnerStyles?: any;
+  spinnerWidth?: number;
+  spinnerColor?: IncomeColorVariant<Colors>;
+  spinnerBackplateColor?: IncomeColorVariant<Colors>;
+  spinnerWithBackplate?: boolean;
+  spinnerSize?: SpinnerSize;
   children: (loadingProviderRef: Ref<HTMLElement | undefined>) => JSX.Element;
-  color?: Colors;
 }
 
 function LoadingProvider({
-  styles,
+  centered = true,
+  spinnerStyles,
   backplateStyles,
   children,
-  color,
-  withBackground = true,
+  spinnerColor,
+  spinnerSize,
+  spinnerWidth,
+  spinnerBackplateColor,
+  spinnerWithBackplate,
 }: LoadingProviderInterface) {
   const id = React.useMemo(() => loadingProviderLogicStore.generateId(), []);
   const ref = React.useRef<HTMLElement>();
@@ -50,53 +50,63 @@ function LoadingProvider({
     return () => {
       loadingProviderLogicStore.providers[id].spinnerCount = 0;
     };
-  }, []);
+  }, [id]);
 
   const needShowSpinner = loadingProviderLogicStore.providers[id]?.spinnerCount !== 0 && !!ref.current;
-  const [realShowSpinner, setRealShowSpinner] = React.useState(needShowSpinner);
+  const [spinnerVisible, showSpinner, hideSpinner] = useBoolean(needShowSpinner);
   const timerRef = React.useRef<any>();
 
   React.useEffect(() => {
     clearTimeout(timerRef.current);
     if (needShowSpinner) {
-      setRealShowSpinner(true);
+      showSpinner();
       return;
     }
 
     timerRef.current = setTimeout(() => {
-      setRealShowSpinner(false);
+      hideSpinner();
     }, 16);
-  }, [needShowSpinner]);
+  }, [hideSpinner, needShowSpinner, showSpinner]);
 
   return (
     <>
       {children(ref)}
-      {realShowSpinner &&
-        ReactDOM.createPortal(
-          <Wrapper
-            styles={[
-              zIndex_loadingProvider,
-              position("absolute"),
-              left(0),
-              right(0),
-              top(0),
-              bottom(0),
-              withBackground &&
-                backgroundColorWithoutMemoization(
-                  createAlphaColor("definitions.LoadingProvider.Backplate.backgroundColor", 160),
-                ),
-              flex,
-              ai("center"),
-              jc("center"),
-              backplateStyles,
-            ]}
-          >
-            <Spinner styles={styles} color={color || "definitions.LoadingProvider.Spinner.color"} />
-          </Wrapper>,
-          ref.current!,
-        )}
+      <CSSTransition unmountOnExit mountOnEnter in={spinnerVisible} timeout={duration120Number}>
+        {(status) =>
+          ReactDOM.createPortal(
+            <Wrapper
+              className={LoadingProvider.wrapperClassName}
+              styles={[
+                transition(`opacity ${duration120}`),
+                opacity(status === "entered" ? 1 : 0),
+                zIndex_loadingProvider,
+                position("absolute"),
+                left(0),
+                top(0),
+                fullWidth,
+                fullHeight,
+                flex,
+                centered && [ai("center"), jc("center")],
+                backplateStyles,
+              ]}
+            >
+              <Spinner
+                styles={spinnerStyles}
+                size={spinnerSize}
+                width={spinnerWidth}
+                color={spinnerColor}
+                backplateColor={spinnerBackplateColor}
+                withBackplate={spinnerWithBackplate}
+              />
+            </Wrapper>,
+            ref.current!,
+          )
+        }
+      </CSSTransition>
     </>
   );
 }
+
+LoadingProvider.wrapperClassName = "loading-provider-wrapper-mark";
 
 export default observer(LoadingProvider);

@@ -9,15 +9,13 @@ export const defaultTheme: Theme = {
       draggablePartColor: "gray-blue/02",
       draggablePartHoverColor: "gray-blue/06",
     },
-    Text: { defaultColor: "gray-blue/09" },
-    Icon: {
-      default: {
-        color: "gray-blue/05",
-      },
+    Typography: { defaultColor: "gray-blue/09" },
+    TypographyLink: {
+      Internal: { color: "gray-blue/09", hoverColor: "gray-blue/07" },
+      External: { color: "blue/06", hoverColor: "blue/06" },
     },
-    LoadingProvider: {
-      Spinner: { color: "gray-blue/09" },
-      Backplate: { backgroundColor: "white" },
+    Icon: {
+      defaultColor: "gray-blue/07",
     },
     ButtonPrimary: {
       color: "white",
@@ -71,9 +69,31 @@ export const defaultTheme: Theme = {
     ListItem: {
       Selected: { backgroundColor: "gray-blue/01" },
       UnSelected: { hoverBackgroundColor: "gray-blue/01", focusColor: "blue/05" },
+      BorderIcons: {
+        color: "gray-blue/09",
+      },
     },
     ListItemsDivider: {
       backgroundColor: "gray-blue/02",
+    },
+    ListItemSearch: {
+      backgroundColor: "white",
+    },
+    ListItemEmpty: {
+      textColor: "gray-blue/05",
+    },
+    Select: {
+      RightIcon: {
+        color: "gray-blue/07",
+      },
+      Placeholder: {
+        color: "gray-blue/05",
+        disabledColor: "gray-blue/03",
+      },
+    },
+    Popup: {
+      backgroundColor: "white",
+      borderColor: "gray-blue/02",
     },
     Tooltip: {
       shadowColor: "gray-blue/02",
@@ -118,20 +138,11 @@ export const defaultTheme: Theme = {
         backgroundColor: "gray-blue/01",
       },
     },
-    Select: {
-      RightIcon: {
-        color: "gray-blue/07",
-      },
-      Placeholder: {
-        color: "gray-blue/05",
-      },
-    },
     InputContainer: {
       rightIconColor: "gray-blue/07",
       leftIconColor: "gray-blue/05",
       hoverBoxShadowColor: "gray-blue/03",
       focusBoxShadowColor: "blue/05",
-      placeholderColor: "gray-blue/04",
     },
     InputContainerVariantDefault: {
       background: "gray-blue/01",
@@ -209,6 +220,75 @@ export const defaultTheme: Theme = {
       Border: { color: "gray-blue/02", hoverColor: "gray-blue/03", activeColor: "blue/05" },
       ArrowButton: {
         backgroundColor: "white",
+      },
+    },
+    Spinner: {
+      color: "gray-blue/09",
+      backplateColor: "white",
+    },
+    Token: {
+      backgroundColor: "white",
+      removeIconColor: "gray-blue/07",
+      removeIconHoverColor: "gray-blue/05",
+    },
+    Modal: {
+      underModalBackgroundColor: "gray-blue/09",
+      subtitleTextColor: "gray-blue/06",
+      borderColor: "gray-blue/02",
+      backgroundColor: "white",
+    },
+    RadioGroup: {
+      borderColor: "gray-blue/02",
+      focusBorderColor: "blue/04",
+      backgroundColor: "gray-blue/01",
+      activeTextColor: "gray-blue/09",
+      textColor: "gray-blue/07",
+      dividerColor: "gray-blue/02",
+      Active: {
+        backgroundColor: "white",
+        borderColor: "gray-blue/03",
+      },
+    },
+    Toggle: {
+      switchBackgroundColor: "white",
+      textColor: "gray-blue/08",
+      Enabled: {
+        backgroundColor: "blue/09",
+        hoverBackgroundColor: "blue/08",
+      },
+      Disabled: {
+        backgroundColor: "gray-blue/02",
+        hoverBackgroundColor: "gray-blue/03",
+      },
+    },
+    Checkbox: {
+      RequiredStar: { color: "red/05" },
+      Text: {
+        Enabled: { color: "gray-blue/09" },
+        Disabled: { color: "gray-blue/02" },
+      },
+      Box: {
+        Icon: { color: "white" },
+        CheckedEnabled: {
+          backgroundColor: "blue/09",
+          hoverBackgroundColor: "blue/08",
+          activeBackgroundColor: "blue/10",
+        },
+        UncheckedEnabled: {
+          borderColor: "gray-blue/03",
+          backgroundColor: "transparent",
+          hoverBackgroundColor: "gray-blue/01",
+          activeBackgroundColor: "gray-blue/02",
+        },
+        Disabled: {
+          backgroundColor: "gray-blue/01",
+        },
+        Focus: {
+          borderColor: "blue/04",
+        },
+        Error: {
+          borderColor: "red/05",
+        },
       },
     },
   },

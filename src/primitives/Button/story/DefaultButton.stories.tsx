@@ -9,7 +9,8 @@ import { internalIcons } from "../../Icon/list";
 
 export default {
   title: "Button",
-  component: ButtonComponent.type,
+  // @ts-ignore
+  component: ButtonComponent.type.render,
   argTypes: {
     type: selectControl(Object.keys(ButtonType)),
     size: selectControl(Object.keys(ButtonSize)),

@@ -31,9 +31,11 @@ const sizeWidth: SizeWidth = {
 export interface SpinnerInterface {
   styles?: any;
   color?: IncomeColorVariant<Colors>;
+  backplateColor?: IncomeColorVariant<Colors>;
   className?: string;
   size?: SpinnerSize;
   width?: number;
+  withBackplate?: boolean;
 }
 
 const getSpinnerWidth = memoizeWith(string2, (size: SpinnerSize, width: number) => {
@@ -44,26 +46,42 @@ const getSpinnerWidth = memoizeWith(string2, (size: SpinnerSize, width: number) 
   return sizeWidth[size];
 });
 
-const StyledSpinner = styled.div.attrs({ className: "loader" })<Required<SpinnerInterface>>`
-  width: ${(props) => getSpinnerWidth(props.size, props.width)}px;
+const StyledSpinner = styled.div.attrs({ className: "spinner" })<Required<SpinnerInterface>>`
+  ${(props) => {
+    const size = getSpinnerWidth(props.size, props.width);
+    return `width: ${size}px;min-width: ${size}px; min-height:${size}px; height: ${size}px;`;
+  }};
+  overflow: hidden;
 
   .path {
-    stroke: ${(props) => getColor(props.color)};
+    &-spin {
+      stroke: ${(props) => getColor(props.color)};
+    }
+
+    &-back {
+      stroke: ${(props) => getColor(props.backplateColor)};
+    }
   }
 `;
 
-const Spinner = function ({ size = SpinnerSize.medium, styles, ...props }: SpinnerInterface) {
+const Spinner = function ({
+  size = SpinnerSize.medium,
+  styles,
+  withBackplate,
+  color = "definitions.Spinner.color",
+  backplateColor = "definitions.Spinner.backplateColor",
+  ...props
+}: SpinnerInterface) {
   return (
-    <StyledSpinner {...(props as any)} size={size} css={styles}>
+    <StyledSpinner {...(props as any)} color={color} backplateColor={backplateColor} size={size} css={styles}>
       <svg className="circular" viewBox="25 25 50 50">
-        <circle className="path" cx="50" cy="50" r="20" fill="none" strokeWidth="2" strokeMiterlimit="10" />
+        {withBackplate && (
+          <circle className="path path-back" cx="50" cy="50" r="20" fill="none" strokeWidth="8" strokeMiterlimit="10" />
+        )}
+        <circle className="path path-spin" cx="50" cy="50" r="20" fill="none" strokeWidth="4" strokeMiterlimit="10" />
       </svg>
     </StyledSpinner>
   );
-};
-
-Spinner.defaultProps = {
-  color: "gray-blue/09",
 };
 
 export default React.memo(Spinner);

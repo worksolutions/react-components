@@ -4,22 +4,27 @@ import { IncomeColorVariant, provideRef, useEffectSkipFirst } from "@worksolutio
 import Typography from "../Typography";
 import SelectTrigger from "./internal/SelectTrigger";
 import PopupManager, { PopupManagerInterface, PopupManagerMode, PopupManagerRef } from "../PopupManager";
-import Icon, { InternalIcons } from "../Icon";
+import { InternalIcons } from "../Icon";
 import InputContainer, { InputContainerInterface } from "../InputContainer";
 
-import { paddingLeft, transform, transition, verticalPadding } from "../../styles";
-import { duration160 } from "../../constants/durations";
-import SelectPopupComponent, { checkIsSelectItem } from "./internal/SelectPopupComponent";
+import { backgroundColor, borderRadius, boxShadow, paddingLeft, verticalPadding } from "../../styles";
+import SelectPopupList, { detectIsSelectItem } from "./internal/SelectPopupList";
 import { SelectItemCode, SelectItemInterface } from "./SelectItem";
 import { Colors } from "../../constants/colors";
 
-import { tooltipPopupStyles } from "../Tooltip";
+import { ListItemSize } from "../List/ListItem/enum";
+import { matchListItemSizesAndInputContainerSizes } from "./internal/sizeMatches";
+import { elevation16Raw } from "../../constants/shadows";
+import SelectRightIcon from "./internal/SelectRightIcon";
 
 export type SelectInterface<CODE extends SelectItemCode> = Omit<
   PopupManagerInterface,
   "mode" | "closeOnClickOutside" | "popupElement" | "renderTriggerElement"
 > &
-  Omit<InputContainerInterface, "onClick" | "outerRef" | "children" | "rightIcon" | "leftIcon" | "leftIconStyles"> & {
+  Omit<
+    InputContainerInterface,
+    "onClick" | "outerRef" | "children" | "rightIcon" | "leftIcon" | "leftIconStyles" | "size"
+  > & {
     styles?: any;
     placeholder?: string;
     placeholderStyles?: any;
@@ -28,7 +33,8 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
       | (React.ReactElement<SelectItemInterface<CODE>> | React.ReactNode)[]
       | React.ReactElement<SelectItemInterface<CODE>>
       | React.ReactNode;
-    rightIcon?: InternalIcons;
+    additionalSelectedElements?: Record<string | number, React.ReactElement<SelectItemInterface<any>>>;
+    rightIcon?: InternalIcons | null;
     selectedElementStyles?: any;
     selectedElementTextStyles?: any;
     rightIconStyles?: any;
@@ -36,8 +42,17 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
     rightIconHeight?: number | string;
     rightIconColor?: IncomeColorVariant<Colors>;
     closePopupAfterChange?: boolean;
-    selectedElementWrapper?: <C extends CODE>(currentText: string | number, code: C) => string | number;
+    selectedElementWrapper?: <C extends CODE>(
+      element: React.ReactElement<SelectItemInterface<any>>,
+      code: C,
+    ) => React.ReactElement;
+    selectedElementTextWrapper?: <C extends CODE>(currentText: string | number, code: C) => string | number;
     selectedItemCode: CODE;
+    loading?: boolean;
+    popupTopElement?: React.ReactNode;
+    popupBottomElement?: React.ReactNode;
+    size?: ListItemSize;
+    popupScrollableElementRef?: React.Ref<HTMLElement>;
     popupElementWrapper?: (child: JSX.Element) => JSX.Element;
     onChange: (newActiveCode: CODE, newSelected: boolean) => void;
   };
@@ -51,21 +66,29 @@ function Select<CODE extends SelectItemCode>(
     rightIconStyles,
     selectedItemCode,
     selectedElementWrapper,
+    selectedElementTextWrapper,
     selectedElementStyles,
     selectedElementTextStyles,
+    additionalSelectedElements = {},
     closePopupAfterChange = true,
     children,
     popupElementWrapper,
+    popupScrollableElementRef,
     placeholder,
     placeholderStyles,
     placeholderColor = "definitions.Select.Placeholder.color",
     popupStyles,
+    popupTopElement,
+    popupBottomElement,
     primaryPlacement,
     offset,
     popupWidth,
     strategy,
     hasArrow,
+    loading,
     styles,
+    size = ListItemSize.MEDIUM,
+    disabled,
     onChange,
     onChangeOpened,
     ...inputContainerProps
@@ -79,60 +102,86 @@ function Select<CODE extends SelectItemCode>(
     popupManagerRef.current.hide();
   }, [selectedItemCode]);
 
-  const childrenElements = React.Children.toArray(children);
+  const childrenElements = React.Children.toArray(children) as React.ReactElement<SelectItemInterface<CODE>>[];
 
   const selectedElement = React.useMemo(() => {
-    const importantElements = (childrenElements as React.ReactElement<SelectItemInterface<CODE>>[]).filter(
-      checkIsSelectItem,
-    );
+    const importantElements = childrenElements.filter(detectIsSelectItem);
 
-    const foundElement = importantElements.find((element) => element.props.code === selectedItemCode);
+    const foundElement =
+      additionalSelectedElements[selectedItemCode!] ||
+      importantElements.find((element) => element.props.code === selectedItemCode);
+
     if (!foundElement) return null;
 
     const { props } = foundElement;
-    return React.cloneElement(foundElement, {
-      children: selectedElementWrapper ? selectedElementWrapper(props.children, selectedItemCode) : props.children,
+    const element = React.cloneElement(foundElement, {
+      children: selectedElementTextWrapper
+        ? selectedElementTextWrapper(props.children, selectedItemCode)
+        : props.children,
       hoverable: false,
       selected: false,
+      disabled,
+      size: props.size || size,
       styles: [props.styles, selectedElementStyles],
       mainTextStyles: [props.mainTextStyles, selectedElementTextStyles],
       onClick: undefined,
     });
-  }, [childrenElements, selectedElementWrapper, selectedItemCode, selectedElementStyles, selectedElementTextStyles]);
+    return selectedElementWrapper ? selectedElementWrapper(element, selectedItemCode) : element;
+  }, [
+    childrenElements,
+    additionalSelectedElements,
+    selectedItemCode,
+    selectedElementTextWrapper,
+    disabled,
+    size,
+    selectedElementStyles,
+    selectedElementTextStyles,
+    selectedElementWrapper,
+  ]);
 
   const popupElement = (
-    <SelectPopupComponent selectedItemCode={selectedItemCode} onChange={onChange}>
-      {childrenElements}
-    </SelectPopupComponent>
+    <SelectPopupList
+      ref={popupScrollableElementRef}
+      selectedItemCode={selectedItemCode}
+      loading={loading}
+      popupTopElement={popupTopElement}
+      popupBottomElement={popupBottomElement}
+      onChange={onChange}
+    >
+      {childrenElements.map((element) => React.cloneElement(element, { size: element.props.size || size }))}
+    </SelectPopupList>
   );
 
   return (
     <PopupManager
       ref={provideRef(popupManagerRef, ref)}
+      disabled={disabled}
       primaryPlacement={primaryPlacement}
       mode={PopupManagerMode.CLICK}
-      closeOnClickOutside
       offset={offset}
       popupWidth={popupWidth}
       strategy={strategy}
       hasArrow={hasArrow}
-      popupStyles={[tooltipPopupStyles, popupStyles]}
+      popupStyles={[
+        backgroundColor("definitions.Popup.backgroundColor"),
+        boxShadow(...elevation16Raw, [0, 0, 0, 1, "definitions.Popup.borderColor"]),
+        borderRadius(4),
+        popupStyles,
+      ]}
       popupElement={popupElementWrapper ? popupElementWrapper(popupElement) : popupElement}
       renderTriggerElement={({ initRef, visible }) => (
         <InputContainer
           {...inputContainerProps}
+          disabled={disabled}
+          size={matchListItemSizesAndInputContainerSizes[size]}
           outerRef={initRef}
           rightIcon={
-            <Icon
+            <SelectRightIcon
+              styles={rightIconStyles}
               icon={rightIcon}
+              popupVisible={visible}
               width={rightIconWidth}
               height={rightIconHeight}
-              styles={[
-                transition(`all ${duration160}`),
-                transform(`rotateZ(${visible ? "180deg" : "0deg"})`),
-                rightIconStyles,
-              ]}
-              color={rightIconColor}
             />
           }
           renderComponent={(inputContainerStyles) => (
@@ -140,7 +189,11 @@ function Select<CODE extends SelectItemCode>(
               styles={[inputContainerStyles, selectedElement && [verticalPadding(0), paddingLeft(4)], styles]}
             >
               {selectedElement || (
-                <Typography dots color={placeholderColor} styles={placeholderStyles}>
+                <Typography
+                  dots
+                  color={disabled ? "definitions.Select.Placeholder.disabledColor" : placeholderColor}
+                  styles={placeholderStyles}
+                >
                   {placeholder}
                 </Typography>
               )}
