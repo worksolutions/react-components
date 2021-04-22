@@ -88,6 +88,7 @@ export const defaultTheme: Theme = {
       },
       Placeholder: {
         color: "gray-blue/05",
+        disabledColor: "gray-blue/03",
       },
     },
     Popup: {

@@ -142,6 +142,7 @@ export interface Theme extends BaseTheme<Colors> {
       };
       Placeholder: {
         color: Colors;
+        disabledColor: Colors;
       };
     };
     Popup: {

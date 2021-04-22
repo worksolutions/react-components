@@ -189,7 +189,11 @@ function Select<CODE extends SelectItemCode>(
               styles={[inputContainerStyles, selectedElement && [verticalPadding(0), paddingLeft(4)], styles]}
             >
               {selectedElement || (
-                <Typography dots color={placeholderColor} styles={placeholderStyles}>
+                <Typography
+                  dots
+                  color={disabled ? "definitions.Select.Placeholder.disabledColor" : placeholderColor}
+                  styles={placeholderStyles}
+                >
                   {placeholder}
                 </Typography>
               )}
