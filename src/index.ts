@@ -155,3 +155,6 @@ export * from "./components/TransitionSwapSlides";
 export { default as Sorting } from "./components/Sorting";
 export * from "./components/Sorting";
 export * from "./components/Sorting/types";
+
+export { default as Pagination } from "./components/Pagination";
+export * from "./components/Pagination";
