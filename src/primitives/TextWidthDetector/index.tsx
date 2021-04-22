@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import Typography from "../Typography";
-import { visibility } from "../../styles";
+import { position, visibility } from "../../styles";
 
 interface TextWidthDetectorInterface {
   text: string;
@@ -28,7 +28,7 @@ function TextWidthDetector(
   }, [extraHorizontalPadding, inputRef, text]);
 
   return ReactDOM.createPortal(
-    <Typography ref={textRef} styles={visibility("hidden")} noWrap>
+    <Typography ref={textRef} styles={[visibility("hidden"), position("fixed")]} noWrap>
       {text}
     </Typography>,
     rootElement,

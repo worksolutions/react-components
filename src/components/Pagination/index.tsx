@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { preventDefaultAndStopPropagationHandler } from "@worksolutions/react-utils";
 import { clamp, repeat } from "ramda";
 
-import { ai, cursor, flex, marginLeft, marginRight, minWidth, padding, pointerEvents } from "../../styles";
+import { ai, cursor, flex, marginLeft, marginRight, minWidth, padding, pointerEvents, textAlign } from "../../styles";
 import Button, { ButtonSize, ButtonType } from "../../primitives/Button";
 import { ghostActive } from "../../primitives/Button/styles/types/ghost";
 import Wrapper from "../../primitives/Wrapper";
@@ -134,13 +134,14 @@ function Pagination({
               size={InputContainerSize.MEDIUM}
               mask={mask}
               outerStyles={marginLeft(8)}
+              styles={textAlign("center")}
               value={goToPage}
               placeholder="1"
               debounce={0}
               onChange={setGoToPage}
             />
           </Form>
-          <TextWidthDetector extraHorizontalPadding={12} text={goToPage} ref={inputRef} />
+          <TextWidthDetector extraHorizontalPadding={14} text={goToPage || "0"} ref={inputRef} />
         </Wrapper>
       )}
     </Wrapper>
