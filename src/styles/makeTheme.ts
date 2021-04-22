@@ -292,6 +292,9 @@ export interface Theme extends BaseTheme<Colors> {
       };
       RequiredStar: { color: Colors };
     };
+    Pagination: {
+      infoTextColor: Colors;
+    };
   };
 }
 

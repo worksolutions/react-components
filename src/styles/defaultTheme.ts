@@ -291,5 +291,8 @@ export const defaultTheme: Theme = {
         },
       },
     },
+    Pagination: {
+      infoTextColor: "gray-blue/05",
+    },
   },
 };

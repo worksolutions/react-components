@@ -23,6 +23,10 @@ export const enIntlDictionary: IntlDictionaryInterface = {
       editor: {
         heading: "Heading",
       },
+      pagination: {
+        of: "of",
+        goToPage: "Go to",
+      },
     },
   },
   decl: {

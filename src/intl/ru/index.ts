@@ -23,6 +23,10 @@ export const ruIntlDictionary: IntlDictionaryInterface = {
       editor: {
         heading: "Заголовок",
       },
+      pagination: {
+        of: "из",
+        goToPage: "Перейти на",
+      },
     },
   },
   decl: {
