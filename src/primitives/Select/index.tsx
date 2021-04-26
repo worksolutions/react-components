@@ -179,6 +179,7 @@ function Select<CODE extends SelectItemCode>(
             <SelectRightIcon
               styles={rightIconStyles}
               icon={rightIcon}
+              color={rightIconColor}
               popupVisible={visible}
               width={rightIconWidth}
               height={rightIconHeight}
