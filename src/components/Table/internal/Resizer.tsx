@@ -3,7 +3,23 @@ import { update } from "ramda";
 import { preventDefaultAndStopPropagationHandler } from "@worksolutions/utils";
 
 import Wrapper from "../../../primitives/Wrapper";
-import { borderLeft, bottom, left, pointer, position, top, width } from "../../../styles";
+import {
+  backgroundColor,
+  bottom,
+  cursor,
+  flex,
+  fullHeight,
+  hover,
+  jc,
+  left,
+  marginLeft,
+  opacity,
+  position,
+  top,
+  transition,
+  width,
+} from "../../../styles";
+import { duration120 } from "../../../constants/durations";
 
 interface TableResizerInterface {
   cellLeftsInPixels: number[];
@@ -18,7 +34,7 @@ function TableResizer({ cellLeftsInPixels, setCellLeftsInPixels }: TableResizerI
 
   return (
     <>
-      {cellLeftsInPixels.map((cellLeft, index) => (
+      {cellLeftsInPixels.slice(0, -1).map((cellLeft, index) => (
         <TableResizerLine key={index} cellLeft={cellLeft} onUpdate={handleCellLeftUpdate(index)} />
       ))}
     </>
@@ -53,8 +69,23 @@ function TableResizerLine({ cellLeft, onUpdate }: { cellLeft: number; onUpdate: 
 
   return (
     <Wrapper
-      styles={[position("absolute"), left(cellLeft), top(0), bottom(0), borderLeft(1, "red/06"), width(16), pointer]}
+      styles={[
+        position("absolute"),
+        left(cellLeft),
+        top(0),
+        bottom(0),
+        width(16),
+        marginLeft(-8),
+        cursor("ew-resize"),
+        flex,
+        jc("center"),
+        transition(`opacity ${duration120}`),
+        opacity(0),
+        hover(opacity(1)),
+      ]}
       onMouseDown={handleMouseDown}
-    />
+    >
+      <Wrapper styles={[fullHeight, width(1), backgroundColor("definitions.Table.ResizerLineColor")]} />
+    </Wrapper>
   );
 }

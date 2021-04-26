@@ -295,6 +295,11 @@ export interface Theme extends BaseTheme<Colors> {
     Pagination: {
       infoTextColor: Colors;
     };
+    Table: {
+      HeadTypographyColor: Colors;
+      RowHoverColor: Colors;
+      ResizerLineColor: Colors;
+    };
   };
 }
 

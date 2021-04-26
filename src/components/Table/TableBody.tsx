@@ -26,7 +26,7 @@ function TableBody({ styles, children }: TableBodyInterface) {
           [
             firstChild(child(borderLeftRadius(4), ".table-cell-background")),
             lastChild(child(borderRightRadius(4), ".table-cell-background")),
-            hover(backgroundColor("gray-blue/01"), ".table-cell-background"),
+            hover(backgroundColor("definitions.Table.RowHoverColor"), ".table-cell-background"),
           ],
           "tr",
         ),

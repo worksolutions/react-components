@@ -294,5 +294,10 @@ export const defaultTheme: Theme = {
     Pagination: {
       infoTextColor: "gray-blue/05",
     },
+    Table: {
+      HeadTypographyColor: "gray-blue/05",
+      RowHoverColor: "gray-blue/01",
+      ResizerLineColor: "blue/05",
+    },
   },
 };

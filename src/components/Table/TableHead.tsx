@@ -20,5 +20,5 @@ function TableHead({ styles, children }: TableHeadInterface) {
 export default observer(TableHead);
 
 export function TableHeadTypography(props: TypographyInterface) {
-  return <Typography type="caption-semi-bold" color="gray-blue/05" {...props} />;
+  return <Typography type="caption-semi-bold" color="definitions.Table.HeadTypographyColor" {...props} />;
 }
