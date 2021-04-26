@@ -123,3 +123,4 @@ export const transition = styles.transition;
 export const order = styles.order;
 export const filterStyle = styles.filterStyle;
 export const backdropFilter = styles.backdropFilter;
+export const textDecoration = styles.textDecoration;

@@ -29,17 +29,7 @@ type Theme = "internal" | "external";
 const CustomRouterLink = ({ _css, ...props }: any) => <Link {...props} />;
 
 function TypographyLink(
-  {
-    to,
-    target,
-    download,
-    native: nativeProp,
-    theme,
-    styles,
-    color,
-    type = "body-semi-bold",
-    ...props
-  }: TypographyLinkInterface,
+  { to, native: nativeProp, theme, styles, color, type = "body-semi-bold", ...props }: TypographyLinkInterface,
   ref: React.Ref<HTMLAnchorElement>,
 ) {
   const native = React.useMemo(() => (isNil(nativeProp) ? linkIsNative(to) : nativeProp), [nativeProp, to]);
@@ -49,7 +39,7 @@ function TypographyLink(
     return native ? externalTypographyLinkStyles : internalTypographyLinkStyles;
   }, [native, theme]);
 
-  const resultStyles = React.useMemo(() => [TypographyTypes[type], themeStyles, styles], [styles, themeStyles]);
+  const resultStyles = React.useMemo(() => [TypographyTypes[type], themeStyles, styles], [styles, themeStyles, type]);
 
   if (native) {
     return (

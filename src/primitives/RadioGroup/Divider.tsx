@@ -2,6 +2,7 @@ import React from "react";
 import { fullHeight, horizontalPadding, transition, width, borderLeft } from "../../styles";
 
 import Wrapper from "../Wrapper";
+import { duration200 } from "../../constants/durations";
 
 interface DividerInterface {
   styles?: any;
@@ -9,8 +10,8 @@ interface DividerInterface {
 
 function Divider({ styles }: DividerInterface) {
   return (
-    <Wrapper styles={[transition("opacity 0.2s 0.15s"), horizontalPadding(2), styles]}>
-      <Wrapper styles={[width(1), fullHeight, borderLeft(1, "gray-blue/02")]} />
+    <Wrapper styles={[transition(`opacity ${duration200}`), horizontalPadding(2), styles]}>
+      <Wrapper styles={[width(1), fullHeight, borderLeft(1, "definitions.RadioGroup.dividerColor")]} />
     </Wrapper>
   );
 }

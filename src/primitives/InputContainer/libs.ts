@@ -101,6 +101,7 @@ const cssAnimateProperties = [
   "visibility",
   "background-color",
   "transform",
+  "width",
 ];
 
 const transitionStyle = transition(cssAnimateProperties.map((val) => `${val} ${duration160}`).join(","));

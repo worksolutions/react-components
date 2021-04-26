@@ -1,4 +1,4 @@
-import React, { ReactNode, Ref } from "react";
+import React, { ReactNode, Ref, SyntheticEvent } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { IncomeColorVariant } from "@worksolutions/react-utils";
 
@@ -45,7 +45,7 @@ export interface TypographyInterface {
   dots?: boolean;
   children: ReactNode;
   asHTML?: boolean;
-  onClick?: () => void;
+  onClick?: (event: SyntheticEvent<HTMLAnchorElement, MouseEvent>) => void;
 }
 
 function Typography(

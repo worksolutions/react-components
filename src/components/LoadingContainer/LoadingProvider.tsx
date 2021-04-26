@@ -7,10 +7,10 @@ import { IncomeColorVariant, useBoolean } from "@worksolutions/react-utils";
 import Wrapper from "../../primitives/Wrapper";
 import Spinner, { SpinnerSize } from "../../primitives/Spinner";
 
-import { ai, flex, fullHeight, fullWidth, jc, left, opacity, position, top, transition } from "../../styles";
+import { ai, flex, fullHeight, fullWidth, jc, left, opacity, position, top, transform, transition } from "../../styles";
 import { Colors } from "../../constants/colors";
 import { zIndex_loadingProvider } from "../../constants/zIndexes";
-import { duration120, duration120Number } from "../../constants/durations";
+import { duration120, duration120Number, duration300 } from "../../constants/durations";
 
 import { LoadingProviderLogic, loadingProviderLogicStore } from "./internal/LoadingProviderLogic";
 
@@ -91,7 +91,11 @@ function LoadingProvider({
               ]}
             >
               <Spinner
-                styles={spinnerStyles}
+                styles={[
+                  transition(`transform ${duration300}`),
+                  transform(status === "entered" ? "scale(1)" : "scale(0)"),
+                  spinnerStyles,
+                ]}
                 size={spinnerSize}
                 width={spinnerWidth}
                 color={spinnerColor}

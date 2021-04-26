@@ -1,7 +1,7 @@
 import React, { Ref } from "react";
 import useMaskedInput from "@viewstools/use-masked-input";
 import { eventValue } from "@worksolutions/utils";
-import { provideRef, useDebouncedInput } from "@worksolutions/react-utils";
+import { provideRef, useDebouncedInput, useSyncToRef } from "@worksolutions/react-utils";
 
 import Wrapper from "../Wrapper";
 
@@ -44,24 +44,23 @@ const MaskedInput = React.forwardRef(function (
     onChange: eventValue(onInputChange),
   });
 
-  return (
-    <InputContainer
-      {...inputContainerProps}
-      renderComponent={(inputStyles) => (
-        <Wrapper
-          ref={provideRef((element) => {
-            if (element === ref.current) return;
-            provideRef(innerRef)(element);
-          }, ref)}
-          as="input"
-          disabled={inputContainerProps.disabled}
-          styles={[inputStyles, styles]}
-          placeholder={placeholder}
-          onChange={onChangeMasked}
-        />
-      )}
-    />
+  const onChangeMaskedRef = useSyncToRef(onChangeMasked);
+
+  const renderComponent = React.useCallback(
+    (inputStyles: any) => (
+      <Wrapper
+        ref={provideRef(innerRef, ref)}
+        as="input"
+        disabled={inputContainerProps.disabled}
+        styles={[inputStyles, styles]}
+        placeholder={placeholder}
+        onChange={onChangeMaskedRef.current}
+      />
+    ),
+    [innerRef, inputContainerProps.disabled, onChangeMaskedRef, placeholder, styles],
   );
+
+  return <InputContainer {...inputContainerProps} renderComponent={renderComponent} />;
 });
 
 export default React.memo(MaskedInput);

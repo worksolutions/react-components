@@ -31,26 +31,27 @@ const Input = React.forwardRef(function (
   ref: Ref<HTMLInputElement>,
 ) {
   const { onInputChange, inputValue } = useDebouncedInput(value, debounce, onChange);
-  return (
-    <InputContainer
-      {...inputContainerProps}
-      renderComponent={(inputStyles) => (
-        <>
-          <Wrapper
-            ref={ref}
-            {...(multiline ? { as: "textarea" } : { as: "input" })}
-            type={type}
-            autoFocus={autofocus}
-            disabled={inputContainerProps.disabled}
-            styles={[inputStyles, styles]}
-            value={inputValue}
-            placeholder={placeholder}
-            onChange={eventValue(onInputChange)}
-          />
-        </>
-      )}
-    />
+
+  const renderComponent = React.useCallback(
+    (inputStyles: any) => (
+      <>
+        <Wrapper
+          ref={ref}
+          {...(multiline ? { as: "textarea" } : { as: "input" })}
+          type={type}
+          autoFocus={autofocus}
+          disabled={inputContainerProps.disabled}
+          styles={[inputStyles, styles]}
+          value={inputValue}
+          placeholder={placeholder}
+          onChange={eventValue(onInputChange)}
+        />
+      </>
+    ),
+    [autofocus, inputContainerProps.disabled, inputValue, multiline, onInputChange, placeholder, ref, styles, type],
   );
+
+  return <InputContainer {...inputContainerProps} renderComponent={renderComponent} />;
 });
 
 export default React.memo(Input);

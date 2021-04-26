@@ -88,6 +88,7 @@ export const defaultTheme: Theme = {
       },
       Placeholder: {
         color: "gray-blue/05",
+        disabledColor: "gray-blue/03",
       },
     },
     Popup: {
@@ -242,6 +243,11 @@ export const defaultTheme: Theme = {
       backgroundColor: "gray-blue/01",
       activeTextColor: "gray-blue/09",
       textColor: "gray-blue/07",
+      dividerColor: "gray-blue/02",
+      Active: {
+        backgroundColor: "white",
+        borderColor: "gray-blue/03",
+      },
     },
     Toggle: {
       switchBackgroundColor: "white",
@@ -254,6 +260,39 @@ export const defaultTheme: Theme = {
         backgroundColor: "gray-blue/02",
         hoverBackgroundColor: "gray-blue/03",
       },
+    },
+    Checkbox: {
+      RequiredStar: { color: "red/05" },
+      Text: {
+        Enabled: { color: "gray-blue/09" },
+        Disabled: { color: "gray-blue/02" },
+      },
+      Box: {
+        Icon: { color: "white" },
+        CheckedEnabled: {
+          backgroundColor: "blue/09",
+          hoverBackgroundColor: "blue/08",
+          activeBackgroundColor: "blue/10",
+        },
+        UncheckedEnabled: {
+          borderColor: "gray-blue/03",
+          backgroundColor: "transparent",
+          hoverBackgroundColor: "gray-blue/01",
+          activeBackgroundColor: "gray-blue/02",
+        },
+        Disabled: {
+          backgroundColor: "gray-blue/01",
+        },
+        Focus: {
+          borderColor: "blue/04",
+        },
+        Error: {
+          borderColor: "red/05",
+        },
+      },
+    },
+    Pagination: {
+      infoTextColor: "gray-blue/05",
     },
   },
 };

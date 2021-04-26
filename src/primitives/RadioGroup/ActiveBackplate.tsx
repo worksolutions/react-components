@@ -2,20 +2,20 @@ import React from "react";
 import { sum } from "ramda";
 
 import {
+  backgroundColor,
   borderRadius,
+  boxShadow,
+  createAlphaColor,
   height,
   left,
   marginLeft,
   position,
   transition,
   width,
-  backgroundColor,
-  boxShadow,
-  createAlphaColor,
 } from "../../styles";
+import { duration200 } from "../../constants/durations";
 
 import Wrapper from "../Wrapper";
-import { Colors } from "../..";
 
 interface ActiveBackplateInterface {
   activeIndex: number;
@@ -34,14 +34,17 @@ function ActiveBackplate({ activeIndex, activeIndexInWidthsArray, widths }: Acti
     <Wrapper
       styles={[
         marginLeft(1),
-        transition("left 0.2s, width 0.2s"),
+        transition(`left ${duration200}, width ${duration200}`),
         position("absolute"),
         width(widths[activeIndexInWidthsArray]),
         left(getLeft(widths, activeIndexInWidthsArray)),
         height("calc(100% - 2px)"),
         borderRadius(50),
-        backgroundColor("white"),
-        boxShadow([0, 0, 1, 0, "gray-blue/03"], [0, 2, 8, 0, createAlphaColor("black", 41)]),
+        backgroundColor("definitions.RadioGroup.Active.backgroundColor"),
+        boxShadow(
+          [0, 0, 1, 0, "definitions.RadioGroup.Active.borderColor"],
+          [0, 2, 8, 0, createAlphaColor("black", 41)],
+        ),
       ]}
     />
   );

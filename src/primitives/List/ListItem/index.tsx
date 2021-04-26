@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from "react";
+import { IncomeColorVariant } from "@worksolutions/react-utils";
 
 import { flex, flexColumn, flexValue, marginLeft, marginRight, overflow, textAlign } from "../../../styles";
 
@@ -11,13 +12,16 @@ import { useRightContent } from "./internal/useRightContent";
 import { makeUniversalIconContent, UniversalSideContentType } from "../../../utils/makeUniversalIconContent";
 
 import { ListItemSize } from "./enum";
+import { Colors } from "../../../constants/colors";
 
 export interface ListItemInterface {
   leftContentStyles?: any;
   leftContent?: UniversalSideContentType;
+  leftContentColor?: IncomeColorVariant<Colors>;
   showLeftContentOnHover?: boolean;
   rightContentStyles?: any;
   rightContent?: UniversalSideContentType;
+  rightContentColor?: IncomeColorVariant<Colors>;
   showRightContentOnHover?: boolean;
   mainTextStyles?: any;
   styles?: any;
@@ -37,9 +41,11 @@ function ListItem(
   {
     leftContent,
     leftContentStyles: leftContentStylesProp,
+    leftContentColor = "definitions.ListItem.BorderIcons.color",
     showLeftContentOnHover,
     rightContent,
     rightContentStyles: rightContentStylesProp,
+    rightContentColor = "definitions.ListItem.BorderIcons.color",
     showRightContentOnHover,
     children,
     disabled,
@@ -76,12 +82,12 @@ function ListItem(
   const resultLeftContent = makeUniversalIconContent({
     icon: leftContent,
     styles: [marginRight(8), leftContentStylesProp],
-    color: "definitions.ListItem.BorderIcons.color",
+    color: leftContentColor,
   });
   const resultRightContent = makeUniversalIconContent({
     icon: useRightContent({ selected, rightContent, showArrowWhenSelected }),
     styles: [marginLeft(8), rightContentStylesProp],
-    color: "definitions.ListItem.BorderIcons.color",
+    color: rightContentColor,
   });
 
   const handleClick = useCallback(() => {
