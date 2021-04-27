@@ -19,20 +19,30 @@ import {
   transition,
 } from "../../styles";
 import Wrapper from "../Wrapper";
-import Typography from "../Typography";
+import Typography, { TypographyInterface } from "../Typography";
 import { duration160 } from "../../constants/durations";
 
 export interface TabItemInterface {
   title: string;
   active: boolean;
   styles?: any;
+  typographyStyles?: any;
+  typographyType: TypographyInterface["type"];
   disabled?: boolean;
   onClick?: () => void;
 }
 
 export const tabHorizontalPadding = 6;
 
-function Tab({ styles, active, title, disabled, onClick }: TabItemInterface) {
+function Tab({
+  styles,
+  active,
+  title,
+  disabled,
+  typographyStyles,
+  typographyType = "body-semi-bold",
+  onClick,
+}: TabItemInterface) {
   return (
     <Wrapper
       as="button"
@@ -55,11 +65,12 @@ function Tab({ styles, active, title, disabled, onClick }: TabItemInterface) {
       onClick={!disabled && onClick}
     >
       <Typography
-        type="body-semi-bold"
+        type={typographyType}
         styles={[
           transition(`border-bottom-color ${duration160}, color ${duration160}`),
           padding("8px 4px"),
           color(active ? "definitions.Tabs.TabTabActive.color" : "definitions.Tabs.Tab.color"),
+          typographyStyles,
         ]}
       >
         {title}
