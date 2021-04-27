@@ -3,7 +3,9 @@ import { observer } from "mobx-react-lite";
 
 import Wrapper from "../../primitives/Wrapper";
 import {
+  ai,
   bottom,
+  flex,
   horizontalPadding,
   left,
   position,
@@ -17,24 +19,27 @@ import { tableContext } from "./TableContext";
 import { duration200 } from "../../constants/durations";
 
 export interface TableCellInterface {
+  outerStyles?: any;
   styles?: any;
   children: React.ReactNode;
 }
 
-function TableCell({ styles, children }: TableCellInterface) {
+function TableCell({ outerStyles, styles, children }: TableCellInterface) {
   const { cellVerticalPadding, cellHorizontalPadding } = React.useContext(tableContext);
 
   return (
-    <Wrapper
-      as="td"
-      styles={[
-        verticalPadding(cellVerticalPadding),
-        horizontalPadding(cellHorizontalPadding),
-        position("relative"),
-        styles,
-      ]}
-    >
-      {children}
+    <Wrapper as="td" styles={[position("relative"), outerStyles]}>
+      <Wrapper
+        styles={[
+          verticalPadding(cellVerticalPadding),
+          horizontalPadding(cellHorizontalPadding),
+          flex,
+          ai("center"),
+          styles,
+        ]}
+      >
+        {children}
+      </Wrapper>
       <Wrapper
         className="table-cell-background"
         styles={[
