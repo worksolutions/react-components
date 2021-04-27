@@ -158,3 +158,15 @@ export * from "./components/Sorting/types";
 
 export { default as Pagination } from "./components/Pagination";
 export * from "./components/Pagination";
+
+export { default as Table } from "./components/Table/Table";
+export * from "./components/Table/Table";
+export { default as TableBody } from "./components/Table/TableBody";
+export * from "./components/Table/TableBody";
+export { default as TableCell } from "./components/Table/TableCell";
+export * from "./components/Table/TableCell";
+export type { TableContextInterface } from "./components/Table/TableContext";
+export { default as TableHead } from "./components/Table/TableHead";
+export * from "./components/Table/TableHead";
+export { default as TableRow } from "./components/Table/TableRow";
+export * from "./components/Table/TableRow";

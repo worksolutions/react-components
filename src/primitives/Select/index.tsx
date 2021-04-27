@@ -1,5 +1,5 @@
 import React from "react";
-import { IncomeColorVariant, provideRef, useEffectSkipFirst } from "@worksolutions/react-utils";
+import { IncomeColorVariant, useEffectSkipFirst, useProvideRef } from "@worksolutions/react-utils";
 
 import Typography from "../Typography";
 import SelectTrigger from "./internal/SelectTrigger";
@@ -154,7 +154,7 @@ function Select<CODE extends SelectItemCode>(
 
   return (
     <PopupManager
-      ref={provideRef(popupManagerRef, ref)}
+      ref={useProvideRef(popupManagerRef, ref)}
       disabled={disabled}
       primaryPlacement={primaryPlacement}
       mode={PopupManagerMode.CLICK}
@@ -179,6 +179,7 @@ function Select<CODE extends SelectItemCode>(
             <SelectRightIcon
               styles={rightIconStyles}
               icon={rightIcon}
+              color={rightIconColor}
               popupVisible={visible}
               width={rightIconWidth}
               height={rightIconHeight}

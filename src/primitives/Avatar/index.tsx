@@ -34,11 +34,12 @@ const matchSizeAndPixels: Record<AvatarSize, number> = {
   [AvatarSize.MEDIUM]: 32,
 };
 
-function Avatar({ styles, iconStyles, size = AvatarSize.MEDIUM, url }: AvatarInterface) {
+function Avatar({ styles, iconStyles, size = AvatarSize.MEDIUM, url }: AvatarInterface, ref: React.Ref<HTMLElement>) {
   const realSize = matchSizeAndPixels[size];
 
   return (
     <Wrapper
+      ref={ref}
       styles={[
         flex,
         ai("center"),
@@ -61,4 +62,4 @@ function Avatar({ styles, iconStyles, size = AvatarSize.MEDIUM, url }: AvatarInt
   );
 }
 
-export default React.memo(Avatar);
+export default React.memo(React.forwardRef(Avatar));
