@@ -36,7 +36,7 @@ export function useAutosizeTextarea(minRows: number, maxRows: number) {
     element.rows = minRows;
     element.addEventListener("input", inputListener);
     return () => element.removeEventListener("input", inputListener);
-  }, []);
+  }, [maxRows, minRows]);
 
   return autosizeTextareaRef;
 }

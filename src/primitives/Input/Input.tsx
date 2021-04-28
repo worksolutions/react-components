@@ -48,7 +48,7 @@ const Input = React.forwardRef(function (
       <>
         <Wrapper
           ref={provideRef(ref, isAutosizeTextarea ? autosizeTextareaRef : undefined)}
-          {...(multiline ? { as: "textarea" } : { as: "input" })}
+          as={multiline ? "textarea" : "input"}
           type={type}
           autoFocus={autofocus}
           disabled={inputContainerProps.disabled}
@@ -60,16 +60,17 @@ const Input = React.forwardRef(function (
       </>
     ),
     [
-      autofocus,
-      isAutosizeTextarea,
-      inputContainerProps.disabled,
-      inputValue,
-      multiline,
-      onInputChange,
-      placeholder,
       ref,
-      styles,
+      isAutosizeTextarea,
+      autosizeTextareaRef,
+      multiline,
       type,
+      autofocus,
+      inputContainerProps.disabled,
+      styles,
+      inputValue,
+      placeholder,
+      onInputChange,
     ],
   );
 
