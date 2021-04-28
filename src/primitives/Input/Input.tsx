@@ -7,6 +7,7 @@ import { resize } from "../../styles";
 import Wrapper from "../Wrapper";
 
 import InputContainer, { InputContainerInterface } from "../InputContainer";
+import { useAutosizeTextarea } from "./hooks";
 
 export interface InputInterface extends Omit<InputContainerInterface, "onClick"> {
   autofocus?: boolean;
@@ -39,47 +40,14 @@ const Input = React.forwardRef(function (
   ref: Ref<HTMLInputElement>,
 ) {
   const { onInputChange, inputValue } = useDebouncedInput(value, debounce, onChange);
-  const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+  const [autosizeTextareaRef] = useAutosizeTextarea(minRows, maxRows);
   const isAutosizeTextarea = multiline && autosize;
-
-  React.useEffect(() => {
-    if (!textareaRef.current) return;
-
-    const element = textareaRef.current;
-
-    const styles = getComputedStyle(element);
-    const lineHeight = styles.lineHeight.includes("px") ? parseFloat(styles.lineHeight) : 0;
-    const paddingTop = styles.paddingTop.includes("px") ? parseFloat(styles.paddingTop) : 0;
-    const paddingBottom = styles.paddingBottom.includes("px") ? parseFloat(styles.paddingBottom) : 0;
-    const borderTop = styles.borderTop.includes("px") ? parseFloat(styles.borderTop) : 0;
-    const borderBottom = styles.borderBottom.includes("px") ? parseFloat(styles.borderBottom) : 0;
-
-    const maxHeight = lineHeight * maxRows + paddingTop + paddingBottom + borderTop + borderBottom;
-
-    const inputHandler = () => {
-      element.style.height = "auto";
-      let overflow = "hidden";
-      let newHeight = element.scrollHeight;
-
-      if (element.scrollHeight >= maxHeight) {
-        overflow = "auto";
-        newHeight = maxHeight;
-      }
-
-      element.style.overflow = overflow;
-      element.style.height = newHeight + "px";
-    };
-
-    element.rows = minRows;
-    element.addEventListener("input", inputHandler);
-    return () => element.removeEventListener("input", inputHandler);
-  }, []);
 
   const renderComponent = React.useCallback(
     (inputStyles: any) => (
       <>
         <Wrapper
-          ref={provideRef(ref, isAutosizeTextarea ? textareaRef : undefined)}
+          ref={provideRef(ref, isAutosizeTextarea ? autosizeTextareaRef : undefined)}
           {...(multiline ? { as: "textarea" } : { as: "input" })}
           type={type}
           autoFocus={autofocus}

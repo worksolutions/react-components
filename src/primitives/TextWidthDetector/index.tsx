@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 
 import Typography from "../Typography";
 import { position, visibility } from "../../styles";
+import { parseStylePX } from "../../utils/parseStylePX";
 
 interface TextWidthDetectorInterface {
   text: string;
@@ -22,8 +23,8 @@ function TextWidthDetector(
 
     const width = textRef.current.getBoundingClientRect().width;
     const styles = getComputedStyle(inputRef.current);
-    const paddingLeft = styles.paddingLeft.includes("px") ? parseFloat(styles.paddingLeft) : 0;
-    const paddingRight = styles.paddingRight.includes("px") ? parseFloat(styles.paddingRight) : 0;
+    const paddingLeft = parseStylePX(styles.paddingLeft);
+    const paddingRight = parseStylePX(styles.paddingRight);
     inputRef.current.style.width = paddingLeft + paddingRight + extraHorizontalPadding + width + "px";
   }, [extraHorizontalPadding, inputRef, text]);
 
