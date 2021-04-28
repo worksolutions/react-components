@@ -2,6 +2,8 @@ import React, { Ref } from "react";
 import { eventValue } from "@worksolutions/utils";
 import { useDebouncedInput, provideRef } from "@worksolutions/react-utils";
 
+import { resize } from "../../styles";
+
 import Wrapper from "../Wrapper";
 
 import InputContainer, { InputContainerInterface } from "../InputContainer";
@@ -82,7 +84,7 @@ const Input = React.forwardRef(function (
           type={type}
           autoFocus={autofocus}
           disabled={inputContainerProps.disabled}
-          styles={[inputStyles, styles, isAutosizeTextarea && [{ resize: "none" }]]}
+          styles={[inputStyles, styles, isAutosizeTextarea && resize("none")]}
           value={inputValue}
           placeholder={placeholder}
           onChange={eventValue(onInputChange)}
