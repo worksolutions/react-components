@@ -154,7 +154,6 @@ function ModalContent({
         >
           {preTitleContent}
           {titleElement}
-          {closeButtonElement}
           {subTitleElement}
           {children && <Wrapper styles={horizontalPadding(modalHorizontalPadding)}>{children}</Wrapper>}
           <Wrapper
@@ -172,6 +171,7 @@ function ModalContent({
             {secondaryAction}
             {actionsBlock}
           </Wrapper>
+          {closeButtonElement}
         </Wrapper>
       )}
     </HandleClickOutside>
