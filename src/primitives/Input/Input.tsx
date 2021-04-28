@@ -40,7 +40,7 @@ const Input = React.forwardRef(function (
   ref: Ref<HTMLInputElement>,
 ) {
   const { onInputChange, inputValue } = useDebouncedInput(value, debounce, onChange);
-  const [autosizeTextareaRef] = useAutosizeTextarea(minRows, maxRows);
+  const autosizeTextareaRef = useAutosizeTextarea(minRows, maxRows);
   const isAutosizeTextarea = multiline && autosize;
 
   const renderComponent = React.useCallback(
