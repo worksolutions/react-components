@@ -1,9 +1,13 @@
 import React from "react";
 
+export type CellSize = number | "auto";
+
+export type CellSizes = "auto" | CellSize[];
+
 export interface TableContextInterface {
   cellHorizontalPadding: number;
   cellVerticalPadding: number;
-  cellSizes: "auto" | (number | "auto")[];
+  cellSizes: CellSizes;
 }
 
 export const tableContext = React.createContext<TableContextInterface>(null!);

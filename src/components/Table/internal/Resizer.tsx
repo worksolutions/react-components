@@ -24,9 +24,10 @@ import { duration120 } from "../../../constants/durations";
 interface TableResizerInterface {
   cellLeftsInPixels: number[];
   setCellLeftsInPixels: (lefts: number[]) => void;
+  getCanResize: (columnIndex: number) => boolean;
 }
 
-function TableResizer({ cellLeftsInPixels, setCellLeftsInPixels }: TableResizerInterface) {
+function TableResizer({ cellLeftsInPixels, setCellLeftsInPixels, getCanResize }: TableResizerInterface) {
   const handleCellLeftUpdate = React.useCallback(
     (index: number) => (newLeft: number) => setCellLeftsInPixels(update(index, newLeft, cellLeftsInPixels)),
     [cellLeftsInPixels, setCellLeftsInPixels],
@@ -34,9 +35,14 @@ function TableResizer({ cellLeftsInPixels, setCellLeftsInPixels }: TableResizerI
 
   return (
     <>
-      {cellLeftsInPixels.slice(0, -1).map((cellLeft, index) => (
-        <TableResizerLine key={index} cellLeft={cellLeft} onUpdate={handleCellLeftUpdate(index)} />
-      ))}
+      {cellLeftsInPixels
+        .slice(0, -1)
+        .map(
+          (cellLeft, index) =>
+            getCanResize(index) && (
+              <TableResizerLine key={index} cellLeft={cellLeft} onUpdate={handleCellLeftUpdate(index)} />
+            ),
+        )}
     </>
   );
 }

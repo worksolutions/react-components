@@ -10,6 +10,7 @@ import Typography from "../../../primitives/Typography";
 import Toggle from "../../../primitives/Toggle";
 import Wrapper from "../../../primitives/Wrapper";
 import { flex, flexColumn, marginTop } from "../../../styles";
+import { CellSizes } from "../TableContext";
 
 export default {
   title: "Table",
@@ -18,11 +19,11 @@ export default {
 
 const TableTemplate: Story<any> = () => {
   const [autoCellSizes, setAutoCellSizes] = React.useState(false);
-  const [cellSizes, setCellSizes] = React.useState<any>([450, 150, 150, "auto"]);
+  const [cellSizes, setCellSizes] = React.useState<CellSizes>([450, 150, 150, "auto"]);
 
   return (
     <Wrapper styles={[flex, flexColumn]}>
-      <TableComponent cellSizes={autoCellSizes ? "auto" : cellSizes} resizable onResize={setCellSizes}>
+      <TableComponent cellSizes={autoCellSizes ? "auto" : cellSizes} resizable={[0, 1]} onResize={setCellSizes}>
         <TableHead>
           <TableRow>
             <TableCell>

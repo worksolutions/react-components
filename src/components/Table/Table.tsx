@@ -1,19 +1,20 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { css } from "styled-components";
-import { useProvideRef } from "@worksolutions/react-utils";
-import { htmlCollectionToArray } from "@worksolutions/utils";
+import { useCallbackMemoFabric, useProvideRef } from "@worksolutions/react-utils";
+import { htmlCollectionToArray, isArray, isDeepEqual } from "@worksolutions/utils";
+import { identity } from "ramda";
 
 import Wrapper from "../../primitives/Wrapper";
 
-import { defaultTableContext, tableContext, TableContextInterface } from "./TableContext";
+import { CellSize, defaultTableContext, tableContext, TableContextInterface } from "./TableContext";
 import { maxWidth, nthChild, position, width } from "../../styles";
 import TableResizer from "./internal/Resizer";
 
 export interface TableInterface extends Partial<TableContextInterface> {
   outerStyles?: any;
   tableStyles?: any;
-  resizable?: boolean;
+  resizable?: boolean | number[];
   children: React.ReactNode;
   onResize?: (sizes: number[]) => void;
 }
@@ -22,7 +23,7 @@ const cssStyles = css`
   border-spacing: 0;
 `;
 
-function makeWidthStyle(size: number | "auto", index: number) {
+function makeWidthStyle(size: CellSize, index: number) {
   return nthChild(`${index + 1}`, [width(size), maxWidth(size)], "tr td");
 }
 
@@ -57,6 +58,15 @@ function Table(
     [onResize],
   );
 
+  const getCanResize = useCallbackMemoFabric(
+    identity,
+    (columnIndex: number) => {
+      if (isArray(resizable)) return resizable.includes(columnIndex);
+      return !!resizable;
+    },
+    [resizable],
+  );
+
   return (
     <tableContext.Provider value={resultConfig}>
       <Wrapper styles={[position("relative"), outerStyles]}>
@@ -64,14 +74,18 @@ function Table(
           {children}
         </Wrapper>
         {resizable && cellLeftsInPixels && (
-          <TableResizer cellLeftsInPixels={cellLeftsInPixels} setCellLeftsInPixels={handleResize} />
+          <TableResizer
+            cellLeftsInPixels={cellLeftsInPixels}
+            setCellLeftsInPixels={handleResize}
+            getCanResize={getCanResize}
+          />
         )}
       </Wrapper>
     </tableContext.Provider>
   );
 }
 
-export default observer(Table, { forwardRef: true });
+export default React.memo(observer(Table, { forwardRef: true }), isDeepEqual);
 
 function calculateLeftsFromSizes(headerCellSizes: null | number[]) {
   if (!headerCellSizes) return [];

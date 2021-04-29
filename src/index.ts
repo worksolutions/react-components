@@ -165,7 +165,7 @@ export { default as TableBody } from "./components/Table/TableBody";
 export * from "./components/Table/TableBody";
 export { default as TableCell } from "./components/Table/TableCell";
 export * from "./components/Table/TableCell";
-export type { TableContextInterface } from "./components/Table/TableContext";
+export type { TableContextInterface, CellSize, CellSizes } from "./components/Table/TableContext";
 export { default as TableHead } from "./components/Table/TableHead";
 export * from "./components/Table/TableHead";
 export { default as TableRow } from "./components/Table/TableRow";
