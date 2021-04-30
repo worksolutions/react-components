@@ -12,6 +12,8 @@ import {
   fullWidth,
   height,
   jc,
+  minHeight,
+  minWidth,
   overflow,
   width,
 } from "../../styles";
@@ -46,7 +48,9 @@ function Avatar({ styles, iconStyles, size = AvatarSize.MEDIUM, url }: AvatarInt
         jc("center"),
         borderRadius("100%"),
         width(realSize),
+        minWidth(realSize),
         height(realSize),
+        minHeight(realSize),
         overflow("hidden"),
         backgroundColor("definitions.Avatar.Wrapper.backgroundColor"),
         boxShadow([0, 0, 0, 2, "definitions.Avatar.Wrapper.shadowColor"]),
