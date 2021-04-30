@@ -41,8 +41,13 @@ function Table(
   );
 
   React.useEffect(() => {
-    const headerCells = htmlCollectionToArray(tableRef.current.querySelector("thead tr")!.children);
-    setCellLeftsInPixels(calculateLeftsFromSizes(headerCells.map((cell) => cell.getBoundingClientRect().width)));
+    const resizeObserver = new ResizeObserver(function () {
+      const headerCells = htmlCollectionToArray(tableRef.current.querySelector("thead tr")!.children);
+      setCellLeftsInPixels(calculateLeftsFromSizes(headerCells.map((cell) => cell.getBoundingClientRect().width)));
+    });
+    resizeObserver.observe(tableRef.current);
+
+    return () => resizeObserver.disconnect();
   }, [resultConfig.cellSizes]);
 
   const sizesStyle = React.useMemo(() => {
