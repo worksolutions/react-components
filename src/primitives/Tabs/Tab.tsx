@@ -1,5 +1,4 @@
 import React from "react";
-import { makeExcludingDeepEqual } from "@worksolutions/utils";
 
 import {
   ai,
@@ -79,4 +78,4 @@ function Tab({
   );
 }
 
-export default React.memo(Tab, makeExcludingDeepEqual(["onClick"]));
+export default React.memo(Tab);
