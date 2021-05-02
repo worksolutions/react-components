@@ -3,7 +3,14 @@ import { IncomeColorVariant, useEffectSkipFirst, useProvideRef } from "@worksolu
 
 import Typography from "../Typography";
 import SelectTrigger from "./internal/SelectTrigger";
-import PopupManager, { PopupManagerInterface, PopupManagerMode, PopupManagerRef } from "../PopupManager";
+import PopupManager, {
+  PopupManagerForClickTriggerElementContext,
+  PopupManagerForExternalControlTriggerElementContext,
+  PopupManagerForHoverTriggerElementContext,
+  PopupManagerInterface,
+  PopupManagerMode,
+  PopupManagerRef,
+} from "../PopupManager";
 import { InternalIcons } from "../Icon";
 import InputContainer, { InputContainerInterface } from "../InputContainer";
 
@@ -52,6 +59,8 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
     popupTopElement?: React.ReactNode;
     popupBottomElement?: React.ReactNode;
     size?: ListItemSize;
+    openPopupMode?: PopupManagerMode.CLICK | PopupManagerMode.HOVER;
+    hoverModeShowDelay?: number;
     popupScrollableElementRef?: React.Ref<HTMLElement>;
     popupElementWrapper?: (child: JSX.Element) => JSX.Element;
     onChange: (newActiveCode: CODE, newSelected: boolean) => void;
@@ -89,6 +98,8 @@ function Select<CODE extends SelectItemCode>(
     styles,
     size = ListItemSize.MEDIUM,
     disabled,
+    openPopupMode = PopupManagerMode.CLICK,
+    hoverModeShowDelay,
     onChange,
     onChangeOpened,
     ...inputContainerProps
@@ -157,7 +168,8 @@ function Select<CODE extends SelectItemCode>(
       ref={useProvideRef(popupManagerRef, ref)}
       disabled={disabled}
       primaryPlacement={primaryPlacement}
-      mode={PopupManagerMode.CLICK}
+      mode={openPopupMode}
+      showDelay={hoverModeShowDelay}
       offset={offset}
       popupWidth={popupWidth}
       strategy={strategy}
@@ -169,7 +181,10 @@ function Select<CODE extends SelectItemCode>(
         popupStyles,
       ]}
       popupElement={popupElementWrapper ? popupElementWrapper(popupElement) : popupElement}
-      renderTriggerElement={({ initRef, visible }) => (
+      renderTriggerElement={({
+        initRef,
+        visible,
+      }: PopupManagerForClickTriggerElementContext | PopupManagerForHoverTriggerElementContext) => (
         <InputContainer
           {...inputContainerProps}
           disabled={disabled}

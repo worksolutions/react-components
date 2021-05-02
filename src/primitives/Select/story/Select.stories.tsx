@@ -21,6 +21,7 @@ import {
   ListItemSize,
   marginBottom,
   marginLeft,
+  PopupManagerMode,
   SelectInterface,
   SelectItemCode,
   top,
@@ -51,6 +52,8 @@ export default {
     popupWidth: selectControl(["auto", 100, 200, "50%", "100%"]),
     title: textControl(),
     size: selectControl(Object.values(ListItemSize)),
+    openPopupMode: selectControl(Object.values(PopupManagerMode)),
+    hoverModeShowDelay: numbersControl(0, 1000, 1),
     tip: textControl(),
     error: booleanControl(),
     success: booleanControl(),
@@ -129,5 +132,6 @@ export const Default = Template.bind({});
 Default.args = {
   primaryPlacement: "bottom-start",
   size: ListItemSize.MEDIUM,
+  openPopupMode: PopupManagerMode.CLICK,
   placeholder: "на этом месте будут выбранные элементы",
 };
