@@ -84,7 +84,15 @@ function InputContainer({
     rightIconStyles,
   ]);
 
-  const styles = stylesForSize[size][getStylesNameOnIcons(!!leftIcon, !!rightIcon)];
+  const hasLeftIcon = !!leftIcon;
+  const hasRightIcon = !!rightIcon;
+
+  const styles = React.useMemo(() => stylesForSize[size][getStylesNameOnIcons(hasLeftIcon, hasRightIcon)], [
+    hasLeftIcon,
+    hasRightIcon,
+    size,
+  ]);
+
   const variant = getInputVariant(error, success, disabled);
   const colors = colorsByVariant[variant];
   const positioningStyles = wrapperStylesByTitlePosition[titlePosition];

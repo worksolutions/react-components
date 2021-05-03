@@ -5,6 +5,7 @@ import {
   flex,
   flexValue,
   flexWrap,
+  fullHeight,
   height,
   lastChild,
   marginBottom,
@@ -16,8 +17,6 @@ import {
 import Form from "../Form";
 import Wrapper from "../Wrapper";
 import InputContainer, { InputContainerInterface } from "../InputContainer";
-
-import { InputContainerSize } from "../InputContainer/enums";
 import { createDefaultInputStyles } from "../InputContainer/libs";
 
 export interface TokenListInterface extends Omit<InputContainerInterface, "size" | "outerRef"> {
@@ -67,7 +66,10 @@ function TokenList(
                 <Wrapper
                   as="input"
                   placeholder={placeholder}
-                  styles={createDefaultInputStyles("definitions.InputContainerVariantDefault.placeholder")}
+                  styles={[
+                    createDefaultInputStyles("definitions.InputContainerVariantDefault.placeholder"),
+                    fullHeight,
+                  ]}
                   value={value}
                   onChange={eventValue(setValue)}
                 />
