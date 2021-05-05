@@ -23,20 +23,22 @@ import Tab, { tabHorizontalPadding, TabComponentInterface } from "./Tab";
 
 import { duration160 } from "../../constants/durations";
 
-export interface TabsListItemInterface
-  extends Omit<TabComponentInterface, "onClick" | "title" | "active" | "updateSizes"> {
-  tabItemComponent?: React.FC<TabComponentInterface>;
+export type TabsListItemInterface<T extends Object = {}> = Omit<
+  TabComponentInterface<T>,
+  "onClick" | "title" | "active" | "updateSizes"
+> & {
+  tabItemComponent?: React.FC<TabComponentInterface<T>>;
   title: string;
   children: React.FC<any> | React.ReactNode;
-}
+};
 
-export interface TabsInterface {
+export interface TabsInterface<T extends Object = {}> {
   useResizeObserverForBottomLineWidthDetect?: boolean;
   outerStyles?: any;
   tabsListWrapperStyles?: any;
   activeIndex: number;
   setActiveIndex: (value: number) => void;
-  tabs: TabsListItemInterface[];
+  tabs: TabsListItemInterface<T>[];
 }
 
 function getBottomLineStyles(widths: number[], index: number) {
@@ -97,4 +99,4 @@ function Tabs({
   );
 }
 
-export default React.memo(Tabs);
+export default React.memo(Tabs) as <T extends Object = {}>(props: TabsInterface<T>) => JSX.Element;

@@ -31,9 +31,10 @@ export interface TabInterface {
   onClick?: () => void;
 }
 
-export interface TabComponentInterface extends TabInterface {
-  updateSizes: () => void;
-}
+export type TabComponentInterface<T extends Object = {}> = TabInterface &
+  T & {
+    updateSizes: () => void;
+  };
 
 export const tabHorizontalPadding = 6;
 

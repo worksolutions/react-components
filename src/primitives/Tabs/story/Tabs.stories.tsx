@@ -10,6 +10,7 @@ import Counter from "../../Counter";
 
 export default {
   title: "Tabs",
+  // @ts-ignore
   component: Tabs.type,
 };
 
