@@ -8,6 +8,7 @@ import {
   borderNone,
   borderRadius,
   boxShadow,
+  child,
   disableOutline,
   flex,
   flexShrink,
@@ -33,7 +34,7 @@ import Typography from "../Typography";
 import ActiveBackplate from "./ActiveBackplate";
 import Divider from "./Divider";
 
-import { duration200 } from "../../constants/durations";
+import { duration160, duration200 } from "../../constants/durations";
 import { makeUniversalIconContent, UniversalSideContentType } from "../../utils/makeUniversalIconContent";
 
 export enum RadioGroupSize {
@@ -55,6 +56,7 @@ export interface RadioGroupInterface<CODE extends string | number> {
   active: CODE;
   items: RadioGroupItemInterface<CODE>[];
   size?: RadioGroupSize;
+  disabled?: boolean;
   onChange: (active: CODE) => void;
 }
 
@@ -69,6 +71,7 @@ function RadioGroups({
   items,
   styles,
   itemStyles: itemStylesProp,
+  disabled,
   onChange,
 }: RadioGroupInterface<string>) {
   const { initRef, widths } = useChildrenWidthDetector();
@@ -94,6 +97,8 @@ function RadioGroups({
         backgroundColor("definitions.RadioGroup.backgroundColor"),
         overflow("hidden"),
         padding(1),
+        child(transition(`opacity ${duration160}`)),
+        disabled && child(opacity(0.3)),
         styles,
       ]}
     >
@@ -125,13 +130,13 @@ function RadioGroups({
                     verticalPadding(0),
                     height(sizes.height),
                     horizontalPadding(sizes.horizontal),
-                    focus(boxShadow([0, 0, 0, 2, "definitions.RadioGroup.focusBorderColor", true])),
+                    !disabled && focus(boxShadow([0, 0, 0, 2, "definitions.RadioGroup.focusBorderColor", true])),
                     leftContent && paddingLeft(8),
-                    !isActive && pointer,
+                    !isActive && !disabled && pointer,
                     itemStyles,
                     itemStylesProp,
                   ]}
-                  onClick={() => !isActive && onChange(code)}
+                  onClick={() => !isActive && !disabled && onChange(code)}
                 >
                   {resultLeftContent && <Wrapper className="list-item-left-content">{resultLeftContent}</Wrapper>}
                   <Typography

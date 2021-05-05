@@ -1,7 +1,7 @@
 import React from "react";
 import { Story } from "@storybook/react/types-6-0";
 
-import { selectControl } from "storybook/storyHelpers";
+import { booleanControl, selectControl } from "storybook/storyHelpers";
 
 import RadioGroups, { RadioGroupInterface, RadioGroupItemInterface, RadioGroupSize } from "../index";
 import Badge from "../../Badge";
@@ -19,6 +19,7 @@ export default {
   component: RadioGroups,
   argTypes: {
     size: selectControl([RadioGroupSize.MEDIUM, RadioGroupSize.SMALL]),
+    disabled: booleanControl(),
   },
 };
 
