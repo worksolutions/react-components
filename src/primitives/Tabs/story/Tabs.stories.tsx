@@ -10,6 +10,7 @@ import Counter from "../../Counter";
 
 export default {
   title: "Tabs",
+  // @ts-ignore
   component: Tabs.type,
 };
 
@@ -19,17 +20,17 @@ const Template: Story<TabsInterface> = (props) => {
     <Wrapper styles={[flex, flexColumn, child([flex, jc("align-center"), marginBottom(50)])]}>
       <Tabs
         tabs={[
-          { content: () => <div>1</div>, title: "Заголовок 1", tabItem: Tab },
+          { children: () => <div>1</div>, title: "Заголовок 1", tabItemComponent: Tab },
           {
-            content: () => <div>Контент второго таба</div>,
+            children: () => <div>Контент второго таба</div>,
             title: "Текст",
-            tabItem: (props) => <Tab {...props} />,
+            tabItemComponent: (props) => <Tab {...props} />,
           },
-          { content: () => <div />, title: "Статьи по теме" },
+          { children: () => <div />, title: "Статьи по теме" },
           {
-            content: () => <div>Контент таба с баджем</div>,
+            children: () => <div>Контент таба с баджем</div>,
             title: "Текст с баджем",
-            tabItem: (props) => (
+            tabItemComponent: (props) => (
               <Wrapper styles={[horizontalPadding(tabHorizontalPadding), flex, ai("center")]}>
                 <Tab {...props} styles={horizontalPadding(0)} />
                 <Counter value={4} color="blue/05" />
