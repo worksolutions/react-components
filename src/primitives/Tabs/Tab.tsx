@@ -21,14 +21,18 @@ import Wrapper from "../Wrapper";
 import Typography, { TypographyInterface } from "../Typography";
 import { duration160 } from "../../constants/durations";
 
-export interface TabItemInterface {
+export interface TabInterface {
   title: string;
   active: boolean;
   styles?: any;
   typographyStyles?: any;
-  typographyType: TypographyInterface["type"];
+  typographyType?: TypographyInterface["type"];
   disabled?: boolean;
   onClick?: () => void;
+}
+
+export interface TabComponentInterface extends TabInterface {
+  updateSizes: () => void;
 }
 
 export const tabHorizontalPadding = 6;
@@ -41,7 +45,10 @@ function Tab({
   typographyStyles,
   typographyType = "body-semi-bold",
   onClick,
-}: TabItemInterface) {
+  updateSizes,
+}: TabComponentInterface) {
+  React.useEffect(() => updateSizes(), [title, updateSizes]);
+
   return (
     <Wrapper
       as="button"

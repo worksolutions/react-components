@@ -19,14 +19,15 @@ import {
 } from "../../styles";
 
 import Wrapper from "../Wrapper";
-import Tab, { tabHorizontalPadding, TabItemInterface } from "./Tab";
+import Tab, { tabHorizontalPadding, TabComponentInterface } from "./Tab";
 
 import { duration160 } from "../../constants/durations";
 
-export interface TabInterface {
-  tabItem?: React.FC<TabItemInterface> | React.ReactNode;
+export interface TabsListItemInterface
+  extends Omit<TabComponentInterface, "onClick" | "title" | "active" | "updateSizes"> {
+  tabItemComponent?: React.FC<TabComponentInterface>;
   title: string;
-  content: React.FC<any> | React.ReactNode;
+  children: React.FC<any> | React.ReactNode;
 }
 
 export interface TabsInterface {
@@ -35,7 +36,7 @@ export interface TabsInterface {
   tabsListWrapperStyles?: any;
   activeIndex: number;
   setActiveIndex: (value: number) => void;
-  tabs: TabInterface[];
+  tabs: TabsListItemInterface[];
 }
 
 function getBottomLineStyles(widths: number[], index: number) {
@@ -55,8 +56,8 @@ function Tabs({
   useResizeObserverForBottomLineWidthDetect = false,
   setActiveIndex,
 }: TabsInterface) {
-  const { initRef, widths } = useChildrenWidthDetector(useResizeObserverForBottomLineWidthDetect);
-  const { content: Content } = tabs[activeIndex];
+  const { initRef, widths, update } = useChildrenWidthDetector(useResizeObserverForBottomLineWidthDetect);
+  const { children: Content } = tabs[activeIndex];
   const element = isReactComponent(Content) ? <Content /> : Content;
 
   return (
@@ -66,14 +67,16 @@ function Tabs({
           ref={initRef}
           styles={[flex, firstChild(paddingLeft(0)), lastChild(paddingRight(0)), tabsListWrapperStyles]}
         >
-          {tabs.map(({ tabItem: TabItem = Tab, title }, key) => {
-            if (!isReactComponent(TabItem)) return TabItem;
-            return (
-              // Почему-то если указать TabItem по умолчанию, итоговый тип TabItem будет === {} | null
-              // @ts-ignore
-              <TabItem key={title} title={title} active={activeIndex === key} onClick={() => setActiveIndex(key)} />
-            );
-          })}
+          {tabs.map(({ tabItemComponent: TabItem = Tab, title, children, ...otherProps }, key) => (
+            <TabItem
+              key={title}
+              title={title}
+              active={activeIndex === key}
+              onClick={() => setActiveIndex(key)}
+              updateSizes={update}
+              {...otherProps}
+            />
+          ))}
         </Wrapper>
         {widths && widths.length !== 0 && (
           <Wrapper
