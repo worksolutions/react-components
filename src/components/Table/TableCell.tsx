@@ -19,16 +19,18 @@ import { tableContext } from "./TableContext";
 import { duration200 } from "../../constants/durations";
 
 export interface TableCellInterface {
+  colspan?: number;
+  rowspan?: number;
   outerStyles?: any;
   styles?: any;
   children: React.ReactNode;
 }
 
-function TableCell({ outerStyles, styles, children }: TableCellInterface) {
+function TableCell({ rowspan, colspan, outerStyles, styles, children }: TableCellInterface) {
   const { cellVerticalPadding, cellHorizontalPadding } = React.useContext(tableContext);
 
   return (
-    <Wrapper as="td" styles={[position("relative"), outerStyles]}>
+    <Wrapper as="td" colSpan={colspan} rowSpan={rowspan} styles={[position("relative"), outerStyles]}>
       <Wrapper
         styles={[
           verticalPadding(cellVerticalPadding),
