@@ -3,7 +3,7 @@ import { useDebouncedInput } from "@worksolutions/react-utils";
 
 import Spinner from "../Spinner";
 
-import { baseConfig } from "./config";
+import { getBaseConfig } from "./config";
 import { CK5UploadAdapter } from "./libs/CK5UploadAdapter";
 import { LazyCKEditor5 } from "./libs/LazyCKEditor5";
 import { editorStyles } from "./styles/editorStyles";
@@ -54,7 +54,7 @@ function Editor({
 }: EditorInterface) {
   const { onInputChange, inputValue } = useDebouncedInput(initialText, debounce, onChange);
 
-  const config = React.useMemo(() => ({ ...baseConfig, toolbar: toolbarItems }), [toolbarItems]);
+  const config = React.useMemo(() => ({ ...getBaseConfig(), toolbar: toolbarItems }), [toolbarItems]);
 
   const init = React.useCallback(
     function (editor: any) {

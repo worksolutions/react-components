@@ -1,6 +1,6 @@
 import { intl } from "../../intl";
 
-export const baseConfig = {
+export const getBaseConfig = () => ({
   image: {
     styles: ["full", "alignLeft", "alignRight"],
     toolbar: ["imageTextAlternative"],
@@ -42,4 +42,4 @@ export const baseConfig = {
       },
     ],
   },
-};
+});
