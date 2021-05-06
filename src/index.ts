@@ -7,8 +7,11 @@ export * from "./constants/colors";
 export * from "./constants/durations";
 export * from "./constants/shadows";
 export * from "./constants/zIndexes";
+export * from "./intl/en-eu";
+export * from "./intl/en-us";
 export * from "./intl/ru";
 export * from "./intl";
+export * from "./styles/makeTheme";
 export * from "./styles";
 
 export * from "./components/ScrollbarsStyles";

@@ -1,6 +1,6 @@
 import { IntlDictionaryInterface, INTL, wordDeclinationEn } from "@worksolutions/utils";
 
-export const enIntlDictionary: IntlDictionaryInterface = {
+export const enEuIntlDictionary: IntlDictionaryInterface = {
   languageCode: "en",
   matchDateModeAndLuxonTypeLiteral: {
     DAY_WITH_STRING_MONTH: "dd MMMM",
