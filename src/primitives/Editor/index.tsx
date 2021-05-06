@@ -56,28 +56,33 @@ function Editor({
 
   const config = React.useMemo(() => ({ ...baseConfig, toolbar: toolbarItems }), [toolbarItems]);
 
-  const init = React.useCallback(function (editor: any) {
-    editor.plugins.get("FileRepository").createUploadAdapter = (loader: any) => new CK5UploadAdapter(loader, uploader);
-    editor.model.document.on("change:data", () => onInputChange(editor.getData()));
+  const init = React.useCallback(
+    function (editor: any) {
+      editor.plugins.get("FileRepository").createUploadAdapter = (loader: any) =>
+        new CK5UploadAdapter(loader, uploader);
+      editor.model.document.on("change:data", () => onInputChange(editor.getData()));
 
-    if (!onInit) return;
+      if (!onInit) return;
 
-    onInit({
-      insertContent: (text, appendNewLines = false) => {
-        editor.model.change((writer: any) => {
-          const insertPosition = editor.model.document.selection.getFirstPosition();
-          if (appendNewLines) {
+      onInit({
+        insertContent: (text, appendNewLines = false) => {
+          editor.model.change((writer: any) => {
+            const insertPosition = editor.model.document.selection.getFirstPosition();
+            if (!appendNewLines) {
+              writer.insertText(text, insertPosition);
+              return;
+            }
+
             const content = `<p></p>${text}<p></p>`;
             const viewFragment = editor.data.processor.toView(content);
             const modelFragment = editor.data.toModel(viewFragment);
             editor.model.insertContent(modelFragment, insertPosition);
-            return;
-          }
-          writer.insertText(text, insertPosition);
-        });
-      },
-    });
-  }, []);
+          });
+        },
+      });
+    },
+    [onInit, onInputChange, uploader],
+  );
 
   return (
     <Suspense fallback={<Spinner />}>
