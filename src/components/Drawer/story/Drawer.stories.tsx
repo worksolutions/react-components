@@ -7,11 +7,16 @@ import Button from "../../../primitives/Button";
 
 export default {
   title: "Drawer",
-  component: DrawerComponent.type,
+  // @ts-ignore
+  component: DrawerComponent.baseElement,
 };
 
 const DrawerTemplate: Story<DrawerInterface> = (props) => {
   const [opened, toggle] = useToggle(false);
+
+  React.useEffect(() => {
+    DrawerComponent.setRootElement(document.querySelector(".ws-box")!);
+  }, []);
 
   return (
     <>

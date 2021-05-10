@@ -1,5 +1,7 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { CSSTransition, TransitionStatus } from "react-transition-group";
+import { observer } from "mobx-react-lite";
 
 import Wrapper from "../../primitives/Wrapper";
 import {
@@ -20,7 +22,6 @@ import {
   leftToCenterOnEntering,
   rightToCenterOnEntering,
 } from "../../css/slideAnimationClassNames";
-
 import { opacityFullToZeroOnExiting, opacityZeroToFullOnEntering } from "../../css/opacityAnimationClassNames";
 
 export interface DrawerInterface {
@@ -28,6 +29,7 @@ export interface DrawerInterface {
   opened: boolean;
   position?: "left" | "right";
   animationTimeout?: number;
+  rootElement?: HTMLElement;
   onClose: () => void;
   children: React.FC<{ close: () => void }>;
 }
@@ -54,15 +56,19 @@ function Drawer({
   styles,
   position: drawerPosition = "left",
   opened,
+  rootElement,
   animationTimeout = 300,
   children: Children,
   onClose,
 }: DrawerInterface) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const root = React.useMemo(() => rootElement || Drawer._rootElement, [opened, rootElement]);
+
   return (
     <CSSTransition in={opened} timeout={animationTimeout} unmountOnExit mountOnEnter>
       {(status) => {
         const config = drawerPosition === "left" ? getStylesForLeft(status, opened) : getStylesForRight(status, opened);
-        return (
+        return ReactDOM.createPortal(
           <Wrapper styles={[position("fixed"), top(0), bottom(0), left(0), right(0)]}>
             <Wrapper
               className={getBackClassName(status, opened)}
@@ -92,11 +98,23 @@ function Drawer({
             >
               <Children close={onClose} />
             </Wrapper>
-          </Wrapper>
+          </Wrapper>,
+          root!,
         );
       }}
     </CSSTransition>
   );
 }
 
-export default React.memo(Drawer);
+Drawer._rootElement = document.body;
+
+Drawer.setRootElement = function (element: HTMLElement) {
+  Drawer._rootElement = element;
+};
+
+const ObservedDrawer = observer(Drawer);
+
+// @ts-ignore
+ObservedDrawer.baseElement = Drawer;
+
+export default ObservedDrawer;
