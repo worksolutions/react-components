@@ -95,15 +95,18 @@ function Pagination({
   return (
     <Wrapper styles={[flex, ai("center"), outerStyles]}>
       {showCurrentPageText && (
-        <Typography
-          color="definitions.Pagination.infoTextColor"
-          noWrap
-          styles={[marginRight(16), currentPageTextStyles]}
-        >
+        <Typography color="definitions.Pagination.infoTextColor" noWrap styles={[currentPageTextStyles]}>
           {firstElementNumberOnPage}-{lastElementNumberOnPage} {intl.text("components.pagination.of")} {totalElements}
         </Typography>
       )}
-      <Wrapper styles={[flex, buttonsListWrapperStyles]}>
+      <Wrapper
+        styles={[
+          flex,
+          showCurrentPageText && marginLeft(16),
+          showGoToPage && marginRight(16),
+          buttonsListWrapperStyles,
+        ]}
+      >
         {pagesArray.map(({ text, page }) => (
           <TypographyLink key={page} to={getPageUrl(page)} onClick={handleChangeFabric(page)}>
             <Button
@@ -124,7 +127,7 @@ function Pagination({
         ))}
       </Wrapper>
       {showGoToPage && (
-        <Wrapper styles={[flex, ai("center"), marginLeft(16), goToPageStyles]}>
+        <Wrapper styles={[flex, ai("center"), goToPageStyles]}>
           <Typography color="definitions.Pagination.infoTextColor" noWrap>
             {intl.text("components.pagination.goToPage")}:
           </Typography>
