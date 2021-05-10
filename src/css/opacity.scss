@@ -1,0 +1,17 @@
+@keyframes opacity-zero-full-keyframes {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.opacity-zero-to-full {
+  animation-name: opacity-zero-full-keyframes;
+}
+
+.opacity-full-to-zero {
+  animation-name: opacity-zero-full-keyframes;
+  animation-direction: reverse;
+}

@@ -299,5 +299,8 @@ export const defaultTheme: Theme = {
       RowHoverColor: "gray-blue/01",
       ResizerLineColor: "blue/05",
     },
+    Drawer: {
+      backContentDisablerBackgroundColor: "gray-blue/10",
+    },
   },
 };

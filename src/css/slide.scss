@@ -25,6 +25,17 @@
   animation-name: slide-center-to-right-keyframes;
 }
 
+.slide-right-to-center {
+  animation-name: slide-center-to-right-keyframes;
+  animation-direction: reverse;
+}
+
+.slide-right-to-center-with-rollback {
+  animation-fill-mode: forwards;
+  animation-name: slide-center-to-right-keyframes;
+  animation-direction: reverse;
+}
+
 .slide-center-to-left {
   animation-name: slide-center-to-left-keyframes;
 }
@@ -32,4 +43,15 @@
 .slide-center-to-left-with-rollback {
   animation-fill-mode: forwards;
   animation-name: slide-center-to-left-keyframes;
+}
+
+.slide-left-to-center {
+  animation-name: slide-center-to-left-keyframes;
+  animation-direction: reverse;
+}
+
+.slide-left-to-center-with-rollback {
+  animation-fill-mode: forwards;
+  animation-name: slide-center-to-left-keyframes;
+  animation-direction: reverse;
 }

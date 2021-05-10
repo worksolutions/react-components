@@ -300,6 +300,9 @@ export interface Theme extends BaseTheme<Colors> {
       RowHoverColor: Colors;
       ResizerLineColor: Colors;
     };
+    Drawer: {
+      backContentDisablerBackgroundColor: Colors;
+    };
   };
 }
 

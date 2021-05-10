@@ -173,3 +173,6 @@ export { default as TableHead } from "./components/Table/TableHead";
 export * from "./components/Table/TableHead";
 export { default as TableRow } from "./components/Table/TableRow";
 export * from "./components/Table/TableRow";
+
+export { default as Drawer } from "./components/Drawer";
+export * from "./components/Drawer";
