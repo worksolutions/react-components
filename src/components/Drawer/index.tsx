@@ -23,6 +23,7 @@ import {
   rightToCenterOnEntering,
 } from "../../css/slideAnimationClassNames";
 import { opacityFullToZeroOnExiting, opacityZeroToFullOnEntering } from "../../css/opacityAnimationClassNames";
+import { zIndex_drawer } from "../../constants/zIndexes";
 
 export interface DrawerInterface {
   styles?: any;
@@ -69,7 +70,7 @@ function Drawer({
       {(status) => {
         const config = drawerPosition === "left" ? getStylesForLeft(status, opened) : getStylesForRight(status, opened);
         return ReactDOM.createPortal(
-          <Wrapper styles={[position("fixed"), top(0), bottom(0), left(0), right(0)]}>
+          <Wrapper styles={[position("fixed"), zIndex_drawer, top(0), bottom(0), left(0), right(0)]}>
             <Wrapper
               className={getBackClassName(status, opened)}
               styles={[
