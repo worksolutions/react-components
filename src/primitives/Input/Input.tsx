@@ -1,6 +1,6 @@
 import React, { Ref } from "react";
 import { eventValue } from "@worksolutions/utils";
-import { useDebouncedInput, provideRef } from "@worksolutions/react-utils";
+import { useDebouncedInput, useProvideRef } from "@worksolutions/react-utils";
 
 import { resize } from "../../styles";
 
@@ -42,12 +42,13 @@ const Input = React.forwardRef(function (
   const { onInputChange, inputValue } = useDebouncedInput(value, debounce, onChange);
   const autosizeTextareaRef = useAutosizeTextarea(minRows, maxRows);
   const isAutosizeTextarea = multiline && autosize;
+  const inputRef = useProvideRef(ref, isAutosizeTextarea ? autosizeTextareaRef : undefined);
 
   const renderComponent = React.useCallback(
     (inputStyles: any) => (
       <>
         <Wrapper
-          ref={provideRef(ref, isAutosizeTextarea ? autosizeTextareaRef : undefined)}
+          ref={inputRef}
           as={multiline ? "textarea" : "input"}
           type={type}
           autoFocus={autofocus}
@@ -60,9 +61,8 @@ const Input = React.forwardRef(function (
       </>
     ),
     [
-      ref,
+      inputRef,
       isAutosizeTextarea,
-      autosizeTextareaRef,
       multiline,
       type,
       autofocus,
