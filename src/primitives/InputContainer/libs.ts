@@ -1,4 +1,5 @@
 import { IncomeColorVariant } from "@worksolutions/react-utils";
+import { css } from "styled-components";
 
 import {
   ai,
@@ -115,6 +116,9 @@ export const createDefaultInputStyles = (placeholderColor: IncomeColorVariant<Co
   disableOutline,
   backgroundColor("transparent"),
   child([color(placeholderColor), transition(`color ${duration160}`)], "::placeholder, .placeholder"),
+  css`
+    -webkit-appearance: none;
+  `,
 ];
 
 export const wrapperStylesByTitlePosition: Record<InputContainerTitlePosition, { wrapper?: any; title?: any }> = {
