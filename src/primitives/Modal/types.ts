@@ -7,6 +7,7 @@ export enum ModalSize {
 }
 
 export interface ModalInterface {
+  styles?: any;
   size?: ModalSize;
   opened?: boolean;
   primaryActionText?: string;

@@ -52,6 +52,7 @@ type ModalContentInterface = Omit<ModalInterface, "children" | "opened" | "onClo
 };
 
 function ModalContent({
+  styles,
   actionsBlock,
   size = ModalSize.SMALL,
   title,
@@ -150,6 +151,7 @@ function ModalContent({
             elevation32,
             borderRadius(8),
             textAlign("left"),
+            styles,
           ]}
         >
           {preTitleContent}
