@@ -1,6 +1,6 @@
 import { CK5UploadAdapter } from "./CK5UploadAdapter";
 
-export function registerSystemPlugins(
+export function registerSystem(
   editor: any,
   { uploader, onInputChange }: { uploader: (file: File) => Promise<any>; onInputChange: (text: string) => void },
 ) {

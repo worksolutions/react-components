@@ -20,3 +20,13 @@ export function registerKeyboardShortcutFabric(editor: any) {
     editor.keystrokes.set(shortcut, (_: any, stop: () => void) => callback(stop));
   };
 }
+
+const enterKeyCode = 13;
+
+export function handleCTRLEnterShortcutFabric(editor: any) {
+  return function (callback: () => void) {
+    editor.ui.view.editable.element.addEventListener("keydown", (event: any) => {
+      if (event.keyCode === enterKeyCode && (event.metaKey || event.ctrlKey)) callback();
+    });
+  };
+}

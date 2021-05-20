@@ -6,8 +6,8 @@ import Spinner from "../Spinner";
 import { EditorAvailableHeadingOptions, getBaseConfig } from "./config";
 import { LazyCKEditor5 } from "./libs/LazyCKEditor5";
 import { editorStyles } from "./styles/editorStyles";
-import { insertContentFabric, registerKeyboardShortcutFabric } from "./libs/apiBuilders";
-import { registerSystemPlugins } from "./libs/initializer";
+import { handleCTRLEnterShortcutFabric, insertContentFabric, registerKeyboardShortcutFabric } from "./libs/apiBuilders";
+import { registerSystem } from "./libs/initializer";
 
 export enum EditorToolbarItems {
   DIVIDER = "|",
@@ -58,6 +58,7 @@ export interface EditorInterface {
 export interface EditorRefInterface {
   insertContent: (text: string, appendNewLines?: boolean) => void;
   registerKeyboardShortcut: (shortcut: string, callback: (stopHandling: () => void) => void) => void;
+  registerCTRLEnterShortcut: (callback: () => void) => void;
 }
 
 function Editor({
@@ -79,12 +80,12 @@ function Editor({
 
   const init = React.useCallback(
     function (editor: any) {
-      registerSystemPlugins(editor, { onInputChange, uploader });
+      registerSystem(editor, { onInputChange, uploader });
       if (!onInit) return;
-
       onInit({
         insertContent: insertContentFabric(editor),
         registerKeyboardShortcut: registerKeyboardShortcutFabric(editor),
+        registerCTRLEnterShortcut: handleCTRLEnterShortcutFabric(editor),
       });
     },
     [onInit, onInputChange, uploader],
