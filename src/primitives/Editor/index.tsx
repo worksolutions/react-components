@@ -73,7 +73,7 @@ function Editor({
   const { onInputChange, inputValue } = useDebouncedInput(initialText, debounce, onChange);
 
   const config = React.useMemo(
-    () => getBaseConfig({ toolbar: toolbarItems, headingOptions: headingOptions || ["paragraph", "h3", "h2"] }),
+    () => getBaseConfig({ toolbar: toolbarItems, headingOptions: headingOptions || ["paragraph", "h3", "h2", "h1"] }),
     [toolbarItems, headingOptions],
   );
 

@@ -186,10 +186,6 @@ export const editorStyles = css`
           }
         }
 
-        .ck-dropdown__panel {
-          width: 200px;
-        }
-
         .ck-list {
           width: 100%;
           height: 100%;
@@ -227,6 +223,9 @@ export const editorStyles = css`
           }
           .ck-heading_heading2 {
             ${TypographyTypes["h2-bold"]};
+          }
+          .ck-heading_heading1 {
+            ${TypographyTypes["h1-bold"]};
           }
         }
       }
