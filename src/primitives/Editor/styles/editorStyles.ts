@@ -8,9 +8,6 @@ import { htmlTextStyles } from "./htmlStyles";
 
 export const editorStyles = css`
   .ck {
-    &.ck-dropdown.ck-toolbar__grouped-dropdown.ck-toolbar-dropdown {
-      display: none !important;
-    }
     figure.image {
       margin: 0 auto;
     }
@@ -69,8 +66,6 @@ export const editorStyles = css`
       .ck-button {
         min-height: 32px !important;
         max-height: 32px !important;
-        min-width: 32px !important;
-        max-width: 32px !important;
         margin: 0 1px !important;
         padding: 4px !important;
         border-radius: 6px !important;
@@ -85,6 +80,10 @@ export const editorStyles = css`
           }
           height: 24px !important;
           width: 24px !important;
+        }
+
+        &__label {
+          width: auto !important;
         }
 
         :hover {
@@ -168,6 +167,8 @@ export const editorStyles = css`
           }
           .ck-icon.ck-dropdown__arrow {
             margin-left: 8px;
+            width: 16px !important;
+            height: 16px !important;
             * {
               fill: ${getColor("gray-blue/07")} !important;
             }

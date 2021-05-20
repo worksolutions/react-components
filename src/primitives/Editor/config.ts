@@ -1,6 +1,26 @@
 import { intl } from "../../intl";
 
-export const getBaseConfig = () => ({
+export type AvailableHeadingOptions = "paragraph" | "h3" | "h2" | "h1";
+
+const makeHeadingHOption = (num: number) => ({
+  model: `heading${num}`,
+  view: `h${num}`,
+  title: intl.text("components.editor.heading") + ` h${num}`,
+  class: `ck-heading_heading${num}`,
+});
+
+function makeHeadingOption(option: AvailableHeadingOptions) {
+  if (option === "paragraph") return { model: "paragraph", title: "Paragraph", class: "ck-heading_paragraph" };
+  return makeHeadingHOption(parseFloat(option.slice(1, 2)));
+}
+
+export const getBaseConfig = ({
+  headingOptions,
+  toolbar,
+}: {
+  toolbar: string[];
+  headingOptions: AvailableHeadingOptions[];
+}) => ({
   image: {
     styles: ["full", "alignLeft", "alignRight"],
     toolbar: ["imageTextAlternative"],
@@ -10,36 +30,12 @@ export const getBaseConfig = () => ({
       addTargetToExternalLinks: {
         mode: "automatic",
         callback: (url: string) => /^(https?:)?\/\//.test(url),
-        attributes: {
-          target: "_blank",
-          rel: "nofollow noopener noreferrer",
-        },
+        attributes: { target: "_blank", rel: "nofollow noopener noreferrer" },
       },
     },
   },
   language: "ru",
-  table: {
-    contentToolbar: ["tableRow", "tableColumn"],
-  },
-  heading: {
-    options: [
-      {
-        model: "paragraph",
-        title: "Paragraph",
-        class: "ck-heading_paragraph",
-      },
-      {
-        model: "heading3",
-        view: "h3",
-        title: intl.text("components.editor.heading") + " h3",
-        class: "ck-heading_heading3",
-      },
-      {
-        model: "heading2",
-        view: "h2",
-        title: intl.text("components.editor.heading") + " h2",
-        class: "ck-heading_heading2",
-      },
-    ],
-  },
+  table: { contentToolbar: ["tableRow", "tableColumn"] },
+  heading: { options: headingOptions.map(makeHeadingOption) },
+  toolbar,
 });
