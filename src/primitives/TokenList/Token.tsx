@@ -31,12 +31,13 @@ export interface TokenInterface<CODE extends string | number> {
   leftContent?: React.ReactNode;
   title: string | number;
   code: CODE;
+  textStyles?: any;
   canRemove?: boolean;
   onRemove?: (code: CODE) => void;
 }
 
 function Token(
-  { title, styles, leftContent, code, onRemove, canRemove }: TokenInterface<string>,
+  { title, styles, leftContent, code, textStyles, onRemove, canRemove }: TokenInterface<string>,
   ref: Ref<HTMLElement>,
 ) {
   const handleRemove = React.useCallback(
@@ -72,7 +73,9 @@ function Token(
       onClick={handleRemove}
     >
       {leftContent}
-      <Typography dots>{title}</Typography>
+      <Typography styles={textStyles} dots>
+        {title}
+      </Typography>
       {canRemove && <Icon className="remove-icon" icon="cross-small" color="definitions.Token.removeIconColor" />}
     </Wrapper>
   );
