@@ -1,6 +1,6 @@
 import { intl } from "../../intl";
 
-export type AvailableHeadingOptions = "paragraph" | "h3" | "h2" | "h1";
+export type EditorAvailableHeadingOptions = "paragraph" | "h3" | "h2" | "h1";
 
 const makeHeadingHOption = (num: number) => ({
   model: `heading${num}`,
@@ -9,7 +9,7 @@ const makeHeadingHOption = (num: number) => ({
   class: `ck-heading_heading${num}`,
 });
 
-function makeHeadingOption(option: AvailableHeadingOptions) {
+function makeHeadingOption(option: EditorAvailableHeadingOptions) {
   if (option === "paragraph") return { model: "paragraph", title: "Paragraph", class: "ck-heading_paragraph" };
   return makeHeadingHOption(parseFloat(option.slice(1, 2)));
 }
@@ -19,7 +19,7 @@ export const getBaseConfig = ({
   toolbar,
 }: {
   toolbar: string[];
-  headingOptions: AvailableHeadingOptions[];
+  headingOptions: EditorAvailableHeadingOptions[];
 }) => ({
   image: {
     styles: ["full", "alignLeft", "alignRight"],

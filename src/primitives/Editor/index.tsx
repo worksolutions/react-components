@@ -3,7 +3,7 @@ import { useDebouncedInput } from "@worksolutions/react-utils";
 
 import Spinner from "../Spinner";
 
-import { AvailableHeadingOptions, getBaseConfig } from "./config";
+import { EditorAvailableHeadingOptions, getBaseConfig } from "./config";
 import { LazyCKEditor5 } from "./libs/LazyCKEditor5";
 import { editorStyles } from "./styles/editorStyles";
 import { insertContentFabric, registerKeyboardShortcutFabric } from "./libs/apiBuilders";
@@ -42,12 +42,14 @@ export enum EditorToolbarItems {
   REDO = "redo",
 }
 
+export type { EditorAvailableHeadingOptions } from "./config";
+
 export interface EditorInterface {
   wrapperStyles?: any;
   initialText: string;
   debounce?: number;
   toolbarItems: EditorToolbarItems[];
-  headingOptions?: AvailableHeadingOptions[];
+  headingOptions?: EditorAvailableHeadingOptions[];
   onChange: (text: string) => void;
   uploader: (file: File) => Promise<any>;
   onInit?: (ref: EditorRefInterface) => void;
