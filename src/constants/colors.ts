@@ -71,4 +71,5 @@ export type Colors =
   | "gray/10"
   | "white"
   | "black"
-  | "transparent";
+  | "transparent"
+  | "inherit";

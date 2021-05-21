@@ -74,4 +74,5 @@ export const colors: Record<Colors, string> = {
   black: "#000000",
   white: "#FFFFFF",
   transparent: "transparent",
+  inherit: "inherit",
 };
