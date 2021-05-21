@@ -38,6 +38,7 @@ export type InputIconProp = InternalIcons | JSX.Element | undefined;
 
 export interface InputContainerInterface {
   outerStyles?: any;
+  contentWrapperStyles?: any;
   leftIcon?: InputIconProp;
   rightIcon?: InputIconProp;
   leftIconStyles?: any;
@@ -56,6 +57,7 @@ export interface InputContainerInterface {
 
 function InputContainer({
   outerStyles,
+  contentWrapperStyles,
   children,
   title,
   titlePosition = InputContainerTitlePosition.TOP,
@@ -103,7 +105,13 @@ function InputContainer({
         <Title styles={positioningStyles.title} title={title} />
         <Wrapper
           ref={outerRef}
-          styles={[fullWidth, backgroundColor(colors.background), borderRadius(6), position("relative")]}
+          styles={[
+            fullWidth,
+            backgroundColor(colors.background),
+            borderRadius(6),
+            position("relative"),
+            contentWrapperStyles,
+          ]}
         >
           {renderComponent([
             createDefaultInputStyles(colors.placeholder),
