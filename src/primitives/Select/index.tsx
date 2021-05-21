@@ -5,13 +5,12 @@ import Typography from "../Typography";
 import SelectTrigger from "./internal/SelectTrigger";
 import PopupManager, {
   PopupManagerForClickTriggerElementContext,
-  PopupManagerForExternalControlTriggerElementContext,
   PopupManagerForHoverTriggerElementContext,
   PopupManagerInterface,
   PopupManagerMode,
   PopupManagerRef,
 } from "../PopupManager";
-import { InternalIcons } from "../Icon";
+import Icon, { InternalIcons } from "../Icon";
 import InputContainer, { InputContainerInterface } from "../InputContainer";
 
 import { backgroundColor, borderRadius, boxShadow, paddingLeft, verticalPadding } from "../../styles";
@@ -42,12 +41,17 @@ export type SelectInterface<CODE extends SelectItemCode> = Omit<
       | React.ReactNode;
     additionalSelectedElements?: Record<string | number, React.ReactElement<SelectItemInterface<any>>>;
     rightIcon?: InternalIcons | null;
+    leftIcon?: InternalIcons | null;
     selectedElementStyles?: any;
     selectedElementTextStyles?: any;
     rightIconStyles?: any;
     rightIconWidth?: number | string;
     rightIconHeight?: number | string;
     rightIconColor?: IncomeColorVariant<Colors>;
+    leftIconStyles?: any;
+    leftIconWidth?: number | string;
+    leftIconHeight?: number | string;
+    leftIconColor?: IncomeColorVariant<Colors>;
     closePopupAfterChange?: boolean;
     selectedElementWrapper?: <C extends CODE>(
       element: React.ReactElement<SelectItemInterface<any>>,
@@ -73,6 +77,11 @@ function Select<CODE extends SelectItemCode>(
     rightIconHeight,
     rightIconWidth,
     rightIconStyles,
+    leftIcon = null,
+    leftIconColor = "definitions.Select.RightIcon.color",
+    leftIconHeight,
+    leftIconWidth,
+    leftIconStyles,
     selectedItemCode,
     selectedElementWrapper,
     selectedElementTextWrapper,
@@ -204,7 +213,20 @@ function Select<CODE extends SelectItemCode>(
             <SelectTrigger
               styles={[inputContainerStyles, selectedElement && [verticalPadding(0), paddingLeft(4)], styles]}
             >
-              {selectedElement || (
+              {selectedElement ? (
+                <>
+                  {leftIcon && (
+                    <Icon
+                      icon={leftIcon}
+                      width={leftIconWidth}
+                      height={leftIconHeight}
+                      color={leftIconColor}
+                      styles={leftIconStyles}
+                    />
+                  )}
+                  {selectedElement}
+                </>
+              ) : (
                 <Typography
                   dots
                   color={disabled ? "definitions.Select.Placeholder.disabledColor" : placeholderColor}
