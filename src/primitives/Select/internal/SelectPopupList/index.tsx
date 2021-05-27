@@ -40,12 +40,15 @@ function SelectPopupList<CODE extends SelectItemCode>(
       {(children as React.ReactElement<SelectItemInterface<CODE>>[]).map((element) => {
         if (!detectIsSelectItem(element)) return element;
         const selected = selectedItemCode === element.props.code;
-        return React.cloneElement(element, {
-          key: element.props.code,
-          hoverable: true,
-          selected,
-          onClick: handleClickFabric(element.props.code, selected),
-        });
+        return (
+          <element.type
+            key={element.props.code}
+            {...element.props}
+            hoverable
+            selected={selected}
+            onClick={handleClickFabric(element.props.code, selected)}
+          />
+        );
       })}
     </List>
   );
