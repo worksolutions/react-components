@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import { propEq } from "ramda";
-import { useChildrenWidthDetector } from "@worksolutions/react-utils";
+import { prop, propEq } from "ramda";
+import { useChildrenMeasure } from "@worksolutions/react-utils";
 
 import {
   ai,
@@ -74,7 +74,8 @@ function RadioGroups({
   disabled,
   onChange,
 }: RadioGroupInterface<string>) {
-  const { initRef, widths } = useChildrenWidthDetector();
+  const { initRef, measures } = useChildrenMeasure();
+  const widths = React.useMemo(() => measures?.map(prop("width")) || null, [measures]);
 
   const sizes = sizesByEnum[size];
 

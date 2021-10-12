@@ -37,7 +37,7 @@ function AspectRatioWrapper({
   children,
 }: AspectRatioWrapperInterface & { children: JSX.Element }) {
   const childContainerRef = React.useRef<HTMLElement>();
-  const wrapperRef = useMeasureCallback((size) => {
+  const [initWrapperMeasures] = useMeasureCallback((size) => {
     if (!childContainerRef.current) return;
     const resultSizes = getSizes({ height: heightProp, width: widthProp, aspectRatio }, size);
     childContainerRef.current.style.width = stringOrPixels(resultSizes.width);
@@ -46,7 +46,7 @@ function AspectRatioWrapper({
 
   return (
     <Wrapper
-      ref={wrapperRef}
+      ref={initWrapperMeasures}
       styles={[overflow("hidden"), widthProp && width(widthProp), heightProp && height(heightProp), outerStyles]}
     >
       <Wrapper ref={childContainerRef} as={as} styles={[flex, ai("center"), jc("center"), overflow("hidden"), styles]}>

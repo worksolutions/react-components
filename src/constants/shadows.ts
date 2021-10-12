@@ -1,4 +1,4 @@
-import { BoxShadowTypeMaker } from "@worksolutions/react-utils/dist/styles/shadows";
+import { BoxShadowTypeMaker } from "@worksolutions/react-utils";
 
 import { boxShadow, createAlphaColor } from "../styles";
 import { Colors } from "./colors";

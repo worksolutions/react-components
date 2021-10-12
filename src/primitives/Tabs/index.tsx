@@ -1,6 +1,6 @@
 import React from "react";
-import { sum } from "ramda";
-import { isReactComponent, useChildrenWidthDetector } from "@worksolutions/react-utils";
+import { prop, sum } from "ramda";
+import { isReactComponent, useChildrenMeasure } from "@worksolutions/react-utils";
 
 import {
   backgroundColor,
@@ -58,7 +58,9 @@ function Tabs({
   useResizeObserverForBottomLineWidthDetect = false,
   setActiveIndex,
 }: TabsInterface) {
-  const { initRef, widths, update } = useChildrenWidthDetector(useResizeObserverForBottomLineWidthDetect);
+  const { initRef, measures, update } = useChildrenMeasure(useResizeObserverForBottomLineWidthDetect);
+  const widths = React.useMemo(() => measures?.map(prop("width")), [measures]);
+
   const { children: Content } = tabs[activeIndex];
   const element = isReactComponent(Content) ? <Content /> : Content;
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { css } from "styled-components";
-import { useCallbackMemoFabric, useProvideRef } from "@worksolutions/react-utils";
-import { htmlCollectionToArray, isArray, isDeepEqual } from "@worksolutions/utils";
+import { useMemoizeCallback, useProvideRef } from "@worksolutions/react-utils";
+import { htmlCollectionToArray, isArray } from "@worksolutions/utils";
 import { identity } from "ramda";
 
 import Wrapper from "../../primitives/Wrapper";
@@ -63,7 +63,7 @@ function Table(
     [onResize],
   );
 
-  const getCanResize = useCallbackMemoFabric(
+  const getCanResize = useMemoizeCallback(
     identity,
     (columnIndex: number) => {
       if (isArray(resizable)) return resizable.includes(columnIndex);
@@ -90,7 +90,7 @@ function Table(
   );
 }
 
-export default React.memo(observer(Table, { forwardRef: true }), isDeepEqual);
+export default React.memo(observer(Table, { forwardRef: true }));
 
 function calculateLeftsFromSizes(headerCellSizes: null | number[]) {
   if (!headerCellSizes) return [];
