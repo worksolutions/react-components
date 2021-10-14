@@ -1,10 +1,12 @@
 import React from "react";
-import { Manager as ReactPopperManager, Reference as ReactPopperReference } from "react-popper";
+// import { Manager, Reference } from "react-popper";
 import { provideRef } from "@worksolutions/react-utils";
 import { observer } from "mobx-react-lite";
 
 import VisibilityManager, { VisibilityManagerContextInterface } from "../../VisibilityManager";
 import { SetVisibilityContextAndTriggerRef } from "./types";
+import { Manager } from "../../Popper/Manager";
+import { Reference } from "../../Popper/Reference";
 
 export type PopupManagerForExternalControlTriggerElementContext = Required<VisibilityManagerContextInterface>;
 
@@ -22,7 +24,7 @@ function PopupManagerForExternalControl({
   const Element = React.useCallback(
     (context: VisibilityManagerContextInterface) => (
       <>
-        <ReactPopperReference>
+        <Reference>
           {({ ref: reactPopperReferenceRef }) => (
             <TriggerElement
               toggle={context.toggle}
@@ -32,7 +34,7 @@ function PopupManagerForExternalControl({
               initRef={provideRef(context.initRef, reactPopperReferenceRef, setVisibilityContextAndTriggerRef(context))}
             />
           )}
-        </ReactPopperReference>
+        </Reference>
       </>
     ),
     [TriggerElement, setVisibilityContextAndTriggerRef],
@@ -40,10 +42,10 @@ function PopupManagerForExternalControl({
 
   return (
     <>
-      <ReactPopperManager>
+      <Manager>
         <VisibilityManager closeOnClickOutside={false}>{Element}</VisibilityManager>
         {popupElementNode}
-      </ReactPopperManager>
+      </Manager>
     </>
   );
 }

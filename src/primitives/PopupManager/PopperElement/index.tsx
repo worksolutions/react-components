@@ -3,10 +3,12 @@ import { Placement } from "@popperjs/core/lib/enums";
 import { PositioningStrategy } from "@popperjs/core";
 import popperMaxSizeModifier from "popper-max-size-modifier";
 
-import { Modifier, Popper as ReactPopper } from "react-popper";
+// import { Modifier, Popper } from "react-popper";
+import { Modifier } from "react-popper";
 import { zIndex_popup } from "../../../constants/zIndexes";
 import PopperElementChildrenWrapper from "./PopperElementChildrenWrapper";
 import { popupArrowSize } from "./Arrow";
+import { Popper } from "../../Popper/Popper";
 
 const commonPopperStyles = [zIndex_popup];
 
@@ -70,22 +72,31 @@ function PopperElement(
   const popperModifiers = useMemo(() => getModifiers(offset), [offset]);
 
   return (
-    <ReactPopper placement={primaryPlacement} modifiers={popperModifiers} strategy={strategy} innerRef={ref}>
-      {({ ref, style, placement, arrowProps, update }) => (
-        <PopperElementChildrenWrapper
-          ref={ref}
-          style={style}
-          styles={[commonPopperStyles, styles]}
-          placement={placement}
-          arrowProps={arrowProps}
-          hasArrow={hasArrow}
-          update={update}
-          triggerElement={triggerElement}
-        >
-          {children}
-        </PopperElementChildrenWrapper>
-      )}
-    </ReactPopper>
+    <Popper
+      referenceElement={triggerElement}
+      placement={primaryPlacement}
+      modifiers={popperModifiers as any}
+      strategy={strategy}
+      innerRef={ref}
+    >
+      {({ ref, style, placement, arrowProps, update }) => {
+        console.log({ ref, style, placement, arrowProps, update });
+        return (
+          <PopperElementChildrenWrapper
+            ref={ref}
+            style={style}
+            styles={[commonPopperStyles, styles]}
+            placement={placement}
+            arrowProps={arrowProps}
+            hasArrow={hasArrow}
+            update={update}
+            triggerElement={triggerElement}
+          >
+            {children}
+          </PopperElementChildrenWrapper>
+        );
+      }}
+    </Popper>
   );
 }
 
