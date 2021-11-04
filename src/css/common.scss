@@ -3,23 +3,3 @@
   line-height: 0;
 }
 
-#tooltip[data-popper-placement^='top'] > #arrow {
-  background: #000;
-  bottom: -4px !important;
-  top: auto !important;
-}
-
-#tooltip[data-popper-placement^='bottom'] > #arrow {
-  top: -4px !important;
-  bottom: auto !important;
-}
-
-#tooltip[data-popper-placement^='left'] > #arrow {
-  right: -4px !important;
-  left: auto !important;
-}
-
-#tooltip[data-popper-placement^='right'] > #arrow {
-  left: -4px !important;
-  right: auto !important;
-}
