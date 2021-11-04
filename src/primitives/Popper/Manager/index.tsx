@@ -1,13 +1,9 @@
-import * as React from "react";
+import React from "react";
 
-export const ManagerReferenceNodeContext: any = React.createContext({});
-export const ManagerReferenceNodeSetterContext: any = React.createContext({});
+export const ManagerReferenceNodeContext = React.createContext<HTMLElement>(null!);
+export const ManagerReferenceNodeSetterContext = React.createContext<(elem: HTMLElement) => void>(null!);
 
-export type ManagerProps = {
-  children: React.ReactNode;
-};
-
-export function Manager({ children }: ManagerProps) {
+export function Manager({ children }: React.PropsWithChildren<{}>) {
   const [referenceNode, setReferenceNode] = React.useState<any>(null);
 
   const hasUnmounted = React.useRef(false);

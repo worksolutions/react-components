@@ -1,38 +1,32 @@
-import * as React from "react";
-// import { usePopper } from "./usePopper";
-import {
-  State,
-  Placement,
-  PositioningStrategy,
-  VirtualElement,
-  StrictModifiers,
-  Modifier,
-  createPopper,
-} from "@popperjs/core/lib";
+import React, { Ref } from "react";
+import { provideRef } from "@worksolutions/react-utils";
+import { Modifier, Options, Placement, PositioningStrategy, State } from "@popperjs/core/lib";
+
 import { ManagerReferenceNodeContext } from "../Manager";
-import { setRef, unwrapArray } from "../utils";
-import { Ref } from "react";
 
-type ReferenceElement = VirtualElement | HTMLElement;
-type Modifiers = Array<StrictModifiers | Modifier<any, any>>;
+import { unwrapArray } from "../utils";
+import { useVanillaPopper } from "../useVanillaPopper";
 
-export type PopperArrowProps = {
-  ref: Ref<any>;
-  style: CSSStyleDeclaration;
-};
+type ReferenceElement = HTMLElement;
+
+export interface PopperArrowProps {
+  ref: React.Ref<any>;
+  style: React.CSSProperties;
+}
+
 export type PopperChildrenProps = {
   ref: Ref<any>;
   style: CSSStyleDeclaration;
-
   placement: Placement;
   isReferenceHidden?: boolean;
   hasPopperEscaped?: boolean;
-
   update: () => Promise<null | State>;
   forceUpdate: () => void;
   arrowProps: PopperArrowProps;
 };
-export type PopperChildren = (PopperChildrenProps: any) => React.ReactNode;
+
+type Modifiers = Array<Partial<Modifier<any, any>>>;
+export type PopperChildren = (popperChildrenProps: PopperChildrenProps) => React.ReactNode;
 
 export type PopperProps = {
   children: PopperChildren;
@@ -41,12 +35,12 @@ export type PopperProps = {
   placement?: Placement;
   strategy?: PositioningStrategy;
   referenceElement?: ReferenceElement;
-  onFirstUpdate?: (a: State) => void;
+  onFirstUpdate?: (arg0: Partial<State>) => void;
 };
 
 const NOOP = () => void 0;
 const NOOP_PROMISE = () => Promise.resolve(null);
-const EMPTY_MODIFIERS: any = [];
+const EMPTY_MODIFIERS: Modifiers = [];
 
 export function Popper({
   placement = "bottom",
@@ -63,10 +57,10 @@ export function Popper({
   const [arrowElement, setArrowElement] = React.useState(null);
 
   React.useEffect(() => {
-    setRef(innerRef, popperElement!);
+    provideRef(innerRef)(popperElement!);
   }, [innerRef, popperElement]);
 
-  const options = React.useMemo(
+  const options: Options = React.useMemo(
     () => ({
       placement,
       strategy,
@@ -83,22 +77,17 @@ export function Popper({
     [placement, strategy, onFirstUpdate, modifiers, arrowElement],
   );
 
-  const { state, forceUpdate, update } = createPopper(
-    referenceElement || (referenceNode as any),
-    popperElement as any,
-    options as any,
-  );
-  console.log({ state, forceUpdate, update });
+  const { state, forceUpdate, update } = useVanillaPopper(referenceElement || referenceNode, popperElement, options);
 
   const childrenProps = React.useMemo(
     () => ({
       ref: setPopperElement,
-      style: state.styles.popper,
+      style: state?.styles?.popper,
       placement: state ? state.placement : placement,
       hasPopperEscaped: state && state.modifiersData.hide ? state.modifiersData.hide.hasPopperEscaped : null,
       isReferenceHidden: state && state.modifiersData.hide ? state.modifiersData.hide.isReferenceHidden : null,
       arrowProps: {
-        style: state.styles.arrow,
+        style: state?.styles?.arrow,
         ref: setArrowElement,
       },
       forceUpdate: forceUpdate || NOOP,
