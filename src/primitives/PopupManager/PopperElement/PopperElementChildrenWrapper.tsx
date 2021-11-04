@@ -2,9 +2,10 @@ import React, { Ref, useEffect } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
 import { useEffectSkipFirst } from "@worksolutions/react-utils";
 
+import { PopperArrowProps } from "primitives/Popper/Popper";
+
 import Wrapper from "../../Wrapper";
 import Arrow from "./Arrow";
-import { PopperArrowProps } from "../../Popper/Popper";
 
 interface PopperChildrenProps {
   styles?: any;

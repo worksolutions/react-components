@@ -4,10 +4,11 @@ import { PositioningStrategy } from "@popperjs/core";
 import popperMaxSizeModifier from "popper-max-size-modifier";
 import { Modifier } from "@popperjs/core/lib";
 
+import { Popper } from "primitives/Popper/Popper";
+
 import { zIndex_popup } from "../../../constants/zIndexes";
 import PopperElementChildrenWrapper from "./PopperElementChildrenWrapper";
 import { popupArrowSize } from "./Arrow";
-import { Popper } from "../../Popper/Popper";
 
 const commonPopperStyles = [zIndex_popup];
 
@@ -15,6 +16,10 @@ const modifierArrowPadding = 12;
 
 function getModifiers(offset?: number): Partial<Modifier<any, any>>[] {
   return [
+    {
+      name: "flip",
+      enabled: true,
+    },
     {
       name: "arrow",
       options: {

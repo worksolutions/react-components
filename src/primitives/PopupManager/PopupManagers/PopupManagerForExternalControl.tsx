@@ -2,10 +2,11 @@ import React from "react";
 import { provideRef } from "@worksolutions/react-utils";
 import { observer } from "mobx-react-lite";
 
+import { Manager } from "primitives/Popper/Manager";
+import { Reference } from "primitives/Popper/Reference";
+
 import VisibilityManager, { VisibilityManagerContextInterface } from "../../VisibilityManager";
 import { SetVisibilityContextAndTriggerRef } from "./types";
-import { Manager } from "../../Popper/Manager";
-import { Reference } from "../../Popper/Reference";
 
 export type PopupManagerForExternalControlTriggerElementContext = Required<VisibilityManagerContextInterface>;
 
