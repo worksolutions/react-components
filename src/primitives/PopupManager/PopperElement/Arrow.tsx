@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
-import { PopperArrowProps } from "react-popper";
 import { Placement } from "@popperjs/core/lib/enums";
 
+import { PopperArrowProps } from "primitives/Popper/Popper";
 import Wrapper from "../../Wrapper";
 
 import { bottom, boxShadow, child, left, right, top, transform, zIndex } from "../../../styles";

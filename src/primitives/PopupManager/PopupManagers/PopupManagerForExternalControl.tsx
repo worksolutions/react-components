@@ -1,5 +1,4 @@
 import React from "react";
-// import { Manager, Reference } from "react-popper";
 import { provideRef } from "@worksolutions/react-utils";
 import { observer } from "mobx-react-lite";
 
