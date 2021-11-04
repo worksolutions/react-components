@@ -76,13 +76,7 @@ function PopperElement(
   const popperModifiers = useMemo(() => getModifiers(offset), [offset]);
 
   return (
-    <Popper
-      referenceElement={triggerElement}
-      placement={primaryPlacement}
-      modifiers={popperModifiers}
-      strategy={strategy}
-      innerRef={ref}
-    >
+    <Popper placement={primaryPlacement} modifiers={popperModifiers} strategy={strategy} innerRef={ref}>
       {({ ref, style, placement, arrowProps, update }) => {
         return (
           <PopperElementChildrenWrapper
