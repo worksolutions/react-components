@@ -40,8 +40,6 @@ interface PopupArrowInterface {
 }
 
 function Arrow({ arrowProps, placement }: PopupArrowInterface) {
-  return null;
-
   const arrowPopperStyles = useCallback(() => reactStylesToStylesComponent(arrowProps.style), [arrowProps.style]);
   const arrowPositionStyles = useMemo(() => getArrowPositionStyles(placement), [placement]);
   const arrowStyles = useMemo(() => getArrowStyles(placement), [placement]);

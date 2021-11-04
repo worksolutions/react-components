@@ -2,9 +2,8 @@ import React, { Ref, useMemo } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
 import { PositioningStrategy } from "@popperjs/core";
 import popperMaxSizeModifier from "popper-max-size-modifier";
+import { Modifier } from "@popperjs/core/lib";
 
-// import { Modifier, Popper } from "react-popper";
-import { Modifier } from "react-popper";
 import { zIndex_popup } from "../../../constants/zIndexes";
 import PopperElementChildrenWrapper from "./PopperElementChildrenWrapper";
 import { popupArrowSize } from "./Arrow";
@@ -14,7 +13,7 @@ const commonPopperStyles = [zIndex_popup];
 
 const modifierArrowPadding = 12;
 
-function getModifiers(offset?: number): Modifier<string>[] {
+function getModifiers(offset?: number): Partial<Modifier<any, any>>[] {
   return [
     {
       name: "arrow",
@@ -75,12 +74,11 @@ function PopperElement(
     <Popper
       referenceElement={triggerElement}
       placement={primaryPlacement}
-      modifiers={popperModifiers as any}
+      modifiers={popperModifiers}
       strategy={strategy}
       innerRef={ref}
     >
       {({ ref, style, placement, arrowProps, update }) => {
-        console.log({ ref, style, placement, arrowProps, update });
         return (
           <PopperElementChildrenWrapper
             ref={ref}
