@@ -1,11 +1,10 @@
 import React, { Ref } from "react";
-import { provideRef } from "@worksolutions/react-utils";
+import { provideRef, useVanillaPopper } from "@worksolutions/react-utils";
 import { Modifier, Options, Placement, PositioningStrategy, State } from "@popperjs/core/lib";
 
 import { ManagerReferenceNodeContext } from "../Manager";
 
 import { unwrapArray } from "../utils";
-import { useVanillaPopper } from "../useVanillaPopper";
 
 type ReferenceElement = HTMLElement;
 

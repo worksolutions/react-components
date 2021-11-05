@@ -26,7 +26,7 @@
     "@types/uuid": "^8.*",
     "@viewstools/use-masked-input": "^2.*",
     "@worksolutions/ckeditor5": "0.0.3",
-    "@worksolutions/react-utils": "^1.2.65",
+    "@worksolutions/react-utils": "^1.2.67",
     "@worksolutions/utils": "^1.2.30",
     "external-svg-sprite-loader": "^6.*",
     "history": "^4.*",
