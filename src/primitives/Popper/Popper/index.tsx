@@ -4,22 +4,22 @@ import { Modifier, Options, Placement, PositioningStrategy, State } from "@poppe
 
 import { ManagerReferenceNodeContext } from "../Manager";
 
-import { unwrapArray } from "../utils";
+import { getFirstIfArray } from "../utils";
 
 type ReferenceElement = HTMLElement;
 
 export interface PopperArrowProps {
   ref: React.Ref<any>;
-  style: React.CSSProperties;
+  style?: Partial<CSSStyleDeclaration | null>;
 }
 
 export type PopperChildrenProps = {
   ref: Ref<any>;
-  style: CSSStyleDeclaration;
+  style?: Partial<CSSStyleDeclaration | undefined>;
   placement: Placement;
-  isReferenceHidden?: boolean;
-  hasPopperEscaped?: boolean;
-  update: () => Promise<null | State>;
+  isReferenceHidden?: boolean | null;
+  hasPopperEscaped?: boolean | null;
+  update: (() => Promise<Partial<State>>) | null;
   forceUpdate: () => void;
   arrowProps: PopperArrowProps;
 };
@@ -37,8 +37,8 @@ export type PopperProps = {
   onFirstUpdate?: (arg0: Partial<State>) => void;
 };
 
-const NOOP = () => void 0;
-const NOOP_PROMISE = () => Promise.resolve(null);
+const noop: any = () => {};
+const noopPromise: any = () => Promise.resolve(null);
 const EMPTY_MODIFIERS: Modifiers = [];
 
 export function Popper({
@@ -78,7 +78,7 @@ export function Popper({
 
   const { state, forceUpdate, update } = useVanillaPopper(referenceElement || referenceNode, popperElement, options);
 
-  const childrenProps = React.useMemo(
+  const childrenProps: PopperChildrenProps = React.useMemo(
     () => ({
       ref: setPopperElement,
       style: state?.styles?.popper,
@@ -89,11 +89,11 @@ export function Popper({
         style: state?.styles?.arrow,
         ref: setArrowElement,
       },
-      forceUpdate: forceUpdate || NOOP,
-      update: update || NOOP_PROMISE,
+      forceUpdate: forceUpdate || noop,
+      update: update || noopPromise,
     }),
     [setPopperElement, setArrowElement, placement, state, update, forceUpdate],
   );
 
-  return unwrapArray(children)(childrenProps);
+  return getFirstIfArray(children)(childrenProps);
 }

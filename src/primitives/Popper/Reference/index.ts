@@ -1,7 +1,7 @@
 import React, { Ref } from "react";
 import { provideRef } from "@worksolutions/react-utils";
 
-import { unwrapArray } from "../utils";
+import { getFirstIfArray } from "../utils";
 import { ManagerReferenceNodeSetterContext } from "../Manager";
 
 export type ReferenceChildrenProps = { ref: Ref<any> };
@@ -28,5 +28,5 @@ export function Reference({ children, innerRef }: ReferenceProps) {
     console.warn("`Reference` should not be used outside of a `Manager` component.");
   }, [setReferenceNode]);
 
-  return unwrapArray(children)({ ref: refHandler });
+  return getFirstIfArray(children)({ ref: refHandler });
 }

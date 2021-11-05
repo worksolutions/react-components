@@ -1,1 +1,1 @@
-export const unwrapArray = (arg: any): any => (Array.isArray(arg) ? arg[0] : arg);
+export const getFirstIfArray = <T>(arg: T | T[]): T => (Array.isArray(arg) ? arg[0] : arg);
