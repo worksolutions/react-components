@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
-import { PopperArrowProps } from "react-popper";
 import { Placement } from "@popperjs/core/lib/enums";
 
+import { PopperArrowProps } from "primitives/Popper/Popper";
 import Wrapper from "../../Wrapper";
 
 import { bottom, boxShadow, child, left, right, top, transform, zIndex } from "../../../styles";
@@ -40,8 +40,6 @@ interface PopupArrowInterface {
 }
 
 function Arrow({ arrowProps, placement }: PopupArrowInterface) {
-  return null;
-
   const arrowPopperStyles = useCallback(() => reactStylesToStylesComponent(arrowProps.style), [arrowProps.style]);
   const arrowPositionStyles = useMemo(() => getArrowPositionStyles(placement), [placement]);
   const arrowStyles = useMemo(() => getArrowStyles(placement), [placement]);

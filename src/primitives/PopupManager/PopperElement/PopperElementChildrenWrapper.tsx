@@ -1,14 +1,15 @@
 import React, { Ref, useEffect } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
 import { useEffectSkipFirst } from "@worksolutions/react-utils";
-import { PopperArrowProps } from "react-popper";
+
+import { PopperArrowProps } from "primitives/Popper/Popper";
 
 import Wrapper from "../../Wrapper";
 import Arrow from "./Arrow";
 
 interface PopperChildrenProps {
   styles?: any;
-  style: React.CSSProperties;
+  style: CSSStyleDeclaration;
   placement: Placement;
   children: React.ReactNode;
   hasArrow?: boolean;
@@ -23,6 +24,7 @@ function PopperElementChildrenWrapper(
 ) {
   useEffectSkipFirst(update, [update, hasArrow]);
 
+  useEffect(update, []);
   useEffect(() => {
     if (!triggerElement) return () => {};
 

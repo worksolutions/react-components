@@ -1,7 +1,9 @@
 import React from "react";
-import { Manager as ReactPopperManager, Reference as ReactPopperReference } from "react-popper";
 import { provideRef } from "@worksolutions/react-utils";
 import { observer } from "mobx-react-lite";
+
+import { Reference } from "primitives/Popper/Reference";
+import { Manager } from "primitives/Popper/Manager";
 
 import VisibilityManager, { VisibilityManagerContextInterface } from "../../VisibilityManager";
 import { SetVisibilityContextAndTriggerRef } from "./types";
@@ -27,14 +29,14 @@ function PopupManagerForClick({
   const Element = React.useCallback(
     (context: VisibilityManagerContextInterface) => (
       <>
-        <ReactPopperReference>
+        <Reference>
           {({ ref: reactPopperReferenceRef }) => (
             <TriggerElement
               {...context}
               initRef={provideRef(context.initRef, reactPopperReferenceRef, setVisibilityContextAndTriggerRef(context))}
             />
           )}
-        </ReactPopperReference>
+        </Reference>
       </>
     ),
     [TriggerElement, setVisibilityContextAndTriggerRef],
@@ -43,12 +45,12 @@ function PopupManagerForClick({
   const ignoreElements = React.useMemo(() => [popupElementHtmlNode], [popupElementHtmlNode]);
 
   return (
-    <ReactPopperManager>
+    <Manager>
       <VisibilityManager outsideClickIgnoreElements={ignoreElements} closeOnClickOutside={closeOnClickOutside}>
         {Element}
       </VisibilityManager>
       {popupElementNode && React.cloneElement(popupElementNode as any, { ref: setPopupElementHtmlNode })}
-    </ReactPopperManager>
+    </Manager>
   );
 }
 
